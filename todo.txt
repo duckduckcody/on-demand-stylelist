@@ -1,0 +1,34 @@
+improve cache
+  cache a large limit then use subset of the cached value if a smaller limit is requested
+  - cache set limit
+  - page results
+
+favourites
+  add and remove favourites when searching products
+  - favourites page
+  - add and remove button (💖)
+   - sets cookies
+   - (💖) correctly coloured based on cookie values
+
+search page
+  selecting websites present a search bar for search terms
+  - backend scraper for website's searches
+  - front end search bar and result page
+
+preview product
+  clicking a product brings up more photos, the description and a link to the external website
+  in a nice modal
+  - scrape individual product's pages
+  - modal frontend component for the information
+
+clean up github repos and make a repo for this
+
+get linter working again
+
+21/03
+cookies vs location storage
+  local storage only on client side, 5mb vs 4096 bytes
+  cookies good if they are needed for server request as they are automatically sent with each request
+    might be better to use local storage as limit and websites are only used on one api path
+save theme selection to local storage
+move limit and websites to local storage
