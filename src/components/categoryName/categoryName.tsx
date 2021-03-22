@@ -36,7 +36,7 @@ export interface QueryParams {
 }
 
 export const CategoryName = (): ReactElement => {
-  const { query, push: routerPush, isReady: routerIsReady } = useRouter();
+  const { query, replace: routerReplace, isReady: routerIsReady } = useRouter();
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const window = useWindow();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
@@ -57,19 +57,19 @@ export const CategoryName = (): ReactElement => {
   useEffect(() => {
     if (size && url && url.searchParams.get('page') !== `${size}`) {
       url.searchParams.set('page', `${size}`);
-      routerPush(url.href, url.href, { scroll: false, shallow: true });
+      routerReplace(url.href, url.href, { scroll: false, shallow: true });
     }
-  }, [size, routerPush, url?.href, url?.searchParams, url]);
+  }, [size, routerReplace, url?.href, url?.searchParams, url]);
 
   useEffect(() => {
     if (limit && url && url.searchParams.get('limit') !== `${limit}`) {
       url.searchParams.set('limit', `${limit}`);
-      routerPush(url.href, url.href, { scroll: false, shallow: true });
+      routerReplace(url.href, url.href, { scroll: false, shallow: true });
       window?.localStorage.setItem('limit', `${limit}`);
     }
   }, [
     limit,
-    routerPush,
+    routerReplace,
     url,
     url?.href,
     url?.searchParams,
