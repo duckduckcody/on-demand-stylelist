@@ -1,7 +1,7 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from '../../themes';
 import {
@@ -18,7 +18,7 @@ import {
 import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
 
-export const BaseApp = ({ Component, pageProps }: AppProps) => {
+export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const [darkMode, setDarkMode] = useState(false);
   const onThemeClick = () => {
     setDarkMode(!darkMode);

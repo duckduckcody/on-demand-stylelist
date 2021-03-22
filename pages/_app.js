@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { BaseApp } from '../src/components/baseApp/BaseApp';
 
 const MyApp = (props) => <BaseApp {...props} />;

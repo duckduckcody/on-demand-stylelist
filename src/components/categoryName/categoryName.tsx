@@ -1,8 +1,14 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useSWRInfinite } from 'swr';
-import { fetcher } from '../../../src/util/swrFetcher';
+import { FetcherError, swrFetcher } from '../../../src/util/swrFetcher';
 import { ClothesResponseItem } from '../../api/getClothes';
 import { capitaliseString } from '../../util/capitaliseString';
 import { useWindow } from '../../util/useWindow';
@@ -28,33 +34,31 @@ export interface QueryParams {
   limit?: string;
 }
 
-export const CategoryName = () => {
+export const CategoryName = (): ReactElement => {
   const { query, push: routerPush, isReady: routerIsReady } = useRouter();
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const window = useWindow();
-  const url = window && new URL(window.location.href);
+  const url = useMemo(() => window && new URL(window.location.href), [window]);
   const hydratedFromQueryParams = useRef(false);
   const selectedWebsites = useMemo((): string => {
     if (!window) return '[]';
     return window.localStorage.getItem('websites') ?? '[]';
   }, [window]);
 
-  const { data, error, size, setSize } = useSWRInfinite(
-    (index) => makeUrl(query, index, limit, selectedWebsites),
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      persistSize: true,
-      onErrorRetry: () => {},
-    }
-  );
+  const { data, error, size, setSize } = useSWRInfinite<
+    ClothesResponseItem[],
+    FetcherError
+  >((index) => makeUrl(query, index, limit, selectedWebsites), swrFetcher, {
+    revalidateOnFocus: false,
+    persistSize: true,
+  });
 
   useEffect(() => {
     if (size && url && url.searchParams.get('page') !== `${size}`) {
       url.searchParams.set('page', `${size}`);
       routerPush(url.href, url.href, { scroll: false, shallow: true });
     }
-  }, [size, routerPush, url?.href, url?.searchParams]);
+  }, [size, routerPush, url?.href, url?.searchParams, url]);
 
   useEffect(() => {
     if (limit && url && url.searchParams.get('limit') !== `${limit}`) {
@@ -62,7 +66,14 @@ export const CategoryName = () => {
       routerPush(url.href, url.href, { scroll: false, shallow: true });
       window?.localStorage.setItem('limit', `${limit}`);
     }
-  }, [limit, routerPush, url?.href, url?.searchParams]);
+  }, [
+    limit,
+    routerPush,
+    url,
+    url?.href,
+    url?.searchParams,
+    window?.localStorage,
+  ]);
 
   useEffect(() => {
     if (!hydratedFromQueryParams.current && routerIsReady) {
@@ -89,14 +100,22 @@ export const CategoryName = () => {
         }
       }
     }
-  }, [query?.limit, query?.page, routerIsReady, setSize, size, limit]);
+  }, [
+    query?.limit,
+    query?.page,
+    routerIsReady,
+    setSize,
+    size,
+    window?.localStorage,
+  ]);
 
   const changeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     setLimit(+event.target.value);
   };
 
-  const clothes: ClothesResponseItem[] = data ? [].concat(...data) : [];
+  const clothes = data ? ([] as ClothesResponseItem[]).concat(...data) : [];
+
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
     isLoadingInitialData ||

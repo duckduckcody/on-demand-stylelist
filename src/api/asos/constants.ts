@@ -14,7 +14,8 @@ const makeAsosApiQueryString = (requestOptions: GetClothesOptions) => {
 export const makeAsosApiUrl = (
   uri: string,
   requestOptions: GetClothesOptions
-) => `${ASOS_BASE_API_URL}${uri}${makeAsosApiQueryString(requestOptions)}`;
+): string =>
+  `${ASOS_BASE_API_URL}${uri}${makeAsosApiQueryString(requestOptions)}`;
 
 interface CidMapValue {
   uri: string;

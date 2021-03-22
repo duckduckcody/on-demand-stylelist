@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { StaticSafeWebsite, staticSafeWebsites } from '../src/api/constants';
 
-export const getStaticProps: GetStaticProps = async (context) => ({
+export const getStaticProps: GetStaticProps = async () => ({
   props: { websites: staticSafeWebsites },
 });
 
@@ -10,7 +10,7 @@ interface Props {
   websites: StaticSafeWebsite[];
 }
 
-export default function Websites({ websites }: Props) {
+export default function Websites({ websites }: Props): ReactElement {
   const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);
 
   useEffect(() => {

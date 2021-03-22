@@ -9,7 +9,7 @@ export const makeClothesCacheKey = (
   prefix: string,
   uri: string,
   requestOptions?: GetClothesOptions
-) => `${prefix}-${uri}-${JSON.stringify(requestOptions)}`;
+): string => `${prefix}-${uri}-${JSON.stringify(requestOptions)}`;
 
 export interface ClothesResponseItem {
   name: string;
@@ -28,7 +28,7 @@ export const getClothes = async (
   cid: string,
   selectedWebsites: string[],
   requestOptions: Partial<GetClothesOptions>
-) => {
+): Promise<Partial<ClothesResponseItem>[]> => {
   const completeRequestOptions: GetClothesOptions = {
     limit: requestOptions?.limit ?? DEFAULT_RESPONSE_LIMIT,
     page: requestOptions?.page ?? 1,

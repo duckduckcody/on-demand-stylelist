@@ -3,7 +3,9 @@ export interface FetcherError {
   status: number;
 }
 
-export const fetcher = async (url: string) => {
+export const swrFetcher = async <JSON = unknown>(
+  url: string
+): Promise<JSON> => {
   const res = await fetch(url);
 
   if (!res.ok) {

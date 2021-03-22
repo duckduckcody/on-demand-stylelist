@@ -1,4 +1,4 @@
 import { useMemo } from 'react';
 
-export const useWindow = () =>
-  useMemo(() => (process.browser ? window : undefined), [process.browser]);
+export const useWindow = (): Window | undefined =>
+  useMemo(() => (process.browser ? window : undefined), []);

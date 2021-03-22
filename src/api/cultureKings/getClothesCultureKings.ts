@@ -29,12 +29,19 @@ export const getClothesCultureKings = (
   );
 };
 
+interface AlgoliaHits {
+  title: string;
+  price: number;
+  handle: string;
+  image: string;
+}
+
 const requestData = (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<ClothesResponseItem[]> => {
   return index
-    .search('', {
+    .search<AlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
       ruleContexts: [`collection-${uri}`],
       page: requestOptions.page - 1,
@@ -47,7 +54,7 @@ const requestData = (
     .then(({ hits }) => mapProductValues(hits));
 };
 
-const mapProductValues = (hits: Array<any>): ClothesResponseItem[] =>
+const mapProductValues = (hits: Array<AlgoliaHits>): ClothesResponseItem[] =>
   hits.map((product) => ({
     name: product.title,
     price: product.price,

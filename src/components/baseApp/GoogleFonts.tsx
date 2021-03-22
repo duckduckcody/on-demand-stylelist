@@ -1,8 +1,10 @@
+import { ReactElement } from 'react';
+
 interface Props {
   query: string;
 }
 
-export const GoogleFonts = ({ query }: Props) => (
+export const GoogleFonts = ({ query }: Props): ReactElement => (
   <>
     <link rel='preconnect' href='https://fonts.gstatic.com' />
     <link

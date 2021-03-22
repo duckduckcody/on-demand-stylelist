@@ -12,7 +12,7 @@ import { coolShirtzCidMap, COOL_SHIRTZ_BASE_URL } from './constants';
 export async function getClothesCoolShirtz(
   cid: string,
   requestOptions: GetClothesOptions
-) {
+): Promise<Partial<ClothesResponseItem>[]> {
   const coolShirtzCid = coolShirtzCidMap.get(cid);
   if (!coolShirtzCid) Promise.resolve([]);
   const clothes = await cacheRequest(
@@ -35,10 +35,7 @@ const pageClothes = (
   return clothes!.slice(bottom, top);
 };
 
-const requestHtml = async (
-  uri: string,
-  requestOptions: GetClothesOptions
-): Promise<ClothesResponseItem[]> => {
+const requestHtml = async (uri: string): Promise<ClothesResponseItem[]> => {
   const response = await fetch(`${COOL_SHIRTZ_BASE_URL}/collections/${uri}`, {
     headers: HEADERS,
   });
@@ -56,7 +53,7 @@ const scrapeHtml = (htmlString: string): ClothesResponseItem[] => {
   const products = html.window.document.getElementsByClassName(
     'prod-container'
   );
-  for (let product of products) {
+  for (const product of products) {
     //don't scrape sold out products
     if (product.getElementsByClassName('so icn')[0]) continue;
 

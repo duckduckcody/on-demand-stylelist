@@ -5,7 +5,7 @@ import { getClothes } from '../../../../src/api/getClothes';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-) {
+): Promise<void> {
   const { categoryName, gender, page, limit, selectedWebsites } = req.query;
   if (!categoryName)
     return res.status(404).json({ message: 'clothe category not provided' });

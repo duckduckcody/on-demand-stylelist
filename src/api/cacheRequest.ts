@@ -8,7 +8,7 @@ export const cacheRequest = async (
   cacheKey: Key,
   uri: string,
   requestOptions: GetClothesOptions
-) => {
+): Promise<Partial<ClothesResponseItem>[]> => {
   const cachedValue: Partial<ClothesResponseItem>[] | undefined = cache.get(
     cacheKey
   );

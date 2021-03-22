@@ -14,7 +14,7 @@ import { asosCidMap, ASOS_BASE_URL, makeAsosApiUrl } from './constants';
 export async function getClothesAsos(
   cid: string,
   requestOptions: GetClothesOptions
-) {
+): Promise<Partial<ClothesResponseItem>[]> {
   const asosCid = asosCidMap.get(cid);
   if (!asosCid) Promise.resolve([]);
   return cacheRequest(

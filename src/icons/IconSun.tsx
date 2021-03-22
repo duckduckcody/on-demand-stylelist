@@ -1,6 +1,6 @@
-import { SVGProps } from 'react';
+import { ReactElement, SVGProps } from 'react';
 
-export const IconSun = (props: SVGProps<SVGSVGElement>) => {
+export const IconSun = (props: SVGProps<SVGSVGElement>): ReactElement => {
   return (
     <svg
       {...props}
