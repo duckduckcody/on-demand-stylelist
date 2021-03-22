@@ -1,3 +1,4 @@
+import { flatten } from 'lodash';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, {
@@ -114,16 +115,16 @@ export const CategoryName = (): ReactElement => {
     setLimit(+event.target.value);
   };
 
-  const clothes = data ? ([] as ClothesResponseItem[]).concat(...data) : [];
-
+  const clothes = flatten(data);
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
     isLoadingInitialData ||
     (size > 0 && data && typeof data[size - 1] === 'undefined');
-  const isEmpty = data?.[0]?.length === 0;
-  const isReachingEnd =
-    isEmpty ||
-    (data && data[data.length - 1]?.length < (limit ?? DEFAULT_LIMIT));
+  const isEmpty = !isLoadingInitialData && clothes.length === 0;
+  const isEndOfData =
+    data &&
+    typeof limit !== 'undefined' &&
+    data[data.length - 1]?.length < limit;
 
   if (error) {
     console.log('request error', error);
@@ -178,12 +179,12 @@ export const CategoryName = (): ReactElement => {
       </ListContainer>
       <ButtonContainer>
         <LoadMoreButton
-          disabled={isLoadingMore || isReachingEnd}
+          disabled={isLoadingMore || isEndOfData}
           onClick={() => setSize(size + 1)}
         >
           {isLoadingMore
             ? 'Fetching styles...'
-            : isReachingEnd
+            : isEndOfData
             ? 'no more clothes'
             : 'load more'}
         </LoadMoreButton>

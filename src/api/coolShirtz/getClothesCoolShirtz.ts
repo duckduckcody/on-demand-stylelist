@@ -14,7 +14,7 @@ export async function getClothesCoolShirtz(
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClothesResponseItem>[]> {
   const coolShirtzCid = coolShirtzCidMap.get(cid);
-  if (!coolShirtzCid) Promise.resolve([]);
+  if (!coolShirtzCid) return Promise.resolve([]);
   const clothes = await cacheRequest(
     requestHtml,
     clothesCache,
