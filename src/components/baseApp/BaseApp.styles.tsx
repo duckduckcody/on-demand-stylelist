@@ -1,6 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { createGlobalStyle } from 'styled-components';
-import { IconMoon } from '../../icons/IconMoon';
-import { IconSun } from '../../icons/IconSun';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -56,14 +55,9 @@ export const DarkModeIconContainer = styled.div`
   align-items: center;
 `;
 
-export const StyledIconSun = styled(IconSun)`
+export const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
-  width: 24px;
-`;
-
-export const StyledIconMoon = styled(IconMoon)`
-  cursor: pointer;
-  width: 24px;
+  width: 1.5rem;
 `;
 
 export const ContentContainer = styled.div`

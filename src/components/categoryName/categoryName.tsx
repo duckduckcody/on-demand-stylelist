@@ -16,13 +16,10 @@ import { useWindow } from '../../util/useWindow';
 import {
   ButtonContainer,
   CategoryNameHeader,
-  Item,
-  ItemImageContainer,
-  ItemImageLink,
-  ItemInfo,
   ListContainer,
   LoadMoreButton,
 } from './categoryName.styles';
+import { ClotheCard } from './clotheCard/ClotheCard';
 import { makeUrl } from './makeUrl';
 
 const LIMIT_OPTIONS = [1, 3, 5, 10];
@@ -51,7 +48,6 @@ export const CategoryName = (): ReactElement => {
     FetcherError
   >((index) => makeUrl(query, index, limit, selectedWebsites), swrFetcher, {
     revalidateOnFocus: false,
-    persistSize: true,
   });
 
   useEffect(() => {
@@ -140,41 +136,32 @@ export const CategoryName = (): ReactElement => {
       <Head>
         <title>
           {routerIsReady &&
-            capitaliseString(`${query.gender}s ${query.categoryName} | `)}
+            capitaliseString(`${query.gender}'s ${query.categoryName} | `)}
           Stylelist
         </title>
       </Head>
       <CategoryNameHeader>
-        <label htmlFor='limit'>Product limit per website: </label>
-        <select value={limit} onChange={changeLimit}>
-          {LIMIT_OPTIONS.map((limitOption) => (
-            <option key={limitOption} value={limitOption}>
-              {limitOption}
-            </option>
-          ))}
-        </select>
+        <span>
+          {routerIsReady &&
+            capitaliseString(`${query.gender}'s ${query.categoryName}`)}
+        </span>
+        <span>
+          <label htmlFor='limit'>Product limit per website&nbsp;</label>
+          <select value={limit} onChange={changeLimit}>
+            {LIMIT_OPTIONS.map((limitOption) => (
+              <option key={limitOption} value={limitOption}>
+                {limitOption}
+              </option>
+            ))}
+          </select>
+        </span>
       </CategoryNameHeader>
-      {isEmpty ? <p>No clothes found</p> : null}
+      {isEmpty && <p>No clothes found</p>}
       {error && <div>Failed to load clothes</div>}
       <ListContainer>
         {clothes &&
           clothes.map((clothe) => (
-            <Item key={clothe.link}>
-              <ItemImageContainer>
-                <ItemImageLink
-                  href={clothe.link}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  <img src={clothe.image} width={250} />
-                </ItemImageLink>
-              </ItemImageContainer>
-              <ItemInfo>
-                <b>{clothe.website}</b>
-                <span>${clothe.price}</span>
-                <span>{clothe.name}</span>
-              </ItemInfo>
-            </Item>
+            <ClotheCard key={clothe.link} clothe={clothe} />
           ))}
       </ListContainer>
       <ButtonContainer>

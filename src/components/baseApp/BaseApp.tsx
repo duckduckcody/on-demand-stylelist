@@ -1,3 +1,4 @@
+import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -12,8 +13,7 @@ import {
   HeaderLink,
   HeaderText,
   HeaderTextContainer,
-  StyledIconMoon,
-  StyledIconSun,
+  StyledFontAwesomeIcon,
 } from './BaseApp.styles';
 import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
@@ -49,8 +49,12 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
             </Link>
           </HeaderTextContainer>
           <DarkModeIconContainer>
-            {darkMode && <StyledIconSun onClick={onThemeClick} />}
-            {!darkMode && <StyledIconMoon onClick={onThemeClick} />}
+            {darkMode && (
+              <StyledFontAwesomeIcon icon={faSun} onClick={onThemeClick} />
+            )}
+            {!darkMode && (
+              <StyledFontAwesomeIcon icon={faMoon} onClick={onThemeClick} />
+            )}
           </DarkModeIconContainer>
         </Header>
         <ContentContainer>
