@@ -11,6 +11,7 @@ import React, {
 import { useSWRInfinite } from 'swr';
 import { FetcherError, swrFetcher } from '../../../src/util/swrFetcher';
 import { ClothesResponseItem } from '../../api/getClothes';
+import { LOCAL_STORAGE_KEY_FAVOURITES } from '../../constants';
 import { capitaliseString } from '../../util/capitaliseString';
 import { useWindow } from '../../util/useWindow';
 import {
@@ -37,6 +38,10 @@ export const CategoryName = (): ReactElement => {
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const window = useWindow();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
+  const [favourites, setFavourites] = useState<
+    ClothesResponseItem[] | undefined
+  >();
+
   const hydratedFromQueryParams = useRef(false);
   const selectedWebsites = useMemo((): string => {
     if (!window) return '[]';
@@ -96,6 +101,11 @@ export const CategoryName = (): ReactElement => {
           setLimit(DEFAULT_LIMIT);
         }
       }
+
+      const favourites: ClothesResponseItem[] = JSON.parse(
+        window?.localStorage.getItem(LOCAL_STORAGE_KEY_FAVOURITES) ?? '[]'
+      );
+      setFavourites(favourites);
     }
   }, [
     query?.limit,
@@ -104,11 +114,28 @@ export const CategoryName = (): ReactElement => {
     setSize,
     size,
     window?.localStorage,
+    window?.location.pathname,
   ]);
 
   const changeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     setLimit(+event.target.value);
+  };
+
+  const onFavouriteClick = (clothe: ClothesResponseItem) => {
+    if (favourites) {
+      let favs;
+      if (favourites?.find((fav) => fav.link === clothe.link)) {
+        favs = favourites.filter((fav) => fav.link !== clothe.link);
+      } else {
+        favs = favourites.concat(clothe);
+      }
+      setFavourites(favs);
+      window?.localStorage.setItem(
+        LOCAL_STORAGE_KEY_FAVOURITES,
+        JSON.stringify(favs)
+      );
+    }
   };
 
   const clothes = flatten(data);
@@ -161,7 +188,14 @@ export const CategoryName = (): ReactElement => {
       <ListContainer>
         {clothes &&
           clothes.map((clothe) => (
-            <ClotheCard key={clothe.link} clothe={clothe} />
+            <ClotheCard
+              key={clothe.link}
+              clothe={clothe}
+              isFavourited={
+                favourites && favourites.some((fav) => fav.link === clothe.link)
+              }
+              onFavouriteClick={onFavouriteClick}
+            />
           ))}
       </ListContainer>
       <ButtonContainer>

@@ -9,10 +9,10 @@ import {
   ContentContainer,
   DarkModeIconContainer,
   GlobalStyle,
-  Header,
+  HeaderContainer,
   HeaderLink,
-  HeaderText,
-  HeaderTextContainer,
+  HeaderLinkContainer,
+  HeaderLinkTitle,
   StyledFontAwesomeIcon,
 } from './BaseApp.styles';
 import { Favicon } from './Favicon';
@@ -39,15 +39,18 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
       </Head>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Header>
-          <HeaderTextContainer>
+        <HeaderContainer>
+          <HeaderLinkContainer>
             <Link href='/'>
-              <HeaderText>STYLELIST</HeaderText>
+              <HeaderLinkTitle>STYLELIST</HeaderLinkTitle>
             </Link>
             <Link href='/websites'>
               <HeaderLink>websites</HeaderLink>
             </Link>
-          </HeaderTextContainer>
+            <Link href='/favourites'>
+              <HeaderLink>favourites</HeaderLink>
+            </Link>
+          </HeaderLinkContainer>
           <DarkModeIconContainer>
             {darkMode && (
               <StyledFontAwesomeIcon icon={faSun} onClick={onThemeClick} />
@@ -56,7 +59,7 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
               <StyledFontAwesomeIcon icon={faMoon} onClick={onThemeClick} />
             )}
           </DarkModeIconContainer>
-        </Header>
+        </HeaderContainer>
         <ContentContainer>
           <Component {...pageProps} />
         </ContentContainer>

@@ -37,9 +37,10 @@ export const Price = styled.span`
   place-self: end start;
 `;
 
-export const HeartIcon = styled(FontAwesomeIcon)`
+export const HeartIcon = styled(FontAwesomeIcon)<{ isfavourited: string }>`
   grid-area: heartIcon;
   width: 1.5rem;
   place-self: center end;
   cursor: pointer;
+  color: ${(props) => (props.isfavourited === 'true' ? 'red' : 'white')};
 `;
