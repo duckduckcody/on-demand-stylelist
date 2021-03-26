@@ -42,7 +42,8 @@ export const HeartIcon = styled(FontAwesomeIcon)<{ isfavourited: string }>`
   width: 1.5rem;
   place-self: center end;
   cursor: pointer;
-  color: ${(props) => (props.isfavourited === 'true' ? 'red' : 'white')};
+  color: ${(props) =>
+    props.isfavourited === 'true' ? 'red' : props.theme.textColor};
 
   &:hover {
     color: red;

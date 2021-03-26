@@ -20,13 +20,14 @@ export const getClothesCultureKings = (
 ): Promise<Partial<ClothesResponseItem>[]> => {
   const cultureKingsCid = cultureKingsCidMap.get(cid);
   if (!cultureKingsCid) Promise.resolve([]);
-  return cacheRequest(
+  const res = cacheRequest(
     requestData,
     clothesCache,
     makeClothesCacheKey('culture-kings', cid, requestOptions),
     cultureKingsCid!.uri,
     requestOptions
   );
+  return res;
 };
 
 interface AlgoliaHits {
