@@ -1,6 +1,9 @@
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import { ReactElement } from 'react';
+import { faHeart as faHeartOutline } from '@fortawesome/free-regular-svg-icons';
+import {
+  faHeart as faHeartSolid,
+  faHeartBroken,
+} from '@fortawesome/free-solid-svg-icons';
+import { ReactElement, useState } from 'react';
 import { ClothesResponseItem } from '../../../api/getClothes';
 import {
   ClotheName,
@@ -22,20 +25,32 @@ export const ClotheCard = ({
   clothe,
   isFavourited = false,
   onFavouriteClick,
-}: Props): ReactElement => (
-  <Container>
-    <ImageContainer>
-      <a href={clothe.link} target='_blank' rel='noreferrer'>
-        <Image src={clothe.image} />
-      </a>
-    </ImageContainer>
-    <WebsiteName>{clothe.website}</WebsiteName>
-    <Price>${clothe.price}</Price>
-    <ClotheName>{clothe.name}</ClotheName>
-    <HeartIcon
-      isfavourited={isFavourited.toString()}
-      icon={isFavourited ? faHeartSolid : faHeart}
-      onClick={() => onFavouriteClick(clothe)}
-    />
-  </Container>
-);
+}: Props): ReactElement => {
+  const [iconHovered, setIconHovered] = useState(false);
+
+  return (
+    <Container>
+      <ImageContainer>
+        <a href={clothe.link} target='_blank' rel='noreferrer'>
+          <Image src={clothe.image} />
+        </a>
+      </ImageContainer>
+      <WebsiteName>{clothe.website}</WebsiteName>
+      <Price>${clothe.price}</Price>
+      <ClotheName>{clothe.name}</ClotheName>
+      <HeartIcon
+        onMouseEnter={() => setIconHovered(true)}
+        onMouseLeave={() => setIconHovered(false)}
+        isfavourited={isFavourited.toString()}
+        icon={
+          isFavourited
+            ? iconHovered
+              ? faHeartBroken
+              : faHeartSolid
+            : faHeartOutline
+        }
+        onClick={() => onFavouriteClick(clothe)}
+      />
+    </Container>
+  );
+};
