@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { categories } from '../../../../src/api/constants';
 import { getClothes } from '../../../../src/api/getClothes';
+import { NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE } from '../../../../src/constants';
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,7 +20,9 @@ export default async function handler(
 
   const parsedSelectedWebsites = JSON.parse(`${selectedWebsites}` ?? '[]');
   if (!parsedSelectedWebsites.length)
-    return res.status(400).json({ message: 'no websites selected' });
+    return res
+      .status(400)
+      .json({ message: NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE });
 
   const clothes = await getClothes(`${category.id}`, parsedSelectedWebsites, {
     page: +`${page}`,

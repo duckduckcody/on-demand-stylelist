@@ -11,7 +11,11 @@ import React, {
 import { useSWRInfinite } from 'swr';
 import { FetcherError, swrFetcher } from '../../../src/util/swrFetcher';
 import { ClothesResponseItem } from '../../api/getClothes';
-import { LOCAL_STORAGE_KEY_FAVOURITES } from '../../constants';
+import {
+  LocalStorageKey,
+  NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
+  Paths,
+} from '../../constants';
 import { capitaliseString } from '../../util/capitaliseString';
 import { useWindow } from '../../util/useWindow';
 import {
@@ -103,7 +107,7 @@ export const CategoryName = (): ReactElement => {
       }
 
       const favourites: ClothesResponseItem[] = JSON.parse(
-        window?.localStorage.getItem(LOCAL_STORAGE_KEY_FAVOURITES) ?? '[]'
+        window?.localStorage.getItem(LocalStorageKey.Favourites) ?? '[]'
       );
       setFavourites(favourites);
     }
@@ -132,7 +136,7 @@ export const CategoryName = (): ReactElement => {
       }
       setFavourites(favs);
       window?.localStorage.setItem(
-        LOCAL_STORAGE_KEY_FAVOURITES,
+        LocalStorageKey.Favourites,
         JSON.stringify(favs)
       );
     }
@@ -151,6 +155,8 @@ export const CategoryName = (): ReactElement => {
 
   if (error) {
     console.log('request error', error);
+    if (error.message === NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE)
+      routerReplace(Paths.websites);
     return (
       <p>
         Error fetching styles ({error.status}; {error.message})

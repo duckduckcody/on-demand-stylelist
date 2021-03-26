@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { ClothesResponseItem } from '../src/api/getClothes';
 import { ListContainer } from '../src/components/categoryName/categoryName.styles';
 import { ClotheCard } from '../src/components/categoryName/clotheCard/ClotheCard';
-import { LOCAL_STORAGE_KEY_FAVOURITES } from '../src/constants';
+import { LocalStorageKey } from '../src/constants';
 
 export default function Favourites(): ReactElement {
   const [favourites, setFavourites] = useState<ClothesResponseItem[]>();
@@ -10,7 +10,7 @@ export default function Favourites(): ReactElement {
   useEffect(() => {
     if (window) {
       const favourites = window.localStorage.getItem(
-        LOCAL_STORAGE_KEY_FAVOURITES
+        LocalStorageKey.Favourites
       );
       favourites && setFavourites(JSON.parse(favourites));
     }
@@ -21,7 +21,7 @@ export default function Favourites(): ReactElement {
       const buffer = favourites.filter((fav) => fav.link !== clothe.link);
       setFavourites(buffer);
       window.localStorage.setItem(
-        LOCAL_STORAGE_KEY_FAVOURITES,
+        LocalStorageKey.Favourites,
         JSON.stringify(buffer)
       );
     }

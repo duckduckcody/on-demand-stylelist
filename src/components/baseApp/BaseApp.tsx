@@ -19,14 +19,14 @@ import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [lightMode, setLightMode] = useState(false);
   const onThemeClick = () => {
-    setDarkMode(!darkMode);
-    window.localStorage.setItem('darkMode', `${!darkMode}`);
+    setLightMode(!lightMode);
+    window.localStorage.setItem('lightMode', `${!lightMode}`);
   };
 
   useEffect(
-    () => setDarkMode(window.localStorage.getItem('darkMode') === 'true'),
+    () => setLightMode(window.localStorage.getItem('lightMode') === 'true'),
     []
   );
 
@@ -37,7 +37,7 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
         <GoogleFonts query='family=Martel+Sans:wght@300;400;700&display=swap' />
         <Favicon favicon='📜' />
       </Head>
-      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
         <GlobalStyle />
         <HeaderContainer>
           <HeaderLinkContainer>
@@ -52,10 +52,10 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
             </Link>
           </HeaderLinkContainer>
           <DarkModeIconContainer>
-            {darkMode && (
+            {!lightMode && (
               <StyledFontAwesomeIcon icon={faSun} onClick={onThemeClick} />
             )}
-            {!darkMode && (
+            {lightMode && (
               <StyledFontAwesomeIcon icon={faMoon} onClick={onThemeClick} />
             )}
           </DarkModeIconContainer>
