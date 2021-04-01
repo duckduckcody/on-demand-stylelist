@@ -28,4 +28,6 @@ export const asosCidMap = new Map<string, CidMapValue>()
   .set('3003', { uri: '7078' })
   .set('3004', { uri: '7616' })
   .set('3005', { uri: '2639' })
-  .set('3006', { uri: '8799' });
+  .set('3006', { uri: '8799' })
+  .set('3007', { uri: '5774' })
+  .set('3008', { uri: '5775' });

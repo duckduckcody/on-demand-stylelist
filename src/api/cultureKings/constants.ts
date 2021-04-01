@@ -17,4 +17,6 @@ export const cultureKingsCidMap = new Map<string, CidMapValue>()
   .set('3003', { uri: 'mens-bottoms-shorts' })
   .set('3004', { uri: 'mens-tops-ss-tees' })
   .set('3005', { uri: 'womens-bottoms-skirt' })
-  .set('3006', { uri: 'womens-tops-dress' });
+  .set('3006', { uri: 'womens-tops-dress' })
+  .set('3007', { uri: 'mens-boots' })
+  .set('3008', { uri: 'mens-footwear' });
