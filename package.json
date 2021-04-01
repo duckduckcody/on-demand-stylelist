@@ -1,7 +1,7 @@
 {
   "name": "stylelist",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,6 +12,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@tippyjs/react": "^4.2.5",
     "algoliasearch": "^4.8.6",
     "bluebird": "^3.7.2",
     "jsdom": "^16.5.1",

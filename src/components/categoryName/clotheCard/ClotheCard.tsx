@@ -3,17 +3,20 @@ import {
   faHeart as faHeartSolid,
   faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
+import Tippy from '@tippyjs/react';
 import { ReactElement, useState } from 'react';
 import { ClothesResponseItem } from '../../../api/getClothes';
 import {
   ClotheName,
   Container,
   HeartIcon,
+  HeartIconContainer,
   Image,
   ImageContainer,
   Price,
   WebsiteName,
 } from './ClotheCard.styles';
+import { Tooltip } from './Tooltip';
 
 interface Props {
   clothe: ClothesResponseItem;
@@ -38,19 +41,28 @@ export const ClotheCard = ({
       <WebsiteName>{clothe.website}</WebsiteName>
       <Price>${clothe.price}</Price>
       <ClotheName>{clothe.name}</ClotheName>
-      <HeartIcon
-        onMouseEnter={() => setIconHovered(true)}
-        onMouseLeave={() => setIconHovered(false)}
-        isfavourited={isFavourited.toString()}
-        icon={
-          isFavourited
-            ? iconHovered
-              ? faHeartBroken
-              : faHeartSolid
-            : faHeartOutline
-        }
-        onClick={() => onFavouriteClick(clothe)}
-      />
+
+      <Tippy
+        content={<Tooltip isFavourited={isFavourited} />}
+        delay={0}
+        visible={iconHovered}
+      >
+        <HeartIconContainer tabIndex={0}>
+          <HeartIcon
+            onMouseEnter={() => setIconHovered(true)}
+            onMouseLeave={() => setIconHovered(false)}
+            isfavourited={isFavourited.toString()}
+            icon={
+              isFavourited
+                ? iconHovered
+                  ? faHeartBroken
+                  : faHeartSolid
+                : faHeartOutline
+            }
+            onClick={() => onFavouriteClick(clothe)}
+          />
+        </HeartIconContainer>
+      </Tippy>
     </Container>
   );
 };
