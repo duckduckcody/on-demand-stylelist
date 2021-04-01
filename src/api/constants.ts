@@ -1,7 +1,8 @@
 import { getClothesAsos } from './asos/getClothesAsos';
 import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
 import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
-import { ClotheItem, GetClothesOptions } from './getClothes';
+import { ClotheItem } from './getClothes';
+import { GetClothesOptions } from './GetClothesOptions';
 
 export const HEADERS = {
   'User-Agent':

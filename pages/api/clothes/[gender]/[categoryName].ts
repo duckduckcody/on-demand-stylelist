@@ -7,7 +7,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const { categoryName, gender, page, limit, selectedWebsites } = req.query;
+  const {
+    categoryName,
+    gender,
+    page,
+    limit,
+    selectedWebsites,
+    sort,
+  } = req.query;
   if (!categoryName)
     return res.status(404).json({ message: 'clothe category not provided' });
 
@@ -27,6 +34,7 @@ export default async function handler(
   const clothes = await getClothes(`${category.id}`, parsedSelectedWebsites, {
     page: +`${page}`,
     limit: +`${limit}`,
+    sort: `${sort}`,
   });
 
   return res.status(200).json(clothes);

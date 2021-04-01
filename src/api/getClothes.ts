@@ -2,6 +2,10 @@ import { Promise } from 'bluebird';
 import { flatten } from 'lodash';
 import NodeCache from 'node-cache';
 import { DEFAULT_RESPONSE_LIMIT, websites } from './constants';
+import {
+  GetClothesOptions,
+  GetClothesOptionsSchema,
+} from './GetClothesOptions';
 
 export const clothesCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
@@ -19,10 +23,11 @@ export interface ClotheItem {
   website: string;
 }
 
-export interface GetClothesOptions {
-  limit: number;
-  page: number;
-}
+export type Sort =
+  | 'priceHighToLow'
+  | 'priceLowToHigh'
+  | 'bestSelling'
+  | 'newest';
 
 export const getClothes = async (
   cid: string,
@@ -32,7 +37,12 @@ export const getClothes = async (
   const completeRequestOptions: GetClothesOptions = {
     limit: requestOptions?.limit ?? DEFAULT_RESPONSE_LIMIT,
     page: requestOptions?.page ?? 1,
+    sort: requestOptions?.sort ?? 'newest',
   };
+
+  const response = GetClothesOptionsSchema.safeParse(completeRequestOptions);
+  console.log('response', response);
+  // res.status(404).json({ message: 'clothe category not found' });
 
   return await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
     const website = websites.find(

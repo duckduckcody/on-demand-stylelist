@@ -16,5 +16,6 @@ export const makeUrl = (
   searchParams.append('page', (index + 1).toString());
   searchParams.append('limit', limit.toString());
   searchParams.append('selectedWebsites', selectedWebsites);
+  searchParams.append('sort', 'bald');
   return `${url}?${searchParams.toString()}`;
 };

@@ -1,14 +1,22 @@
-import { GetClothesOptions } from '../getClothes';
+import { Sort } from '../getClothes';
+import { GetClothesOptions } from '../GetClothesOptions';
 
 export const ASOS_BASE_URL = 'https://www.asos.com/au';
 
 export const ASOS_BASE_API_URL =
   'https://www.asos.com/api/product/search/v2/categories/';
 
+export const sortToApiQueryValueMap = new Map<Sort, string>()
+  .set('bestSelling', '')
+  .set('newest', 'freshness')
+  .set('priceHighToLow', 'pricedesc')
+  .set('priceLowToHigh', 'priceasc');
+
 const makeAsosApiQueryString = (requestOptions: GetClothesOptions) => {
   const { page, limit } = requestOptions;
   const offSet = page === 1 ? 1 : page * limit;
-  return `?channel=desktop-web&country=AU&currency=AUD&lang=en-AU&offset=${offSet}&store=AU&limit=${limit}`;
+  const sort = sortToApiQueryValueMap.get(requestOptions.sort);
+  return `?channel=desktop-web&country=AU&currency=AUD&lang=en-AU&offset=${offSet}&store=AU&limit=${limit}&sort=${sort}`;
 };
 
 export const makeAsosApiUrl = (

@@ -1,6 +1,7 @@
 import NodeCache, { Key } from 'node-cache';
 import { getClothesFunction, USE_CACHE } from './constants';
-import { ClotheItem, GetClothesOptions } from './getClothes';
+import { ClotheItem } from './getClothes';
+import { GetClothesOptions } from './GetClothesOptions';
 
 export const cacheRequest = async (
   requestFunction: getClothesFunction,
