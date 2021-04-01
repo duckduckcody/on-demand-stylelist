@@ -2,17 +2,13 @@ import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
-import {
-  clothesCache,
-  ClothesResponseItem,
-  GetClothesOptions,
-} from '../getClothes';
+import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import { coolShirtzCidMap, COOL_SHIRTZ_BASE_URL } from './constants';
 
 export async function getClothesCoolShirtz(
   cid: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClothesResponseItem>[]> {
+): Promise<Partial<ClotheItem>[]> {
   const coolShirtzCid = coolShirtzCidMap.get(cid);
   if (!coolShirtzCid) return Promise.resolve([]);
   const clothes = await cacheRequest(
@@ -26,16 +22,16 @@ export async function getClothesCoolShirtz(
 }
 
 const pageClothes = (
-  clothes: Partial<ClothesResponseItem>[],
+  clothes: Partial<ClotheItem>[],
   requestOptions: GetClothesOptions
-): Partial<ClothesResponseItem>[] => {
+): Partial<ClotheItem>[] => {
   if (!clothes) return [];
   const bottom = (requestOptions.page - 1) * requestOptions.limit;
   const top = bottom + requestOptions.limit;
   return clothes!.slice(bottom, top);
 };
 
-const requestHtml = async (uri: string): Promise<ClothesResponseItem[]> => {
+const requestHtml = async (uri: string): Promise<ClotheItem[]> => {
   const response = await fetch(`${COOL_SHIRTZ_BASE_URL}/collections/${uri}`, {
     headers: HEADERS,
   });
@@ -47,9 +43,9 @@ const requestHtml = async (uri: string): Promise<ClothesResponseItem[]> => {
   return scrapeHtml(htmlString);
 };
 
-const scrapeHtml = (htmlString: string): ClothesResponseItem[] => {
+const scrapeHtml = (htmlString: string): ClotheItem[] => {
   const html = new JSDOM(htmlString);
-  const collectedProducts: ClothesResponseItem[] = [];
+  const collectedProducts: ClotheItem[] = [];
   const products = html.window.document.getElementsByClassName(
     'prod-container'
   );

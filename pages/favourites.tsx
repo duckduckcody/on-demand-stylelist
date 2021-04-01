@@ -1,11 +1,11 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { ClothesResponseItem } from '../src/api/getClothes';
+import { ClotheItem } from '../src/api/getClothes';
 import { ListContainer } from '../src/components/categoryName/categoryName.styles';
 import { ClotheCard } from '../src/components/categoryName/clotheCard/ClotheCard';
 import { LocalStorageKey } from '../src/constants';
 
 export default function Favourites(): ReactElement {
-  const [favourites, setFavourites] = useState<ClothesResponseItem[]>();
+  const [favourites, setFavourites] = useState<ClotheItem[]>();
 
   useEffect(() => {
     if (window) {
@@ -16,7 +16,7 @@ export default function Favourites(): ReactElement {
     }
   }, []);
 
-  const onFavouriteClick = (clothe: ClothesResponseItem) => {
+  const onFavouriteClick = (clothe: ClotheItem) => {
     if (window && favourites && clothe) {
       const buffer = favourites.filter((fav) => fav.link !== clothe.link);
       setFavourites(buffer);

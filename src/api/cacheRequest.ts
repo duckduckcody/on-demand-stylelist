@@ -1,6 +1,6 @@
 import NodeCache, { Key } from 'node-cache';
 import { getClothesFunction, USE_CACHE } from './constants';
-import { ClothesResponseItem, GetClothesOptions } from './getClothes';
+import { ClotheItem, GetClothesOptions } from './getClothes';
 
 export const cacheRequest = async (
   requestFunction: getClothesFunction,
@@ -8,10 +8,8 @@ export const cacheRequest = async (
   cacheKey: Key,
   uri: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClothesResponseItem>[]> => {
-  const cachedValue: Partial<ClothesResponseItem>[] | undefined = cache.get(
-    cacheKey
-  );
+): Promise<Partial<ClotheItem>[]> => {
+  const cachedValue: Partial<ClotheItem>[] | undefined = cache.get(cacheKey);
   if (cachedValue && USE_CACHE) return Promise.resolve(cachedValue);
 
   const response = requestFunction(uri, requestOptions);

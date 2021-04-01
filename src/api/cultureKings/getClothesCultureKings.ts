@@ -2,8 +2,8 @@ import { Promise } from 'bluebird';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
 import {
+  ClotheItem,
   clothesCache,
-  ClothesResponseItem,
   GetClothesOptions,
   makeClothesCacheKey,
 } from '../getClothes';
@@ -17,7 +17,7 @@ import {
 export const getClothesCultureKings = (
   cid: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClothesResponseItem>[]> => {
+): Promise<Partial<ClotheItem>[]> => {
   const cultureKingsCid = cultureKingsCidMap.get(cid);
   if (!cultureKingsCid) Promise.resolve([]);
   const res = cacheRequest(
@@ -40,7 +40,7 @@ interface AlgoliaHits {
 const requestData = (
   uri: string,
   requestOptions: GetClothesOptions
-): Promise<ClothesResponseItem[]> => {
+): Promise<ClotheItem[]> => {
   return index
     .search<AlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
@@ -55,7 +55,7 @@ const requestData = (
     .then(({ hits }) => mapProductValues(hits));
 };
 
-const mapProductValues = (hits: Array<AlgoliaHits>): ClothesResponseItem[] =>
+const mapProductValues = (hits: Array<AlgoliaHits>): ClotheItem[] =>
   hits.map((product) => ({
     name: product.title,
     price: product.price,

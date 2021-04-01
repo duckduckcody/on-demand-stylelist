@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { useSWRInfinite } from 'swr';
 import { FetcherError, swrFetcher } from '../../../src/util/swrFetcher';
-import { ClothesResponseItem } from '../../api/getClothes';
+import { ClotheItem } from '../../api/getClothes';
 import {
   LocalStorageKey,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
@@ -42,9 +42,7 @@ export const CategoryName = (): ReactElement => {
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const window = useWindow();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
-  const [favourites, setFavourites] = useState<
-    ClothesResponseItem[] | undefined
-  >();
+  const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
 
   const hydratedFromQueryParams = useRef(false);
   const selectedWebsites = useMemo((): string => {
@@ -53,7 +51,7 @@ export const CategoryName = (): ReactElement => {
   }, [window]);
 
   const { data, error, size, setSize } = useSWRInfinite<
-    ClothesResponseItem[],
+    ClotheItem[],
     FetcherError
   >((index) => makeUrl(query, index, limit, selectedWebsites), swrFetcher, {
     revalidateOnFocus: false,
@@ -106,7 +104,7 @@ export const CategoryName = (): ReactElement => {
         }
       }
 
-      const favourites: ClothesResponseItem[] = JSON.parse(
+      const favourites: ClotheItem[] = JSON.parse(
         window?.localStorage.getItem(LocalStorageKey.Favourites) ?? '[]'
       );
       setFavourites(favourites);
@@ -126,7 +124,7 @@ export const CategoryName = (): ReactElement => {
     setLimit(+event.target.value);
   };
 
-  const onFavouriteClick = (clothe: ClothesResponseItem) => {
+  const onFavouriteClick = (clothe: ClotheItem) => {
     if (favourites) {
       let favs;
       if (favourites?.find((fav) => fav.link === clothe.link)) {

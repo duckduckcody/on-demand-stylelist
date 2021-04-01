@@ -1,7 +1,7 @@
 import { getClothesAsos } from './asos/getClothesAsos';
 import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
 import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
-import { ClothesResponseItem, GetClothesOptions } from './getClothes';
+import { ClotheItem, GetClothesOptions } from './getClothes';
 
 export const HEADERS = {
   'User-Agent':
@@ -36,7 +36,7 @@ export const categories: Category[] = [
 export type getClothesFunction = (
   cid: string,
   requestOptions: GetClothesOptions
-) => Promise<Partial<ClothesResponseItem>[]>;
+) => Promise<Partial<ClotheItem>[]>;
 
 interface Website {
   id: number;

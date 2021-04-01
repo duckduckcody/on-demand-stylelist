@@ -3,8 +3,8 @@ import fetch from 'node-fetch';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
 import {
+  ClotheItem,
   clothesCache,
-  ClothesResponseItem,
   GetClothesOptions,
   makeClothesCacheKey,
 } from '../getClothes';
@@ -14,7 +14,7 @@ import { asosCidMap, ASOS_BASE_URL, makeAsosApiUrl } from './constants';
 export async function getClothesAsos(
   cid: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClothesResponseItem>[]> {
+): Promise<Partial<ClotheItem>[]> {
   const asosCid = asosCidMap.get(cid);
   if (!asosCid) Promise.resolve([]);
   return cacheRequest(
@@ -29,7 +29,7 @@ export async function getClothesAsos(
 const requestData = async (
   uri: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClothesResponseItem>[]> => {
+): Promise<Partial<ClotheItem>[]> => {
   const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
     headers: HEADERS,
   });
@@ -42,7 +42,7 @@ const requestData = async (
     .then(({ products }: AsosApiResponse) => mapProductValues(products));
 };
 
-const mapProductValues = (products: AsosProducts[]): ClothesResponseItem[] => {
+const mapProductValues = (products: AsosProducts[]): ClotheItem[] => {
   return products.map((product) => ({
     name: product.name,
     price: product.price.current.value,

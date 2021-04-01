@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 import { ReactElement, useState } from 'react';
-import { ClothesResponseItem } from '../../../api/getClothes';
+import { ClotheItem } from '../../../api/getClothes';
 import {
   ClotheName,
   Container,
@@ -19,9 +19,9 @@ import {
 import { Tooltip } from './Tooltip';
 
 interface Props {
-  clothe: ClothesResponseItem;
+  clothe: ClotheItem;
   isFavourited?: boolean;
-  onFavouriteClick: (clothe: ClothesResponseItem) => void;
+  onFavouriteClick: (clothe: ClotheItem) => void;
 }
 
 export const ClotheCard = ({
