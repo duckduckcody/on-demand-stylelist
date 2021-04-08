@@ -7,7 +7,7 @@ import {
   GetClothesOptions,
   makeClothesCacheKey,
 } from '../getClothes';
-import { index } from './algoliaIndex';
+import { getCultureKingsAlgoliaIndex } from './algoliaIndex';
 import {
   cultureKingsCidMap,
   CULTURE_KINGS_ALGOLIA_FILTERS,
@@ -41,7 +41,7 @@ const requestData = (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<ClotheItem[]> => {
-  return index
+  return getCultureKingsAlgoliaIndex(requestOptions.sort)
     .search<AlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
       ruleContexts: [`collection-${uri}`],
