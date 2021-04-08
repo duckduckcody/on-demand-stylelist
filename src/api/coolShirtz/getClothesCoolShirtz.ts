@@ -2,8 +2,17 @@ import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
-import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
-import { coolShirtzCidMap, COOL_SHIRTZ_BASE_URL } from './constants';
+import {
+  ClotheItem,
+  clothesCache,
+  GetClothesOptions,
+  makeClothesCacheKey,
+} from '../getClothes';
+import {
+  coolShirtzCidMap,
+  COOL_SHIRTZ_BASE_URL,
+  makeCoolShirtzUrl,
+} from './constants';
 
 export async function getClothesCoolShirtz(
   cid: string,
@@ -14,7 +23,7 @@ export async function getClothesCoolShirtz(
   const clothes = await cacheRequest(
     requestHtml,
     clothesCache,
-    `cool-shirtz-${coolShirtzCid!.uri}`,
+    makeClothesCacheKey('cool-shirtz', `${coolShirtzCid}`, requestOptions),
     coolShirtzCid!.uri,
     requestOptions
   );
@@ -31,8 +40,11 @@ const pageClothes = (
   return clothes!.slice(bottom, top);
 };
 
-const requestHtml = async (uri: string): Promise<ClotheItem[]> => {
-  const response = await fetch(`${COOL_SHIRTZ_BASE_URL}/collections/${uri}`, {
+const requestHtml = async (
+  uri: string,
+  requestOptions: GetClothesOptions
+): Promise<ClotheItem[]> => {
+  const response = await fetch(makeCoolShirtzUrl(uri, requestOptions), {
     headers: HEADERS,
   });
   if (!response.ok) {
