@@ -2,8 +2,12 @@ import { Promise } from 'bluebird';
 import fetch from 'node-fetch';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
-import { ClotheItem, clothesCache, makeClothesCacheKey } from '../getClothes';
-import { GetClothesOptions } from '../GetClothesOptions';
+import {
+  ClotheItem,
+  clothesCache,
+  GetClothesOptions,
+  makeClothesCacheKey,
+} from '../getClothes';
 import { AsosApiResponse, AsosProducts } from './AsosApiResponse';
 import { asosCidMap, ASOS_BASE_URL, makeAsosApiUrl } from './constants';
 

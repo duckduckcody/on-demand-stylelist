@@ -2,8 +2,7 @@ import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
-import { ClotheItem, clothesCache } from '../getClothes';
-import { GetClothesOptions } from '../GetClothesOptions';
+import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import { coolShirtzCidMap, COOL_SHIRTZ_BASE_URL } from './constants';
 
 export async function getClothesCoolShirtz(

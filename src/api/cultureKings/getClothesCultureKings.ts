@@ -1,8 +1,12 @@
 import { Promise } from 'bluebird';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
-import { ClotheItem, clothesCache, makeClothesCacheKey } from '../getClothes';
-import { GetClothesOptions } from '../GetClothesOptions';
+import {
+  ClotheItem,
+  clothesCache,
+  GetClothesOptions,
+  makeClothesCacheKey,
+} from '../getClothes';
 import { index } from './algoliaIndex';
 import {
   cultureKingsCidMap,

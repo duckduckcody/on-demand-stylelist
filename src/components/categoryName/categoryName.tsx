@@ -1,4 +1,4 @@
-import { flatten } from 'lodash';
+import { flatten, startCase } from 'lodash';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, {
@@ -12,11 +12,15 @@ import { useSWRInfinite } from 'swr';
 import { FetcherError, swrFetcher } from '../../../src/util/swrFetcher';
 import { ClotheItem } from '../../api/getClothes';
 import {
+  ClotheSortOption,
+  clotheSortOptions,
   LocalStorageKey,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
+  parseClotheSortOption,
   Paths,
 } from '../../constants';
 import { capitaliseString } from '../../util/capitaliseString';
+import { useUpdateUrl } from '../../util/useUpdateUrl';
 import { useWindow } from '../../util/useWindow';
 import {
   ButtonContainer,
@@ -40,11 +44,14 @@ export interface QueryParams {
 export const CategoryName = (): ReactElement => {
   const { query, replace: routerReplace, isReady: routerIsReady } = useRouter();
   const [limit, setLimit] = useState<number | undefined>(undefined);
+  const [clotheSortOption, setClotheSortOption] = useState<
+    ClotheSortOption | undefined
+  >(undefined);
   const window = useWindow();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
   const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
-
   const hydratedFromQueryParams = useRef(false);
+
   const selectedWebsites = useMemo((): string => {
     if (!window) return '[]';
     return window.localStorage.getItem('websites') ?? '[]';
@@ -53,31 +60,23 @@ export const CategoryName = (): ReactElement => {
   const { data, error, size, setSize } = useSWRInfinite<
     ClotheItem[],
     FetcherError
-  >((index) => makeUrl(query, index, limit, selectedWebsites), swrFetcher, {
-    revalidateOnFocus: false,
-  });
-
-  useEffect(() => {
-    if (size && url && url.searchParams.get('page') !== `${size}`) {
-      url.searchParams.set('page', `${size}`);
-      routerReplace(url.href, url.href, { scroll: false, shallow: true });
+  >(
+    (index) => makeUrl(query, index, limit, selectedWebsites, clotheSortOption),
+    swrFetcher,
+    {
+      revalidateOnFocus: false,
     }
-  }, [size, routerReplace, url?.href, url?.searchParams, url]);
+  );
 
-  useEffect(() => {
-    if (limit && url && url.searchParams.get('limit') !== `${limit}`) {
-      url.searchParams.set('limit', `${limit}`);
-      routerReplace(url.href, url.href, { scroll: false, shallow: true });
-      window?.localStorage.setItem('limit', `${limit}`);
-    }
-  }, [
-    limit,
-    routerReplace,
+  useUpdateUrl(size, 'page', url, routerReplace);
+  useUpdateUrl(limit, 'limit', url, routerReplace, true);
+  useUpdateUrl(
+    clotheSortOption,
+    LocalStorageKey.Sort,
     url,
-    url?.href,
-    url?.searchParams,
-    window?.localStorage,
-  ]);
+    routerReplace,
+    true
+  );
 
   useEffect(() => {
     if (!hydratedFromQueryParams.current && routerIsReady) {
@@ -108,6 +107,13 @@ export const CategoryName = (): ReactElement => {
         window?.localStorage.getItem(LocalStorageKey.Favourites) ?? '[]'
       );
       setFavourites(favourites);
+
+      const sort = parseClotheSortOption(
+        window?.localStorage.getItem(LocalStorageKey.Sort)
+      );
+      sort
+        ? setClotheSortOption(sort)
+        : setClotheSortOption(ClotheSortOption.NEWEST);
     }
   }, [
     query?.limit,
@@ -122,6 +128,13 @@ export const CategoryName = (): ReactElement => {
   const changeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     setLimit(+event.target.value);
+  };
+
+  const changeClotheSortOption = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    event.preventDefault();
+    setClotheSortOption(parseClotheSortOption(event.target.value));
   };
 
   const onFavouriteClick = (clothe: ClotheItem) => {
@@ -182,6 +195,14 @@ export const CategoryName = (): ReactElement => {
             {LIMIT_OPTIONS.map((limitOption) => (
               <option key={limitOption} value={limitOption}>
                 {limitOption}
+              </option>
+            ))}
+          </select>
+          <label htmlFor='sort'>Sort&nbsp;</label>
+          <select value={clotheSortOption} onChange={changeClotheSortOption}>
+            {clotheSortOptions.map((sortOption) => (
+              <option key={sortOption} value={sortOption}>
+                {startCase(sortOption)}
               </option>
             ))}
           </select>

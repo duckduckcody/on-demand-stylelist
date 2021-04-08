@@ -1,10 +1,12 @@
+import { ClotheSortOption } from '../../constants';
 import { QueryParams } from './categoryName';
 
 export const makeUrl = (
   query: QueryParams,
-  index = 0,
+  index: number,
   limit: number | undefined,
-  selectedWebsites: string
+  selectedWebsites: string,
+  clotheSortOption: ClotheSortOption | undefined
 ): string | null => {
   const { gender, categoryName } = query;
 
@@ -13,9 +15,9 @@ export const makeUrl = (
   const url = `/api/clothes/${gender}/${categoryName}`;
 
   const searchParams = new URLSearchParams();
-  searchParams.append('page', (index + 1).toString());
-  searchParams.append('limit', limit.toString());
+  searchParams.append('page', `${index + 1}`);
   searchParams.append('selectedWebsites', selectedWebsites);
-  searchParams.append('sort', 'bald');
-  return `${url}?${searchParams.toString()}`;
+  limit && searchParams.append('limit', `${limit}`);
+  clotheSortOption && searchParams.append('sort', clotheSortOption);
+  return `${url}?${searchParams}`;
 };

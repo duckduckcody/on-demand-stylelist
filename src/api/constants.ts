@@ -1,8 +1,7 @@
 import { getClothesAsos } from './asos/getClothesAsos';
 import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
 import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
-import { ClotheItem } from './getClothes';
-import { GetClothesOptions } from './GetClothesOptions';
+import { ClotheItem, GetClothesOptions } from './getClothes';
 
 export const HEADERS = {
   'User-Agent':
@@ -14,7 +13,7 @@ export const DEFAULT_RESPONSE_LIMIT = 10;
 
 export const USE_CACHE = true;
 
-type Gender = 'men' | 'women' | 'unisex';
+export type Gender = 'men' | 'women' | 'unisex';
 
 export interface Category {
   id: number;

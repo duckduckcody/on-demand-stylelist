@@ -1,7 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { categories } from '../../../../src/api/constants';
-import { getClothes } from '../../../../src/api/getClothes';
-import { NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE } from '../../../../src/constants';
+import * as z from 'zod';
+import {
+  categories,
+  DEFAULT_RESPONSE_LIMIT,
+} from '../../../../src/api/constants';
+import { getClothes, GetClothesOptions } from '../../../../src/api/getClothes';
+import {
+  ClotheSortOption,
+  NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
+  parseClotheSortOption,
+} from '../../../../src/constants';
+import { safeParseStringToInt } from '../../../../src/util/safeParseStringToInt';
+
+const CategoryNameApiQuerySchema = z.object({
+  categoryName: z.string(),
+  gender: z.string(),
+  selectedWebsites: z.string(),
+  page: z.string().optional(),
+  limit: z.string().optional(),
+  sort: z.string().optional(),
+});
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,8 +33,10 @@ export default async function handler(
     selectedWebsites,
     sort,
   } = req.query;
-  if (!categoryName)
-    return res.status(404).json({ message: 'clothe category not provided' });
+
+  const response = CategoryNameApiQuerySchema.safeParse(req.query);
+  if (!response.success)
+    return res.status(400).json({ message: response.error });
 
   const category = categories.find(
     (category) => category.name === categoryName && category.gender === gender
@@ -31,11 +51,21 @@ export default async function handler(
       .status(400)
       .json({ message: NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE });
 
-  const clothes = await getClothes(`${category.id}`, parsedSelectedWebsites, {
-    page: +`${page}`,
-    limit: +`${limit}`,
-    sort: `${sort}`,
-  });
+  const clotheOptions: GetClothesOptions = {
+    limit: safeParseStringToInt(limit) ?? DEFAULT_RESPONSE_LIMIT,
+    page: safeParseStringToInt(page) ?? 1,
+    sort: parseClotheSortOption(sort) ?? ClotheSortOption.NEWEST,
+  };
+  console.log(
+    'sort used',
+    parseClotheSortOption(sort) ?? ClotheSortOption.NEWEST
+  );
+
+  const clothes = await getClothes(
+    `${category.id}`,
+    parsedSelectedWebsites,
+    clotheOptions
+  );
 
   return res.status(200).json(clothes);
 }

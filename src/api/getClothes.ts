@@ -1,11 +1,8 @@
 import { Promise } from 'bluebird';
 import { flatten } from 'lodash';
 import NodeCache from 'node-cache';
-import { DEFAULT_RESPONSE_LIMIT, websites } from './constants';
-import {
-  GetClothesOptions,
-  GetClothesOptionsSchema,
-} from './GetClothesOptions';
+import { ClotheSortOption } from '../constants';
+import { websites } from './constants';
 
 export const clothesCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
@@ -23,32 +20,21 @@ export interface ClotheItem {
   website: string;
 }
 
-export type Sort =
-  | 'priceHighToLow'
-  | 'priceLowToHigh'
-  | 'bestSelling'
-  | 'newest';
+export interface GetClothesOptions {
+  limit: number;
+  page: number;
+  sort: ClotheSortOption;
+}
 
 export const getClothes = async (
   cid: string,
   selectedWebsites: string[],
-  requestOptions: Partial<GetClothesOptions>
-): Promise<Partial<ClotheItem>[]> => {
-  const completeRequestOptions: GetClothesOptions = {
-    limit: requestOptions?.limit ?? DEFAULT_RESPONSE_LIMIT,
-    page: requestOptions?.page ?? 1,
-    sort: requestOptions?.sort ?? 'newest',
-  };
-
-  const response = GetClothesOptionsSchema.safeParse(completeRequestOptions);
-  console.log('response', response);
-  // res.status(404).json({ message: 'clothe category not found' });
-
-  return await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
+  requestOptions: GetClothesOptions
+): Promise<Partial<ClotheItem>[]> =>
+  await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
     const website = websites.find(
       (website) => website.id === +selectedWebsiteId
     );
     if (!website) return [];
-    return website.function(cid, completeRequestOptions);
+    return website.function(cid, requestOptions);
   }).then((res) => flatten(res));
-};
