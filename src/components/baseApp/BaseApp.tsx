@@ -41,16 +41,22 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
         <GlobalStyle />
         <HeaderContainer>
           <HeaderLinkContainer>
-            <Link href='/'>
-              <HeaderLinkTitle>STYLELIST</HeaderLinkTitle>
-            </Link>
             <Link href='/websites'>
-              <HeaderLink>websites</HeaderLink>
+              <HeaderLink>Websites</HeaderLink>
             </Link>
             <Link href='/favourites'>
-              <HeaderLink>favourites</HeaderLink>
+              <HeaderLink>Favourites</HeaderLink>
+            </Link>
+            <Link href='/mens'>
+              <HeaderLink>Mens</HeaderLink>
+            </Link>
+            <Link href='/womens'>
+              <HeaderLink>Womens</HeaderLink>
             </Link>
           </HeaderLinkContainer>
+          <Link href='/'>
+            <HeaderLinkTitle>STYLELIST</HeaderLinkTitle>
+          </Link>
           <DarkModeIconContainer>
             {!lightMode && (
               <StyledFontAwesomeIcon icon={faSun} onClick={onThemeClick} />

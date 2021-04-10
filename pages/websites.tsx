@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { StaticSafeWebsite, staticSafeWebsites } from '../src/api/constants';
-import { LocalStorageKey } from '../src/constants';
+import { Gender, LocalStorageKey, Paths } from '../src/constants';
 
 export const getStaticProps: GetStaticProps = async () => ({
   props: { websites: staticSafeWebsites },
@@ -20,6 +20,11 @@ const StyledButton = styled.button`
 export default function Websites({ websites }: Props): ReactElement {
   const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);
   const [onBoardMode, setOnBoardMode] = useState(false);
+  const preferredGender = useMemo(
+    () =>
+      process.browser && window.localStorage.getItem(LocalStorageKey.Gender),
+    []
+  );
 
   useEffect(() => {
     if (process.browser) {
@@ -69,7 +74,7 @@ export default function Websites({ websites }: Props): ReactElement {
       ))}
       {onBoardMode && <p>Please select at least one website</p>}
       {!onBoardMode && (
-        <Link href='/'>
+        <Link href={preferredGender === Gender.MEN ? Paths.mens : Paths.womens}>
           <StyledButton>Categories</StyledButton>
         </Link>
       )}

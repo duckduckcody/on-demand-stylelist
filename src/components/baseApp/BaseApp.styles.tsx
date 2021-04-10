@@ -51,6 +51,10 @@ export const HeaderLinkTitle = styled(HeaderLink)`
   margin: 0 24px 0 0;
   font-size: 2rem;
   font-weight: 700;
+
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 export const DarkModeIconContainer = styled.div`

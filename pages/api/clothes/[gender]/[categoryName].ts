@@ -1,11 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import {
-  categories,
-  DEFAULT_RESPONSE_LIMIT,
-} from '../../../../src/api/constants';
+import { DEFAULT_RESPONSE_LIMIT } from '../../../../src/api/constants';
 import { getClothes, GetClothesOptions } from '../../../../src/api/getClothes';
 import {
+  categories,
   ClotheSortOption,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
@@ -56,10 +54,6 @@ export default async function handler(
     page: safeParseStringToInt(page) ?? 1,
     sort: parseClotheSortOption(sort) ?? ClotheSortOption.NEWEST,
   };
-  console.log(
-    'sort used',
-    parseClotheSortOption(sort) ?? ClotheSortOption.NEWEST
-  );
 
   const clothes = await getClothes(
     `${category.id}`,
