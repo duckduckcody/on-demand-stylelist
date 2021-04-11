@@ -13,7 +13,7 @@ import { FetcherError, swrFetcher } from '../../../src/util/swrFetcher';
 import { ClotheItem } from '../../api/getClothes';
 import {
   ClotheSortOption,
-  clotheSortOptions,
+  clotheSortOptionValues,
   LocalStorageKey,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
@@ -198,9 +198,10 @@ export const CategoryName = (): ReactElement => {
               </option>
             ))}
           </select>
+          &nbsp; &nbsp;
           <label htmlFor='sort'>Sort&nbsp;</label>
           <select value={clotheSortOption} onChange={changeClotheSortOption}>
-            {clotheSortOptions.map((sortOption) => (
+            {clotheSortOptionValues.map((sortOption) => (
               <option key={sortOption} value={sortOption}>
                 {startCase(sortOption)}
               </option>

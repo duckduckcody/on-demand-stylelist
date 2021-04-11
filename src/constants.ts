@@ -1,3 +1,5 @@
+import { parseToEnumValue } from './util/parseToEnumValue';
+
 export const NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE =
   'no websites selected';
 
@@ -6,6 +8,7 @@ export enum LocalStorageKey {
   Favourites = 'favourites',
   Sort = 'sort',
   Gender = 'gender',
+  LightMode = 'lightMode',
 }
 
 export enum Paths {
@@ -21,19 +24,21 @@ export enum ClotheSortOption {
   PRICE_HIGH_TO_LOW = 'priceHighToLow',
 }
 
-export const clotheSortOptions: string[] = Object.values(ClotheSortOption);
+export const clotheSortOptionValues: string[] = Object.values(ClotheSortOption);
 export const parseClotheSortOption = (
-  sort: string | string[] | undefined | null
-): ClotheSortOption | undefined => {
-  if (clotheSortOptions.includes(`${sort}`)) return sort as ClotheSortOption;
-  return undefined;
-};
+  value: unknown
+): ClotheSortOption | undefined =>
+  parseToEnumValue<ClotheSortOption>(value, clotheSortOptionValues);
 
 export enum Gender {
   MEN = 'mens',
   WOMEN = 'womens',
   UNISEX = 'unisex',
 }
+
+export const genderValues: string[] = Object.values(Gender);
+export const parseGender = (value: unknown): Gender | undefined =>
+  parseToEnumValue<Gender>(value, genderValues);
 
 export interface Category {
   id: number;

@@ -1,34 +1,55 @@
-import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
-import Link from 'next/link';
-import { ReactElement, useEffect, useState } from 'react';
-import { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from '../../themes';
 import {
-  ContentContainer,
-  DarkModeIconContainer,
-  GlobalStyle,
-  HeaderContainer,
-  HeaderLink,
-  HeaderLinkContainer,
-  HeaderLinkTitle,
-  StyledFontAwesomeIcon,
-} from './BaseApp.styles';
+  createContext,
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
+import { ThemeProvider } from 'styled-components';
+import { Gender, LocalStorageKey } from '../../constants';
+import { darkTheme, lightTheme } from '../../themes';
+import { Header } from '../header/Header';
+import { ContentContainer, GlobalStyle } from './BaseApp.styles';
 import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
 
+export const PreferredGenderContext = createContext<{
+  preferredGender: Gender | undefined;
+  setPreferredGender: Dispatch<SetStateAction<Gender | undefined>>;
+}>({
+  preferredGender: undefined,
+  setPreferredGender: () => {},
+});
+
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
+  const isHome = process.browser && window.location.pathname === '/';
   const [lightMode, setLightMode] = useState(false);
-  const onThemeClick = () => {
-    setLightMode(!lightMode);
-    window.localStorage.setItem('lightMode', `${!lightMode}`);
-  };
+  const [preferredGender, setPreferredGender] = useState<Gender | undefined>(
+    undefined
+  );
+
+  console.log(`isHome: ${isHome}`, `preferredGender: ${preferredGender}`);
 
   useEffect(
-    () => setLightMode(window.localStorage.getItem('lightMode') === 'true'),
+    () =>
+      setLightMode(
+        window.localStorage.getItem(LocalStorageKey.LightMode) === 'true'
+      ),
     []
   );
+
+  useEffect(
+    () => window.localStorage.setItem(LocalStorageKey.Gender, Gender.MEN),
+    [preferredGender]
+  );
+
+  const onThemeClick = () => {
+    setLightMode(!lightMode);
+    window.localStorage.setItem(LocalStorageKey.LightMode, `${!lightMode}`);
+  };
 
   return (
     <>
@@ -38,37 +59,23 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
         <Favicon favicon='📜' />
       </Head>
       <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
-        <GlobalStyle />
-        <HeaderContainer>
-          <HeaderLinkContainer>
-            <Link href='/websites'>
-              <HeaderLink>Websites</HeaderLink>
-            </Link>
-            <Link href='/favourites'>
-              <HeaderLink>Favourites</HeaderLink>
-            </Link>
-            <Link href='/mens'>
-              <HeaderLink>Mens</HeaderLink>
-            </Link>
-            <Link href='/womens'>
-              <HeaderLink>Womens</HeaderLink>
-            </Link>
-          </HeaderLinkContainer>
-          <Link href='/'>
-            <HeaderLinkTitle>STYLELIST</HeaderLinkTitle>
-          </Link>
-          <DarkModeIconContainer>
-            {!lightMode && (
-              <StyledFontAwesomeIcon icon={faSun} onClick={onThemeClick} />
-            )}
-            {lightMode && (
-              <StyledFontAwesomeIcon icon={faMoon} onClick={onThemeClick} />
-            )}
-          </DarkModeIconContainer>
-        </HeaderContainer>
-        <ContentContainer>
-          <Component {...pageProps} />
-        </ContentContainer>
+        <PreferredGenderContext.Provider
+          value={{ preferredGender, setPreferredGender }}
+        >
+          <GlobalStyle />
+          <Header
+            onThemeClick={onThemeClick}
+            lightMode={lightMode}
+            isHome={isHome}
+            preferredGender={preferredGender}
+          />
+          <ContentContainer
+            preferredGender={Boolean(preferredGender)}
+            isHome={isHome}
+          >
+            <Component {...pageProps} />
+          </ContentContainer>
+        </PreferredGenderContext.Provider>
       </ThemeProvider>
     </>
   );

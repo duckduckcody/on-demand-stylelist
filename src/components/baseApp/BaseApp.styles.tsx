@@ -1,5 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled, { createGlobalStyle } from 'styled-components';
+import {
+  HEADER_PRIMARY_HEIGHT,
+  HEADER_SECONDARY_HEIGHT,
+} from '../header/Header.styles';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -11,63 +14,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const HeaderContainer = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  background-color: ${(props) => props.theme.headerBackgroundColor};
-  padding: 12px 24px;
-  border-bottom: 1px solid #373737;
-  height: 64px;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-`;
-
-export const HeaderLinkContainer = styled.div`
-  display: flex;
-  justify-items: center;
-  align-items: center;
-`;
-
-export const HeaderLink = styled.span`
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 300;
-  margin: 0 12px 0 0;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:last-child {
-    margin: 0;
-  }
-`;
-
-export const HeaderLinkTitle = styled(HeaderLink)`
-  margin: 0 24px 0 0;
-  font-size: 2rem;
-  font-weight: 700;
-
-  &:hover {
-    text-decoration: none;
-  }
-`;
-
-export const DarkModeIconContainer = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-`;
-
-export const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
-  width: 1.5rem;
-`;
-
-export const ContentContainer = styled.div`
-  margin: 76px 24px 12px;
+export const ContentContainer = styled.div<{
+  preferredGender: boolean;
+  isHome: boolean;
+}>`
+  margin: ${(props) =>
+      props.preferredGender && !props.isHome
+        ? HEADER_PRIMARY_HEIGHT + HEADER_SECONDARY_HEIGHT + 12
+        : HEADER_PRIMARY_HEIGHT + 12}px
+    24px 12px;
 `;

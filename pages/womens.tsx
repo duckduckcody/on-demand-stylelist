@@ -1,13 +1,9 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import {
-  categories,
-  Category,
-  Gender,
-  LocalStorageKey,
-} from '../src/constants';
+import { PreferredGenderContext } from '../src/components/baseApp/BaseApp';
+import { categories, Category, Gender } from '../src/constants';
 
 const CategoryLink = styled.a`
   text-transform: capitalize;
@@ -30,9 +26,8 @@ interface Props {
 }
 
 export default function Womens({ categories }: Props): ReactElement {
-  useEffect(() => {
-    window.localStorage.setItem(LocalStorageKey.Gender, Gender.WOMEN);
-  }, []);
+  const { setPreferredGender } = useContext(PreferredGenderContext);
+  useEffect(() => setPreferredGender(Gender.WOMEN), [setPreferredGender]);
 
   return (
     <>
@@ -42,7 +37,7 @@ export default function Womens({ categories }: Props): ReactElement {
           href={`/clothes/${category.gender}/${category.name}`}
         >
           <CategoryLink>
-            {category.gender}&apos;s {category.name}
+            {category.gender.replace(`s`, `'s`)} {category.name}
           </CategoryLink>
         </Link>
       ))}
