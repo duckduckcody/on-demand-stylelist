@@ -1,12 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 
-const MENS_IMAGE =
-  'https://culture-kings.imgix.net/collections/CKRTN_LK5.jpg?v=1617248817&auto=compress,format';
-
-const WOMENS_IMAGE =
-  'https://culture-kings.imgix.net/collections/image3.jpg?v=1614309442&auto=compress,format';
+const SHOP_MENS_IMAGE_URL = '/shop_mens.webp';
+const SHOP_WOMENS_IMAGE_URL = '/shop_womens.webp';
 
 const Container = styled.div`
   margin: -12px -24px -12px;
@@ -15,7 +13,11 @@ const Container = styled.div`
   grid-template-rows: 1fr;
 `;
 
-const ImageContainer = styled.a`
+const StyledImage = styled(Image)`
+  z-index: -1;
+`;
+
+const ShopContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -23,33 +25,41 @@ const ImageContainer = styled.a`
   font-weight: bold;
   font-size: 1.5rem;
   cursor: pointer;
+  position: relative;
   height: calc(100vh - 64px);
+  width: 50vw;
 
-  &:hover {
-    background-blend-mode: darken;
+  &:hover ${StyledImage} {
+    opacity: 0.5;
   }
-`;
-
-const ShopMensContainer = styled(ImageContainer)`
-  background: center / cover no-repeat rgba(0, 0, 0, 0.5) url(${MENS_IMAGE});
-`;
-
-const ShopWomensContainer = styled(ImageContainer)`
-  background: center / cover no-repeat rgba(0, 0, 0, 0.5) url(${WOMENS_IMAGE});
 `;
 
 export default function Home(): ReactElement {
   return (
     <Container>
       <Link href={`/mens`}>
-        <ShopMensContainer>
-          <span>SHOP MENS</span>
-        </ShopMensContainer>
+        <ShopContainer>
+          <StyledImage
+            src={SHOP_MENS_IMAGE_URL}
+            alt='Shop Mens'
+            layout='fill'
+            objectFit='cover'
+            quality={100}
+          />
+          <span>SHOP WOMENS</span>
+        </ShopContainer>
       </Link>
       <Link href={`/womens`}>
-        <ShopWomensContainer>
+        <ShopContainer>
+          <StyledImage
+            src={SHOP_WOMENS_IMAGE_URL}
+            alt='Shop Womens'
+            layout='fill'
+            objectFit='cover'
+            quality={100}
+          />
           <span>SHOP WOMENS</span>
-        </ShopWomensContainer>
+        </ShopContainer>
       </Link>
     </Container>
   );
