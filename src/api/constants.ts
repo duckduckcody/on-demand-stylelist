@@ -11,7 +11,7 @@ export const HEADERS = {
 
 export const DEFAULT_RESPONSE_LIMIT = 10;
 
-export const USE_CACHE = true;
+export const USE_CACHE = false;
 
 export type getClothesFunction = (
   cid: string,
