@@ -15,8 +15,10 @@ export async function getClothesAsos(
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> {
+  console.log('start getClothesAsos');
   const asosCid = asosCidMap.get(cid);
   if (!asosCid) Promise.resolve([]);
+  console.log('calling cache request');
   return cacheRequest(
     requestData,
     clothesCache,
@@ -30,10 +32,11 @@ const requestData = async (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
-  console.log('url', makeAsosApiUrl(uri, requestOptions));
+  console.log('making url', makeAsosApiUrl(uri, requestOptions));
   const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
     headers: HEADERS,
   });
+  console.log('after fetch', response);
   if (!response.ok) {
     return response.json().then((res: unknown) => {
       console.log('asos err', res);
