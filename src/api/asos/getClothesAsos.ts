@@ -34,7 +34,7 @@ const requestData = async (
 ): Promise<Partial<ClotheItem>[]> => {
   console.log('making url', makeAsosApiUrl(uri, requestOptions));
   const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
-    headers: HEADERS,
+    headers: { ...HEADERS, Referer: ASOS_BASE_URL.replace('/au', '') },
   });
   console.log('after fetch', response);
   if (!response.ok) {
