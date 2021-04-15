@@ -31,11 +31,12 @@ export const HeaderLinkContainer = styled.div`
   align-items: center;
 `;
 
-export const HeaderLink = styled.span`
+export const HeaderLink = styled.span<{ selected?: boolean }>`
   cursor: pointer;
   font-size: 1rem;
   font-weight: 300;
   margin: 0 12px 0 0;
+  text-decoration: ${(p) => (p.selected ? 'underline' : 'none')};
 
   &:hover {
     text-decoration: underline;

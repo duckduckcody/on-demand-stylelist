@@ -25,6 +25,7 @@ export const PreferredGenderContext = createContext<{
 });
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
+  const pathName = process.browser ? window.location.pathname : undefined;
   const isHome = process.browser && window.location.pathname === '/';
   const [lightMode, setLightMode] = useState(false);
   const [preferredGender, setPreferredGender] = useState<Gender | undefined>(
@@ -68,6 +69,7 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
             lightMode={lightMode}
             isHome={isHome}
             preferredGender={preferredGender}
+            pathName={pathName}
           />
           <ContentContainer
             preferredGender={Boolean(preferredGender)}

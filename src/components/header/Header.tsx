@@ -19,6 +19,7 @@ interface Props {
   lightMode: boolean;
   isHome: boolean;
   preferredGender: Gender | undefined;
+  pathName: string | undefined;
 }
 
 export const Header = ({
@@ -26,8 +27,11 @@ export const Header = ({
   lightMode,
   isHome,
   preferredGender,
+  pathName,
 }: Props): ReactElement => {
   const isShowingSecondaryHeading = Boolean(preferredGender) && !isHome;
+  const categoryPath =
+    preferredGender === Gender.MEN ? Paths.mens : Paths.womens;
 
   return (
     <HeaderContainer>
@@ -67,13 +71,15 @@ export const Header = ({
       </PrimaryHeaderContainer>
       {isShowingSecondaryHeading && (
         <SecondaryHeaderContainer>
-          <Link
-            href={preferredGender === Gender.MEN ? Paths.mens : Paths.womens}
-          >
-            <HeaderLink>Categories</HeaderLink>
+          <Link href={categoryPath}>
+            <HeaderLink selected={pathName === categoryPath}>
+              Categories
+            </HeaderLink>
           </Link>
-          <Link href='/websites'>
-            <HeaderLink>Websites</HeaderLink>
+          <Link href={Paths.websites}>
+            <HeaderLink selected={pathName === Paths.websites}>
+              Websites
+            </HeaderLink>
           </Link>
         </SecondaryHeaderContainer>
       )}
