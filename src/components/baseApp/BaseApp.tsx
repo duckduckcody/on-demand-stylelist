@@ -32,8 +32,6 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
     undefined
   );
 
-  console.log(`isHome: ${isHome}`, `preferredGender: ${preferredGender}`);
-
   useEffect(
     () =>
       setLightMode(
