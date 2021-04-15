@@ -9,7 +9,6 @@ export const ASOS_BASE_API_URL =
 export const ASOS_HEADERS = {
   'asos-c-name': 'asos-web-product-listing-page',
   'asos-c-plat': 'web',
-  Host: 'www.asos.com',
   Accept: '*/*',
   Pragma: 'no-cache',
   TE: 'Trailers',
