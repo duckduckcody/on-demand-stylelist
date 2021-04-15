@@ -43,7 +43,9 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   );
 
   useEffect(
-    () => window.localStorage.setItem(LocalStorageKey.Gender, Gender.MEN),
+    () =>
+      preferredGender &&
+      window.localStorage.setItem(LocalStorageKey.Gender, preferredGender),
     [preferredGender]
   );
 
