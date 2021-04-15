@@ -6,6 +6,16 @@ export const ASOS_BASE_URL = 'https://www.asos.com/au';
 export const ASOS_BASE_API_URL =
   'https://www.asos.com/api/product/search/v2/categories/';
 
+export const ASOS_HEADERS = {
+  'asos-c-name': 'asos-web-product-listing-page',
+  'asos-c-plat': 'web',
+  Accept: '*/*',
+  Host: 'www.asos.com',
+  Pragma: 'no-cache',
+  TE: 'Trailers',
+  Referer: ASOS_BASE_URL,
+};
+
 export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, '')
   .set(ClotheSortOption.NEWEST, 'freshness')
@@ -16,7 +26,7 @@ const makeAsosApiQueryString = (requestOptions: GetClothesOptions) => {
   const { page, limit } = requestOptions;
   const offSet = page === 1 ? 1 : page * limit;
   const sort = sortToApiQueryValueMap.get(requestOptions.sort);
-  return `?channel=desktop-web&country=AU&currency=AUD&lang=en-AU&offset=${offSet}&store=AU&limit=${limit}${
+  return `?channel=desktop-web&country=AU&currency=AUD&lang=en-AU&store=AU&offset=${offSet}&limit=${limit}${
     sort ? `&sort=${sort}` : ''
   }`;
 };

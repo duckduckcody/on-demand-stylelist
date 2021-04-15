@@ -9,7 +9,12 @@ import {
   makeClothesCacheKey,
 } from '../getClothes';
 import { AsosApiResponse, AsosProducts } from './AsosApiResponse';
-import { asosCidMap, ASOS_BASE_URL, makeAsosApiUrl } from './constants';
+import {
+  asosCidMap,
+  ASOS_BASE_URL,
+  ASOS_HEADERS,
+  makeAsosApiUrl,
+} from './constants';
 
 export async function getClothesAsos(
   cid: string,
@@ -34,11 +39,14 @@ const requestData = async (
 ): Promise<Partial<ClotheItem>[]> => {
   console.log('making url', makeAsosApiUrl(uri, requestOptions));
   const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
-    headers: { ...HEADERS, Referer: ASOS_BASE_URL.replace('/au', '') },
+    headers: {
+      ...HEADERS,
+      ...ASOS_HEADERS,
+    },
   });
   console.log('after fetch', response);
   if (!response.ok) {
-    return response.json().then((res: unknown) => {
+    return response.text().then((res: unknown) => {
       console.log('asos err', res);
       return [{ error: res }];
     });
