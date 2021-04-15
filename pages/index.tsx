@@ -8,9 +8,15 @@ const SHOP_WOMENS_IMAGE_URL = '/shop_womens.webp';
 
 const Container = styled.div`
   margin: -12px -24px -12px;
+  height: (100vh - 64px);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 `;
 
 const StyledImage = styled(Image)`
@@ -31,6 +37,11 @@ const ShopContainer = styled.div`
 
   &:hover ${StyledImage} {
     opacity: 0.5;
+  }
+
+  @media (max-width: 768px) {
+    height: calc(50vh - 32px);
+    width: 100vw;
   }
 `;
 
