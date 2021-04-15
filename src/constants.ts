@@ -1,5 +1,7 @@
 import { parseToEnumValue } from './util/parseToEnumValue';
 
+export const MOBILE_BREAKPOINT = '768px';
+
 export const NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE =
   'no websites selected';
 
@@ -53,7 +55,13 @@ export const categories: Category[] = [
   { id: 3003, name: 'shorts', gender: Gender.MEN },
   { id: 3007, name: 'boots', gender: Gender.MEN },
   { id: 3008, name: 'shoes', gender: Gender.MEN },
-  { id: 3004, name: 'tshirts', gender: Gender.MEN },
+  { id: 3004, name: 'shirts', gender: Gender.MEN },
   { id: 3005, name: 'skirts', gender: Gender.WOMEN },
   { id: 3006, name: 'dresses', gender: Gender.WOMEN },
 ];
+
+export const makeCategoryLink = (category: Category): string =>
+  `/clothes/${category.gender}/${category.name}`;
+
+export const makeCategoryImageLink = (category: Category): string =>
+  `/shop_${category.gender}_${category.name}.webp`;
