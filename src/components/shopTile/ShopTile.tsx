@@ -9,13 +9,12 @@ const Tile = styled.div<{ imageSrc: string }>`
   justify-content: center;
   font-weight: bold;
   cursor: pointer;
-  background: center / cover no-repeat rgba(0, 0, 0, 0.2)
-    url(${(p) => p.imageSrc});
-  text-shadow: 2px 2px 2px
-    ${(props) => props.theme.secondaryHeaderBackgroundColor};
+  background: center / cover no-repeat url(${(p) => p.imageSrc});
+  background-color: rgba(0, 0, 0, 0.1);
+  background-blend-mode: darken;
 
   &:hover {
-    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.3);
   }
 `;
 
