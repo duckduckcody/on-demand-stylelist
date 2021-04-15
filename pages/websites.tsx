@@ -2,15 +2,15 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { StaticSafeWebsite, staticSafeWebsites } from '../src/api/constants';
+import { websiteData, WebsiteData } from '../src/api/constants';
 import { Gender, LocalStorageKey, Paths } from '../src/constants';
 
 export const getStaticProps: GetStaticProps = async () => ({
-  props: { websites: staticSafeWebsites },
+  props: { websites: websiteData },
 });
 
 interface Props {
-  websites: StaticSafeWebsite[];
+  websites: WebsiteData[];
 }
 
 const StyledButton = styled.button`

@@ -31,10 +31,8 @@ export const websites: Website[] = [
   { id: 4002, name: 'Culture Kings', function: getClothesCultureKings },
 ];
 
-export type StaticSafeWebsite = Omit<Website, 'function'>;
-export const staticSafeWebsites: StaticSafeWebsite[] = websites.map(
-  (website) => ({
-    id: website.id,
-    name: website.name,
-  })
-);
+export type WebsiteData = Omit<Website, 'function'>;
+export const websiteData: WebsiteData[] = websites.map((website) => ({
+  id: website.id,
+  name: website.name,
+}));
