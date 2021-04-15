@@ -10,7 +10,6 @@ export const ASOS_HEADERS = {
   'asos-c-name': 'asos-web-product-listing-page',
   'asos-c-plat': 'web',
   Accept: '*/*',
-  Host: 'www.asos.com',
   Pragma: 'no-cache',
   TE: 'Trailers',
   Referer: ASOS_BASE_URL,
