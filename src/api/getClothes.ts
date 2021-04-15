@@ -18,6 +18,7 @@ export interface ClotheItem {
   link: string;
   image: string;
   website: string;
+  error?: unknown;
 }
 
 export interface GetClothesOptions {

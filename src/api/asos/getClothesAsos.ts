@@ -30,12 +30,15 @@ const requestData = async (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
+  console.log('url', makeAsosApiUrl(uri, requestOptions));
   const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
     headers: HEADERS,
   });
   if (!response.ok) {
-    response.json().then((err: unknown) => console.log('error', err));
-    Promise.resolve([]);
+    return response.json().then((res: unknown) => {
+      console.log('asos err', res);
+      return [{ error: res }];
+    });
   }
   return response
     .json()
