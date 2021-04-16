@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
 import {
   DEFAULT_CLOTHE_SORT,
-  DEFAULT_RESPONSE_LIMIT,
+  DEFAULT_CLOTHE_LIMIT,
 } from '../../../../src/api/config';
 import { getClothes, GetClothesOptions } from '../../../../src/api/getClothes';
 import {
@@ -52,7 +52,7 @@ export default async function handler(
       .json({ message: NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE });
 
   const clotheOptions: GetClothesOptions = {
-    limit: safeParseStringToInt(limit) ?? DEFAULT_RESPONSE_LIMIT,
+    limit: safeParseStringToInt(limit) ?? DEFAULT_CLOTHE_LIMIT,
     page: safeParseStringToInt(page) ?? 1,
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
