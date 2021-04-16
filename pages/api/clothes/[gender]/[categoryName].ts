@@ -1,10 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import { DEFAULT_RESPONSE_LIMIT } from '../../../../src/api/constants';
+import {
+  DEFAULT_CLOTHE_SORT,
+  DEFAULT_RESPONSE_LIMIT,
+} from '../../../../src/api/config';
 import { getClothes, GetClothesOptions } from '../../../../src/api/getClothes';
 import {
   categories,
-  ClotheSortOption,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
 } from '../../../../src/constants';
@@ -52,7 +54,7 @@ export default async function handler(
   const clotheOptions: GetClothesOptions = {
     limit: safeParseStringToInt(limit) ?? DEFAULT_RESPONSE_LIMIT,
     page: safeParseStringToInt(page) ?? 1,
-    sort: parseClotheSortOption(sort) ?? ClotheSortOption.NEWEST,
+    sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
   const clothes = await getClothes(

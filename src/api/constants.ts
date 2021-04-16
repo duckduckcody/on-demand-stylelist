@@ -10,10 +10,6 @@ export const HEADERS = {
   'Cache-Control': 'no-cache',
 };
 
-export const DEFAULT_RESPONSE_LIMIT = 10;
-
-export const USE_CACHE = false;
-
 export type getClothesFunction = (
   cid: string,
   requestOptions: GetClothesOptions
