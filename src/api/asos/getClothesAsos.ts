@@ -31,6 +31,7 @@ const requestData = async (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
+  console.log('makeAsosApiUrl', makeAsosApiUrl(uri, requestOptions));
   const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
     headers: HEADERS,
   });
