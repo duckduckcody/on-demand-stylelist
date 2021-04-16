@@ -39,11 +39,10 @@ const requestData = async (
       return [{ error: res }];
     });
   }
-  console.log('response', response);
-  return [{ name: 'hello' }];
-  // return response
-  //   .json()
-  //   .then(({ products }: AsosApiResponse) => mapProductValues(products));
+
+  return response
+    .json()
+    .then(({ products }: AsosApiResponse) => mapProductValues(products));
 };
 
 const mapProductValues = (products: AsosProducts[]): ClotheItem[] => {
