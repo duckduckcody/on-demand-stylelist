@@ -1,5 +1,7 @@
 import { Promise } from 'bluebird';
+import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
+import { parsePrice } from '../../util/parsePrice';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
 import {
@@ -8,8 +10,7 @@ import {
   GetClothesOptions,
   makeClothesCacheKey,
 } from '../getClothes';
-import { AsosApiResponse, AsosProducts } from './AsosApiResponse';
-import { asosCidMap, ASOS_BASE_URL, makeAsosApiUrl } from './constants';
+import { asosCidMap, makeAsosApiUrl } from './constants';
 
 export async function getClothesAsos(
   cid: string,
@@ -40,17 +41,32 @@ const requestData = async (
     });
   }
 
-  return response
-    .json()
-    .then(({ products }: AsosApiResponse) => mapProductValues(products));
+  const htmlString = await response.text();
+  return scrapeHtml(htmlString);
 };
 
-const mapProductValues = (products: AsosProducts[]): ClotheItem[] => {
-  return products.map((product) => ({
-    name: product.name,
-    price: product.price.current.value,
-    link: `${ASOS_BASE_URL}/${product.url}`,
-    image: `https://${product.imageUrl}`,
-    website: 'Asos',
-  }));
+const scrapeHtml = (htmlString: string): ClotheItem[] => {
+  const html = new JSDOM(htmlString);
+  const collectedProducts: ClotheItem[] = [];
+  const products = html.window.document.getElementsByTagName('article');
+  for (const product of products) {
+    const pElements = product.getElementsByTagName('p');
+    const name = pElements[0].textContent;
+    const price = parsePrice(pElements[1].textContent);
+    const image = product.getElementsByTagName('img')[0].getAttribute('srcset');
+    const link = product.getElementsByTagName('a')[0].getAttribute('href');
+
+    if (!name || !price || !link || !image) {
+      console.log('asos - error scraping product', {
+        name,
+        price,
+        link,
+        image,
+      });
+      continue;
+    }
+
+    collectedProducts.push({ name, price, link, image, website: 'Asos' });
+  }
+  return collectedProducts;
 };

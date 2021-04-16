@@ -1,5 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
+import { parsePrice } from '../../util/parsePrice';
 import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
 import {
@@ -68,15 +69,20 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     const linkElement = product.getElementsByClassName('product-link')[0];
     const name = linkElement.getAttribute('title');
     const price = parsePrice(
-      product.getElementsByClassName('money')[0].textContent || ''
+      product.getElementsByClassName('money')[0].textContent
     );
     const link = `${COOL_SHIRTZ_BASE_URL}${linkElement.getAttribute('href')}`;
     const image = absoluteUrl(
-      product.getElementsByTagName('img')[0].getAttribute('data-src') || ''
+      product.getElementsByTagName('img')[0].getAttribute('data-src')
     );
 
     if (!name || !price || !link || !image) {
-      console.log('error scraping product');
+      console.log('cool shirtz - error scraping product', {
+        name,
+        price,
+        link,
+        image,
+      });
       continue;
     }
 
@@ -90,6 +96,3 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
   }
   return collectedProducts;
 };
-
-const parsePrice = (priceString: string) =>
-  parseFloat(priceString.replace('$', '').trim());
