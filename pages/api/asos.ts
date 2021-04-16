@@ -18,5 +18,7 @@ export default async function handler(
       headers: HEADERS,
     }
   );
-  return res.status(200).json(response);
+  response.text().then(() => {
+    return res.status(200).json(response);
+  });
 }
