@@ -9,7 +9,7 @@ export default async function handler(
   res: NextApiResponse
 ): Promise<void> {
   const response = await fetch(
-    makeAsosApiUrl('3000', {
+    makeAsosApiUrl('/men/cat/?cid=5668', {
       limit: 1,
       page: 1,
       sort: ClotheSortOption.NEWEST,
@@ -18,7 +18,10 @@ export default async function handler(
       headers: HEADERS,
     }
   );
-  response.text().then(() => {
-    return res.status(200).json(response);
+
+  console.log('response', response);
+
+  return response.text().then((text) => {
+    return res.status(200).json({ res: text, status: res.statusCode });
   });
 }

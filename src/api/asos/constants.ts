@@ -12,7 +12,7 @@ export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
 const makeQueryString = (requestOptions: GetClothesOptions) => {
   const { page, limit } = requestOptions;
   const sort = sortToApiQueryValueMap.get(requestOptions.sort);
-  return `?&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}`;
+  return `&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}`;
 };
 
 export const makeAsosApiUrl = (
