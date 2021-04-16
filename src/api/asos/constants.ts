@@ -2,8 +2,12 @@ import { ClotheSortOption } from '../../constants';
 import { GetClothesOptions } from '../getClothes';
 
 export const ASOS_BASE_URL = 'https://www.asos.com/au';
+
 export const ASOS_IMAGE_URL = 'https://images.asos-media.com/products/image';
+
 export const ASOS_IMAGE_URL_QUERY_PARAMS = '-3?$XL$&wid=500&fit=constrain';
+
+export const ASOS_LIMIT = 72;
 
 export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, '')
