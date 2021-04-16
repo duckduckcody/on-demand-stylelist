@@ -2,6 +2,8 @@ import { ClotheSortOption } from '../../constants';
 import { GetClothesOptions } from '../getClothes';
 
 export const ASOS_BASE_URL = 'https://www.asos.com/au';
+export const ASOS_IMAGE_URL = 'https://images.asos-media.com/products/image';
+export const ASOS_IMAGE_URL_QUERY_PARAMS = '-2?$XL$&wid=500&fit=constrain';
 
 export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, '')
@@ -23,6 +25,11 @@ export const makeAsosApiUrl = (
 interface CidMapValue {
   uri: string;
 }
+
+export const makeImageUrl = (id: string | null | undefined): string | null => {
+  if (!id) return null;
+  return `${ASOS_IMAGE_URL}/${id}${ASOS_IMAGE_URL_QUERY_PARAMS}`;
+};
 
 export const asosCidMap = new Map<string, CidMapValue>()
   .set('3000', { uri: '/men/cat/?cid=5668' })

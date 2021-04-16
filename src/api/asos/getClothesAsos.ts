@@ -10,7 +10,7 @@ import {
   GetClothesOptions,
   makeClothesCacheKey,
 } from '../getClothes';
-import { asosCidMap, makeAsosApiUrl } from './constants';
+import { asosCidMap, makeAsosApiUrl, makeImageUrl } from './constants';
 
 export async function getClothesAsos(
   cid: string,
@@ -54,8 +54,10 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     const pElements = product.getElementsByTagName('p');
     const name = pElements[0].textContent;
     const price = parsePrice(pElements[1].textContent);
-    const image = product.getElementsByTagName('img')[0].getAttribute('srcset');
     const link = product.getElementsByTagName('a')[0].getAttribute('href');
+
+    const id = product.getAttribute('id')?.replace('product-', '');
+    const image = makeImageUrl(id);
 
     if (!name || !price || !link || !image) {
       console.log('asos - error scraping product', {
