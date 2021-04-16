@@ -31,6 +31,8 @@ export const ClotheCard = ({
 }: Props): ReactElement => {
   const [iconHovered, setIconHovered] = useState(false);
 
+  if (clothe.error) <></>;
+
   return (
     <Container>
       <ImageContainer>
