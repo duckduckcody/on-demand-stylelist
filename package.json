@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "browser": {
     "child_process": false
