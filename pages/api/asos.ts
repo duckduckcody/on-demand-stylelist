@@ -36,9 +36,12 @@ export default async function handler(
 
   console.log('response', response);
 
-  return response.text().then((text) => {
-    return res.status(200).json({ res: text, status: res.statusCode });
-  }).catch(() => {
-    response.json().then((j) => console.log('j', j);
-  })
+  return response
+    .text()
+    .then((text) => {
+      return res.status(200).json({ res: text, status: res.statusCode });
+    })
+    .catch(() => {
+      response.json().then((j) => console.log('j', j));
+    });
 }
