@@ -1,33 +1,40 @@
 import { Promise } from 'bluebird';
-import { cacheRequest } from '../cacheRequest';
+import { recursiveGetClothes } from '../../util/recursiveGetClothes';
 import { HEADERS } from '../constants';
-import {
-  ClotheItem,
-  clothesCache,
-  GetClothesOptions,
-  makeClothesCacheKey,
-} from '../getClothes';
+import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import { getCultureKingsAlgoliaIndex } from './algoliaIndex';
 import {
   cultureKingsCidMap,
   CULTURE_KINGS_ALGOLIA_FILTERS,
+  CULTURE_KINGS_LIMIT,
   CULTURE_KINGS_URL,
 } from './constants';
 
-export const getClothesCultureKings = (
+export const getClothesCultureKings = async (
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
   const cultureKingsCid = cultureKingsCidMap.get(cid);
   if (!cultureKingsCid) Promise.resolve([]);
-  const res = cacheRequest(
-    requestData,
-    clothesCache,
-    makeClothesCacheKey('culture-kings', cid, requestOptions),
+
+  const cacheKey = `culture-kings-${cultureKingsCid!.uri}-${
+    requestOptions.sort
+  }`;
+  const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
+
+  const clothes = await recursiveGetClothes(
+    requestOptions,
+    cachedClothes,
     cultureKingsCid!.uri,
-    requestOptions
+    requestData,
+    CULTURE_KINGS_LIMIT
   );
-  return res;
+
+  clothesCache.set(cacheKey, clothes);
+
+  const lastIndex = requestOptions.page * requestOptions.limit;
+  const firstIndex = lastIndex - requestOptions.limit;
+  return clothes.slice(firstIndex, lastIndex);
 };
 
 interface AlgoliaHits {
@@ -40,12 +47,12 @@ interface AlgoliaHits {
 const requestData = (
   uri: string,
   requestOptions: GetClothesOptions
-): Promise<ClotheItem[]> => {
-  return getCultureKingsAlgoliaIndex(requestOptions.sort)
+): Promise<ClotheItem[]> =>
+  getCultureKingsAlgoliaIndex(requestOptions.sort)
     .search<AlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
       ruleContexts: [`collection-${uri}`],
-      page: requestOptions.page - 1,
+      page: requestOptions.page,
       filters: `${CULTURE_KINGS_ALGOLIA_FILTERS} ${uri}`,
       headers: {
         Referer: CULTURE_KINGS_URL,
@@ -53,7 +60,6 @@ const requestData = (
       },
     })
     .then(({ hits }) => mapProductValues(hits));
-};
 
 const mapProductValues = (hits: Array<AlgoliaHits>): ClotheItem[] =>
   hits.map((product) => ({
