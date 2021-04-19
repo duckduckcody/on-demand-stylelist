@@ -230,8 +230,8 @@ export const CategoryName = (): ReactElement => {
       <ButtonContainer>
         {isLoadingMore && (
           <>
+            {'Fetching styles'}&nbsp;&nbsp;
             <SpinningFontAwesomeIcon icon={faSpinner} />
-            &nbsp;{'Fetching styles...'}
           </>
         )}
         {!isLoadingMore && isEndOfData && 'no more clothes :('}
