@@ -13,10 +13,8 @@ export const recursiveGetClothes = async (
     return clothes;
   }
 
-  const nextPage =
-    clothes.length === 0
-      ? 1
-      : clothes.length / numberOfClothesReturnedByRequest;
+  // clothes.length / numberOfClothesReturnedByRequest is current page. + 1 for next page.
+  const nextPage = clothes.length / numberOfClothesReturnedByRequest + 1;
 
   const nextPageData = await requestData(uri, {
     sort: requestOptions.sort,
