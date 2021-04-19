@@ -68,12 +68,22 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
 
     const linkElement = product.getElementsByClassName('product-link')[0];
     const name = linkElement.getAttribute('title');
-    const price = parsePrice(
-      product.getElementsByClassName('money')[0].textContent
-    );
+
     const link = `${COOL_SHIRTZ_BASE_URL}${linkElement.getAttribute('href')}`;
     const image = absoluteUrl(
       product.getElementsByTagName('img')[0].getAttribute('data-src')
+    );
+
+    const moneyElements = product.getElementsByClassName('money');
+
+    const discountedPrice = parsePrice(
+      moneyElements.length === 1 ? undefined : moneyElements[0].textContent
+    );
+
+    const price = parsePrice(
+      moneyElements.length === 1
+        ? moneyElements[0].textContent
+        : moneyElements[1].textContent
     );
 
     if (!name || !price || !link || !image) {
@@ -89,6 +99,7 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     collectedProducts.push({
       name,
       price,
+      discountedPrice,
       link,
       image,
       website: 'Cool Shirtz',

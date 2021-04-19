@@ -13,6 +13,7 @@ import {
   HeartIconContainer,
   Image,
   ImageContainer,
+  OldPrice,
   Price,
   WebsiteName,
 } from './ClotheCard.styles';
@@ -41,7 +42,18 @@ export const ClotheCard = ({
         </a>
       </ImageContainer>
       <WebsiteName>{clothe.website}</WebsiteName>
-      <Price>${clothe.price}</Price>
+      <Price>
+        {clothe.discountedPrice && (
+          <>
+            ${clothe.discountedPrice} <OldPrice>${clothe.price}</OldPrice>{' '}
+            {Math.trunc(
+              ((clothe.price - clothe.discountedPrice) / clothe.price) * 100
+            )}
+            % off
+          </>
+        )}
+        {!clothe.discountedPrice && `$${clothe.price}`}
+      </Price>
       <ClotheName>{clothe.name}</ClotheName>
 
       <Tippy

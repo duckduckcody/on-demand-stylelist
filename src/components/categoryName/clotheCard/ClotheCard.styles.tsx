@@ -37,6 +37,10 @@ export const Price = styled.span`
   place-self: end start;
 `;
 
+export const OldPrice = styled.span`
+  text-decoration: line-through;
+`;
+
 export const HeartIconContainer = styled.span`
   grid-area: heartIcon;
   place-self: center end;

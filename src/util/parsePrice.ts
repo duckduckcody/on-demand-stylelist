@@ -1,6 +1,6 @@
 export const parsePrice = (
   priceString: string | null | undefined
-): number | null => {
-  if (!priceString) return null;
+): number | undefined => {
+  if (!priceString) return undefined;
   return parseFloat(priceString.replace('$', '').trim());
 };

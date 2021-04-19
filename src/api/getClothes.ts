@@ -15,6 +15,7 @@ export const makeClothesCacheKey = (
 export interface ClotheItem {
   name: string;
   price: number;
+  discountedPrice?: number;
   link: string;
   image: string;
   website: string;
