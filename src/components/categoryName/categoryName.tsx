@@ -65,7 +65,6 @@ export const CategoryName = (): ReactElement => {
     swrFetcher,
     {
       revalidateOnFocus: false,
-      persistSize: true,
     }
   );
 
