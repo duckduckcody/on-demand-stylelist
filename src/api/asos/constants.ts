@@ -18,7 +18,7 @@ export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
 const makeQueryString = (requestOptions: GetClothesOptions) => {
   const { page, sort } = requestOptions;
   const sortQueryValue = sortToApiQueryValueMap.get(sort);
-  return `&page=${page}${sort ? `&sort=${sortQueryValue}` : ''}`;
+  return `&page=${page}${sortQueryValue ? `&sort=${sortQueryValue}` : ''}`;
 };
 
 export const makeAsosApiUrl = (

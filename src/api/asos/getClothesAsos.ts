@@ -64,7 +64,12 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
   for (const product of products) {
     const pElements = product.getElementsByTagName('p');
     const name = pElements[0].textContent;
-    const price = parsePrice(pElements[1].textContent);
+    const price = parsePrice(
+      pElements[1].getElementsByClassName('_16nzq18')[0]?.textContent
+    );
+    const discountedPrice = parsePrice(
+      pElements[1].getElementsByClassName('_3VjzNxC')[0]?.textContent
+    );
     const link = product.getElementsByTagName('a')[0].getAttribute('href');
 
     const id = product.getAttribute('id')?.replace('product-', '');
@@ -80,7 +85,14 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
       continue;
     }
 
-    collectedProducts.push({ name, price, link, image, website: 'Asos' });
+    collectedProducts.push({
+      name,
+      price,
+      discountedPrice,
+      link,
+      image,
+      website: 'Asos',
+    });
   }
   return collectedProducts;
 };
