@@ -21,14 +21,14 @@ import { Tooltip } from './Tooltip';
 
 interface Props {
   clothe: ClotheItem;
+  onFavouriteClick?: (clothe: ClotheItem) => void;
   isFavourited?: boolean;
-  onFavouriteClick: (clothe: ClotheItem) => void;
 }
 
 export const ClotheCard = ({
   clothe,
   isFavourited = false,
-  onFavouriteClick,
+  onFavouriteClick = () => null,
 }: Props): ReactElement => {
   const [iconHovered, setIconHovered] = useState(false);
 
