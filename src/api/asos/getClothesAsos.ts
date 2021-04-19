@@ -2,6 +2,7 @@ import { Promise } from 'bluebird';
 import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import { parsePrice } from '../../util/parsePrice';
+import { recursiveGetClothes } from '../../util/recursiveGetClothes';
 import { HEADERS } from '../constants';
 import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import {
@@ -25,47 +26,17 @@ export async function getClothesAsos(
   const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
 
   const clothes = await recursiveGetClothes(
-    lastIndex,
-    asosCid!.uri,
     requestOptions,
-    cachedClothes
+    cachedClothes,
+    asosCid!.uri,
+    requestData,
+    ASOS_LIMIT
   );
 
   clothesCache.set(cacheKey, clothes);
 
-  return pageClothes(firstIndex, lastIndex, clothes);
+  return clothes.slice(firstIndex, lastIndex);
 }
-
-const recursiveGetClothes = async (
-  lastIndex: number,
-  uri: string,
-  requestOptions: GetClothesOptions,
-  clothes: Partial<ClotheItem>[]
-): Promise<Partial<ClotheItem>[]> => {
-  if (lastIndex <= clothes.length) {
-    return clothes;
-  }
-
-  const nextPage = clothes.length === 0 ? 1 : clothes.length / ASOS_LIMIT;
-
-  const nextPageData = await requestData(uri, {
-    ...requestOptions,
-    page: nextPage,
-  });
-
-  return await recursiveGetClothes(
-    lastIndex,
-    uri,
-    requestOptions,
-    nextPageData
-  );
-};
-
-const pageClothes = (
-  firstIndex: number,
-  lastIndex: number,
-  clothes: Partial<ClotheItem>[]
-) => clothes.slice(firstIndex, lastIndex);
 
 const requestData = async (
   uri: string,
