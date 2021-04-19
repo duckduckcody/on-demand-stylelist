@@ -42,6 +42,7 @@ export const getClothesCultureKings = async (
 interface AlgoliaHits {
   title: string;
   price: number;
+  compareAtPrice: number;
   handle: string;
   image: string;
 }
@@ -53,9 +54,9 @@ const requestData = (
   getCultureKingsAlgoliaIndex(requestOptions.sort)
     .search<AlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
+      page: requestOptions.page - 1,
       ruleContexts: [`collection-${uri}`],
-      page: requestOptions.page,
-      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS} ${uri}`,
+      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${uri}`,
       headers: {
         Referer: CULTURE_KINGS_URL,
         ...HEADERS,
@@ -66,7 +67,8 @@ const requestData = (
 const mapProductValues = (hits: Array<AlgoliaHits>): ClotheItem[] =>
   hits.map((product) => ({
     name: product.title,
-    price: product.price,
+    discountedPrice: product.compareAtPrice ? product.price : undefined,
+    price: product.compareAtPrice ? product.compareAtPrice : product.price,
     link: `${CULTURE_KINGS_URL}/products/${product.handle}`,
     image: product.image,
     website: 'Culture Kings',
