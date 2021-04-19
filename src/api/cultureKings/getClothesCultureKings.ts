@@ -17,6 +17,9 @@ export const getClothesCultureKings = async (
   const cultureKingsCid = cultureKingsCidMap.get(cid);
   if (!cultureKingsCid) Promise.resolve([]);
 
+  const lastIndex = requestOptions.page * requestOptions.limit;
+  const firstIndex = lastIndex - requestOptions.limit;
+
   const cacheKey = `culture-kings-${cultureKingsCid!.uri}-${
     requestOptions.sort
   }`;
@@ -27,13 +30,12 @@ export const getClothesCultureKings = async (
     cachedClothes,
     cultureKingsCid!.uri,
     requestData,
-    CULTURE_KINGS_LIMIT
+    CULTURE_KINGS_LIMIT,
+    lastIndex
   );
 
   clothesCache.set(cacheKey, clothes);
 
-  const lastIndex = requestOptions.page * requestOptions.limit;
-  const firstIndex = lastIndex - requestOptions.limit;
   return clothes.slice(firstIndex, lastIndex);
 };
 

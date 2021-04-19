@@ -30,7 +30,8 @@ export async function getClothesAsos(
     cachedClothes,
     asosCid!.uri,
     requestData,
-    ASOS_LIMIT
+    ASOS_LIMIT,
+    lastIndex
   );
 
   clothesCache.set(cacheKey, clothes);

@@ -4,7 +4,7 @@ export const CULTURE_KINGS_ALGOLIA_API_KEY = '120a2dd1a67e962183768696b750a52c';
 export const CULTURE_KINGS_ALGOLIA_FILTERS =
   '(inStock:true OR isForcedSoldOut:1 OR isStayInCollection:1) AND isOnline:true AND collectionHandles:';
 
-export const CULTURE_KINGS_LIMIT = 10;
+export const CULTURE_KINGS_LIMIT = 100;
 
 export enum CultureKingsIndexName {
   PRICE_HIGH_TO_LOW = 'shopify_production_products_price_desc',

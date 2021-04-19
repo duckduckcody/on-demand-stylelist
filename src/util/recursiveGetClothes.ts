@@ -1,27 +1,26 @@
 import { getClothesFunction } from '../api/constants';
 import { ClotheItem, GetClothesOptions } from '../api/getClothes';
 
-const RECURSE_LIMIT = 4;
-
 export const recursiveGetClothes = async (
   requestOptions: GetClothesOptions,
   clothes: Partial<ClotheItem>[],
   uri: string,
   requestData: getClothesFunction,
-  requestLimit: number,
-  numberOfRecursions = 1
+  numberOfClothesReturnedByRequest: number,
+  numberOfClothesNeeded: number
 ): Promise<Partial<ClotheItem>[]> => {
-  const clothesNeeded = requestOptions.page * requestOptions.limit;
-  if (clothesNeeded <= clothes.length || numberOfRecursions === RECURSE_LIMIT) {
+  if (numberOfClothesNeeded <= clothes.length) {
     return clothes;
   }
 
-  const nextPage = clothes.length === 0 ? 1 : clothes.length / requestLimit;
+  const nextPage =
+    clothes.length === 0
+      ? 1
+      : clothes.length / numberOfClothesReturnedByRequest;
 
-  console.log('requesting next page of data');
   const nextPageData = await requestData(uri, {
     sort: requestOptions.sort,
-    limit: requestLimit,
+    limit: numberOfClothesReturnedByRequest,
     page: nextPage,
   });
 
@@ -30,7 +29,7 @@ export const recursiveGetClothes = async (
     clothes.concat(nextPageData),
     uri,
     requestData,
-    requestLimit,
-    numberOfRecursions + 1
+    numberOfClothesReturnedByRequest,
+    numberOfClothesNeeded
   );
 };
