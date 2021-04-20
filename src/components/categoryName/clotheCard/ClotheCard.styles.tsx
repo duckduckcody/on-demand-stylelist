@@ -1,25 +1,42 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { MOBILE_BREAKPOINT } from '../../../constants';
 
 export const Container = styled.div`
   width: 100%;
-  height: 400px;
+  height: 100%;
   display: grid;
-  grid-template-rows: 300px 1fr 1fr 1fr;
+  grid-template-rows: 1fr 3rem;
   grid-template-areas:
-    'image image image image'
+    'ImageContainer'
+    'InfoContainer';
+`;
+
+export const ImageContainer = styled.div<{ backgroundImage: string }>`
+  grid-area: ImageContainer;
+  background: center / cover no-repeat url(${(p) => p.backgroundImage});
+  height: 100%;
+  width: 100%;
+`;
+
+export const InfoContainer = styled.div`
+  grid-area: InfoContainer;
+  display: grid;
+  align-items: center;
+  grid-template-rows: 1rem 1rem 1rem;
+  grid-template-areas:
     'price price heartIcon heartIcon'
     'websiteName websiteName heartIcon heartIcon'
     'clotheName clotheName clotheName clotheName';
-`;
 
-export const ImageContainer = styled.div`
-  grid-area: image;
-  place-self: center;
-`;
-
-export const Image = styled.img`
-  height: 300px;
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    grid-template-rows: 0.8rem 0.8rem 0.8rem;
+    font-size: 0.8rem;
+    grid-template-areas:
+      'websiteName websiteName websiteName heartIcon'
+      'price price price price'
+      'clotheName clotheName clotheName clotheName';
+  } ;
 `;
 
 export const WebsiteName = styled.span`
@@ -43,13 +60,14 @@ export const OldPrice = styled.span`
 
 export const HeartIconContainer = styled.span`
   grid-area: heartIcon;
-  place-self: center end;
-  width: 1.5rem;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 `;
 
 export const HeartIcon = styled(FontAwesomeIcon)<{ isfavourited: string }>`
-  cursor: pointer;
   width: 100%;
+  height: 100%;
   color: ${(props) =>
     props.isfavourited === 'true' ? 'red' : props.theme.textColor};
 

@@ -11,8 +11,8 @@ import {
   Container,
   HeartIcon,
   HeartIconContainer,
-  Image,
   ImageContainer,
+  InfoContainer,
   OldPrice,
   Price,
   WebsiteName,
@@ -36,47 +36,47 @@ export const ClotheCard = ({
 
   return (
     <Container>
-      <ImageContainer>
-        <a href={clothe.link} target='_blank' rel='noreferrer'>
-          <Image src={clothe.image} />
-        </a>
+      <ImageContainer backgroundImage={clothe.image}>
+        <a href={clothe.link} target='_blank' rel='noreferrer'></a>
       </ImageContainer>
-      <WebsiteName>{clothe.website}</WebsiteName>
-      <Price>
-        {clothe.discountedPrice && (
-          <>
-            ${clothe.discountedPrice} <OldPrice>${clothe.price}</OldPrice>{' '}
-            {Math.trunc(
-              ((clothe.price - clothe.discountedPrice) / clothe.price) * 100
-            )}
-            % off
-          </>
-        )}
-        {!clothe.discountedPrice && `$${clothe.price}`}
-      </Price>
-      <ClotheName>{clothe.name}</ClotheName>
+      <InfoContainer>
+        <WebsiteName>{clothe.website}</WebsiteName>
+        <Price>
+          {clothe.discountedPrice && (
+            <>
+              ${clothe.discountedPrice} <OldPrice>${clothe.price}</OldPrice>{' '}
+              {Math.trunc(
+                ((clothe.price - clothe.discountedPrice) / clothe.price) * 100
+              )}
+              % off
+            </>
+          )}
+          {!clothe.discountedPrice && `$${clothe.price}`}
+        </Price>
+        <ClotheName>{clothe.name}</ClotheName>
 
-      <Tippy
-        content={<Tooltip isFavourited={isFavourited} />}
-        delay={0}
-        visible={iconHovered}
-      >
-        <HeartIconContainer tabIndex={0}>
-          <HeartIcon
-            onMouseEnter={() => setIconHovered(true)}
-            onMouseLeave={() => setIconHovered(false)}
-            isfavourited={isFavourited.toString()}
-            icon={
-              isFavourited
-                ? iconHovered
-                  ? faHeartBroken
-                  : faHeartSolid
-                : faHeartOutline
-            }
-            onClick={() => onFavouriteClick(clothe)}
-          />
-        </HeartIconContainer>
-      </Tippy>
+        <Tippy
+          content={<Tooltip isFavourited={isFavourited} />}
+          delay={0}
+          visible={iconHovered}
+        >
+          <HeartIconContainer>
+            <HeartIcon
+              onMouseEnter={() => setIconHovered(true)}
+              onMouseLeave={() => setIconHovered(false)}
+              isfavourited={isFavourited.toString()}
+              icon={
+                isFavourited
+                  ? iconHovered
+                    ? faHeartBroken
+                    : faHeartSolid
+                  : faHeartOutline
+              }
+              onClick={() => onFavouriteClick(clothe)}
+            />
+          </HeartIconContainer>
+        </Tippy>
+      </InfoContainer>
     </Container>
   );
 };

@@ -26,7 +26,7 @@ import { useWindow } from '../../util/useWindow';
 import {
   ButtonContainer,
   CategoryNameHeader,
-  ListContainer,
+  ClotheCardListContainer,
   LoadMoreButton,
   SpinningFontAwesomeIcon,
 } from './categoryName.styles';
@@ -211,7 +211,7 @@ export const CategoryName = (): ReactElement => {
           </select>
         </span>
       </CategoryNameHeader>
-      <ListContainer>
+      <ClotheCardListContainer>
         {clothes &&
           clothes.map((clothe) => (
             <ClotheCard
@@ -223,7 +223,7 @@ export const CategoryName = (): ReactElement => {
               onFavouriteClick={onFavouriteClick}
             />
           ))}
-      </ListContainer>
+      </ClotheCardListContainer>
 
       <ButtonContainer>
         {isLoadingMore && (

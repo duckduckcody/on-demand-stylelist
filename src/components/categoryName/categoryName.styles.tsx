@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { MOBILE_BREAKPOINT } from '../../constants';
 
 export const CategoryNameHeader = styled.div`
   margin: 0 0 21px;
@@ -7,14 +8,20 @@ export const CategoryNameHeader = styled.div`
   justify-content: space-between;
 `;
 
-export const ListContainer = styled.div`
+export const ClotheCardListContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
+  grid-template-columns: repeat(auto-fill, 1000px);
+  grid-auto-rows: 400px;
   gap: 2rem;
   justify-items: center;
   align-items: start;
   justify-content: center;
   align-content: start;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 300px;
+  } ;
 `;
 
 export const ButtonContainer = styled.div`
