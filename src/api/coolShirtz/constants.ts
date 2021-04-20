@@ -18,7 +18,10 @@ export const coolShirtzCidMap = new Map<number, CidMapValue>()
   .set(getCategoryId(CategoryName.SHIRTS, Gender.MEN), { uri: 'basic-tees' })
   .set(getCategoryId(CategoryName.HOODIES, Gender.MEN), { uri: 'jumpers' })
   .set(getCategoryId(CategoryName.JACKETS, Gender.MEN), { uri: 'jackets' })
-  .set(getCategoryId(CategoryName.SHORTS, Gender.MEN), { uri: 'pants-1' });
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.MEN), { uri: 'pants-1' })
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), {
+    uri: 'pants-1',
+  });
 
 export const sortToQueryStringValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, 'best-selling')
