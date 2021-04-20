@@ -59,6 +59,9 @@ export const asosCidMap = new Map<number, CidMapValue>()
   .set(getCategoryId(CategoryName.JEANS, Gender.MEN), {
     uri: '/men/cat/?cid=4208',
   })
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.MEN), {
+    uri: '/men/cat/?cid=26776',
+  })
   .set(getCategoryId(CategoryName.SHOES, Gender.MEN), {
     uri: '/men/cat/?cid=5775',
   })
@@ -66,8 +69,11 @@ export const asosCidMap = new Map<number, CidMapValue>()
     uri: '/men/cat/?cid=5774',
   })
   .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), {
-    uri: '/men/cat/?cid=2639',
+    uri: '/women/cat/?cid=2639',
   })
   .set(getCategoryId(CategoryName.DRESSES, Gender.WOMEN), {
-    uri: '/men/cat/?cid=8799',
+    uri: '/women/cat/?cid=8799',
+  })
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), {
+    uri: '/women/cat/?cid=27953',
   });
