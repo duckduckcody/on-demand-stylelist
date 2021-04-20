@@ -62,19 +62,20 @@ export interface Category {
   gender: Gender;
 }
 
+let id = 1;
 export const categories: Category[] = [
-  { id: 3000, name: CategoryName.SHIRTS, gender: Gender.MEN },
-  { id: 3001, name: CategoryName.JUMPERS, gender: Gender.MEN },
-  { id: 3002, name: CategoryName.HOODIES, gender: Gender.MEN },
-  { id: 3003, name: CategoryName.JACKETS, gender: Gender.MEN },
-  { id: 3004, name: CategoryName.SHORTS, gender: Gender.MEN },
-  { id: 3005, name: CategoryName.JEANS, gender: Gender.MEN },
-  { id: 3006, name: CategoryName.TRACK_PANTS, gender: Gender.MEN },
-  { id: 3007, name: CategoryName.SHOES, gender: Gender.MEN },
-  { id: 3008, name: CategoryName.BOOTS, gender: Gender.MEN },
-  { id: 4000, name: CategoryName.SKIRTS, gender: Gender.WOMEN },
-  { id: 4001, name: CategoryName.DRESSES, gender: Gender.WOMEN },
-  { id: 4001, name: CategoryName.TRACK_PANTS, gender: Gender.WOMEN },
+  { id: id++, name: CategoryName.SHIRTS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.JUMPERS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.HOODIES, gender: Gender.MEN },
+  { id: id++, name: CategoryName.JACKETS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.SHORTS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.JEANS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.TRACK_PANTS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.SHOES, gender: Gender.MEN },
+  { id: id++, name: CategoryName.BOOTS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.SKIRTS, gender: Gender.WOMEN },
+  { id: id++, name: CategoryName.DRESSES, gender: Gender.WOMEN },
+  { id: id++, name: CategoryName.TRACK_PANTS, gender: Gender.WOMEN },
 ];
 export const getCategoryId = (name: CategoryName, gender: Gender): number => {
   const cat = categories.find(
