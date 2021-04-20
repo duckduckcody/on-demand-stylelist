@@ -53,6 +53,7 @@ export enum CategoryName {
   BOOTS = 'boots',
   SKIRTS = 'skirts',
   DRESSES = 'dresses',
+  TRACK_PANTS = 'track pants',
 }
 
 export interface Category {
@@ -68,10 +69,12 @@ export const categories: Category[] = [
   { id: 3003, name: CategoryName.JACKETS, gender: Gender.MEN },
   { id: 3004, name: CategoryName.SHORTS, gender: Gender.MEN },
   { id: 3005, name: CategoryName.JEANS, gender: Gender.MEN },
-  { id: 3006, name: CategoryName.SHOES, gender: Gender.MEN },
-  { id: 3007, name: CategoryName.BOOTS, gender: Gender.MEN },
+  { id: 3006, name: CategoryName.TRACK_PANTS, gender: Gender.MEN },
+  { id: 3007, name: CategoryName.SHOES, gender: Gender.MEN },
+  { id: 3008, name: CategoryName.BOOTS, gender: Gender.MEN },
   { id: 4000, name: CategoryName.SKIRTS, gender: Gender.WOMEN },
   { id: 4001, name: CategoryName.DRESSES, gender: Gender.WOMEN },
+  { id: 4001, name: CategoryName.TRACK_PANTS, gender: Gender.WOMEN },
 ];
 export const getCategoryId = (name: CategoryName, gender: Gender): number => {
   const cat = categories.find(
@@ -88,4 +91,4 @@ export const makeCategoryLink = (category: Category): string =>
   `/clothes/${category.gender}/${category.name}`;
 
 export const makeCategoryImageLink = (category: Category): string =>
-  `/shop_${category.gender}_${category.name}.webp`;
+  `/shop_${category.gender}_${category.name.replaceAll(' ', '_')}.webp`;
