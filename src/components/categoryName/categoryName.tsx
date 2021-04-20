@@ -211,8 +211,6 @@ export const CategoryName = (): ReactElement => {
           </select>
         </span>
       </CategoryNameHeader>
-      {isEmpty && <p>No clothes found</p>}
-      {error && <div>Failed to load clothes</div>}
       <ListContainer>
         {clothes &&
           clothes.map((clothe) => (
@@ -234,7 +232,9 @@ export const CategoryName = (): ReactElement => {
             <SpinningFontAwesomeIcon icon={faSpinner} />
           </>
         )}
-        {!isLoadingMore && isEndOfData && 'no more clothes :('}
+        {!isLoadingMore &&
+          isEndOfData &&
+          (isEmpty ? 'no clothes found :(' : 'no more clothes :(')}
         {!isLoadingMore && !isEndOfData && (
           <LoadMoreButton onClick={() => setSize(size + 1)}>
             Load more
