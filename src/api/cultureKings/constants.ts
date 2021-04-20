@@ -38,6 +38,9 @@ export const cultureKingsCidMap = new Map<number, CidMapValue>()
   .set(getCategoryId(CategoryName.SHIRTS, Gender.MEN), {
     uri: 'mens-tops-ss-tees',
   })
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.MEN), {
+    uri: 'mens-bottoms-track-pants',
+  })
   .set(getCategoryId(CategoryName.SHOES, Gender.MEN), { uri: 'mens-footwear' })
   .set(getCategoryId(CategoryName.BOOTS, Gender.MEN), { uri: 'mens-boots' })
   .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), {
@@ -45,4 +48,7 @@ export const cultureKingsCidMap = new Map<number, CidMapValue>()
   })
   .set(getCategoryId(CategoryName.DRESSES, Gender.WOMEN), {
     uri: 'womens-tops-dress',
+  })
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), {
+    uri: 'womens-bottoms-pants',
   });
