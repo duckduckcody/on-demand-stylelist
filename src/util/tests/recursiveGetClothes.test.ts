@@ -100,7 +100,7 @@ test('should recurse 4 times', async () => {
   expect(requestData).toBeCalledTimes(4);
 });
 
-fit('stop recursing if no more clothes are available', async () => {
+fit('stop recursing if less than expected is returned from request', async () => {
   const numberOfClothesNeeded = 33;
   const numberOfClothesReturnedByRequest = 9;
 
@@ -121,4 +121,26 @@ fit('stop recursing if no more clothes are available', async () => {
 
   expect(responseClothes.length).toBe(11);
   expect(requestData).toBeCalledTimes(2);
+});
+
+fit('stop recursing if zero is returned from request', async () => {
+  const numberOfClothesNeeded = 40;
+  const numberOfClothesReturnedByRequest = 10;
+
+  requestData
+    .mockImplementationOnce(() => Promise.resolve(makeClothes(10)))
+    .mockImplementationOnce(() => Promise.resolve(makeClothes(10)))
+    .mockImplementationOnce(() => Promise.resolve(makeClothes(0)));
+
+  const responseClothes = await recursiveGetClothes(
+    requestOptions,
+    [],
+    'test-uri',
+    requestData,
+    numberOfClothesReturnedByRequest,
+    numberOfClothesNeeded
+  );
+
+  expect(responseClothes.length).toBe(20);
+  expect(requestData).toBeCalledTimes(3);
 });
