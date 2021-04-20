@@ -10,11 +10,11 @@ const Tile = styled.div<{ imageSrc: string }>`
   font-weight: bold;
   cursor: pointer;
   background: center / cover no-repeat url(${(p) => p.imageSrc});
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
   background-blend-mode: darken;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 `;
 

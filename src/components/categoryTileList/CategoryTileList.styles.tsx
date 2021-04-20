@@ -22,6 +22,6 @@ export const CategoryTileListContainer = styled.div`
 `;
 
 export const CategoryLink = styled.a`
-  text-decoration: underline;
+  font-size: 1.25rem;
   color: ${(props) => props.theme.textColor};
 `;
