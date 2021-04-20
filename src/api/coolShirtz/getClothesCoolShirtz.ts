@@ -1,14 +1,8 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
 import { parsePrice } from '../../util/parsePrice';
-import { cacheRequest } from '../cacheRequest';
 import { HEADERS } from '../constants';
-import {
-  ClotheItem,
-  clothesCache,
-  GetClothesOptions,
-  makeClothesCacheKey,
-} from '../getClothes';
+import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import {
   coolShirtzCidMap,
   COOL_SHIRTZ_BASE_URL,
@@ -19,15 +13,17 @@ export async function getClothesCoolShirtz(
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> {
-  const coolShirtzCid = coolShirtzCidMap.get(cid);
+  const coolShirtzCid = coolShirtzCidMap.get(parseInt(cid));
   if (!coolShirtzCid) return Promise.resolve([]);
-  const clothes = await cacheRequest(
-    requestHtml,
-    clothesCache,
-    makeClothesCacheKey('cool-shirtz', `${coolShirtzCid}`, requestOptions),
-    coolShirtzCid!.uri,
-    requestOptions
+
+  const cacheKey = `cool-shirtz-${coolShirtzCid!.uri}-${requestOptions.sort}`;
+  const cachedValue: Partial<ClotheItem>[] | undefined = clothesCache.get(
+    cacheKey
   );
+  if (cachedValue) return pageClothes(cachedValue, requestOptions);
+
+  const clothes = await getClothes(coolShirtzCid!.uri, requestOptions);
+  clothesCache.set(cacheKey, clothes);
   return pageClothes(clothes, requestOptions);
 }
 
@@ -41,10 +37,19 @@ const pageClothes = (
   return clothes!.slice(bottom, top);
 };
 
-const requestHtml = async (
+const getClothes = async (uri: string, requestOptions: GetClothesOptions) => {
+  const html = await getHtml(uri, requestOptions);
+  return scrapeHtml(html);
+};
+
+const getHtml = async (
   uri: string,
   requestOptions: GetClothesOptions
-): Promise<ClotheItem[]> => {
+): Promise<string> => {
+  console.log(
+    'makeCoolShirtzUrl(uri, requestOptions)',
+    makeCoolShirtzUrl(uri, requestOptions)
+  );
   const response = await fetch(makeCoolShirtzUrl(uri, requestOptions), {
     headers: HEADERS,
   });
@@ -52,8 +57,7 @@ const requestHtml = async (
     response.json().then((err) => console.log('error', err));
   }
 
-  const htmlString = await response.text();
-  return scrapeHtml(htmlString);
+  return await response.text();
 };
 
 const scrapeHtml = (htmlString: string): ClotheItem[] => {

@@ -1,4 +1,9 @@
-import { ClotheSortOption } from '../../constants';
+import {
+  CategoryName,
+  ClotheSortOption,
+  Gender,
+  getCategoryId,
+} from '../../constants';
 import { GetClothesOptions } from '../getClothes';
 
 export const COOL_SHIRTZ_BASE_URL = 'https://shirtz.cool';
@@ -9,13 +14,11 @@ interface CidMapValue {
   uri: string;
 }
 
-export const coolShirtzCidMap = new Map<string, CidMapValue>()
-  .set('3000', { uri: 'jumpers' })
-  .set('3001', { uri: 'jackets' })
-  .set('3002', { uri: 'jumpers' })
-  .set('3003', { uri: 'pants-1' })
-  .set('3004', { uri: 'basic-tees' })
-  .set('3006', { uri: 'crop-tops' });
+export const coolShirtzCidMap = new Map<number, CidMapValue>()
+  .set(getCategoryId(CategoryName.SHIRTS, Gender.MEN), { uri: 'basic-tees' })
+  .set(getCategoryId(CategoryName.HOODIES, Gender.MEN), { uri: 'jumpers' })
+  .set(getCategoryId(CategoryName.JACKETS, Gender.MEN), { uri: 'jackets' })
+  .set(getCategoryId(CategoryName.SHORTS, Gender.MEN), { uri: 'pants-1' });
 
 export const sortToQueryStringValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, 'best-selling')
