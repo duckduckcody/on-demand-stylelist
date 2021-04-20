@@ -14,8 +14,8 @@ export const getClothesCultureKings = async (
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
-  const cultureKingsCid = cultureKingsCidMap.get(cid);
-  if (!cultureKingsCid) Promise.resolve([]);
+  const cultureKingsCid = cultureKingsCidMap.get(parseInt(cid));
+  if (!cultureKingsCid) return Promise.resolve([]);
 
   const lastIndex = requestOptions.page * requestOptions.limit;
   const firstIndex = lastIndex - requestOptions.limit;
