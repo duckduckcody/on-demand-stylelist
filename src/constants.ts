@@ -42,23 +42,47 @@ export const genderValues: string[] = Object.values(Gender);
 export const parseGender = (value: unknown): Gender | undefined =>
   parseToEnumValue<Gender>(value, genderValues);
 
+export enum CategoryName {
+  SHIRTS = 'shirts',
+  JUMPERS = 'jumpers',
+  HOODIES = 'hoodies',
+  JACKETS = 'jackets',
+  SHORTS = 'shorts',
+  JEANS = 'jeans',
+  SHOES = 'shoes',
+  BOOTS = 'boots',
+  SKIRTS = 'skirts',
+  DRESSES = 'dresses',
+}
+
 export interface Category {
   id: number;
-  name: string;
+  name: CategoryName;
   gender: Gender;
 }
 
 export const categories: Category[] = [
-  { id: 3000, name: 'hoodies', gender: Gender.MEN },
-  { id: 3001, name: 'jackets', gender: Gender.MEN },
-  { id: 3002, name: 'jumpers', gender: Gender.MEN },
-  { id: 3003, name: 'shorts', gender: Gender.MEN },
-  { id: 3007, name: 'boots', gender: Gender.MEN },
-  { id: 3008, name: 'shoes', gender: Gender.MEN },
-  { id: 3004, name: 'shirts', gender: Gender.MEN },
-  { id: 3005, name: 'skirts', gender: Gender.WOMEN },
-  { id: 3006, name: 'dresses', gender: Gender.WOMEN },
+  { id: 3000, name: CategoryName.SHIRTS, gender: Gender.MEN },
+  { id: 3001, name: CategoryName.JUMPERS, gender: Gender.MEN },
+  { id: 3002, name: CategoryName.HOODIES, gender: Gender.MEN },
+  { id: 3003, name: CategoryName.JACKETS, gender: Gender.MEN },
+  { id: 3004, name: CategoryName.SHORTS, gender: Gender.MEN },
+  { id: 3005, name: CategoryName.JEANS, gender: Gender.MEN },
+  { id: 3006, name: CategoryName.SHOES, gender: Gender.MEN },
+  { id: 3007, name: CategoryName.BOOTS, gender: Gender.MEN },
+  { id: 4000, name: CategoryName.SKIRTS, gender: Gender.WOMEN },
+  { id: 4001, name: CategoryName.DRESSES, gender: Gender.WOMEN },
 ];
+export const getCategoryId = (name: CategoryName, gender: Gender): number => {
+  const cat = categories.find(
+    (cat) => cat.name === name && cat.gender === gender
+  );
+  if (!cat)
+    throw new Error(
+      `getCategoryId - category not found with parameters name:${name} gender:${gender}`
+    );
+  return cat.id;
+};
 
 export const makeCategoryLink = (category: Category): string =>
   `/clothes/${category.gender}/${category.name}`;

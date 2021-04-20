@@ -16,7 +16,7 @@ export async function getClothesAsos(
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> {
-  const asosCid = asosCidMap.get(cid);
+  const asosCid = asosCidMap.get(parseInt(cid));
   if (!asosCid) Promise.resolve([]);
 
   const lastIndex = requestOptions.page * requestOptions.limit;

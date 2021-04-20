@@ -1,4 +1,9 @@
-import { ClotheSortOption } from '../../constants';
+import {
+  CategoryName,
+  ClotheSortOption,
+  Gender,
+  getCategoryId,
+} from '../../constants';
 import { GetClothesOptions } from '../getClothes';
 
 export const ASOS_BASE_URL = 'https://www.asos.com/au';
@@ -35,13 +40,34 @@ export const makeImageUrl = (id: string | null | undefined): string | null => {
   return `${ASOS_IMAGE_URL}/${id}${ASOS_IMAGE_URL_QUERY_PARAMS}`;
 };
 
-export const asosCidMap = new Map<string, CidMapValue>()
-  .set('3000', { uri: '/men/cat/?cid=5668' })
-  .set('3001', { uri: '/men/cat/?cid=3606' })
-  .set('3002', { uri: '/men/cat/?cid=7617' })
-  .set('3003', { uri: '/men/cat/?cid=7078' })
-  .set('3004', { uri: '/men/cat/?cid=7616' })
-  .set('3005', { uri: '/women/cat/?cid=2639' })
-  .set('3006', { uri: '/women/cat/?cid=8799' })
-  .set('3007', { uri: '/men/cat/?cid=5774' })
-  .set('3008', { uri: '/men/cat/?cid=5775' });
+export const asosCidMap = new Map<number, CidMapValue>()
+  .set(getCategoryId(CategoryName.SHIRTS, Gender.MEN), {
+    uri: '/men/cat/?cid=3602',
+  })
+  .set(getCategoryId(CategoryName.JUMPERS, Gender.MEN), {
+    uri: '/men/cat/?cid=7617',
+  })
+  .set(getCategoryId(CategoryName.HOODIES, Gender.MEN), {
+    uri: '/men/cat/?cid=5668',
+  })
+  .set(getCategoryId(CategoryName.JACKETS, Gender.MEN), {
+    uri: '/men/cat/?cid=3606',
+  })
+  .set(getCategoryId(CategoryName.SHORTS, Gender.MEN), {
+    uri: '/men/cat/?cid=7078',
+  })
+  .set(getCategoryId(CategoryName.JEANS, Gender.MEN), {
+    uri: '/men/cat/?cid=4208',
+  })
+  .set(getCategoryId(CategoryName.SHOES, Gender.MEN), {
+    uri: '/men/cat/?cid=5775',
+  })
+  .set(getCategoryId(CategoryName.BOOTS, Gender.MEN), {
+    uri: '/men/cat/?cid=5774',
+  })
+  .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), {
+    uri: '/men/cat/?cid=2639',
+  })
+  .set(getCategoryId(CategoryName.DRESSES, Gender.WOMEN), {
+    uri: '/men/cat/?cid=8799',
+  });
