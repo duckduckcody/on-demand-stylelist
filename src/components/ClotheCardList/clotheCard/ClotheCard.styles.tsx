@@ -13,6 +13,7 @@ export const Container = styled.div`
 export const ImageContainer = styled.div<{ backgroundImage: string }>`
   grid-area: ImageContainer;
   background: center / cover no-repeat url(${(p) => p.backgroundImage});
+  cursor: pointer;
 `;
 
 export const InfoContainer = styled.div`
@@ -49,12 +50,12 @@ export const OldPrice = styled.span`
 
 export const HeartIconContainer = styled.div<{ isfavourited: boolean }>`
   cursor: pointer;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 2rem;
+  height: 2rem;
   color: ${(props) => (props.isfavourited ? 'red' : props.theme.textColor)};
   position: relative;
-  left: calc(100% - 1.25rem - 10px);
-  top: calc(100% - 1.25rem - 10px);
+  left: calc(100% - 2rem - 10px);
+  top: calc(100% - 2rem - 10px);
   filter: drop-shadow(1px 1px 0px black);
 
   &:hover {
