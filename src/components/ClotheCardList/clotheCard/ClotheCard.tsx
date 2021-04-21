@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { ReactElement, useState } from 'react';
 import { ClotheItem } from '../../../api/getClothes';
+import { useWindow } from '../../../util/useWindow';
 import {
   ClotheName,
   Container,
@@ -31,12 +32,18 @@ export const ClotheCard = ({
   onFavouriteClick = () => null,
 }: Props): ReactElement => {
   const [iconHovered, setIconHovered] = useState(false);
+  const window = useWindow();
+
+  const onImageContainerClick = (clotheLink: string) =>
+    window?.open(clotheLink, '_blank')?.focus();
 
   if (clothe.error) <></>;
-
   return (
     <Container>
-      <ImageContainer backgroundImage={clothe.image}>
+      <ImageContainer
+        backgroundImage={clothe.image}
+        onClick={() => onImageContainerClick(clothe.link)}
+      >
         <a href={clothe.link} target='_blank' rel='noreferrer'></a>
         <Tippy
           content={<Tooltip isFavourited={isFavourited} />}
