@@ -92,4 +92,4 @@ export const makeCategoryLink = (category: Category): string =>
   `/clothes/${category.gender}/${category.name}`;
 
 export const makeCategoryImageLink = (category: Category): string =>
-  `/shop_${category.gender}_${category.name.replaceAll(' ', '_')}.webp`;
+  `/shop_${category.gender}_${category.name.replace(' ', '_')}.webp`;

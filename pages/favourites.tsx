@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { ClotheItem } from '../src/api/getClothes';
-import { ListContainer } from '../src/components/categoryName/categoryName.styles';
-import { ClotheCard } from '../src/components/categoryName/clotheCard/ClotheCard';
+import { ClotheCard } from '../src/components/ClotheCardList/clotheCard/ClotheCard';
+import { ClotheCardListContainer } from '../src/components/ClotheCardList/ClotheCardList.styles';
 import { LocalStorageKey } from '../src/constants';
 
 export default function Favourites(): ReactElement {
@@ -28,7 +28,7 @@ export default function Favourites(): ReactElement {
   };
 
   return (
-    <ListContainer>
+    <ClotheCardListContainer>
       {!favourites?.length && <p>No favourites found</p>}
       {favourites &&
         favourites.map((fav) => (
@@ -39,6 +39,6 @@ export default function Favourites(): ReactElement {
             onFavouriteClick={onFavouriteClick}
           />
         ))}
-    </ListContainer>
+    </ClotheCardListContainer>
   );
 }
