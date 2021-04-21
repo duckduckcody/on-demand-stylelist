@@ -34,15 +34,20 @@ export const ClotheCard = ({
   const [iconHovered, setIconHovered] = useState(false);
   const window = useWindow();
 
-  const onImageContainerClick = (clotheLink: string) =>
-    window?.open(clotheLink, '_blank')?.focus();
+  const onImageContainerClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    clotheLink: string
+  ) => {
+    const target = event.target as HTMLDivElement;
+    target.tagName === 'DIV' && window?.open(clotheLink, '_blank')?.focus();
+  };
 
   if (clothe.error) <></>;
   return (
     <Container>
       <ImageContainer
         backgroundImage={clothe.image}
-        onClick={() => onImageContainerClick(clothe.link)}
+        onClick={(event) => onImageContainerClick(event, clothe.link)}
       >
         <a href={clothe.link} target='_blank' rel='noreferrer'></a>
         <Tippy
