@@ -46,10 +46,6 @@ const getHtml = async (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<string> => {
-  console.log(
-    'makeCoolShirtzUrl(uri, requestOptions)',
-    makeCoolShirtzUrl(uri, requestOptions)
-  );
   const response = await fetch(makeCoolShirtzUrl(uri, requestOptions), {
     headers: HEADERS,
   });

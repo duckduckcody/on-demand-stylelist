@@ -3,13 +3,13 @@ import {
   faHeart as faHeartSolid,
   faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { ReactElement, useState } from 'react';
 import { ClotheItem } from '../../../api/getClothes';
 import {
   ClotheName,
   Container,
-  HeartIcon,
   HeartIconContainer,
   ImageContainer,
   InfoContainer,
@@ -38,6 +38,26 @@ export const ClotheCard = ({
     <Container>
       <ImageContainer backgroundImage={clothe.image}>
         <a href={clothe.link} target='_blank' rel='noreferrer'></a>
+        <Tippy
+          content={<Tooltip isFavourited={isFavourited} />}
+          delay={0}
+          visible={iconHovered}
+        >
+          <HeartIconContainer isfavourited={isFavourited}>
+            <FontAwesomeIcon
+              onMouseEnter={() => setIconHovered(true)}
+              onMouseLeave={() => setIconHovered(false)}
+              icon={
+                isFavourited
+                  ? iconHovered
+                    ? faHeartBroken
+                    : faHeartSolid
+                  : faHeartOutline
+              }
+              onClick={() => onFavouriteClick(clothe)}
+            />
+          </HeartIconContainer>
+        </Tippy>
       </ImageContainer>
       <InfoContainer>
         <WebsiteName>{clothe.website}</WebsiteName>
@@ -54,28 +74,6 @@ export const ClotheCard = ({
           {!clothe.discountedPrice && `$${clothe.price}`}
         </Price>
         <ClotheName>{clothe.name}</ClotheName>
-
-        <Tippy
-          content={<Tooltip isFavourited={isFavourited} />}
-          delay={0}
-          visible={iconHovered}
-        >
-          <HeartIconContainer>
-            <HeartIcon
-              onMouseEnter={() => setIconHovered(true)}
-              onMouseLeave={() => setIconHovered(false)}
-              isfavourited={isFavourited.toString()}
-              icon={
-                isFavourited
-                  ? iconHovered
-                    ? faHeartBroken
-                    : faHeartSolid
-                  : faHeartOutline
-              }
-              onClick={() => onFavouriteClick(clothe)}
-            />
-          </HeartIconContainer>
-        </Tippy>
       </InfoContainer>
     </Container>
   );

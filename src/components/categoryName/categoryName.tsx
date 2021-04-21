@@ -23,14 +23,13 @@ import {
 import { capitaliseString } from '../../util/capitaliseString';
 import { useUpdateUrl } from '../../util/useUpdateUrl';
 import { useWindow } from '../../util/useWindow';
+import { ClotheCardList } from '../ClotheCardList/ClotheCardList';
 import {
   ButtonContainer,
   CategoryNameHeader,
-  ClotheCardListContainer,
   LoadMoreButton,
   SpinningFontAwesomeIcon,
 } from './categoryName.styles';
-import { ClotheCard } from './clotheCard/ClotheCard';
 import { makeUrl } from './makeUrl';
 
 const LIMIT_OPTIONS = [1, 3, 5, 10];
@@ -211,19 +210,12 @@ export const CategoryName = (): ReactElement => {
           </select>
         </span>
       </CategoryNameHeader>
-      <ClotheCardListContainer>
-        {clothes &&
-          clothes.map((clothe) => (
-            <ClotheCard
-              key={clothe.link}
-              clothe={clothe}
-              isFavourited={
-                favourites && favourites.some((fav) => fav.link === clothe.link)
-              }
-              onFavouriteClick={onFavouriteClick}
-            />
-          ))}
-      </ClotheCardListContainer>
+
+      <ClotheCardList
+        clothes={clothes}
+        favourites={favourites}
+        onFavouriteClick={onFavouriteClick}
+      />
 
       <ButtonContainer>
         {isLoadingMore && (
