@@ -1,6 +1,7 @@
 import { parseToEnumValue } from './util/parseToEnumValue';
 
-export const MOBILE_BREAKPOINT = '768px';
+export const MOBILE_PX = 768;
+export const MOBILE_BREAKPOINT = `${MOBILE_PX}px`;
 
 export const NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE =
   'no websites selected';

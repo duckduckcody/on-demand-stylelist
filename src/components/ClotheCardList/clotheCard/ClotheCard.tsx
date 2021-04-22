@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { ReactElement, useState } from 'react';
 import { ClotheItem } from '../../../api/getClothes';
+import { useIsMobile } from '../../../util/useIsMobile';
 import { useWindow } from '../../../util/useWindow';
 import {
   ClotheName,
@@ -31,8 +32,9 @@ export const ClotheCard = ({
   isFavourited = false,
   onFavouriteClick = () => null,
 }: Props): ReactElement => {
-  const [iconHovered, setIconHovered] = useState(false);
   const window = useWindow();
+  const isMobile = useIsMobile();
+  const [iconHovered, setIconHovered] = useState(false);
 
   const onImageContainerClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -53,7 +55,7 @@ export const ClotheCard = ({
         <Tippy
           content={<Tooltip isFavourited={isFavourited} />}
           delay={0}
-          visible={iconHovered}
+          visible={isMobile ? false : iconHovered}
         >
           <HeartIconContainer isfavourited={isFavourited}>
             <FontAwesomeIcon
