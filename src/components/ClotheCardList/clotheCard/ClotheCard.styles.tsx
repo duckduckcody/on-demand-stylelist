@@ -48,17 +48,13 @@ export const OldPrice = styled.span`
   text-decoration: line-through;
 `;
 
-export const HeartIconContainer = styled.div<{ isfavourited: boolean }>`
+export const HeartIconContainer = styled.div<{ isRed: boolean }>`
   cursor: pointer;
   width: 2rem;
   height: 2rem;
-  color: ${(props) => (props.isfavourited ? 'red' : props.theme.textColor)};
+  color: ${(props) => (props.isRed ? 'red' : props.theme.textColor)};
   position: relative;
   left: calc(100% - 2rem - 10px);
   top: calc(100% - 2rem - 10px);
   filter: drop-shadow(1px 1px 0px black);
-
-  &:hover {
-    color: red;
-  }
 `;

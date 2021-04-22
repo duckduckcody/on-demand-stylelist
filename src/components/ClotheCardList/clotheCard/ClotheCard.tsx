@@ -48,6 +48,10 @@ export const ClotheCard = ({
     target.tagName === 'DIV' && window?.open(clotheLink, '_blank')?.focus();
   };
 
+  const FavouriteClick = (clothe: ClotheItem) => {
+    isMobile && setIconHovered(false);
+  };
+
   if (clothe.error) <></>;
   return (
     <Container>
@@ -60,7 +64,7 @@ export const ClotheCard = ({
           delay={0}
           visible={isMobile ? false : iconHovered}
         >
-          <HeartIconContainer isfavourited={isFavourited}>
+          <HeartIconContainer isRed={isFavourited || iconHovered}>
             <FontAwesomeIcon
               onMouseEnter={() => !isMobile && setIconHovered(true)}
               onMouseLeave={() => !isMobile && setIconHovered(false)}
