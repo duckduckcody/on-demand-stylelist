@@ -18,6 +18,7 @@ export interface ClotheItem {
   discountedPrice?: number;
   link: string;
   image: string;
+  fallbackImage?: string;
   website: string;
   error?: unknown;
 }

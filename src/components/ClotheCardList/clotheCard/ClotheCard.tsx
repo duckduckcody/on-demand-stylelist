@@ -35,10 +35,16 @@ export const ClotheCard = ({
   const window = useWindow();
   const isMobile = useIsMobile();
   const [iconHovered, setIconHovered] = useState(false);
+  let imageLink = clothe.image;
 
   useEffect(() => {
     isMobile && setIconHovered(false);
   }, [isMobile]);
+
+  const handleImageError = () => {
+    console.log('handleImageError', clothe.fallbackImage);
+    clothe.fallbackImage ? (imageLink = clothe.fallbackImage) : '';
+  };
 
   const onImageContainerClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -52,7 +58,8 @@ export const ClotheCard = ({
   return (
     <Container>
       <ImageContainer
-        backgroundImage={clothe.image}
+        backgroundImage={imageLink}
+        onError={() => console.log('onError')}
         onClick={(event) => onImageContainerClick(event, clothe.link)}
       >
         <Tippy

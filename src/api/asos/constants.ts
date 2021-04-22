@@ -41,19 +41,13 @@ export const makeAsosUrl = (
 
 type ImageUrlStyle = 'products' | 'groups';
 export const makeImageUrl = (
-  id: string | null | undefined,
-  imageUrlStyle: string
-): string | null => {
-  if (!id) return null;
-  const url =
-    imageUrlStyle === 'products'
-      ? ASOS_IMAGE_URL_PRODUCTS
-      : ASOS_IMAGE_URL_GROUPS;
-  const params =
-    imageUrlStyle === 'products'
-      ? ASOS_IMAGE_URL_PRODUCTS_QUERY_PARAMS
-      : ASOS_IMAGE_URL_GROUPS_QUERY_PARAMS;
-  return `${url}${id}${params}`;
+  id: string | null | undefined
+): { image: string | undefined; fallbackImage: string | undefined } => {
+  if (!id) return { image: undefined, fallbackImage: undefined };
+  return {
+    image: `${ASOS_IMAGE_URL_PRODUCTS}${id}${ASOS_IMAGE_URL_PRODUCTS_QUERY_PARAMS}`,
+    fallbackImage: `${ASOS_IMAGE_URL_GROUPS}${id}${ASOS_IMAGE_URL_GROUPS_QUERY_PARAMS}`,
+  };
 };
 
 export interface AsosCategory {

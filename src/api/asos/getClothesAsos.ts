@@ -55,13 +55,10 @@ const requestData = async (
   }
 
   const htmlString = await response.text();
-  return scrapeHtml(htmlString, category);
+  return scrapeHtml(htmlString);
 };
 
-const scrapeHtml = (
-  htmlString: string,
-  category: AsosCategory
-): ClotheItem[] => {
+const scrapeHtml = (htmlString: string): ClotheItem[] => {
   const html = new JSDOM(htmlString);
   const collectedProducts: ClotheItem[] = [];
   const products = html.window.document.getElementsByTagName('article');
@@ -77,7 +74,7 @@ const scrapeHtml = (
     const link = product.getElementsByTagName('a')[0].getAttribute('href');
 
     const id = product.getAttribute('id')?.replace('product-', '');
-    const image = makeImageUrl(id, category.imageUrlStyle);
+    const { image, fallbackImage } = makeImageUrl(id);
 
     if (!name || !price || !link || !image) {
       console.log('asos - error scraping product', {
@@ -95,6 +92,7 @@ const scrapeHtml = (
       discountedPrice,
       link,
       image,
+      fallbackImage,
       website: 'Asos',
     });
   }
