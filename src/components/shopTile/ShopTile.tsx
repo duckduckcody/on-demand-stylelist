@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
+import { MOBILE_BREAKPOINT } from '../../constants';
 
 const Tile = styled.div<{ imageSrc: string }>`
   display: flex;
@@ -15,6 +16,15 @@ const Tile = styled.div<{ imageSrc: string }>`
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    &:hover {
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
   }
 `;
 
