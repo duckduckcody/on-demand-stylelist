@@ -104,7 +104,7 @@ test('should recurse 4 times', async () => {
   expect(requestData).toBeCalledTimes(4);
 });
 
-fit('stop recursing if less than expected is returned from request', async () => {
+test('stop recursing if less than expected is returned from request', async () => {
   const numberOfClothesNeeded = 33;
   const numberOfClothesReturnedByRequest = 9;
 
@@ -127,7 +127,7 @@ fit('stop recursing if less than expected is returned from request', async () =>
   expect(requestData).toBeCalledTimes(2);
 });
 
-fit('stop recursing if zero is returned from request', async () => {
+test('stop recursing if zero is returned from request', async () => {
   const numberOfClothesNeeded = 40;
   const numberOfClothesReturnedByRequest = 10;
 
