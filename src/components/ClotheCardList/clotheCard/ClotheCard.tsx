@@ -51,7 +51,6 @@ export const ClotheCard = ({
         backgroundImage={clothe.image}
         onClick={(event) => onImageContainerClick(event, clothe.link)}
       >
-        <a href={clothe.link} target='_blank' rel='noreferrer'></a>
         <Tippy
           content={<Tooltip isFavourited={isFavourited} />}
           delay={0}
