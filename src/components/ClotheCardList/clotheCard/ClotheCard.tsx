@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { ClotheItem } from '../../../api/getClothes';
 import { useIsMobile } from '../../../util/useIsMobile';
 import { useWindow } from '../../../util/useWindow';
@@ -36,6 +36,10 @@ export const ClotheCard = ({
   const isMobile = useIsMobile();
   const [iconHovered, setIconHovered] = useState(false);
 
+  useEffect(() => {
+    isMobile && setIconHovered(false);
+  }, [isMobile]);
+
   const onImageContainerClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     clotheLink: string
@@ -58,8 +62,8 @@ export const ClotheCard = ({
         >
           <HeartIconContainer isfavourited={isFavourited}>
             <FontAwesomeIcon
-              onMouseEnter={() => setIconHovered(true)}
-              onMouseLeave={() => setIconHovered(false)}
+              onMouseEnter={() => !isMobile && setIconHovered(true)}
+              onMouseLeave={() => !isMobile && setIconHovered(false)}
               icon={
                 isFavourited
                   ? iconHovered
