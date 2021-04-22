@@ -14,7 +14,7 @@ export const ASOS_IMAGE_URL_PRODUCTS =
   'https://images.asos-media.com/products/image/';
 
 export const ASOS_IMAGE_URL_PRODUCTS_QUERY_PARAMS =
-  '-3?$XL$&wid=500&fit=constrain';
+  '-3?$XXL$&wid=500&fit=constrain';
 
 export const ASOS_IMAGE_URL_GROUPS =
   'https://images.asos-media.com/groups/image/';
