@@ -21,6 +21,7 @@ const Container = styled.div`
 
 const StyledShopTile = styled(ShopTile)`
   font-size: 2.5rem;
+  color: ${(props) => props.theme.textColor};
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     font-size: 1.5rem;

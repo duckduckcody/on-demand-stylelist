@@ -48,10 +48,6 @@ export const ClotheCard = ({
     target.tagName === 'DIV' && window?.open(clotheLink, '_blank')?.focus();
   };
 
-  const FavouriteClick = (clothe: ClotheItem) => {
-    isMobile && setIconHovered(false);
-  };
-
   if (clothe.error) <></>;
   return (
     <Container>

@@ -1,32 +1,6 @@
 import Link from 'next/link';
 import { ReactElement } from 'react';
-import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../constants';
-
-const Tile = styled.div<{ imageSrc: string }>`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  background: center / cover no-repeat url(${(p) => p.imageSrc});
-  background-color: rgba(0, 0, 0, 0.3);
-  background-blend-mode: darken;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
-    &:hover {
-    }
-
-    &:active {
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-  }
-`;
+import { Tile } from './ShopTile.styles';
 
 interface Props {
   imageSrc?: string;
@@ -41,7 +15,7 @@ export const ShopTile = ({
   children,
   className,
 }: Props): ReactElement => (
-  <Link href={link}>
+  <Link href={link} passHref>
     <Tile className={className} imageSrc={imageSrc}>
       {children}
     </Tile>
