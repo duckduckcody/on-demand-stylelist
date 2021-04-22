@@ -6,13 +6,21 @@ import {
 } from '../../constants';
 import { GetClothesOptions } from '../getClothes';
 
+export const ASOS_LIMIT = 72;
+
 export const ASOS_BASE_URL = 'https://www.asos.com/au';
 
-export const ASOS_IMAGE_URL = 'https://images.asos-media.com/products/image';
+export const ASOS_IMAGE_URL_PRODUCTS =
+  'https://images.asos-media.com/products/image/';
 
-export const ASOS_IMAGE_URL_QUERY_PARAMS = '-3?$XL$&wid=500&fit=constrain';
+export const ASOS_IMAGE_URL_PRODUCTS_QUERY_PARAMS =
+  '-3?$XL$&wid=500&fit=constrain';
 
-export const ASOS_LIMIT = 72;
+export const ASOS_IMAGE_URL_GROUPS =
+  'https://images.asos-media.com/groups/image/';
+
+export const ASOS_IMAGE_URL_GROUPS_QUERY_PARAMS =
+  '-group-1?$n_640w$&wid=513&fit=constrain';
 
 export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, '')
@@ -26,54 +34,150 @@ const makeQueryString = (requestOptions: GetClothesOptions) => {
   return `&page=${page}${sortQueryValue ? `&sort=${sortQueryValue}` : ''}`;
 };
 
-export const makeAsosApiUrl = (
+export const makeAsosUrl = (
   uri: string,
   requestOptions: GetClothesOptions
 ): string => `${ASOS_BASE_URL}${uri}${makeQueryString(requestOptions)}`;
 
-interface CidMapValue {
-  uri: string;
-}
-
-export const makeImageUrl = (id: string | null | undefined): string | null => {
+type ImageUrlStyle = 'products' | 'groups';
+export const makeImageUrl = (
+  categoryUri: string,
+  id: string | null | undefined
+): string | null => {
   if (!id) return null;
-  return `${ASOS_IMAGE_URL}/${id}${ASOS_IMAGE_URL_QUERY_PARAMS}`;
+  const category = asosCategory.find((cat) => cat.uri === categoryUri);
+  if (!category) return null;
+  const url =
+    category.imageUrlStyle === 'products'
+      ? ASOS_IMAGE_URL_PRODUCTS
+      : ASOS_IMAGE_URL_GROUPS;
+  const params =
+    category.imageUrlStyle === 'products'
+      ? ASOS_IMAGE_URL_PRODUCTS_QUERY_PARAMS
+      : ASOS_IMAGE_URL_GROUPS_QUERY_PARAMS;
+  return `${url}${id}${params}`;
 };
 
-export const asosCidMap = new Map<number, CidMapValue>()
-  .set(getCategoryId(CategoryName.SHIRTS, Gender.MEN), {
+interface AsosCategory {
+  categoryName: CategoryName;
+  gender: Gender;
+  uri: string;
+  imageUrlStyle: ImageUrlStyle;
+  categoryId: number;
+}
+
+export const getAsosCategoryByCategoryId = (
+  categoryId: number
+): AsosCategory | undefined =>
+  asosCategory.find((cat) => cat.categoryId === categoryId);
+
+export const asosCategory: AsosCategory[] = [
+  {
+    categoryName: CategoryName.SHIRTS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=3602',
-  })
-  .set(getCategoryId(CategoryName.JUMPERS, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.JUMPERS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=7617',
-  })
-  .set(getCategoryId(CategoryName.HOODIES, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.HOODIES,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=5668',
-  })
-  .set(getCategoryId(CategoryName.JACKETS, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.JACKETS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=3606',
-  })
-  .set(getCategoryId(CategoryName.SHORTS, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.SHORTS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=7078',
-  })
-  .set(getCategoryId(CategoryName.JEANS, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.JEANS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=4208',
-  })
-  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.TRACK_PANTS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=26776',
-  })
-  .set(getCategoryId(CategoryName.SHOES, Gender.MEN), {
+    imageUrlStyle: 'groups',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.SHOES,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=5775',
-  })
-  .set(getCategoryId(CategoryName.BOOTS, Gender.MEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.BOOTS,
+    gender: Gender.MEN,
     uri: '/men/cat/?cid=5774',
-  })
-  .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.SKIRTS,
+    gender: Gender.WOMEN,
     uri: '/women/cat/?cid=2639',
-  })
-  .set(getCategoryId(CategoryName.DRESSES, Gender.WOMEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.DRESSES,
+    gender: Gender.WOMEN,
     uri: '/women/cat/?cid=8799',
-  })
-  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), {
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+  {
+    categoryName: CategoryName.TRACK_PANTS,
+    gender: Gender.WOMEN,
     uri: '/women/cat/?cid=27953',
-  });
+    imageUrlStyle: 'products',
+    get categoryId(): number {
+      return getCategoryId(this.categoryName, this.gender);
+    },
+  },
+];

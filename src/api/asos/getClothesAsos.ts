@@ -6,9 +6,9 @@ import { recursiveGetClothes } from '../../util/recursiveGetClothes';
 import { HEADERS } from '../constants';
 import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import {
-  asosCidMap,
   ASOS_LIMIT,
-  makeAsosApiUrl,
+  getAsosCategoryByCategoryId,
+  makeAsosUrl,
   makeImageUrl,
 } from './constants';
 
@@ -16,7 +16,7 @@ export async function getClothesAsos(
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> {
-  const asosCid = asosCidMap.get(parseInt(cid));
+  const asosCid = getAsosCategoryByCategoryId(parseInt(cid));
   if (!asosCid) return Promise.resolve([]);
 
   const lastIndex = requestOptions.page * requestOptions.limit;
@@ -43,7 +43,7 @@ const requestData = async (
   uri: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
-  const response = await fetch(makeAsosApiUrl(uri, requestOptions), {
+  const response = await fetch(makeAsosUrl(uri, requestOptions), {
     headers: HEADERS,
   });
   if (!response.ok) {
@@ -54,10 +54,10 @@ const requestData = async (
   }
 
   const htmlString = await response.text();
-  return scrapeHtml(htmlString);
+  return scrapeHtml(htmlString, uri);
 };
 
-const scrapeHtml = (htmlString: string): ClotheItem[] => {
+const scrapeHtml = (htmlString: string, categoryUri: string): ClotheItem[] => {
   const html = new JSDOM(htmlString);
   const collectedProducts: ClotheItem[] = [];
   const products = html.window.document.getElementsByTagName('article');
@@ -73,7 +73,7 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     const link = product.getElementsByTagName('a')[0].getAttribute('href');
 
     const id = product.getAttribute('id')?.replace('product-', '');
-    const image = makeImageUrl(id);
+    const image = makeImageUrl(categoryUri, id);
 
     if (!name || !price || !link || !image) {
       console.log('asos - error scraping product', {

@@ -1,8 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { makeAsosApiUrl } from '../../src/api/asos/constants';
-import { getClothesAsos } from '../../src/api/asos/getClothesAsos';
-import { HEADERS } from '../../src/api/constants';
-import { ClotheSortOption } from '../../src/constants';
 
 export default async function handler(
   req: NextApiRequest,
