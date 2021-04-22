@@ -41,24 +41,22 @@ export const makeAsosUrl = (
 
 type ImageUrlStyle = 'products' | 'groups';
 export const makeImageUrl = (
-  categoryUri: string,
-  id: string | null | undefined
+  id: string | null | undefined,
+  imageUrlStyle: string
 ): string | null => {
   if (!id) return null;
-  const category = asosCategory.find((cat) => cat.uri === categoryUri);
-  if (!category) return null;
   const url =
-    category.imageUrlStyle === 'products'
+    imageUrlStyle === 'products'
       ? ASOS_IMAGE_URL_PRODUCTS
       : ASOS_IMAGE_URL_GROUPS;
   const params =
-    category.imageUrlStyle === 'products'
+    imageUrlStyle === 'products'
       ? ASOS_IMAGE_URL_PRODUCTS_QUERY_PARAMS
       : ASOS_IMAGE_URL_GROUPS_QUERY_PARAMS;
   return `${url}${id}${params}`;
 };
 
-interface AsosCategory {
+export interface AsosCategory {
   categoryName: CategoryName;
   gender: Gender;
   uri: string;

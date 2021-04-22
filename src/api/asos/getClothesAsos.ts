@@ -10,25 +10,26 @@ import {
   getAsosCategoryByCategoryId,
   makeAsosUrl,
   makeImageUrl,
+  AsosCategory,
 } from './constants';
 
 export async function getClothesAsos(
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> {
-  const asosCid = getAsosCategoryByCategoryId(parseInt(cid));
-  if (!asosCid) return Promise.resolve([]);
+  const asosCategory = getAsosCategoryByCategoryId(parseInt(cid));
+  if (!asosCategory) return Promise.resolve([]);
 
   const lastIndex = requestOptions.page * requestOptions.limit;
   const firstIndex = lastIndex - requestOptions.limit;
 
-  const cacheKey = `asos-${asosCid!.uri}-${requestOptions.sort}`;
+  const cacheKey = `asos-${asosCategory.uri}-${requestOptions.sort}`;
   const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
 
-  const clothes = await recursiveGetClothes(
+  const clothes = await recursiveGetClothes<AsosCategory>(
     requestOptions,
     cachedClothes,
-    asosCid!.uri,
+    asosCategory,
     requestData,
     ASOS_LIMIT,
     lastIndex
@@ -40,10 +41,10 @@ export async function getClothesAsos(
 }
 
 const requestData = async (
-  uri: string,
+  category: AsosCategory,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
-  const response = await fetch(makeAsosUrl(uri, requestOptions), {
+  const response = await fetch(makeAsosUrl(category.uri, requestOptions), {
     headers: HEADERS,
   });
   if (!response.ok) {
@@ -54,10 +55,13 @@ const requestData = async (
   }
 
   const htmlString = await response.text();
-  return scrapeHtml(htmlString, uri);
+  return scrapeHtml(htmlString, category);
 };
 
-const scrapeHtml = (htmlString: string, categoryUri: string): ClotheItem[] => {
+const scrapeHtml = (
+  htmlString: string,
+  category: AsosCategory
+): ClotheItem[] => {
   const html = new JSDOM(htmlString);
   const collectedProducts: ClotheItem[] = [];
   const products = html.window.document.getElementsByTagName('article');
@@ -73,7 +77,7 @@ const scrapeHtml = (htmlString: string, categoryUri: string): ClotheItem[] => {
     const link = product.getElementsByTagName('a')[0].getAttribute('href');
 
     const id = product.getAttribute('id')?.replace('product-', '');
-    const image = makeImageUrl(categoryUri, id);
+    const image = makeImageUrl(id, category.imageUrlStyle);
 
     if (!name || !price || !link || !image) {
       console.log('asos - error scraping product', {

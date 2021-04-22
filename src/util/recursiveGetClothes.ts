@@ -1,11 +1,13 @@
-import { getClothesFunction } from '../api/constants';
 import { ClotheItem, GetClothesOptions } from '../api/getClothes';
 
-export const recursiveGetClothes = async (
+export const recursiveGetClothes = async <T extends { uri: string }>(
   requestOptions: GetClothesOptions,
   clothes: Partial<ClotheItem>[],
-  uri: string,
-  requestData: getClothesFunction,
+  category: T,
+  requestData: (
+    category: T,
+    requestOptions: GetClothesOptions
+  ) => Promise<Partial<ClotheItem>[]>,
   numberOfClothesReturnedByRequest: number,
   numberOfClothesNeeded: number
 ): Promise<Partial<ClotheItem>[]> => {
@@ -17,7 +19,7 @@ export const recursiveGetClothes = async (
   const nextPage =
     Math.trunc(clothes.length / numberOfClothesReturnedByRequest) + 1;
 
-  const nextPageData = await requestData(uri, {
+  const nextPageData = await requestData(category, {
     sort: requestOptions.sort,
     limit: numberOfClothesReturnedByRequest,
     page: nextPage,
@@ -29,7 +31,7 @@ export const recursiveGetClothes = async (
   return await recursiveGetClothes(
     requestOptions,
     clothes.concat(nextPageData),
-    uri,
+    category,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded

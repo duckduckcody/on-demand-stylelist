@@ -1,4 +1,3 @@
-import { getClothesFunction } from '../../api/constants';
 import { ClotheItem, GetClothesOptions } from '../../api/getClothes';
 import { ClotheSortOption } from '../../constants';
 import { recursiveGetClothes } from '../recursiveGetClothes';
@@ -14,7 +13,12 @@ const clotheItem: Partial<ClotheItem> = { name: 'my name jeff', price: 60 };
 const makeClothes = (amount: number): Partial<ClotheItem>[] =>
   [...Array(amount).keys()].map(() => clotheItem);
 
-const requestData = jest.fn() as jest.MockedFunction<getClothesFunction>;
+type s = (
+  category: { uri: string },
+  requestOptions: GetClothesOptions
+) => Promise<Partial<ClotheItem>[]>;
+
+const requestData = jest.fn() as jest.MockedFunction<s>;
 
 test('10 clothes needed when 10 is returned should recurse once', async () => {
   const numberOfClothesNeeded = 10;
@@ -27,7 +31,7 @@ test('10 clothes needed when 10 is returned should recurse once', async () => {
   const responseClothes = await recursiveGetClothes(
     requestOptions,
     [],
-    'test-uri',
+    { uri: 'test-uri' },
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -48,7 +52,7 @@ test('10 clothes needed when 5 is returned should recurse twice', async () => {
   const responseClothes = await recursiveGetClothes(
     requestOptions,
     [],
-    'test-uri',
+    { uri: 'test-uri' },
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -69,7 +73,7 @@ test('should recurse 10 times', async () => {
   const responseClothes = await recursiveGetClothes(
     requestOptions,
     [],
-    'test-uri',
+    { uri: 'test-uri' },
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -90,7 +94,7 @@ test('should recurse 4 times', async () => {
   const responseClothes = await recursiveGetClothes(
     requestOptions,
     [],
-    'test-uri',
+    { uri: 'test-uri' },
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -113,7 +117,7 @@ fit('stop recursing if less than expected is returned from request', async () =>
   const responseClothes = await recursiveGetClothes(
     requestOptions,
     [],
-    'test-uri',
+    { uri: 'test-uri' },
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -135,7 +139,7 @@ fit('stop recursing if zero is returned from request', async () => {
   const responseClothes = await recursiveGetClothes(
     requestOptions,
     [],
-    'test-uri',
+    { uri: 'test-uri' },
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded

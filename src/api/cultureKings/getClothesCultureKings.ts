@@ -25,10 +25,10 @@ export const getClothesCultureKings = async (
   }`;
   const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
 
-  const clothes = await recursiveGetClothes(
+  const clothes = await recursiveGetClothes<{ uri: string }>(
     requestOptions,
     cachedClothes,
-    cultureKingsCid!.uri,
+    { uri: cultureKingsCid!.uri },
     requestData,
     CULTURE_KINGS_LIMIT,
     lastIndex
@@ -48,15 +48,15 @@ interface AlgoliaHits {
 }
 
 const requestData = (
-  uri: string,
+  category: { uri: string },
   requestOptions: GetClothesOptions
 ): Promise<ClotheItem[]> =>
   getCultureKingsAlgoliaIndex(requestOptions.sort)
     .search<AlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
       page: requestOptions.page - 1,
-      ruleContexts: [`collection-${uri}`],
-      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${uri}`,
+      ruleContexts: [`collection-${category.uri}`],
+      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${category.uri}`,
       headers: {
         Referer: CULTURE_KINGS_URL,
         ...HEADERS,
