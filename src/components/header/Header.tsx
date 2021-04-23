@@ -1,9 +1,7 @@
-import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 import { Gender, Paths } from '../../constants';
 import {
-  DarkModeIconContainer,
   GenderHeaderLink,
   HeaderContainer,
   HeaderLink,
@@ -11,20 +9,15 @@ import {
   HeaderLinkTitle,
   PrimaryHeaderContainer,
   SecondaryHeaderContainer,
-  StyledFontAwesomeIcon,
 } from './Header.styles';
 
 interface Props {
-  onThemeClick: VoidFunction;
-  lightMode: boolean;
   isHome: boolean;
   preferredGender: Gender | undefined;
   pathName: string | undefined;
 }
 
 export const Header = ({
-  onThemeClick,
-  lightMode,
   isHome,
   preferredGender,
   pathName,
@@ -56,18 +49,10 @@ export const Header = ({
               Womens
             </GenderHeaderLink>
           </Link>
-        </HeaderLinkContainer>
-        <DarkModeIconContainer>
-          <Link href='/favourites'>
+          <Link href='/favourites' passHref>
             <HeaderLink>Favourites</HeaderLink>
           </Link>
-          {!lightMode && (
-            <StyledFontAwesomeIcon icon={faSun} onClick={onThemeClick} />
-          )}
-          {lightMode && (
-            <StyledFontAwesomeIcon icon={faMoon} onClick={onThemeClick} />
-          )}
-        </DarkModeIconContainer>
+        </HeaderLinkContainer>
       </PrimaryHeaderContainer>
       {isShowingSecondaryHeading && (
         <SecondaryHeaderContainer>

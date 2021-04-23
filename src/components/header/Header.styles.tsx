@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { ZIndex } from '../../styleConstants';
 
@@ -16,12 +15,12 @@ export const HeaderContainer = styled.div`
 export const PrimaryHeaderContainer = styled.div<{
   isShowingSecondaryHeading: boolean;
 }>`
-  height: ${HEADER_PRIMARY_HEIGHT}px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   box-sizing: border-box;
   padding: 12px 24px;
+  height: ${HEADER_PRIMARY_HEIGHT}px;
   background-color: ${(props) => props.theme.headerBackgroundColor};
   border-bottom: ${(props) =>
     props.isShowingSecondaryHeading ? 'none' : '1px solid #373737'};
@@ -33,11 +32,12 @@ export const HeaderLinkContainer = styled.div`
   align-items: center;
 `;
 
-export const HeaderLink = styled.span<{ selected?: boolean }>`
+export const HeaderLink = styled.a<{ selected?: boolean }>`
   cursor: pointer;
   font-size: 1rem;
   font-weight: 300;
   margin: 0 12px 0 0;
+  color: ${(props) => props.theme.textColor};
   text-decoration: ${(p) => (p.selected ? 'underline' : 'none')};
 
   &:hover {
@@ -69,17 +69,6 @@ export const GenderHeaderLink = styled(HeaderLink)<{ selected?: boolean }>`
     props.selected
       ? props.theme.secondaryHeaderBackgroundColor
       : 'transparent'};
-`;
-
-export const DarkModeIconContainer = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-`;
-
-export const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
-  width: 1.5rem;
 `;
 
 export const SecondaryHeaderContainer = styled.div`
