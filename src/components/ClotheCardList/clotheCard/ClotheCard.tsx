@@ -82,6 +82,7 @@ export const ClotheCard = ({
         <Image
           src={imgSrc}
           onError={handleImageError}
+          quality={100}
           alt=''
           layout='fill'
           objectFit='cover'
