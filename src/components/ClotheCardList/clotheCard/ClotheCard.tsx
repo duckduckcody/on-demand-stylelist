@@ -50,7 +50,7 @@ export const ClotheCard = ({
     clotheLink: string
   ) => {
     const target = event.target as HTMLDivElement;
-    target.tagName === 'DIV' && window?.open(clotheLink, '_blank')?.focus();
+    target.tagName === 'IMG' && window?.open(clotheLink, '_blank')?.focus();
   };
 
   if (clothe.error) <></>;
