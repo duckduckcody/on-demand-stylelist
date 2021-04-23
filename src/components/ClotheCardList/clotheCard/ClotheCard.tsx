@@ -3,7 +3,6 @@ import {
   faHeart as faHeartSolid,
   faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
@@ -13,6 +12,7 @@ import { useWindow } from '../../../util/useWindow';
 import {
   ClotheName,
   Container,
+  HeartIcon,
   HeartIconContainer,
   ImageContainer,
   InfoContainer,
@@ -65,7 +65,7 @@ export const ClotheCard = ({
           visible={isMobile ? false : iconHovered}
         >
           <HeartIconContainer isRed={isFavourited || iconHovered}>
-            <FontAwesomeIcon
+            <HeartIcon
               onMouseEnter={() => !isMobile && setIconHovered(true)}
               onMouseLeave={() => !isMobile && setIconHovered(false)}
               icon={

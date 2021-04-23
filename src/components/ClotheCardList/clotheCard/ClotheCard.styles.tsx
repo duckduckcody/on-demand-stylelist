@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { ZIndex } from '../../../styleConstants';
 
@@ -61,4 +62,9 @@ export const HeartIconContainer = styled.div<{ isRed: boolean }>`
   bottom: 5px;
   right: 5px;
   filter: drop-shadow(1px 1px 0px black);
+`;
+
+export const HeartIcon = styled(FontAwesomeIcon)`
+  width: 100%;
+  height: 100%;
 `;
