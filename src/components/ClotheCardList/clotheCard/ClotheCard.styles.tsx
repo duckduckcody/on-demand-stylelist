@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ZIndex } from '../../../styleConstants';
 
 export const Container = styled.div`
   width: 100%;
@@ -10,10 +11,12 @@ export const Container = styled.div`
     'InfoContainer';
 `;
 
-export const ImageContainer = styled.div<{ backgroundImage: string }>`
+export const ImageContainer = styled.div`
   grid-area: ImageContainer;
-  background: center / cover no-repeat url(${(p) => p.backgroundImage});
+  position: relative;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
 `;
 
 export const InfoContainer = styled.div`
@@ -53,8 +56,9 @@ export const HeartIconContainer = styled.div<{ isRed: boolean }>`
   width: 2rem;
   height: 2rem;
   color: ${(props) => (props.isRed ? 'red' : props.theme.textColor)};
-  position: relative;
-  left: calc(100% - 2rem - 10px);
-  top: calc(100% - 2rem - 10px);
+  position: absolute;
+  z-index: ${ZIndex.pushContentForward};
+  bottom: 5px;
+  right: 5px;
   filter: drop-shadow(1px 1px 0px black);
 `;

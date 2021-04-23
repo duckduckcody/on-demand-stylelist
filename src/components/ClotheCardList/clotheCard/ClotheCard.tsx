@@ -5,6 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
+import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
 import { ClotheItem } from '../../../api/getClothes';
 import { useIsMobile } from '../../../util/useIsMobile';
@@ -35,16 +36,14 @@ export const ClotheCard = ({
   const window = useWindow();
   const isMobile = useIsMobile();
   const [iconHovered, setIconHovered] = useState(false);
-  let imageLink = clothe.image;
+  const [imgSrc, setImgSrc] = useState(clothe.image);
 
   useEffect(() => {
     isMobile && setIconHovered(false);
   }, [isMobile]);
 
-  const handleImageError = () => {
-    console.log('handleImageError', clothe.fallbackImage);
-    clothe.fallbackImage ? (imageLink = clothe.fallbackImage) : '';
-  };
+  const handleImageError = () =>
+    clothe.fallbackImage && setImgSrc(clothe.fallbackImage);
 
   const onImageContainerClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -58,8 +57,6 @@ export const ClotheCard = ({
   return (
     <Container>
       <ImageContainer
-        backgroundImage={imageLink}
-        onError={() => console.log('onError')}
         onClick={(event) => onImageContainerClick(event, clothe.link)}
       >
         <Tippy
@@ -82,6 +79,13 @@ export const ClotheCard = ({
             />
           </HeartIconContainer>
         </Tippy>
+        <Image
+          src={imgSrc}
+          onError={handleImageError}
+          alt=''
+          layout='fill'
+          objectFit='cover'
+        />
       </ImageContainer>
       <InfoContainer>
         <WebsiteName>{clothe.website}</WebsiteName>

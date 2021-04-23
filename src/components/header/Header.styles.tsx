@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { ZIndex } from '../../styleConstants';
 
 export const HEADER_PRIMARY_HEIGHT = 64;
 export const HEADER_SECONDARY_HEIGHT = 32;
@@ -9,7 +10,7 @@ export const HeaderContainer = styled.div`
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: ${ZIndex.ui};
 `;
 
 export const PrimaryHeaderContainer = styled.div<{
