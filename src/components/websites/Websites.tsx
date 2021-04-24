@@ -9,6 +9,10 @@ interface Props {
   websites: WebsiteData[];
 }
 
+const WebsitesContainer = styled.div`
+  margin: 12px 24px 0;
+`;
+
 const StyledButton = styled.button`
   margin: 16px 0;
 `;
@@ -51,7 +55,7 @@ export const Websites = ({ websites }: Props): ReactElement => {
   };
 
   return (
-    <>
+    <WebsitesContainer>
       {websites.map((website) => (
         <div key={website.id}>
           <label>{website.name}</label>
@@ -67,6 +71,6 @@ export const Websites = ({ websites }: Props): ReactElement => {
       {!onBoardMode && (
         <StyledButton onClick={() => router.back()}>Save</StyledButton>
       )}
-    </>
+    </WebsitesContainer>
   );
 };
