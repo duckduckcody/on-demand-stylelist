@@ -1,14 +1,9 @@
-import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { websiteData, WebsiteData } from '../src/api/constants';
-import { LocalStorageKey } from '../src/constants';
-import { useWindow } from '../src/util/useWindow';
-
-export const getStaticProps: GetStaticProps = async () => ({
-  props: { websites: websiteData },
-});
+import { WebsiteData } from '../../api/constants';
+import { LocalStorageKey } from '../../constants';
+import { useWindow } from '../../util/useWindow';
 
 interface Props {
   websites: WebsiteData[];
@@ -18,7 +13,7 @@ const StyledButton = styled.button`
   margin: 16px 0;
 `;
 
-export default function Websites({ websites }: Props): ReactElement {
+export const Websites = ({ websites }: Props): ReactElement => {
   const router = useRouter();
   const window = useWindow();
   const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);
@@ -74,4 +69,4 @@ export default function Websites({ websites }: Props): ReactElement {
       )}
     </>
   );
-}
+};

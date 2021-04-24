@@ -14,12 +14,6 @@ export enum LocalStorageKey {
   LightMode = 'lightMode',
 }
 
-export enum Paths {
-  websites = '/websites',
-  mens = '/mens',
-  womens = '/womens',
-}
-
 export enum ClotheSortOption {
   NEWEST = 'newest',
   BEST_SELLING = 'bestSelling',
@@ -37,6 +31,14 @@ export enum Gender {
   MEN = 'mens',
   WOMEN = 'womens',
   UNISEX = 'unisex',
+}
+
+export enum Paths {
+  websites = '/websites',
+  mens = `/mens`,
+  mensWebsites = '/mens/websites',
+  womens = '/womens',
+  womensWebsites = '/womens/websites',
 }
 
 export const genderValues: string[] = Object.values(Gender);

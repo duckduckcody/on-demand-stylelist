@@ -26,10 +26,12 @@ export const PreferredGenderContext = createContext<{
 });
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
+  const [preferredGender, setPreferredGender] = useState<Gender | undefined>();
   const window = useWindow();
   const pathName = window?.location.pathname;
-  const isHome = window?.location.pathname === '/';
-  const [preferredGender, setPreferredGender] = useState<Gender | undefined>();
+  const firstSlug = pathName?.split('/', 2)[1];
+  const isShowingSecondaryHeader =
+    firstSlug === Gender.MEN || firstSlug === Gender.WOMEN;
 
   useEffect(
     () =>
@@ -59,14 +61,11 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
         >
           <GlobalStyle />
           <Header
-            isHome={isHome}
-            preferredGender={preferredGender}
+            firstSlug={firstSlug}
             pathName={pathName}
+            isShowingSecondaryHeader={isShowingSecondaryHeader}
           ></Header>
-          <ContentContainer
-            preferredGender={Boolean(preferredGender)}
-            isHome={isHome}
-          >
+          <ContentContainer isShowingSecondaryHeader={isShowingSecondaryHeader}>
             <Component {...pageProps} />
           </ContentContainer>
         </PreferredGenderContext.Provider>

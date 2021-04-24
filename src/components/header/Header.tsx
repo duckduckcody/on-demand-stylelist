@@ -1,68 +1,69 @@
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 import { Gender, Paths } from '../../constants';
+import { PreferredGenderContext } from '../baseApp/BaseApp';
 import {
-  GenderHeaderLink,
   HeaderContainer,
   HeaderLink,
   HeaderLinkContainer,
   HeaderLinkTitle,
+  HeaderPageLink,
   PrimaryHeaderContainer,
   SecondaryHeaderContainer,
 } from './Header.styles';
 
 interface Props {
-  isHome: boolean;
-  preferredGender: Gender | undefined;
+  firstSlug: string | undefined;
   pathName: string | undefined;
+  isShowingSecondaryHeader: boolean | undefined;
 }
 
 export const Header = ({
-  isHome,
-  preferredGender,
+  firstSlug,
   pathName,
+  isShowingSecondaryHeader,
 }: Props): ReactElement => {
-  const isShowingSecondaryHeading = Boolean(preferredGender) && !isHome;
+  const { preferredGender } = useContext(PreferredGenderContext);
   const categoryPath =
     preferredGender === Gender.MEN ? Paths.mens : Paths.womens;
+  const websitesPath =
+    preferredGender === Gender.MEN ? Paths.mensWebsites : Paths.womensWebsites;
 
   return (
     <HeaderContainer>
       <PrimaryHeaderContainer
-        isShowingSecondaryHeading={isShowingSecondaryHeading}
+        isShowingSecondaryHeader={isShowingSecondaryHeader}
       >
         <HeaderLinkContainer>
-          <Link href='/'>
+          <Link href='/' passHref>
             <HeaderLinkTitle>STYLELIST</HeaderLinkTitle>
           </Link>
-          <Link href='/mens'>
-            <GenderHeaderLink
-              selected={preferredGender === Gender.MEN && !isHome}
-            >
+          <Link href='/mens' passHref>
+            <HeaderPageLink selected={firstSlug === Gender.MEN}>
               Mens
-            </GenderHeaderLink>
+            </HeaderPageLink>
           </Link>
-          <Link href='/womens'>
-            <GenderHeaderLink
-              selected={preferredGender === Gender.WOMEN && !isHome}
-            >
+          <Link href='/womens' passHref>
+            <HeaderPageLink selected={firstSlug === Gender.WOMEN}>
               Womens
-            </GenderHeaderLink>
+            </HeaderPageLink>
           </Link>
           <Link href='/favourites' passHref>
-            <HeaderLink>Favourites</HeaderLink>
+            <HeaderPageLink selected={pathName === '/favourites'}>
+              Favourites
+            </HeaderPageLink>
           </Link>
         </HeaderLinkContainer>
       </PrimaryHeaderContainer>
-      {isShowingSecondaryHeading && (
+      {isShowingSecondaryHeader && (
         <SecondaryHeaderContainer>
-          <Link href={categoryPath}>
+          <Link href={categoryPath} passHref>
             <HeaderLink selected={pathName === categoryPath}>
               Categories
             </HeaderLink>
           </Link>
-          <Link href={Paths.websites}>
-            <HeaderLink selected={pathName === Paths.websites}>
+          <Link href={websitesPath} passHref>
+            <HeaderLink selected={pathName === websitesPath}>
               Websites
             </HeaderLink>
           </Link>

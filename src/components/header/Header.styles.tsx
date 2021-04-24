@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const PrimaryHeaderContainer = styled.div<{
-  isShowingSecondaryHeading: boolean;
+  isShowingSecondaryHeader?: boolean;
 }>`
   display: flex;
   flex-flow: row nowrap;
@@ -23,7 +23,7 @@ export const PrimaryHeaderContainer = styled.div<{
   height: ${HEADER_PRIMARY_HEIGHT}px;
   background-color: ${(props) => props.theme.headerBackgroundColor};
   border-bottom: ${(props) =>
-    props.isShowingSecondaryHeading ? 'none' : '1px solid #373737'};
+    props.isShowingSecondaryHeader ? 'none' : '1px solid #373737'};
 `;
 
 export const HeaderLinkContainer = styled.div`
@@ -59,7 +59,7 @@ export const HeaderLinkTitle = styled(HeaderLink)`
   }
 `;
 
-export const GenderHeaderLink = styled(HeaderLink)<{ selected?: boolean }>`
+export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
   height: 100%;
   width: 100%;
   padding: 12px;

@@ -23,11 +23,10 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const ContentContainer = styled.div<{
-  preferredGender: boolean;
-  isHome: boolean;
+  isShowingSecondaryHeader: boolean;
 }>`
   margin: ${(props) =>
-      props.preferredGender && !props.isHome
+      props.isShowingSecondaryHeader
         ? HEADER_PRIMARY_HEIGHT + HEADER_SECONDARY_HEIGHT + 12
         : HEADER_PRIMARY_HEIGHT + 12}px
     24px 12px;
