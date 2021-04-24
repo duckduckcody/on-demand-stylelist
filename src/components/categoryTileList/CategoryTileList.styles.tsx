@@ -6,7 +6,6 @@ import {
 } from '../header/Header.styles';
 
 export const CategoryTileListContainer = styled.div`
-  margin: -12px -24px -12px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr 1fr;

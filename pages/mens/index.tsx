@@ -1,6 +1,5 @@
 import { GetStaticProps } from 'next';
-import { ReactElement, useContext, useEffect } from 'react';
-import { PreferredGenderContext } from '../../src/components/baseApp/BaseApp';
+import { ReactElement } from 'react';
 import { CategoryTileList } from '../../src/components/categoryTileList/CategoryTileList';
 import { categories, Category, Gender } from '../../src/constants';
 
@@ -13,8 +12,5 @@ interface Props {
 }
 
 export default function Mens({ categories }: Props): ReactElement {
-  const { setPreferredGender } = useContext(PreferredGenderContext);
-  useEffect(() => setPreferredGender(Gender.MEN), [setPreferredGender]);
-
   return <CategoryTileList categories={categories} />;
 }

@@ -7,7 +7,6 @@ const SHOP_MENS_IMAGE_URL = '/shop_mens.webp';
 const SHOP_WOMENS_IMAGE_URL = '/shop_womens.webp';
 
 const Container = styled.div`
-  margin: -12px -24px -12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;

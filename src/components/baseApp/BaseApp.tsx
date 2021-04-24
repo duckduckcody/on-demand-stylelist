@@ -1,52 +1,21 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
-import {
-  createContext,
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Gender, LocalStorageKey, parseGender } from '../../constants';
 import { darkTheme } from '../../themes';
 import { useWindow } from '../../util/useWindow';
 import { Header } from '../header/Header';
-import { ContentContainer, GlobalStyle } from './BaseApp.styles';
+import { GlobalStyle } from './BaseApp.styles';
 import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
 
-export const PreferredGenderContext = createContext<{
-  preferredGender: Gender | undefined;
-  setPreferredGender: Dispatch<SetStateAction<Gender | undefined>>;
-}>({
-  preferredGender: undefined,
-  setPreferredGender: () => {},
-});
-
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
-  const [preferredGender, setPreferredGender] = useState<Gender | undefined>();
   const window = useWindow();
-  const pathName = window?.location.pathname;
-  const firstSlug = pathName?.split('/', 2)[1];
-  const isShowingSecondaryHeader =
-    firstSlug === Gender.MEN || firstSlug === Gender.WOMEN;
+  const [pathName, setPathName] = useState<string | undefined>(undefined);
 
-  useEffect(
-    () =>
-      setPreferredGender(
-        parseGender(window?.localStorage.getItem(LocalStorageKey.Gender))
-      ),
-    [window?.localStorage]
-  );
-
-  useEffect(
-    () =>
-      preferredGender &&
-      window?.localStorage.setItem(LocalStorageKey.Gender, preferredGender),
-    [preferredGender, window?.localStorage]
-  );
+  useEffect(() => {
+    setPathName(window?.location.pathname);
+  }, [window?.localStorage, window?.location.pathname]);
 
   return (
     <>
@@ -56,19 +25,9 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
         <Favicon favicon='📜' />
       </Head>
       <ThemeProvider theme={darkTheme}>
-        <PreferredGenderContext.Provider
-          value={{ preferredGender, setPreferredGender }}
-        >
-          <GlobalStyle />
-          <Header
-            firstSlug={firstSlug}
-            pathName={pathName}
-            isShowingSecondaryHeader={isShowingSecondaryHeader}
-          ></Header>
-          <ContentContainer isShowingSecondaryHeader={isShowingSecondaryHeader}>
-            <Component {...pageProps} />
-          </ContentContainer>
-        </PreferredGenderContext.Provider>
+        <GlobalStyle />
+        <Header pathName={pathName}></Header>
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   );

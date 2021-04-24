@@ -12,6 +12,13 @@ export const HeaderContainer = styled.div`
   z-index: ${ZIndex.ui};
 `;
 
+export const HeaderOffset = styled.div<{ isShowingSecondaryHeader?: boolean }>`
+  padding: ${(p) =>
+      HEADER_PRIMARY_HEIGHT +
+      (p.isShowingSecondaryHeader ? HEADER_SECONDARY_HEIGHT : 0)}px
+    0 0;
+`;
+
 export const PrimaryHeaderContainer = styled.div<{
   isShowingSecondaryHeader?: boolean;
 }>`
