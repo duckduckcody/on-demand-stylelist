@@ -1,9 +1,10 @@
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { websiteData, WebsiteData } from '../src/api/constants';
 import { LocalStorageKey } from '../src/constants';
+import { useWindow } from '../src/util/useWindow';
 
 export const getStaticProps: GetStaticProps = async () => ({
   props: { websites: websiteData },
@@ -19,26 +20,25 @@ const StyledButton = styled.button`
 
 export default function Websites({ websites }: Props): ReactElement {
   const router = useRouter();
+  const window = useWindow();
   const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);
   const [onBoardMode, setOnBoardMode] = useState(false);
 
   useEffect(() => {
-    if (process.browser) {
-      const websites = JSON.parse(
-        window.localStorage.getItem(LocalStorageKey.Websites) ?? '[]'
-      );
-      websites.length && setSelectedWebsites(websites);
-      !websites.length && setOnBoardMode(true);
-    }
-  }, []);
+    const websites = JSON.parse(
+      window?.localStorage.getItem(LocalStorageKey.Websites) ?? '[]'
+    );
+    websites.length && setSelectedWebsites(websites);
+    !websites.length && setOnBoardMode(true);
+  }, [window?.localStorage]);
 
   useEffect(
     () =>
-      window.localStorage.setItem(
+      window?.localStorage.setItem(
         LocalStorageKey.Websites,
         JSON.stringify(selectedWebsites)
       ),
-    [selectedWebsites]
+    [selectedWebsites, window?.localStorage]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
