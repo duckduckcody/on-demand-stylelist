@@ -1,9 +1,5 @@
 import { ReactElement } from 'react';
-import {
-  Category,
-  makeCategoryImageLink,
-  makeCategoryLink,
-} from '../../constants';
+import { Category, makeCategoryImageLink } from '../../constants';
 import { ShopTile } from '../shopTile/ShopTile';
 import {
   CategoryLink,
@@ -19,7 +15,7 @@ export const CategoryTileList = ({ categories }: Props): ReactElement => (
     {categories.map((category) => (
       <ShopTile
         key={category.id}
-        link={makeCategoryLink(category)}
+        link={`/${category.gender}/${category.name}`}
         imageSrc={makeCategoryImageLink(category)}
       >
         <CategoryLink>SHOP {category.name.toUpperCase()}</CategoryLink>
