@@ -18,7 +18,6 @@ import {
   LocalStorageKey,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
-  Paths,
 } from '../../constants';
 import { capitaliseString } from '../../util/capitaliseString';
 import { useUpdateUrl } from '../../util/useUpdateUrl';
@@ -167,8 +166,14 @@ export const CategoryName = (): ReactElement => {
 
   if (error) {
     console.log('request error', error);
-    if (error.message === NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE)
-      routerReplace(Paths.websites);
+    if (error.message === NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE) {
+      // routerReplace(Paths.websites);
+      return (
+        <p>
+          Select some websites from the websites tab before searching for styles
+        </p>
+      );
+    }
     return (
       <p>
         Error fetching styles ({error.status}; {error.message})
