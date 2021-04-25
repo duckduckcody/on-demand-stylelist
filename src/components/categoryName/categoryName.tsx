@@ -16,7 +16,6 @@ import {
   ClotheSortOption,
   clotheSortOptionValues,
   LocalStorageKey,
-  NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
 } from '../../constants';
 import { capitaliseString } from '../../util/capitaliseString';
@@ -166,17 +165,17 @@ export const CategoryName = (): ReactElement => {
 
   if (error) {
     console.log('request error', error);
-    if (error.message === NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE) {
-      // routerReplace(Paths.websites);
-      return (
-        <p>
-          Select some websites from the websites tab before searching for styles
-        </p>
-      );
-    }
+    // if (error.message === NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE) {
+    //   // routerReplace(Paths.websites);
+    //   return (
+    //     <p>
+    //       Select some websites from the websites tab before searching for styles
+    //     </p>
+    //   );
+    // }
     return (
       <p>
-        Error fetching styles ({error.status}; {error.message})
+        Error fetching styles ({error.status} {error.message})
       </p>
     );
   }
