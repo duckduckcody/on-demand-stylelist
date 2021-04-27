@@ -69,7 +69,7 @@ export const Websites = ({ websites }: Props): ReactElement => {
       ))}
       {onBoardMode && <p>Please select at least one website</p>}
       {!onBoardMode && (
-        <StyledButton onClick={() => router.back()}>Save</StyledButton>
+        <StyledButton onClick={() => router.back()}>Done</StyledButton>
       )}
     </WebsitesContainer>
   );
