@@ -1,6 +1,6 @@
 import { CategoryName, Gender, getCategoryId } from '../../constants';
 
-export const CULTURE_KINGS_URL = 'https://www.culturekings.com.au';
+export const CULTURE_KINGS_URL = 'https://culturekings.com.au';
 export const CULTURE_KINGS_ALGOLIA_APP_ID = '22MG8HZKHO';
 export const CULTURE_KINGS_ALGOLIA_API_KEY = '120a2dd1a67e962183768696b750a52c';
 export const CULTURE_KINGS_ALGOLIA_FILTERS =

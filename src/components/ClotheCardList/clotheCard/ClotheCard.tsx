@@ -5,9 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 import { ReactElement, useEffect, useState } from 'react';
-import Modal from 'react-modal';
 import { ClotheItem } from '../../../api/getClothes';
-import { ZIndex } from '../../../styleConstants';
 import { useIsMobile } from '../../../util/useIsMobile';
 import { useWindow } from '../../../util/useWindow';
 import {
@@ -22,6 +20,7 @@ import {
   Price,
   WebsiteName,
 } from './ClotheCard.styles';
+import { ClothePreview } from './clothePreview/ClothePreview';
 import { Tooltip } from './Tooltip';
 
 interface Props {
@@ -54,17 +53,13 @@ export const ClotheCard = ({
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     clotheLink: string
   ) => {
-    const target = event.target as HTMLDivElement;
-    target.tagName === 'IMG' && window?.open(clotheLink, '_blank')?.focus();
+    window?.open(clotheLink, '_blank')?.focus();
   };
 
   if (clothe.error) <></>;
   return (
     <Container id={clothe.link}>
-      <ImageContainer
-        // onClick={(event) => onImageContainerClick(event, clothe.link)}
-        onClick={() => setModalIsOpen(true)}
-      >
+      <ImageContainer onClick={() => setModalIsOpen(true)}>
         <Tippy
           content={<Tooltip isFavourited={isFavourited} />}
           delay={0}
@@ -110,25 +105,11 @@ export const ClotheCard = ({
         <ClotheName>{clothe.name}</ClotheName>
       </InfoContainer>
 
-      <Modal
-        style={{
-          overlay: {
-            zIndex: ZIndex.modal,
-            backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          },
-          content: { zIndex: ZIndex.modal },
-        }}
-        isOpen={modalIsOpen}
+      <ClothePreview
+        isShowing={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
-        contentLabel='Example Modal'
-      >
-        <ClotheImage
-          loading='lazy'
-          src={imgSrc}
-          onError={handleImageError}
-          alt=''
-        />
-      </Modal>
+        clothe={clothe}
+      />
     </Container>
   );
 };

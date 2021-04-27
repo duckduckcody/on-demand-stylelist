@@ -8,7 +8,7 @@ import { GetClothesOptions } from '../getClothes';
 
 export const ASOS_LIMIT = 72;
 
-export const ASOS_BASE_URL = 'https://www.asos.com/au';
+export const ASOS_BASE_URL = 'https://asos.com/au';
 
 export const ASOS_IMAGE_URL_PRODUCTS =
   'https://images.asos-media.com/products/image/';
