@@ -10,7 +10,7 @@ export const LoadingContainer = styled.div`
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 400px;
   column-gap: 20px;
   height: 100%;
 `;
@@ -37,7 +37,7 @@ export const ThumbnailImage = styled.img`
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
   width: 100%;
-  background: center / cover no-repeat url(${(p) => p.imageSrc});
+  background: top / contain no-repeat url(${(p) => p.imageSrc});
 `;
 
 export const TextContainer = styled.div``;
