@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-
-export interface ClotheInfo {
-  images: string[];
-  description: string;
-  websitesLogo: string;
-}
+import { ClotheInfo } from '../../../../api/getClothes';
 
 export const useClotheInfo = (
   clotheLink: string,

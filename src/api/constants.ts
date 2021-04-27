@@ -1,7 +1,11 @@
+import { ASOS_BASE_URL } from './asos/constants';
 import { getClothesAsos } from './asos/getClothesAsos';
+import { COOL_SHIRTZ_BASE_URL } from './coolShirtz/constants';
+import { getClotheInfoCoolShirtz } from './coolShirtz/getClotheInfoCoolShirtz';
 import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
+import { CULTURE_KINGS_URL } from './cultureKings/constants';
 import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
-import { ClotheItem, GetClothesOptions } from './getClothes';
+import { ClotheInfo, ClotheItem, GetClothesOptions } from './getClothes';
 
 export const HEADERS = {
   'User-Agent':
@@ -15,19 +19,43 @@ export type getClothesFunction = (
   requestOptions: GetClothesOptions
 ) => Promise<Partial<ClotheItem>[]>;
 
+export type getClotheInfoFunction = (clotheLink: string) => Promise<ClotheInfo>;
+
 interface Website {
   id: number;
   name: string;
-  function: getClothesFunction;
+  baseUrl: string;
+  getClothesFunction: getClothesFunction;
+  getClotheInfoFunction?: getClotheInfoFunction;
 }
 
 export const websites: Website[] = [
-  { id: 4000, name: 'Cool Shirtz', function: getClothesCoolShirtz },
-  { id: 4001, name: 'Asos', function: getClothesAsos },
-  { id: 4002, name: 'Culture Kings', function: getClothesCultureKings },
+  {
+    id: 4000,
+    name: 'Cool Shirtz',
+    baseUrl: COOL_SHIRTZ_BASE_URL,
+    getClothesFunction: getClothesCoolShirtz,
+    getClotheInfoFunction: getClotheInfoCoolShirtz,
+  },
+  {
+    id: 4001,
+    name: 'Asos',
+    baseUrl: ASOS_BASE_URL,
+    getClothesFunction: getClothesAsos,
+  },
+  {
+    id: 4002,
+    name: 'Culture Kings',
+    baseUrl: CULTURE_KINGS_URL,
+    getClothesFunction: getClothesCultureKings,
+  },
 ];
 
-export type WebsiteData = Omit<Website, 'function'>;
+export interface WebsiteData {
+  id: number;
+  name: string;
+}
+
 export const websiteData: WebsiteData[] = websites.map((website) => ({
   id: website.id,
   name: website.name,

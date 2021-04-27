@@ -91,7 +91,9 @@ export const ClothePreview = ({
             <Name>{clothe.name}</Name>
             <Price>${clothe.price}</Price>
             <Description
-              dangerouslySetInnerHTML={{ __html: clotheInfo?.description }}
+              dangerouslySetInnerHTML={{
+                __html: clotheInfo?.description || '',
+              }}
             />
             <ViewButton onClick={() => onViewProductClick()}>
               View product

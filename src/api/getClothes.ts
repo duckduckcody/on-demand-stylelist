@@ -23,6 +23,12 @@ export interface ClotheItem {
   error?: unknown;
 }
 
+export interface ClotheInfo {
+  images: (string | undefined)[];
+  description: string | undefined;
+  websitesLogo?: string | undefined;
+}
+
 export interface GetClothesOptions {
   limit: number;
   page: number;
@@ -39,5 +45,5 @@ export const getClothes = async (
       (website) => website.id === +selectedWebsiteId
     );
     if (!website) return [];
-    return website.function(cid, requestOptions);
+    return website.getClothesFunction(cid, requestOptions);
   }).then((res) => flatten(res));
