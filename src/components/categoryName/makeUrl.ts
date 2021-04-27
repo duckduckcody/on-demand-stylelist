@@ -12,7 +12,7 @@ export const makeUrl = (
 
   if (!gender || !categoryName || !limit) return null;
 
-  const url = `/api/clothes/${gender}/${categoryName}`;
+  const url = `/api/${gender}/${categoryName}`;
 
   const searchParams = new URLSearchParams();
   searchParams.append('page', `${index + 1}`);

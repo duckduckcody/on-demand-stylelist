@@ -1,16 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
 import {
-  DEFAULT_CLOTHE_SORT,
   DEFAULT_CLOTHE_LIMIT,
-} from '../../../../src/api/config';
-import { getClothes, GetClothesOptions } from '../../../../src/api/getClothes';
+  DEFAULT_CLOTHE_SORT,
+} from '../../../src/api/config';
+import { getClothes, GetClothesOptions } from '../../../src/api/getClothes';
 import {
   categories,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
-} from '../../../../src/constants';
-import { safeParseStringToInt } from '../../../../src/util/safeParseStringToInt';
+} from '../../../src/constants';
+import { safeParseStringToInt } from '../../../src/util/safeParseStringToInt';
 
 const CategoryNameApiQuerySchema = z.object({
   categoryName: z.string(),
