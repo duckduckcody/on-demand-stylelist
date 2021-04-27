@@ -4,7 +4,6 @@ import {
   faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../api/getClothes';
@@ -12,6 +11,7 @@ import { ZIndex } from '../../../styleConstants';
 import { useIsMobile } from '../../../util/useIsMobile';
 import { useWindow } from '../../../util/useWindow';
 import {
+  ClotheImage,
   ClotheName,
   Container,
   HeartIcon,
@@ -85,15 +85,14 @@ export const ClotheCard = ({
             />
           </HeartIconContainer>
         </Tippy>
-        <Image
+        <ClotheImage
+          loading='lazy'
           src={imgSrc}
           onError={handleImageError}
-          quality={100}
           alt=''
-          layout='fill'
-          objectFit='cover'
         />
       </ImageContainer>
+
       <InfoContainer>
         <WebsiteName>{clothe.website}</WebsiteName>
         <Price>
@@ -110,6 +109,7 @@ export const ClotheCard = ({
         </Price>
         <ClotheName>{clothe.name}</ClotheName>
       </InfoContainer>
+
       <Modal
         style={{
           overlay: {
@@ -122,13 +122,11 @@ export const ClotheCard = ({
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel='Example Modal'
       >
-        <Image
+        <ClotheImage
+          loading='lazy'
           src={imgSrc}
           onError={handleImageError}
-          quality={100}
           alt=''
-          layout='fill'
-          objectFit='cover'
         />
       </Modal>
     </Container>

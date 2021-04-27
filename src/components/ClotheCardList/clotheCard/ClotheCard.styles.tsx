@@ -20,6 +20,12 @@ export const ImageContainer = styled.div`
   height: 100%;
 `;
 
+export const ClotheImage = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+`;
+
 export const InfoContainer = styled.div`
   grid-area: InfoContainer;
   overflow: hidden;
