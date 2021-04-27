@@ -8,7 +8,7 @@ export const LoadingContainer = styled.div`
   height: 100%;
 `;
 
-export const ClotheInfoContainer = styled.div`
+export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
@@ -16,38 +16,35 @@ export const ClotheInfoContainer = styled.div`
 `;
 
 export const WebsitesLogo = styled.img`
-  width: 20%;
+  width: 200px;
 `;
 
-export const ClotheInfoImageContainer = styled.div`
-  height: 100%;
-  width: 100%;
+export const ImagesContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
 `;
 
-export const ClotheInfoThumbnailContainer = styled.div`
-  flex: 0 1 10%;
-  height: auto;
+export const ThumbnailContainer = styled.div`
+  width: 150px;
   display: flex;
   flex-flow: column nowrap;
 `;
 
-export const ClotheInfoThumbnailImage = styled.img`
+export const ThumbnailImage = styled.img`
   width: 100%;
+  cursor: pointer;
 `;
 
-export const ClotheInfoImage = styled.img`
-  flex: 0 1 90%;
-  width: 90%;
-  height: 90%;
-  object-fit: cover;
+export const ImageContainer = styled.div<{ imageSrc?: string }>`
+  width: 100%;
+  background: center / cover no-repeat url(${(p) => p.imageSrc});
 `;
 
-export const ClotheInfoTextContainer = styled.div``;
+export const TextContainer = styled.div``;
 
 export const ViewButton = styled.button`
-  width: 100%;
+  cursor: pointer;
+  width: 300px;
   padding: 10px 0;
   margin: 20px 0;
 `;

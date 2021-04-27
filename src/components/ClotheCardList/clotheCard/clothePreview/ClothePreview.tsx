@@ -1,17 +1,18 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
 import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
+import { FavouriteHeart } from '../favouriteHeart/FavouriteHeart';
 import {
-  ClotheInfoContainer,
-  ClotheInfoImage,
-  ClotheInfoImageContainer,
-  ClotheInfoTextContainer,
-  ClotheInfoThumbnailContainer,
-  ClotheInfoThumbnailImage,
+  Container,
+  ImageContainer,
+  ImagesContainer,
   LoadingContainer,
+  TextContainer,
+  ThumbnailContainer,
+  ThumbnailImage,
   ViewButton,
   WebsitesLogo,
 } from './ClothePreview.styles';
@@ -21,17 +22,25 @@ interface Props {
   clothe: ClotheItem;
   isShowing: boolean;
   onRequestClose: VoidFunction;
+  onFavouriteClick: (clothe: ClotheItem) => void;
+  isFavourited: boolean;
 }
 
 export const ClothePreview = ({
   clothe,
   isShowing,
   onRequestClose,
+  onFavouriteClick,
+  isFavourited,
 }: Props): ReactElement => {
   const clotheInfo = useClotheInfo(clothe.link, isShowing);
-  const [selectedImage, setSelectedImage] = useState(
-    clotheInfo?.images[0] || undefined
-  );
+  const [selectedImage, setSelectedImage] = useState<string>();
+
+  useEffect(() => clotheInfo && setSelectedImage(clotheInfo.images[0]), [
+    clotheInfo,
+  ]);
+
+  const onViewProductClick = () => window?.open(clothe.link, '_blank')?.focus();
 
   return (
     <Modal
@@ -56,16 +65,21 @@ export const ClothePreview = ({
         </LoadingContainer>
       )}
       {clotheInfo && (
-        <ClotheInfoContainer>
-          <ClotheInfoImageContainer>
-            <ClotheInfoThumbnailContainer>
+        <Container>
+          <ImagesContainer>
+            <ThumbnailContainer>
               {clotheInfo.images.map((img) => (
-                <ClotheInfoThumbnailImage key={img} src={img} alt='' />
+                <ThumbnailImage
+                  key={img}
+                  src={img}
+                  alt=''
+                  onClick={() => setSelectedImage(img)}
+                />
               ))}
-            </ClotheInfoThumbnailContainer>
-            <ClotheInfoImage src={clotheInfo.images[0]} />
-          </ClotheInfoImageContainer>
-          <ClotheInfoTextContainer>
+            </ThumbnailContainer>
+            <ImageContainer imageSrc={selectedImage} />
+          </ImagesContainer>
+          <TextContainer>
             <WebsitesLogo src={clotheInfo.websitesLogo} />
             <br />${clothe.price}
             <br />
@@ -73,9 +87,16 @@ export const ClothePreview = ({
             <div
               dangerouslySetInnerHTML={{ __html: clotheInfo?.description }}
             />
-            <ViewButton>View product</ViewButton>
-          </ClotheInfoTextContainer>
-        </ClotheInfoContainer>
+            <ViewButton onClick={() => onViewProductClick()}>
+              View product
+            </ViewButton>
+            <FavouriteHeart
+              clothe={clothe}
+              onFavouriteClick={onFavouriteClick}
+              isFavourited={isFavourited}
+            />
+          </TextContainer>
+        </Container>
       )}
     </Modal>
   );

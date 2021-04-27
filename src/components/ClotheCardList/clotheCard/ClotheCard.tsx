@@ -1,27 +1,17 @@
-import { faHeart as faHeartOutline } from '@fortawesome/free-regular-svg-icons';
-import {
-  faHeart as faHeartSolid,
-  faHeartBroken,
-} from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { ClotheItem } from '../../../api/getClothes';
-import { useIsMobile } from '../../../util/useIsMobile';
-import { useWindow } from '../../../util/useWindow';
 import {
   ClotheImage,
   ClotheName,
   Container,
-  HeartIcon,
-  HeartIconContainer,
   ImageContainer,
   InfoContainer,
   OldPrice,
   Price,
+  StyledFavouriteClothe,
   WebsiteName,
 } from './ClotheCard.styles';
 import { ClothePreview } from './clothePreview/ClothePreview';
-import { Tooltip } from './Tooltip';
 
 interface Props {
   clothe: ClotheItem;
@@ -34,52 +24,28 @@ export const ClotheCard = ({
   isFavourited = false,
   onFavouriteClick = () => null,
 }: Props): ReactElement => {
-  const window = useWindow();
-  const isMobile = useIsMobile();
-  const [iconHovered, setIconHovered] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(clothe.image);
 
-  // Modal.setAppElement(`${clothe.link}`);
-
-  useEffect(() => {
-    isMobile && setIconHovered(false);
-  }, [isMobile]);
+  const handleImageContainerClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    const target = event.target as HTMLDivElement;
+    target.tagName === 'IMG' && setModalIsOpen(true);
+  };
 
   const handleImageError = () =>
     clothe.fallbackImage && setImgSrc(clothe.fallbackImage);
 
-  const onImageContainerClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    clotheLink: string
-  ) => {
-    window?.open(clotheLink, '_blank')?.focus();
-  };
-
   if (clothe.error) <></>;
   return (
     <Container id={clothe.link}>
-      <ImageContainer onClick={() => setModalIsOpen(true)}>
-        <Tippy
-          content={<Tooltip isFavourited={isFavourited} />}
-          delay={0}
-          visible={isMobile ? false : iconHovered}
-        >
-          <HeartIconContainer isRed={isFavourited || iconHovered}>
-            <HeartIcon
-              onMouseEnter={() => !isMobile && setIconHovered(true)}
-              onMouseLeave={() => !isMobile && setIconHovered(false)}
-              icon={
-                isFavourited
-                  ? iconHovered
-                    ? faHeartBroken
-                    : faHeartSolid
-                  : faHeartOutline
-              }
-              onClick={() => onFavouriteClick(clothe)}
-            />
-          </HeartIconContainer>
-        </Tippy>
+      <ImageContainer onClick={(e) => handleImageContainerClick(e)}>
+        <StyledFavouriteClothe
+          clothe={clothe}
+          isFavourited={isFavourited}
+          onFavouriteClick={onFavouriteClick}
+        />
         <ClotheImage
           loading='lazy'
           src={imgSrc}
@@ -109,6 +75,8 @@ export const ClotheCard = ({
         isShowing={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         clothe={clothe}
+        onFavouriteClick={onFavouriteClick}
+        isFavourited={isFavourited}
       />
     </Container>
   );

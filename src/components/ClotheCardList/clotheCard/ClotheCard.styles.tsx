@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { ZIndex } from '../../../styleConstants';
+import { FavouriteHeart } from './favouriteHeart/FavouriteHeart';
 
 export const Container = styled.div`
   width: 100%;
@@ -16,8 +16,6 @@ export const ImageContainer = styled.div`
   grid-area: ImageContainer;
   position: relative;
   cursor: pointer;
-  width: 100%;
-  height: 100%;
 `;
 
 export const ClotheImage = styled.img`
@@ -58,19 +56,9 @@ export const OldPrice = styled.span`
   text-decoration: line-through;
 `;
 
-export const HeartIconContainer = styled.div<{ isRed: boolean }>`
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
-  color: ${(props) => (props.isRed ? 'red' : props.theme.textColor)};
+export const StyledFavouriteClothe = styled(FavouriteHeart)`
   position: absolute;
   z-index: ${ZIndex.pushContentForward};
   bottom: 5px;
   right: 5px;
-  filter: drop-shadow(1px 1px 0px black);
-`;
-
-export const HeartIcon = styled(FontAwesomeIcon)`
-  width: 100%;
-  height: 100%;
 `;

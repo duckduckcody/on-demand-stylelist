@@ -9,7 +9,7 @@ export const ClotheCardListContainer = styled.div`
   justify-content: center;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 175px 175px;
     grid-auto-rows: 350px;
   } ;
 `;
