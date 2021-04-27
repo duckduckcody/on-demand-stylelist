@@ -58,7 +58,7 @@ const requestData = (
       ruleContexts: [`collection-${category.uri}`],
       filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${category.uri}`,
       headers: {
-        Referer: CULTURE_KINGS_URL,
+        Referer: CULTURE_KINGS_URL.replace('https://', 'https://www.'),
         ...HEADERS,
       },
     })

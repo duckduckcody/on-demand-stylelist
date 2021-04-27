@@ -38,12 +38,12 @@ export const ClothePreview = ({
   onFavouriteClick,
   isFavourited,
 }: Props): ReactElement => {
-  const clotheInfo = useClotheInfo(clothe.link, isShowing);
+  const { error, clotheInfo } = useClotheInfo(clothe.link, isShowing);
   const [selectedImage, setSelectedImage] = useState<string>();
 
-  useEffect(() => clotheInfo && setSelectedImage(clotheInfo.images[0]), [
-    clotheInfo,
-  ]);
+  useEffect(() => {
+    if (clotheInfo && !error) setSelectedImage(clotheInfo.images[0]);
+  }, [clotheInfo, error]);
 
   const onViewProductClick = () => window?.open(clothe.link, '_blank')?.focus();
 
@@ -70,7 +70,10 @@ export const ClothePreview = ({
           <SpinningFontAwesomeIcon icon={faSpinner} />
         </LoadingContainer>
       )}
-      {clotheInfo && (
+      {clotheInfo && error && (
+        <p>Info cannot be fetched for this item. {clotheInfo.message}</p>
+      )}
+      {clotheInfo && !error && (
         <Container>
           <ImagesContainer>
             <ThumbnailContainer>
