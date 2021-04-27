@@ -23,8 +23,13 @@ export interface ClotheItem {
   error?: unknown;
 }
 
+export interface ClotheInfoImages {
+  thumbnail: string;
+  image: string;
+}
+
 export interface ClotheInfo {
-  images: (string | undefined)[];
+  images: ClotheInfoImages[];
   description: string | undefined;
   websitesLogo?: string | undefined;
 }

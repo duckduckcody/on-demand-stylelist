@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
-import { ClotheInfo } from '../getClothes';
+import { ClotheInfo, ClotheInfoImages } from '../getClothes';
 
 export const getClotheInfoCoolShirtz = async (
   clotheLink: string
@@ -12,12 +12,18 @@ export const getClotheInfoCoolShirtz = async (
 
 export const scrapeHtml = (htmlString: string): ClotheInfo => {
   const { document } = new JSDOM(htmlString).window;
-  const images = [];
+  const images: ClotheInfoImages[] = [];
   const imageElements = document.getElementsByClassName('thumb clicker-thumb');
   for (const imageElement of imageElements) {
-    images.push(
-      absoluteUrl(imageElement.getAttribute('href'))?.replace('x800', 'x1440')
-    );
+    const imageUrl =
+      absoluteUrl(imageElement.getAttribute('href')) || undefined;
+
+    if (imageUrl) {
+      images.push({
+        image: imageUrl,
+        thumbnail: imageUrl.replace('x1440', 'x150'),
+      });
+    }
   }
   const description = document
     .getElementById('product-description')

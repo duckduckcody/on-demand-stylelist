@@ -47,7 +47,7 @@ export const ClothePreview = ({
 
   useEffect(() => {
     if (isShowing && clotheInfo && !error)
-      setSelectedImage(clotheInfo.images[0]);
+      setSelectedImage(clotheInfo.images[0].image);
     if (isShowing && clotheInfo && error) {
       onViewProductClick();
       onRequestClose();
@@ -83,10 +83,10 @@ export const ClothePreview = ({
             <ThumbnailContainer>
               {clotheInfo.images.map((img) => (
                 <ThumbnailImage
-                  key={img}
-                  src={img}
+                  key={img.thumbnail}
+                  src={img.thumbnail}
                   alt=''
-                  onClick={() => setSelectedImage(img)}
+                  onClick={() => setSelectedImage(img.image)}
                 />
               ))}
             </ThumbnailContainer>
