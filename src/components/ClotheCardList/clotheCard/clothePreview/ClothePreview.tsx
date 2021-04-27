@@ -1,5 +1,5 @@
 import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
@@ -40,12 +40,19 @@ export const ClothePreview = ({
 }: Props): ReactElement => {
   const { error, clotheInfo } = useClotheInfo(clothe.link, isShowing);
   const [selectedImage, setSelectedImage] = useState<string>();
+  const onViewProductClick = useCallback(
+    () => window?.open(clothe.link, '_blank')?.focus(),
+    [clothe.link]
+  );
 
   useEffect(() => {
-    if (clotheInfo && !error) setSelectedImage(clotheInfo.images[0]);
-  }, [clotheInfo, error]);
-
-  const onViewProductClick = () => window?.open(clothe.link, '_blank')?.focus();
+    if (isShowing && clotheInfo && !error)
+      setSelectedImage(clotheInfo.images[0]);
+    if (isShowing && clotheInfo && error) {
+      onViewProductClick();
+      onRequestClose();
+    }
+  }, [isShowing, clotheInfo, error, onViewProductClick, onRequestClose]);
 
   return (
     <Modal
@@ -69,9 +76,6 @@ export const ClothePreview = ({
           {'Fetching clothe info'}&nbsp;&nbsp;
           <SpinningFontAwesomeIcon icon={faSpinner} />
         </LoadingContainer>
-      )}
-      {clotheInfo && error && (
-        <p>Info cannot be fetched for this item. {clotheInfo.message}</p>
       )}
       {clotheInfo && !error && (
         <Container>
