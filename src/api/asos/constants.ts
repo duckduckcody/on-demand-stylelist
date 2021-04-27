@@ -8,7 +8,7 @@ import { GetClothesOptions } from '../getClothes';
 
 export const ASOS_LIMIT = 72;
 
-export const ASOS_BASE_URL = 'https://asos.com/au';
+export const ASOS_BASE_URL = 'https://asos.com';
 
 export const ASOS_IMAGE_URL_PRODUCTS =
   'https://images.asos-media.com/products/image/';
@@ -37,7 +37,7 @@ const makeQueryString = (requestOptions: GetClothesOptions) => {
 export const makeAsosUrl = (
   uri: string,
   requestOptions: GetClothesOptions
-): string => `${ASOS_BASE_URL}${uri}${makeQueryString(requestOptions)}`;
+): string => `${ASOS_BASE_URL}/au${uri}${makeQueryString(requestOptions)}`;
 
 type ImageUrlStyle = 'products' | 'groups';
 export const makeImageUrl = (

@@ -6,11 +6,11 @@ import { recursiveGetClothes } from '../../util/recursiveGetClothes';
 import { HEADERS } from '../constants';
 import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import {
+  AsosCategory,
   ASOS_LIMIT,
   getAsosCategoryByCategoryId,
   makeAsosUrl,
   makeImageUrl,
-  AsosCategory,
 } from './constants';
 
 export async function getClothesAsos(
@@ -71,7 +71,10 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     const discountedPrice = parsePrice(
       pElements[1].getElementsByClassName('_3VjzNxC')[0]?.textContent
     );
-    const link = product.getElementsByTagName('a')[0].getAttribute('href');
+    const link = product
+      .getElementsByTagName('a')[0]
+      .getAttribute('href')
+      ?.replace('www.', '');
 
     const id = product.getAttribute('id')?.replace('product-', '');
     const { image, fallbackImage } = makeImageUrl(id);

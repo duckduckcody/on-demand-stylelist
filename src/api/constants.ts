@@ -1,4 +1,5 @@
 import { ASOS_BASE_URL } from './asos/constants';
+import { getClotheInfoAsos } from './asos/getClotheInfoAsos';
 import { getClothesAsos } from './asos/getClothesAsos';
 import { COOL_SHIRTZ_BASE_URL } from './coolShirtz/constants';
 import { getClotheInfoCoolShirtz } from './coolShirtz/getClotheInfoCoolShirtz';
@@ -42,6 +43,7 @@ export const websites: Website[] = [
     name: 'Asos',
     baseUrl: ASOS_BASE_URL,
     getClothesFunction: getClothesAsos,
+    getClotheInfoFunction: getClotheInfoAsos,
   },
   {
     id: 4002,
