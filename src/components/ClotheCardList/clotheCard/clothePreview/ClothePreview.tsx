@@ -1,15 +1,20 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ReactElement, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
 import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
-import { FavouriteHeart } from '../favouriteHeart/FavouriteHeart';
+import { WebsiteName } from '../ClotheCard.styles';
 import {
+  CloseIcon,
   Container,
+  Description,
   ImageContainer,
   ImagesContainer,
   LoadingContainer,
+  Name,
+  Price,
+  StyledFavouriteHeart,
   TextContainer,
   ThumbnailContainer,
   ThumbnailImage,
@@ -58,6 +63,7 @@ export const ClothePreview = ({
       onRequestClose={onRequestClose}
       contentLabel='Example Modal'
     >
+      <CloseIcon icon={faTimes} onClick={() => onRequestClose()} />
       {!clotheInfo && (
         <LoadingContainer>
           {'Fetching clothe info'}&nbsp;&nbsp;
@@ -81,16 +87,16 @@ export const ClothePreview = ({
           </ImagesContainer>
           <TextContainer>
             <WebsitesLogo src={clotheInfo.websitesLogo} />
-            <br />${clothe.price}
-            <br />
-            {clothe.name}
-            <div
+            <WebsiteName>{clothe.website}</WebsiteName>
+            <Name>{clothe.name}</Name>
+            <Price>${clothe.price}</Price>
+            <Description
               dangerouslySetInnerHTML={{ __html: clotheInfo?.description }}
             />
             <ViewButton onClick={() => onViewProductClick()}>
               View product
             </ViewButton>
-            <FavouriteHeart
+            <StyledFavouriteHeart
               clothe={clothe}
               onFavouriteClick={onFavouriteClick}
               isFavourited={isFavourited}

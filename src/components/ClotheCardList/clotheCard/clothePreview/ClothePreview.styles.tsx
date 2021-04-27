@@ -1,4 +1,15 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { FavouriteHeart } from '../favouriteHeart/FavouriteHeart';
+
+export const CloseIcon = styled(FontAwesomeIcon)`
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+`;
 
 export const LoadingContainer = styled.div`
   display: flex;
@@ -13,10 +24,6 @@ export const Container = styled.div`
   grid-template-columns: 1fr 400px;
   column-gap: 20px;
   height: 100%;
-`;
-
-export const WebsitesLogo = styled.img`
-  width: 200px;
 `;
 
 export const ImagesContainer = styled.div`
@@ -40,11 +47,48 @@ export const ImageContainer = styled.div<{ imageSrc?: string }>`
   background: top / contain no-repeat url(${(p) => p.imageSrc});
 `;
 
-export const TextContainer = styled.div``;
+export const TextContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 3rem;
+  grid-template-rows: 200px 2rem 1rem 2rem min-content 2rem;
+  grid-template-areas:
+    'websiteLogo websiteLogo'
+    'price price'
+    'websiteName websiteName'
+    'name name'
+    'description description'
+    'viewButton favouriteHeart';
+`;
+
+export const WebsitesLogo = styled.img`
+  grid-area: websiteLogo;
+`;
+
+export const WebsiteName = styled.div`
+  grid-area: websiteName;
+`;
+
+export const Price = styled.div`
+  grid-area: price;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+export const Name = styled.div`
+  grid-area: name;
+  font-size: 1.5rem;
+`;
+
+export const Description = styled.div`
+  grid-area: description;
+`;
 
 export const ViewButton = styled.button`
+  grid-area: viewButton;
   cursor: pointer;
-  width: 300px;
-  padding: 10px 0;
-  margin: 20px 0;
+`;
+
+export const StyledFavouriteHeart = styled(FavouriteHeart)`
+  grid-area: favouriteHeart;
+  justify-self: center;
 `;
