@@ -6,7 +6,9 @@ import {
 import Tippy from '@tippyjs/react';
 import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { ClotheItem } from '../../../api/getClothes';
+import { ZIndex } from '../../../styleConstants';
 import { useIsMobile } from '../../../util/useIsMobile';
 import { useWindow } from '../../../util/useWindow';
 import {
@@ -36,7 +38,10 @@ export const ClotheCard = ({
   const window = useWindow();
   const isMobile = useIsMobile();
   const [iconHovered, setIconHovered] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(clothe.image);
+
+  // Modal.setAppElement(`${clothe.link}`);
 
   useEffect(() => {
     isMobile && setIconHovered(false);
@@ -55,9 +60,10 @@ export const ClotheCard = ({
 
   if (clothe.error) <></>;
   return (
-    <Container>
+    <Container id={clothe.link}>
       <ImageContainer
-        onClick={(event) => onImageContainerClick(event, clothe.link)}
+        // onClick={(event) => onImageContainerClick(event, clothe.link)}
+        onClick={() => setModalIsOpen(true)}
       >
         <Tippy
           content={<Tooltip isFavourited={isFavourited} />}
@@ -104,6 +110,27 @@ export const ClotheCard = ({
         </Price>
         <ClotheName>{clothe.name}</ClotheName>
       </InfoContainer>
+      <Modal
+        style={{
+          overlay: {
+            zIndex: ZIndex.modal,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          },
+          content: { zIndex: ZIndex.modal },
+        }}
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel='Example Modal'
+      >
+        <Image
+          src={imgSrc}
+          onError={handleImageError}
+          quality={100}
+          alt=''
+          layout='fill'
+          objectFit='cover'
+        />
+      </Modal>
     </Container>
   );
 };
