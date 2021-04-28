@@ -1,4 +1,5 @@
-import { CategoryName, Gender, getCategoryId } from '../../constants';
+import { CategoryName, getCategoryId } from '../../categories';
+import { Gender } from '../../constants';
 
 export const CULTURE_KINGS_URL = 'https://culturekings.com.au';
 export const CULTURE_KINGS_ALGOLIA_APP_ID = '22MG8HZKHO';

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { WebsiteData } from '../../api/constants';
 import { LocalStorageKey } from '../../constants';
 import { useWindow } from '../../util/useWindow';
+import { WebsiteData } from '../../websites';
 
 interface Props {
   websites: WebsiteData[];

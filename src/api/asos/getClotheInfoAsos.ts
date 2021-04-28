@@ -28,9 +28,12 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
     }
   }
 
-  const description = document
-    .getElementsByClassName('product-description')[0]
-    ?.innerHTML.trim();
+  const descriptionElement = document.getElementById(
+    'product-details-container'
+  );
+  descriptionElement?.getElementsByClassName('show-more')[0].remove();
+  descriptionElement?.getElementsByClassName('product-code')[0].remove();
+  const description = descriptionElement?.innerHTML.trim();
 
   // const websitesLogo =
   //   document.getElementById('cool-logo-nav')?.getAttribute('data-src') ||

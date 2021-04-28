@@ -48,9 +48,10 @@ export const ImageContainer = styled.div<{ imageSrc?: string }>`
 `;
 
 export const TextContainer = styled.div`
+  overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 3rem;
-  grid-template-rows: 200px 2rem 1rem 2rem min-content 2rem;
+  grid-template-rows: 100px 2rem 1rem 2rem min-content 2rem;
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
@@ -62,6 +63,7 @@ export const TextContainer = styled.div`
 
 export const WebsitesLogo = styled.img`
   grid-area: websiteLogo;
+  height: 100%;
 `;
 
 export const WebsiteName = styled.div`

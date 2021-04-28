@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../constants';
+import { MOBILE_BREAKPOINT } from '../../styleConstants';
 
 export const Tile = styled.a<{ imageSrc: string }>`
   display: flex;

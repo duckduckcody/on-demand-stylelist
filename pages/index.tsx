@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 import { ShopTile } from '../src/components/shopTile/ShopTile';
-import { MOBILE_BREAKPOINT, Paths } from '../src/constants';
+import { Paths } from '../src/constants';
+import { MOBILE_BREAKPOINT } from '../src/styleConstants';
 
 const SHOP_MENS_IMAGE_URL = '/shop_mens.webp';
 const SHOP_WOMENS_IMAGE_URL = '/shop_womens.webp';

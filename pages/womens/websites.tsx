@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
-import { WebsiteData, websiteData } from '../../src/api/constants';
 import { Websites } from '../../src/components/websites/Websites';
+import { WebsiteData, websiteData } from '../../src/websites';
 
 export const getStaticProps: GetStaticProps = async () => ({
   props: { websites: websiteData },

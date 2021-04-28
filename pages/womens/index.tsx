@@ -1,7 +1,8 @@
 import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
+import { categories, Category } from '../../src/categories';
 import { CategoryTileList } from '../../src/components/categoryTileList/CategoryTileList';
-import { categories, Category, Gender } from '../../src/constants';
+import { Gender } from '../../src/constants';
 
 export const getStaticProps: GetStaticProps = async () => ({
   props: {

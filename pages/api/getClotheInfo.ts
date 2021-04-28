@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import { websites } from '../../src/api/constants';
+import { websites } from '../../src/websites';
 
 export default async function handler(
   req: NextApiRequest,

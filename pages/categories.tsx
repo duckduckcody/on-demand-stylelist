@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { categories, Category } from '../src/constants';
+import { categories, Category } from '../src/categories';
 
 const CategoryLink = styled.a`
   text-transform: capitalize;

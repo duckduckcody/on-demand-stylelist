@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MOBILE_PX } from '../constants';
+import { MOBILE_PX } from '../styleConstants';
 import { useWindow } from './useWindow';
 
 export const useIsMobile = (): boolean => {

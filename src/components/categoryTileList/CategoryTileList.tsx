@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Category, makeCategoryImageLink } from '../../constants';
+import { Category, makeCategoryImageLink } from '../../categories';
 import { ShopTile } from '../shopTile/ShopTile';
 import {
   CategoryLink,

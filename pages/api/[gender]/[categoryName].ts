@@ -5,8 +5,8 @@ import {
   DEFAULT_CLOTHE_SORT,
 } from '../../../src/api/config';
 import { getClothes, GetClothesOptions } from '../../../src/api/getClothes';
+import { categories } from '../../../src/categories';
 import {
-  categories,
   NO_WEBSITES_FOUND_API_ERROR_RESPONSE_MESSAGE,
   parseClotheSortOption,
 } from '../../../src/constants';

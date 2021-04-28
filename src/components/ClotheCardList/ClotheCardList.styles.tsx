@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../constants';
+import { MOBILE_BREAKPOINT } from '../../styleConstants';
 
 export const ClotheCardListContainer = styled.div`
   display: grid;

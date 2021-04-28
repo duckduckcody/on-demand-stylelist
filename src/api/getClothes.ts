@@ -2,7 +2,7 @@ import { Promise } from 'bluebird';
 import { flatten } from 'lodash';
 import NodeCache from 'node-cache';
 import { ClotheSortOption } from '../constants';
-import { websites } from './constants';
+import { websites } from '../websites';
 
 export const clothesCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 

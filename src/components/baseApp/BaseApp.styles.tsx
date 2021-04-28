@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../constants';
+import { MOBILE_BREAKPOINT } from '../../styleConstants';
 
 export const GlobalStyle = createGlobalStyle`
   html {
