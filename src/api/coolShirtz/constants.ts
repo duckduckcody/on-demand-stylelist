@@ -4,6 +4,8 @@ import { GetClothesOptions } from '../getClothes';
 
 export const COOL_SHIRTZ_BASE_URL = 'https://shirtz.cool';
 
+export const COOL_SHIRTZ_LOGO = 'https://i.imgur.com/Baq9ezR.png';
+
 export const SORT_QUERY_STRING_KEY = 'sort_by';
 
 interface CidMapValue {

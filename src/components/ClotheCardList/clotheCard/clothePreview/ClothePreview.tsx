@@ -63,7 +63,9 @@ export const ClothePreview = ({
         },
         content: {
           zIndex: ZIndex.modal,
-          color: 'black',
+          color: 'white',
+          backgroundColor: '#181818',
+          border: 'none',
         },
       }}
       isOpen={isShowing}

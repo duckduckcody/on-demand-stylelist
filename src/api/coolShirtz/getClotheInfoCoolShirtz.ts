@@ -1,6 +1,7 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
 import { ClotheInfo, ClotheInfoImages } from '../getClothes';
+import { COOL_SHIRTZ_LOGO } from './constants';
 
 export const getClotheInfoCoolShirtz = async (
   clotheLink: string
@@ -29,12 +30,8 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
     .getElementById('product-description')
     ?.innerHTML.trim();
 
-  const websitesLogo =
-    document.getElementById('cool-logo-nav')?.getAttribute('data-src') ||
-    undefined;
-
   return {
-    websitesLogo,
+    websitesLogo: COOL_SHIRTZ_LOGO,
     images,
     description,
   };

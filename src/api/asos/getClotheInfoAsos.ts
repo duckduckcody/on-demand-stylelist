@@ -1,6 +1,7 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
 import { ClotheInfo, ClotheInfoImages } from '../getClothes';
+import { ASOS_LOGO } from './constants';
 
 export const getClotheInfoAsos = async (
   clotheLink: string
@@ -40,7 +41,7 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
   //   undefined;
 
   return {
-    websitesLogo: '',
+    websitesLogo: ASOS_LOGO,
     images,
     description,
   };

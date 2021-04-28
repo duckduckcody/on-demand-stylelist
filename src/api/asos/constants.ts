@@ -4,6 +4,9 @@ import { GetClothesOptions } from '../getClothes';
 
 export const ASOS_LIMIT = 72;
 
+export const ASOS_LOGO =
+  'https://www.asosplc.com/~/media/Images/A/Asos-V2/logo/logo.png?h=52&la=en&w=150';
+
 export const ASOS_BASE_URL = 'https://asos.com';
 
 export const ASOS_IMAGE_URL_PRODUCTS =
