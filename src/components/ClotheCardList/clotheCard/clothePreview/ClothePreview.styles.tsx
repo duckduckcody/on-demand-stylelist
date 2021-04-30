@@ -41,7 +41,7 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
-  border-right: ${(p) => p.selected && '2px solid white'};
+  border-right: ${(p) => p.selected && '2px solid #181818'};
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
@@ -54,7 +54,7 @@ export const TextContainer = styled.div`
   overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 3rem;
-  grid-template-rows: min-content 2rem 1rem 2rem min-content;
+  grid-template-rows: min-content min-content min-content min-content min-content;
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
@@ -85,6 +85,26 @@ export const Name = styled.div`
 
 export const Description = styled.div`
   grid-area: description;
+  margin: 10px 0;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 5px 0;
+    font-size: 1.2rem;
+  }
+
+  ul,
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+  }
 `;
 
 export const ButtonContainer = styled.div`
