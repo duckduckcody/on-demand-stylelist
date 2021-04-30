@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
-import { useFormatClothePreviewDescription } from '../../../../util/useFormatClothePreviewDescription';
+import { useWebsiteDescriptionFormatter } from '../../../../util/useWebsiteDescriptionFormatter';
 import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
 import {
   ButtonContainer,
@@ -43,7 +43,7 @@ export const ClothePreview = ({
   const { error, clotheInfo } = useClotheInfo(clothe.link, isShowing);
   const [selectedImage, setSelectedImage] = useState<string>();
 
-  const formattedDescription = useFormatClothePreviewDescription(
+  const formattedDescription = useWebsiteDescriptionFormatter(
     clotheInfo?.description,
     clothe.website
   );

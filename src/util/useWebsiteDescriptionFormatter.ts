@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { frontEndWebsites } from '../frontEndWebsites';
 
-export const useFormatClothePreviewDescription = (
+export const useWebsiteDescriptionFormatter = (
   description = '',
   websiteName: string
 ): string => {
@@ -11,6 +11,7 @@ export const useFormatClothePreviewDescription = (
     if (!description) {
       setFormattedDescription('');
     } else {
+      console.log('description', description);
       const website = frontEndWebsites.find(
         (website) => website.name === websiteName
       );
