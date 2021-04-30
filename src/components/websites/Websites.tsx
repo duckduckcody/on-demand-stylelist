@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { BaseWebsite } from '../../baseWebsites';
 import { LocalStorageKey } from '../../constants';
-import { FrontEndWebsites } from '../../frontEndWebsites';
 import { useWindow } from '../../util/useWindow';
 
 export interface WebsiteProps {
-  websites: FrontEndWebsites[];
+  websites: BaseWebsite[];
 }
 
 const WebsitesContainer = styled.div`

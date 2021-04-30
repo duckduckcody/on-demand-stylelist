@@ -42,7 +42,7 @@ export const baseWebsites: BaseWebsite[] = [
   },
 ];
 
-export const getWebsiteById = (id: WebsiteId): BaseWebsite => {
+export const getBaseWebsiteById = (id: WebsiteId): BaseWebsite => {
   const baseWebsite = baseWebsites.find((website) => website.id === id);
   if (!baseWebsite)
     throw new Error(

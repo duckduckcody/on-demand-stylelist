@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import { websites } from '../../src/websites';
+import { serverSideWebsites } from '../../src/api/serverSideWebsites';
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,7 @@ export default async function handler(
     return res.status(400).json({ message: response.error });
 
   const url = new URL(clotheLink);
-  const scraperInfo = websites.find((s) => s.baseUrl === url.origin);
+  const scraperInfo = serverSideWebsites.find((s) => s.baseUrl === url.origin);
 
   if (!scraperInfo || !scraperInfo.getClotheInfoFunction)
     return res

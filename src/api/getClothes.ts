@@ -2,7 +2,7 @@ import { Promise } from 'bluebird';
 import { flatten } from 'lodash';
 import NodeCache from 'node-cache';
 import { ClotheSortOption } from '../constants';
-import { websites } from '../websites';
+import { serverSideWebsites } from './serverSideWebsites';
 
 export const clothesCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
@@ -47,7 +47,7 @@ export const getClothes = async (
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> =>
   await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
-    const website = websites.find(
+    const website = serverSideWebsites.find(
       (website) => website.id === +selectedWebsiteId
     );
     if (!website) return [];
