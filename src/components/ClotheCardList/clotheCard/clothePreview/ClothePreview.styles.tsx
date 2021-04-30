@@ -37,9 +37,11 @@ export const ThumbnailContainer = styled.div`
   flex-flow: column nowrap;
 `;
 
-export const ThumbnailImage = styled.img`
+export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   width: 100%;
+  box-sizing: border-box;
   cursor: pointer;
+  border-right: ${(p) => p.selected && '2px solid white'};
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
@@ -48,17 +50,17 @@ export const ImageContainer = styled.div<{ imageSrc?: string }>`
 `;
 
 export const TextContainer = styled.div`
+  position: relative;
   overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 3rem;
-  grid-template-rows: min-content 2rem 1rem 2rem min-content 2rem;
+  grid-template-rows: min-content 2rem 1rem 2rem min-content;
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
     'websiteName websiteName'
     'name name'
-    'description description'
-    'viewButton favouriteHeart';
+    'description description';
 `;
 
 export const WebsitesLogo = styled.img`
@@ -85,12 +87,20 @@ export const Description = styled.div`
   grid-area: description;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+`;
+
 export const ViewButton = styled.button`
-  grid-area: viewButton;
   cursor: pointer;
+  flex: 1 1 auto;
 `;
 
 export const StyledFavouriteHeart = styled(FavouriteHeart)`
-  grid-area: favouriteHeart;
   justify-self: center;
+  flex: 0 1 50px;
 `;

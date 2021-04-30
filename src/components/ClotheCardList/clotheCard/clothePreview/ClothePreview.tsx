@@ -6,6 +6,7 @@ import { ZIndex } from '../../../../styleConstants';
 import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
 import { WebsiteName } from '../ClotheCard.styles';
 import {
+  ButtonContainer,
   CloseIcon,
   Container,
   Description,
@@ -87,6 +88,7 @@ export const ClothePreview = ({
                 <ThumbnailImage
                   key={img.thumbnail}
                   src={img.thumbnail}
+                  selected={selectedImage === img.image}
                   alt=''
                   onClick={() => setSelectedImage(img.image)}
                 />
@@ -104,14 +106,16 @@ export const ClothePreview = ({
                 __html: clotheInfo?.description || '',
               }}
             />
-            <ViewButton onClick={() => onViewProductClick()}>
-              View product
-            </ViewButton>
-            <StyledFavouriteHeart
-              clothe={clothe}
-              onFavouriteClick={onFavouriteClick}
-              isFavourited={isFavourited}
-            />
+            <ButtonContainer>
+              <ViewButton onClick={() => onViewProductClick()}>
+                View product
+              </ViewButton>
+              <StyledFavouriteHeart
+                clothe={clothe}
+                onFavouriteClick={onFavouriteClick}
+                isFavourited={isFavourited}
+              />
+            </ButtonContainer>
           </TextContainer>
         </Container>
       )}
