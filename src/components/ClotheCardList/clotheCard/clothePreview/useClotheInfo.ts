@@ -16,7 +16,7 @@ export const useClotheInfo = (
     if (isShowing && !clotheInfo) {
       const fetchData = async () => {
         const result = await fetch(
-          `/api/getClotheInfo?clotheLink=${encodeURI(clotheLink)}`
+          `/api/getClotheInfo?clotheLink=${encodeURIComponent(clotheLink)}`
         );
         console.log('result', result);
         if (!result.ok) setError(true);

@@ -16,6 +16,7 @@ export enum CultureKingsIndexName {
   PRICE_LOW_TO_HIGH = 'shopify_production_products_price_asc',
   BEST_SELLING = 'shopify_production_products_default',
   NEWEST = 'shopify_production_products_published_at_desc',
+  CLOTHE_INFO = 'shopify_production_products_colorway',
 }
 
 interface CidMapValue {

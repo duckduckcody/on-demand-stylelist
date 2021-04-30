@@ -20,7 +20,7 @@ export default async function handler(
       .status(400)
       .json({ message: `no scraper found for ${url.origin}` });
 
-  const clotheInfo = await scraperInfo.getClotheInfoFunction(clotheLink);
+  const clotheInfo = await scraperInfo.getClotheInfoFunction(url);
 
   return res.status(200).json(clotheInfo);
 }

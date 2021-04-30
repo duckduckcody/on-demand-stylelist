@@ -20,6 +20,7 @@ export interface ClotheItem {
   image: string;
   fallbackImage?: string;
   website: string;
+  productId?: string;
   error?: unknown;
 }
 

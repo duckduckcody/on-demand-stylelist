@@ -4,9 +4,9 @@ import { ClotheInfo, ClotheInfoImages } from '../getClothes';
 import { ASOS_LOGO } from './constants';
 
 export const getClotheInfoAsos = async (
-  clotheLink: string
+  clotheUrl: URL
 ): Promise<ClotheInfo> => {
-  const res = await fetch(clotheLink);
+  const res = await fetch(clotheUrl.href);
   const htmlString = await res.text();
   return scrapeHtml(htmlString);
 };

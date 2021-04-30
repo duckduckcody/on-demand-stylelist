@@ -1,14 +1,37 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { ClotheSortOption } from '../../constants';
+import { HEADERS } from '../constants';
 import {
   CultureKingsIndexName,
   CULTURE_KINGS_ALGOLIA_API_KEY,
   CULTURE_KINGS_ALGOLIA_APP_ID,
+  CULTURE_KINGS_URL,
 } from './constants';
+
+export interface CultureKingsAlgoliaHits {
+  title: string;
+  price: number;
+  compareAtPrice: number;
+  handle: string;
+  image: string;
+  openstyleStyleCode: string;
+  gender: string;
+  description: string;
+  images: string[];
+}
+
+export const CULTURE_KINGS_ALGOLIA_HEADERS = {
+  Referer: CULTURE_KINGS_URL.replace('https://', 'https://www.'),
+  ...HEADERS,
+};
 
 const client = algoliasearch(
   CULTURE_KINGS_ALGOLIA_APP_ID,
   CULTURE_KINGS_ALGOLIA_API_KEY
+);
+
+export const clotheInfoCultureKingsAlgoliaIndex = client.initIndex(
+  CultureKingsIndexName.CLOTHE_INFO
 );
 
 const defaultCultureKingsAlgoliaIndex = client.initIndex(

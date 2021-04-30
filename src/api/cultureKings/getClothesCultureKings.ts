@@ -1,8 +1,11 @@
 import { Promise } from 'bluebird';
 import { recursiveGetClothes } from '../../util/recursiveGetClothes';
-import { HEADERS } from '../constants';
 import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
-import { getCultureKingsAlgoliaIndex } from './algoliaIndex';
+import {
+  CultureKingsAlgoliaHits,
+  CULTURE_KINGS_ALGOLIA_HEADERS,
+  getCultureKingsAlgoliaIndex,
+} from './algoliaIndex';
 import {
   cultureKingsCidMap,
   CULTURE_KINGS_ALGOLIA_FILTERS,
@@ -39,37 +42,27 @@ export const getClothesCultureKings = async (
   return clothes.slice(firstIndex, lastIndex);
 };
 
-interface AlgoliaHits {
-  title: string;
-  price: number;
-  compareAtPrice: number;
-  handle: string;
-  image: string;
-}
-
 const requestData = (
   category: { uri: string },
   requestOptions: GetClothesOptions
 ): Promise<ClotheItem[]> =>
   getCultureKingsAlgoliaIndex(requestOptions.sort)
-    .search<AlgoliaHits>('', {
+    .search<CultureKingsAlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
       page: requestOptions.page - 1,
       ruleContexts: [`collection-${category.uri}`],
       filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${category.uri}`,
-      headers: {
-        Referer: CULTURE_KINGS_URL.replace('https://', 'https://www.'),
-        ...HEADERS,
-      },
+      headers: CULTURE_KINGS_ALGOLIA_HEADERS,
     })
-    .then(({ hits }) => mapProductValues(hits));
+    .then((res) => mapProductValues(res.hits));
 
-const mapProductValues = (hits: Array<AlgoliaHits>): ClotheItem[] =>
+const mapProductValues = (hits: Array<CultureKingsAlgoliaHits>): ClotheItem[] =>
   hits.map((product) => ({
     name: product.title,
     discountedPrice: product.compareAtPrice ? product.price : undefined,
     price: product.compareAtPrice ? product.compareAtPrice : product.price,
-    link: `${CULTURE_KINGS_URL}/products/${product.handle}`,
+    link: `${CULTURE_KINGS_URL}/products/${product.handle}?productId=${product.openstyleStyleCode}&gender=${product.gender}`,
     image: product.image,
+    productId: product.openstyleStyleCode,
     website: 'Culture Kings',
   }));

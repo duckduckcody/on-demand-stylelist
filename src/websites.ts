@@ -11,6 +11,7 @@ import {
   CULTURE_KINGS_LOGO,
   CULTURE_KINGS_URL,
 } from './api/cultureKings/constants';
+import { getClotheInfoCultureKings } from './api/cultureKings/getClotheInfoCultureKings';
 import { getClothesCultureKings } from './api/cultureKings/getClothesCultureKings';
 import { ClotheInfo, ClotheItem, GetClothesOptions } from './api/getClothes';
 
@@ -19,7 +20,7 @@ export type getClothesFunction = (
   requestOptions: GetClothesOptions
 ) => Promise<Partial<ClotheItem>[]>;
 
-export type getClotheInfoFunction = (clotheLink: string) => Promise<ClotheInfo>;
+export type getClotheInfoFunction = (clotheUrl: URL) => Promise<ClotheInfo>;
 
 interface Website {
   id: number;
@@ -53,6 +54,7 @@ export const websites: Website[] = [
     baseUrl: CULTURE_KINGS_URL,
     logo: CULTURE_KINGS_LOGO,
     getClothesFunction: getClothesCultureKings,
+    getClotheInfoFunction: getClotheInfoCultureKings,
   },
 ];
 
