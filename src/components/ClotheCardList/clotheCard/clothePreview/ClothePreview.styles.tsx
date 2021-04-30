@@ -41,7 +41,7 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
-  border-right: ${(p) => p.selected && '2px solid #181818'};
+  border-right: ${(p) => p.selected && '2px solid #525050'};
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
@@ -54,12 +54,13 @@ export const TextContainer = styled.div`
   overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 3rem;
-  grid-template-rows: min-content min-content min-content min-content min-content;
+  grid-template-rows: repeat(6, min-content);
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
     'websiteName websiteName'
     'name name'
+    'buttonContainer buttonContainer'
     'description description';
 `;
 
@@ -70,6 +71,7 @@ export const WebsitesLogo = styled.img`
 
 export const WebsiteName = styled.div`
   grid-area: websiteName;
+  font-size: 1rem;
 `;
 
 export const Price = styled.div`
@@ -83,9 +85,28 @@ export const Name = styled.div`
   font-size: 1.5rem;
 `;
 
+export const ButtonContainer = styled.div`
+  grid-area: buttonContainer;
+  position: sticky;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  margin: 10px 0;
+  top: 0;
+`;
+
+export const ViewButton = styled.button`
+  cursor: pointer;
+  flex: 1 1 auto;
+`;
+
+export const StyledFavouriteHeart = styled(FavouriteHeart)`
+  justify-self: center;
+  flex: 0 1 50px;
+`;
+
 export const Description = styled.div`
   grid-area: description;
-  margin: 10px 0;
 
   h1,
   h2,
@@ -99,28 +120,14 @@ export const Description = styled.div`
 
   ul,
   p {
-    margin: 0;
+    margin: 5px 0;
+  }
+
+  li {
+    line-height: 1.2rem;
   }
 
   a {
     color: inherit;
   }
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
-  position: absolute;
-  bottom: 10px;
-`;
-
-export const ViewButton = styled.button`
-  cursor: pointer;
-  flex: 1 1 auto;
-`;
-
-export const StyledFavouriteHeart = styled(FavouriteHeart)`
-  justify-self: center;
-  flex: 0 1 50px;
 `;

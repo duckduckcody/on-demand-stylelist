@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
 import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
-import { WebsiteName } from '../ClotheCard.styles';
 import {
   ButtonContainer,
   CloseIcon,
@@ -20,6 +19,7 @@ import {
   ThumbnailContainer,
   ThumbnailImage,
   ViewButton,
+  WebsiteName,
   WebsitesLogo,
 } from './ClothePreview.styles';
 import { useClotheInfo } from './useClotheInfo';
