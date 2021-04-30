@@ -41,7 +41,7 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
-  border-right: ${(p) => p.selected && '2px solid #525050'};
+  border-right: ${(p) => p.selected && '8px solid #525050'};
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
