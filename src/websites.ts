@@ -22,13 +22,14 @@ export type getClothesFunction = (
 
 export type getClotheInfoFunction = (clotheUrl: URL) => Promise<ClotheInfo>;
 
-interface Website {
+export interface Website {
   id: number;
   name: string;
   baseUrl: string;
   logo?: string;
   getClothesFunction: getClothesFunction;
   getClotheInfoFunction?: getClotheInfoFunction;
+  descriptionFormatter?: (description: string) => string;
 }
 
 export const websites: Website[] = [
@@ -57,13 +58,3 @@ export const websites: Website[] = [
     getClotheInfoFunction: getClotheInfoCultureKings,
   },
 ];
-
-export interface WebsiteData {
-  id: number;
-  name: string;
-}
-
-export const websiteData: WebsiteData[] = websites.map((website) => ({
-  id: website.id,
-  name: website.name,
-}));

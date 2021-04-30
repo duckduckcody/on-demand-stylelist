@@ -1,16 +1,14 @@
 import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
-import { Websites } from '../../src/components/websites/Websites';
-import { WebsiteData, websiteData } from '../../src/websites';
+import { WebsiteProps, Websites } from '../../src/components/websites/Websites';
+import { frontEndWebsites } from '../../src/frontEndWebsites';
 
 export const getStaticProps: GetStaticProps = async () => ({
-  props: { websites: websiteData },
+  props: { websites: frontEndWebsites },
 });
 
-interface Props {
-  websites: WebsiteData[];
-}
-
-export default function WomensWebsites({ websites }: Props): ReactElement {
+export default function WomensWebsites({
+  websites,
+}: WebsiteProps): ReactElement {
   return <Websites websites={websites} />;
 }

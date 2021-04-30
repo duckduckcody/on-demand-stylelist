@@ -3,6 +3,7 @@ import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
+import { useFormatClothePreviewDescription } from '../../../../util/useFormatClothePreviewDescription';
 import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
 import {
   ButtonContainer,
@@ -41,6 +42,12 @@ export const ClothePreview = ({
 }: Props): ReactElement => {
   const { error, clotheInfo } = useClotheInfo(clothe.link, isShowing);
   const [selectedImage, setSelectedImage] = useState<string>();
+
+  const formattedDescription = useFormatClothePreviewDescription(
+    clotheInfo?.description,
+    clothe.website
+  );
+
   const onViewProductClick = useCallback(
     () => window?.open(clothe.link, '_blank')?.focus(),
     [clothe.link]
@@ -103,7 +110,7 @@ export const ClothePreview = ({
             <Price>${clothe.price}</Price>
             <Description
               dangerouslySetInnerHTML={{
-                __html: clotheInfo?.description || '',
+                __html: formattedDescription,
               }}
             />
             <ButtonContainer>

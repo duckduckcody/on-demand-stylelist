@@ -2,11 +2,11 @@ import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LocalStorageKey } from '../../constants';
+import { FrontEndWebsites } from '../../frontEndWebsites';
 import { useWindow } from '../../util/useWindow';
-import { WebsiteData } from '../../websites';
 
-interface Props {
-  websites: WebsiteData[];
+export interface WebsiteProps {
+  websites: FrontEndWebsites[];
 }
 
 const WebsitesContainer = styled.div`
@@ -17,7 +17,7 @@ const StyledButton = styled.button`
   margin: 16px 0;
 `;
 
-export const Websites = ({ websites }: Props): ReactElement => {
+export const Websites = ({ websites }: WebsiteProps): ReactElement => {
   const router = useRouter();
   const window = useWindow();
   const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);

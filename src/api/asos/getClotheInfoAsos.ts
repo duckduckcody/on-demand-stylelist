@@ -36,10 +36,6 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
   descriptionElement?.getElementsByClassName('product-code')[0].remove();
   const description = descriptionElement?.innerHTML.trim();
 
-  // const websitesLogo =
-  //   document.getElementById('cool-logo-nav')?.getAttribute('data-src') ||
-  //   undefined;
-
   return {
     websitesLogo: ASOS_LOGO,
     images,
