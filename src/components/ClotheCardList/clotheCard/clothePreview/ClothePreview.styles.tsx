@@ -13,7 +13,7 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 
 export const LoadingContainer = styled.div`
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -23,9 +23,11 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 150px 1fr 400px;
   height: 100%;
+  grid-template-areas: 'thumbnails image info';
 `;
 
 export const ThumbnailContainer = styled.div`
+  grid-area: thumbnails;
   width: 100%;
   overflow-y: auto;
   display: flex;
@@ -36,15 +38,18 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   width: 100%;
   cursor: pointer;
   box-sizing: border-box;
-  border-right: ${(p) => p.selected && '8px solid #525050'};
+  border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
+  grid-area: image;
   width: 100%;
-  background: top / contain no-repeat url(${(p) => p.imageSrc});
+  background: top / contain no-repeat url(${(p) => p.imageSrc}),
+    top / 200px no-repeat url('/loading-spinner.gif');
 `;
 
 export const TextContainer = styled.div`
+  grid-area: info;
   position: relative;
   overflow-y: auto;
   display: grid;

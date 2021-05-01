@@ -1,10 +1,9 @@
-import { faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
 import { useWebsiteDescriptionFormatter } from '../../../../util/useWebsiteDescriptionFormatter';
-import { SpinningFontAwesomeIcon } from '../../../categoryName/categoryName.styles';
 import {
   ButtonContainer,
   CloseIcon,
@@ -82,8 +81,8 @@ export const ClothePreview = ({
       <CloseIcon icon={faTimes} onClick={() => onRequestClose()} />
       {!clotheInfo && (
         <LoadingContainer>
-          {'Fetching clothe info'}&nbsp;&nbsp;
-          <SpinningFontAwesomeIcon icon={faSpinner} />
+          <img src='/loading-spinner.gif' />
+          <span>Fetching clothe info</span>
         </LoadingContainer>
       )}
       {clotheInfo && !error && (
