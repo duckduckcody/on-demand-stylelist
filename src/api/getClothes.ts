@@ -50,6 +50,6 @@ export const getClothes = async (
     const website = serverSideWebsites.find(
       (website) => website.id === +selectedWebsiteId
     );
-    if (!website) return [];
+    if (!website || !website.getClothesFunction) return [];
     return website.getClothesFunction(cid, requestOptions);
   }).then((res) => flatten(res));

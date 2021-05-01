@@ -1,4 +1,10 @@
-import { BaseWebsite, getBaseWebsiteById, WebsiteId } from '../baseWebsites';
+import { uniqBy } from 'lodash';
+import {
+  BaseWebsite,
+  baseWebsites,
+  getBaseWebsiteById,
+  WebsiteId,
+} from '../baseWebsites';
 import { getClotheInfoAsos } from './asos/getClotheInfoAsos';
 import { getClothesAsos } from './asos/getClothesAsos';
 import { getClotheInfoCoolShirtz } from './coolShirtz/getClotheInfoCoolShirtz';
@@ -15,24 +21,28 @@ export type getClothesFunction = (
 export type getClotheInfoFunction = (clotheUrl: URL) => Promise<ClotheInfo>;
 
 export interface ServerSideWebsites extends BaseWebsite {
-  getClothesFunction: getClothesFunction;
+  getClothesFunction?: getClothesFunction;
   getClotheInfoFunction?: getClotheInfoFunction;
 }
 
-export const serverSideWebsites: ServerSideWebsites[] = [
-  {
-    ...getBaseWebsiteById(WebsiteId.COOL_SHIRTZ),
-    getClothesFunction: getClothesCoolShirtz,
-    getClotheInfoFunction: getClotheInfoCoolShirtz,
-  },
-  {
-    ...getBaseWebsiteById(WebsiteId.ASOS),
-    getClothesFunction: getClothesAsos,
-    getClotheInfoFunction: getClotheInfoAsos,
-  },
-  {
-    ...getBaseWebsiteById(WebsiteId.CULTURE_KINGS),
-    getClothesFunction: getClothesCultureKings,
-    getClotheInfoFunction: getClotheInfoCultureKings,
-  },
-];
+export const serverSideWebsites: ServerSideWebsites[] = uniqBy(
+  [
+    {
+      ...getBaseWebsiteById(WebsiteId.COOL_SHIRTZ),
+      getClothesFunction: getClothesCoolShirtz,
+      getClotheInfoFunction: getClotheInfoCoolShirtz,
+    },
+    {
+      ...getBaseWebsiteById(WebsiteId.ASOS),
+      getClothesFunction: getClothesAsos,
+      getClotheInfoFunction: getClotheInfoAsos,
+    },
+    {
+      ...getBaseWebsiteById(WebsiteId.CULTURE_KINGS),
+      getClothesFunction: getClothesCultureKings,
+      getClotheInfoFunction: getClotheInfoCultureKings,
+    },
+    ...baseWebsites,
+  ],
+  'id'
+);
