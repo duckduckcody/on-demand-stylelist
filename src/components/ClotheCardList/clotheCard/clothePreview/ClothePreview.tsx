@@ -61,6 +61,11 @@ export const ClothePreview = ({
     }
   }, [isShowing, clotheInfo, error, onViewProductClick, onRequestClose]);
 
+  useEffect(() => {
+    if (isShowing) document.body.style.overflow = 'hidden';
+    if (!isShowing) document.body.style.overflow = 'unset';
+  }, [isShowing]);
+
   return (
     <Modal
       style={{
