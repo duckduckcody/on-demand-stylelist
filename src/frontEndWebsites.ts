@@ -5,6 +5,7 @@ import {
   getBaseWebsiteById,
   WebsiteId,
 } from './baseWebsites';
+import { coolShirtzDescriptionFormatter } from './util/descriptionFormatters/coolShirtzDescriptionFormatter';
 import { cultureKingsDescriptionFormatter } from './util/descriptionFormatters/cultureKingsDescriptionFormatter';
 
 export interface FrontEndWebsites extends BaseWebsite {
@@ -16,6 +17,10 @@ export const frontEndWebsites: FrontEndWebsites[] = uniqBy(
     {
       ...getBaseWebsiteById(WebsiteId.CULTURE_KINGS),
       descriptionFormatter: cultureKingsDescriptionFormatter,
+    },
+    {
+      ...getBaseWebsiteById(WebsiteId.COOL_SHIRTZ),
+      descriptionFormatter: coolShirtzDescriptionFormatter,
     },
     ...baseWebsites,
   ],
