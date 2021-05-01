@@ -1,14 +1,32 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { MOBILE_BREAKPOINT } from '../../../../styleConstants';
 import { FavouriteHeart } from '../favouriteHeart/FavouriteHeart';
 
-export const CloseIcon = styled(FontAwesomeIcon)`
-  width: 1.5rem;
-  height: 1.5rem;
+export const CloseIcon = styled.span`
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 4px;
+    background-color: white;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
 `;
 
 export const LoadingContainer = styled.div`
@@ -24,6 +42,14 @@ export const Container = styled.div`
   grid-template-columns: 150px 1fr 400px;
   height: 100%;
   grid-template-areas: 'thumbnails image info';
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 1fr;
+    grid-template-areas:
+      'thumbnails'
+      'info';
+  }
 `;
 
 export const ThumbnailContainer = styled.div`
@@ -39,6 +65,13 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   cursor: pointer;
   box-sizing: border-box;
   border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    height: 400px;
+    width: 100%;
+    border-right: none;
+    cursor: unset;
+  }
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
@@ -91,6 +124,7 @@ export const ButtonContainer = styled.div`
   position: sticky;
   display: flex;
   flex-flow: row nowrap;
+  justify-items: center;
   width: 100%;
   margin: 10px 0;
   top: 0;
@@ -102,12 +136,13 @@ export const ViewButton = styled.button`
 `;
 
 export const StyledFavouriteHeart = styled(FavouriteHeart)`
-  justify-self: center;
-  flex: 0 1 50px;
+  flex: 0 1 2rem;
 `;
 
 export const Description = styled.div`
   grid-area: description;
+  font-size: 1rem;
+  line-height: 1.3rem;
 
   h1,
   h2,
@@ -122,10 +157,6 @@ export const Description = styled.div`
   ul,
   p {
     margin: 5px 0;
-  }
-
-  li {
-    line-height: 1.2rem;
   }
 
   a {

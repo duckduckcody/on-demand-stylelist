@@ -4,3 +4,5 @@ export const HEADERS = {
   Connection: 'keep-alive',
   'Cache-Control': 'no-cache',
 };
+
+export const THUMBNAIL_WIDTH = 400;

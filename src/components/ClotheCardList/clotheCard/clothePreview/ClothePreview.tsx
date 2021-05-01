@@ -1,8 +1,8 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ClotheItem } from '../../../../api/getClothes';
 import { ZIndex } from '../../../../styleConstants';
+import { useIsMobile } from '../../../../util/useIsMobile';
 import { useWebsiteDescriptionFormatter } from '../../../../util/useWebsiteDescriptionFormatter';
 import {
   ButtonContainer,
@@ -40,6 +40,7 @@ export const ClothePreview = ({
 }: Props): ReactElement => {
   const { error, clotheInfo } = useClotheInfo(clothe.link, isShowing);
   const [selectedImage, setSelectedImage] = useState<string>();
+  const isMobile = useIsMobile();
 
   const formattedDescription = useWebsiteDescriptionFormatter(
     clotheInfo?.description,
@@ -72,13 +73,14 @@ export const ClothePreview = ({
           color: 'white',
           backgroundColor: '#181818',
           border: 'none',
+          padding: isMobile ? 0 : '20px',
         },
       }}
       isOpen={isShowing}
       onRequestClose={onRequestClose}
       contentLabel='Example Modal'
     >
-      <CloseIcon icon={faTimes} onClick={() => onRequestClose()} />
+      <CloseIcon onClick={() => onRequestClose()} />
       {!clotheInfo && (
         <LoadingContainer>
           <img src='/loading-spinner.gif' />
@@ -98,7 +100,7 @@ export const ClothePreview = ({
               />
             ))}
           </ThumbnailContainer>
-          <ImageContainer imageSrc={selectedImage} />
+          {!isMobile && <ImageContainer imageSrc={selectedImage} />}
           <TextContainer>
             <WebsitesLogo src={clotheInfo.websitesLogo} />
             <WebsiteName>{clothe.website}</WebsiteName>

@@ -7,6 +7,8 @@ export const HeartIconContainer = styled.div<{ isRed: boolean }>`
   height: 2rem;
   color: ${(props) => (props.isRed ? 'red' : props.theme.textColor)};
   filter: drop-shadow(1px 1px 0px black);
+  display: flex;
+  justify-content: center;
 `;
 
 export const HeartIcon = styled(FontAwesomeIcon)`

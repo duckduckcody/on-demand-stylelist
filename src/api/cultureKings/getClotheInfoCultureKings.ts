@@ -1,3 +1,4 @@
+import { THUMBNAIL_WIDTH } from '../constants';
 import { ClotheInfo } from '../getClothes';
 import {
   clotheInfoCultureKingsAlgoliaIndex,
@@ -22,7 +23,7 @@ export const getClotheInfoCultureKings = async (
       websitesLogo: CULTURE_KINGS_LOGO,
       images: hits[0].images.map((image) => ({
         image: image,
-        thumbnail: image.replace('.jpg', '_x150.jpg'),
+        thumbnail: image.replace('.jpg', `_x${THUMBNAIL_WIDTH}.jpg`),
       })),
     }));
 };

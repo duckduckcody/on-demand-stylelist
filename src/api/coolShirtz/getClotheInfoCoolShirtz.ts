@@ -1,5 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../util/absoluteUrl';
+import { THUMBNAIL_WIDTH } from '../constants';
 import { ClotheInfo, ClotheInfoImages } from '../getClothes';
 import { COOL_SHIRTZ_LOGO } from './constants';
 
@@ -22,7 +23,7 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
     if (imageUrl) {
       images.push({
         image: imageUrl,
-        thumbnail: imageUrl.replace('x1440', 'x150'),
+        thumbnail: imageUrl.replace('x1440', `x${THUMBNAIL_WIDTH}`),
       });
     }
   }
