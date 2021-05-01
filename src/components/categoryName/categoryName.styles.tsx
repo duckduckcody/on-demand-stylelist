@@ -1,10 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { ZIndex } from '../../styleConstants';
+import { ClotheCardList } from '../ClotheCardList/ClotheCardList';
+import {
+  HEADER_PRIMARY_HEIGHT,
+  HEADER_SECONDARY_HEIGHT,
+} from '../header/Header.styles';
 
 export const CategoryNameHeader = styled.div`
-  margin: 0 0 21px;
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  top: ${HEADER_PRIMARY_HEIGHT + HEADER_SECONDARY_HEIGHT}px;
+  left: 0;
+  right: 0;
+  background: ${(p) => p.theme.backgroundColor};
+  z-index: ${ZIndex.ui};
+  padding: 12px 24px;
+`;
+
+export const StyledClotheCardList = styled(ClotheCardList)`
+  margin: 46px 0 0;
 `;
 
 export const ButtonContainer = styled.div`

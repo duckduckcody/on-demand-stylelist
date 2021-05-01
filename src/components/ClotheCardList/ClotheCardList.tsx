@@ -7,14 +7,16 @@ interface Props {
   clothes: ClotheItem[];
   favourites: ClotheItem[] | undefined;
   onFavouriteClick: (clothe: ClotheItem) => void;
+  className?: string;
 }
 
 export const ClotheCardList = ({
   clothes,
   favourites,
   onFavouriteClick,
+  className,
 }: Props): ReactElement => (
-  <ClotheCardListContainer>
+  <ClotheCardListContainer className={className}>
     {clothes &&
       clothes.map((clothe) => (
         <ClotheCard

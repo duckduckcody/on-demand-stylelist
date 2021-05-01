@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ZIndex } from '../../styleConstants';
 
-export const HEADER_PRIMARY_HEIGHT = 64;
+export const HEADER_PRIMARY_HEIGHT = 48;
 export const HEADER_SECONDARY_HEIGHT = 32;
 
 export const HeaderContainer = styled.div`

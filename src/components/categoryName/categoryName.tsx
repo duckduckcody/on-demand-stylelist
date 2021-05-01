@@ -21,12 +21,12 @@ import {
 import { capitaliseString } from '../../util/capitaliseString';
 import { useUpdateUrl } from '../../util/useUpdateUrl';
 import { useWindow } from '../../util/useWindow';
-import { ClotheCardList } from '../ClotheCardList/ClotheCardList';
 import {
   ButtonContainer,
   CategoryNameHeader,
   LoadMoreButton,
   SpinningFontAwesomeIcon,
+  StyledClotheCardList,
 } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
 
@@ -215,7 +215,7 @@ export const CategoryName = (): ReactElement => {
         </span>
       </CategoryNameHeader>
 
-      <ClotheCardList
+      <StyledClotheCardList
         clothes={clothes}
         favourites={favourites}
         onFavouriteClick={onFavouriteClick}
