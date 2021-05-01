@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
+import { HEADER_PRIMARY_HEIGHT } from '../src/components/header/Header.styles';
 import { ShopTile } from '../src/components/shopTile/ShopTile';
 import { Paths } from '../src/constants';
 import { MOBILE_BREAKPOINT } from '../src/styleConstants';
@@ -11,7 +12,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  height: calc(100vh - 64px);
+  height: calc(100vh - ${HEADER_PRIMARY_HEIGHT}px);
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     grid-template-columns: 1fr;
