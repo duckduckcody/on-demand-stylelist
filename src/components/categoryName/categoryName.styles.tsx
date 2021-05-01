@@ -53,6 +53,11 @@ export const LoadMoreButton = styled.button`
   &:active {
     background-color: grey;
   }
+
+  &:disabled {
+    background-color: lightgrey;
+    cursor: not-allowed;
+  }
 `;
 
 export const SpinningFontAwesomeIcon = styled(FontAwesomeIcon)`

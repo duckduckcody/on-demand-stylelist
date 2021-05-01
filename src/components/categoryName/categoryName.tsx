@@ -1,4 +1,3 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { flatten, startCase } from 'lodash';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -25,7 +24,6 @@ import {
   ButtonContainer,
   CategoryNameHeader,
   LoadMoreButton,
-  SpinningFontAwesomeIcon,
   StyledClotheCardList,
 } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
@@ -222,20 +220,17 @@ export const CategoryName = (): ReactElement => {
       />
 
       <ButtonContainer>
-        {isLoadingMore && (
-          <>
-            {'Fetching styles'}&nbsp;&nbsp;
-            <SpinningFontAwesomeIcon icon={faSpinner} />
-          </>
-        )}
         {!isLoadingMore &&
           isEndOfData &&
           (isEmpty ? 'no clothes found :(' : 'no more clothes :(')}
-        {!isLoadingMore && !isEndOfData && (
-          <LoadMoreButton onClick={() => setSize(size + 1)}>
-            Load more
-          </LoadMoreButton>
-        )}
+
+        <LoadMoreButton
+          onClick={() => setSize(size + 1)}
+          disabled={isLoadingMore}
+        >
+          {isLoadingMore && 'Loading more styles...'}
+          {!isLoadingMore && !isEndOfData && 'Load more'}
+        </LoadMoreButton>
       </ButtonContainer>
     </>
   );
