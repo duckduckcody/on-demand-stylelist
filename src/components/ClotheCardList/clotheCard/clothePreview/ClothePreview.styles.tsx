@@ -21,26 +21,21 @@ export const LoadingContainer = styled.div`
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 400px;
-  column-gap: 20px;
+  grid-template-columns: 150px 1fr 400px;
   height: 100%;
 `;
 
-export const ImagesContainer = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-`;
-
 export const ThumbnailContainer = styled.div`
-  width: 150px;
+  width: 100%;
+  overflow-y: auto;
   display: flex;
   flex-flow: column nowrap;
 `;
 
 export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   width: 100%;
-  box-sizing: border-box;
   cursor: pointer;
+  box-sizing: border-box;
   border-right: ${(p) => p.selected && '8px solid #525050'};
 `;
 
@@ -53,6 +48,7 @@ export const TextContainer = styled.div`
   position: relative;
   overflow-y: auto;
   display: grid;
+  padding: 0 0 0 24px;
   grid-template-columns: 1fr 3rem;
   grid-template-rows: repeat(6, min-content);
   grid-template-areas:

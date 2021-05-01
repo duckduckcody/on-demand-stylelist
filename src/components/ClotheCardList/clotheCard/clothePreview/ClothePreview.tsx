@@ -11,7 +11,6 @@ import {
   Container,
   Description,
   ImageContainer,
-  ImagesContainer,
   LoadingContainer,
   Name,
   Price,
@@ -89,20 +88,18 @@ export const ClothePreview = ({
       )}
       {clotheInfo && !error && (
         <Container>
-          <ImagesContainer>
-            <ThumbnailContainer>
-              {clotheInfo.images.map((img) => (
-                <ThumbnailImage
-                  key={img.thumbnail}
-                  src={img.thumbnail}
-                  selected={selectedImage === img.image}
-                  alt=''
-                  onClick={() => setSelectedImage(img.image)}
-                />
-              ))}
-            </ThumbnailContainer>
-            <ImageContainer imageSrc={selectedImage} />
-          </ImagesContainer>
+          <ThumbnailContainer>
+            {clotheInfo.images.map((img) => (
+              <ThumbnailImage
+                key={img.thumbnail}
+                src={img.thumbnail}
+                selected={selectedImage === img.image}
+                alt=''
+                onClick={() => setSelectedImage(img.image)}
+              />
+            ))}
+          </ThumbnailContainer>
+          <ImageContainer imageSrc={selectedImage} />
           <TextContainer>
             <WebsitesLogo src={clotheInfo.websitesLogo} />
             <WebsiteName>{clothe.website}</WebsiteName>
