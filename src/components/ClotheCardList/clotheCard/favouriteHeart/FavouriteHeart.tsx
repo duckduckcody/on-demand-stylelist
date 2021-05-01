@@ -43,6 +43,7 @@ export const FavouriteHeart = ({
         <HeartIcon
           onMouseEnter={() => !isMobile && setIconHovered(true)}
           onMouseLeave={() => !isMobile && setIconHovered(false)}
+          size={'4x'}
           icon={
             isFavourited
               ? iconHovered

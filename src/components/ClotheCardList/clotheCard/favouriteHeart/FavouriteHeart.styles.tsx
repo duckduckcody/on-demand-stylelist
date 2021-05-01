@@ -12,6 +12,6 @@ export const HeartIconContainer = styled.div<{ isRed: boolean }>`
 `;
 
 export const HeartIcon = styled(FontAwesomeIcon)`
-  width: 100%;
-  height: 100%;
+  width: 2rem;
+  height: 2rem;
 `;
