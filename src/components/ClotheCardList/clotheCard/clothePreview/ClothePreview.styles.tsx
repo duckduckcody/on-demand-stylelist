@@ -67,8 +67,6 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    /* height: 100%; */
-    /* width: 100%; */
     border-right: none;
     cursor: unset;
   }
