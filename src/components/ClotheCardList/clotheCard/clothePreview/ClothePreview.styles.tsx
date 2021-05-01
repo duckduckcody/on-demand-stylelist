@@ -45,7 +45,7 @@ export const Container = styled.div`
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     grid-template-columns: 1fr;
-    grid-template-rows: 400px 1fr;
+    grid-template-rows: 300px min-content;
     grid-template-areas:
       'thumbnails'
       'info';
@@ -67,8 +67,8 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    height: 400px;
-    width: 100%;
+    /* height: 100%; */
+    /* width: 100%; */
     border-right: none;
     cursor: unset;
   }
@@ -96,6 +96,11 @@ export const TextContainer = styled.div`
     'name name'
     'buttonContainer buttonContainer'
     'description description';
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    overflow-y: unset;
+    padding: 8px;
+  }
 `;
 
 export const WebsitesLogo = styled.img`
@@ -106,11 +111,13 @@ export const WebsitesLogo = styled.img`
 export const WebsiteName = styled.div`
   grid-area: websiteName;
   font-size: 1rem;
+  line-height: 1.5rem;
 `;
 
 export const Price = styled.div`
   grid-area: price;
   font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: bold;
 `;
 
@@ -142,7 +149,7 @@ export const StyledFavouriteHeart = styled(FavouriteHeart)`
 export const Description = styled.div`
   grid-area: description;
   font-size: 1rem;
-  line-height: 1.3rem;
+  line-height: 1.5rem;
 
   h1,
   h2,
