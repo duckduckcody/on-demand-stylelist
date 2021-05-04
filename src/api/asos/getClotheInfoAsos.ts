@@ -50,6 +50,6 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
   return {
     websitesLogo: ASOS_LOGO,
     images,
-    description: 'green apples',
+    description,
   };
 };

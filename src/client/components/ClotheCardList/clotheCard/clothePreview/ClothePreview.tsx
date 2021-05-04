@@ -13,6 +13,11 @@ import {
   LoadingContainer,
   Name,
   Price,
+  RelatedProduct,
+  RelatedProductImage,
+  RelatedProductsContainer,
+  RelatedProductsSection,
+  RelatedProductsTitle,
   StyledFavouriteHeart,
   TextContainer,
   ThumbnailContainer,
@@ -129,6 +134,23 @@ export const ClothePreview = ({
                   />
                 </ButtonContainer>
               </TextContainer>
+              {clotheInfo.relatedProducts && (
+                <RelatedProductsSection>
+                  <RelatedProductsTitle>
+                    You might also like
+                  </RelatedProductsTitle>
+                  <RelatedProductsContainer>
+                    {clotheInfo.relatedProducts.map((related) => (
+                      <RelatedProduct key={related.link}>
+                        <a href={related.link} target='_blank' rel='noreferrer'>
+                          <RelatedProductImage src={related.image} />
+                        </a>
+                        <span>{related.name}</span>
+                      </RelatedProduct>
+                    ))}
+                  </RelatedProductsContainer>
+                </RelatedProductsSection>
+              )}
             </Container>
           )}
         </Modal>

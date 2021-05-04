@@ -16,4 +16,8 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.backgroundColor};
     font-family: 'Martel Sans', sans-serif;
   }
+
+  p {
+    margin: 0;
+  }
 `;

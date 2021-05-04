@@ -40,8 +40,11 @@ export const LoadingContainer = styled.div`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 150px 1fr 400px;
+  grid-template-rows: min-content min-content;
   height: 100%;
-  grid-template-areas: 'thumbnails image info';
+  grid-template-areas:
+    'thumbnails image info'
+    'relatedProducts relatedProducts relatedProducts';
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     grid-template-columns: 1fr;
@@ -167,4 +170,29 @@ export const Description = styled.div`
   a {
     color: inherit;
   }
+`;
+
+export const RelatedProductsSection = styled.div`
+  grid-area: relatedProducts;
+  margin: 24px 0 0;
+  overflow-x: auto;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+`;
+
+export const RelatedProductsTitle = styled.p`
+  font-size: 1.5rem;
+`;
+
+export const RelatedProductsContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+
+export const RelatedProduct = styled.div`
+  flex: 0 0 150px;
+`;
+
+export const RelatedProductImage = styled.img`
+  width: 100%;
 `;

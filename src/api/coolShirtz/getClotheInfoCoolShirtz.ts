@@ -1,8 +1,12 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../client/util/absoluteUrl';
-import { ClotheInfo, ClotheInfoImages } from '../../types/ClotheInfo';
+import {
+  ClotheInfo,
+  ClotheInfoImages,
+  RelatedProducts,
+} from '../../types/ClotheInfo';
 import { THUMBNAIL_WIDTH } from '../constants';
-import { COOL_SHIRTZ_LOGO } from './constants';
+import { COOL_SHIRTZ_BASE_URL, COOL_SHIRTZ_LOGO } from './constants';
 
 export const getClotheInfoCoolShirtz = async (
   clotheUrl: URL
@@ -15,6 +19,11 @@ export const getClotheInfoCoolShirtz = async (
 
 export const scrapeHtml = (htmlString: string): ClotheInfo => {
   const { document } = new JSDOM(htmlString).window;
+
+  const description = document
+    .getElementById('product-description')
+    ?.innerHTML.trim();
+
   const images: ClotheInfoImages[] = [];
   const imageElements = document.getElementsByClassName('thumb clicker-thumb');
   for (const imageElement of imageElements) {
@@ -28,9 +37,27 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
       });
     }
   }
-  const description = document
-    .getElementById('product-description')
-    ?.innerHTML.trim();
+
+  const relatedProducts: RelatedProducts[] = [];
+  const relatedProductsContainer = document.getElementById('related');
+  const relatedProductElements =
+    relatedProductsContainer?.getElementsByClassName('related-product') || [];
+  for (const relatedProductElement of relatedProductElements) {
+    const aElement = relatedProductElement.getElementsByTagName('a')[0];
+    const link = `${COOL_SHIRTZ_BASE_URL}${aElement.getAttribute('href')}`;
+    const name = aElement.getAttribute('title');
+    const image = relatedProductElement
+      .getElementsByTagName('img')[0]
+      .getAttribute('data-src');
+
+    if (link && name && image) {
+      relatedProducts.push({
+        link,
+        name,
+        image,
+      });
+    }
+  }
 
   if (!description || images.length === 0) {
     console.log(
@@ -45,5 +72,6 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
     websitesLogo: COOL_SHIRTZ_LOGO,
     images,
     description,
+    relatedProducts,
   };
 };
