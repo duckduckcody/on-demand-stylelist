@@ -1,8 +1,10 @@
 import { JSDOM } from 'jsdom';
-import { absoluteUrl } from '../../util/absoluteUrl';
-import { parsePrice } from '../../util/parsePrice';
+import { absoluteUrl } from '../../client/util/absoluteUrl';
+import { parsePrice } from '../../client/util/parsePrice';
+import { ClotheItem } from '../../types/ClotheItem';
+import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
-import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import {
   coolShirtzCidMap,
   COOL_SHIRTZ_BASE_URL,

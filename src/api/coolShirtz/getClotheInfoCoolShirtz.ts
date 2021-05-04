@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom';
-import { absoluteUrl } from '../../util/absoluteUrl';
+import { absoluteUrl } from '../../client/util/absoluteUrl';
+import { ClotheInfo, ClotheInfoImages } from '../../types/ClotheInfo';
 import { THUMBNAIL_WIDTH } from '../constants';
-import { ClotheInfo, ClotheInfoImages } from '../getClothes';
 import { COOL_SHIRTZ_LOGO } from './constants';
 
 export const getClotheInfoCoolShirtz = async (

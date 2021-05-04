@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
 import { categories, Category } from '../../src/categories';
-import { CategoryTileList } from '../../src/components/categoryTileList/CategoryTileList';
-import { Gender } from '../../src/constants';
+import { CategoryTileList } from '../../src/client/components/categoryTileList/CategoryTileList';
+import { Gender } from '../../src/types/Gender';
 
 export const getStaticProps: GetStaticProps = async () => ({
   props: { categories: categories.filter((cat) => cat.gender === Gender.MEN) },

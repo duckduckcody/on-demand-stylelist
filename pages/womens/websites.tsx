@@ -1,10 +1,13 @@
 import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
-import { baseWebsites } from '../../src/baseWebsites';
-import { WebsiteProps, Websites } from '../../src/components/websites/Websites';
+import {
+  WebsiteProps,
+  Websites,
+} from '../../src/client/pages/websites/Websites';
+import { websites } from '../../src/websites';
 
 export const getStaticProps: GetStaticProps = async () => ({
-  props: { websites: baseWebsites },
+  props: { websites: websites },
 });
 
 export default function WomensWebsites({

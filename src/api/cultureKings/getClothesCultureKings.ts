@@ -1,6 +1,8 @@
 import { Promise } from 'bluebird';
-import { recursiveGetClothes } from '../../util/recursiveGetClothes';
-import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
+import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
+import { ClotheItem } from '../../types/ClotheItem';
+import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { clothesCache } from '../cache';
 import {
   CultureKingsAlgoliaHits,
   CULTURE_KINGS_ALGOLIA_HEADERS,

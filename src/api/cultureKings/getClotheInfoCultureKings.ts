@@ -1,5 +1,5 @@
+import { ClotheInfo } from '../../types/ClotheInfo';
 import { THUMBNAIL_WIDTH } from '../constants';
-import { ClotheInfo } from '../getClothes';
 import {
   clotheInfoCultureKingsAlgoliaIndex,
   CultureKingsAlgoliaHits,

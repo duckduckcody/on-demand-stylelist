@@ -1,5 +1,5 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
-import { ClotheSortOption } from '../../constants';
+import { ClotheSortOption } from '../../types/ClotheSort';
 import { HEADERS } from '../constants';
 import {
   CultureKingsIndexName,

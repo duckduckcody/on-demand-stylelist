@@ -1,4 +1,4 @@
-import { CustomTheme } from './src/themes';
+import { CustomTheme } from './src/client/themes';
 
 declare module 'styled-components' {
   // eslint-disable-next-line

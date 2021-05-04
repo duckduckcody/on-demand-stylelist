@@ -1,5 +1,5 @@
 import { CategoryName, getCategoryId } from '../../categories';
-import { Gender } from '../../constants';
+import { Gender } from '../../types/Gender';
 
 export const CULTURE_KINGS_LOGO =
   'https://cdn.shopify.com/s/files/1/1023/3455/t/11/assets/culture-kings-logo.svg?v=9025665209038806776';

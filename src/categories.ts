@@ -1,4 +1,4 @@
-import { Gender } from './constants';
+import { Gender } from './types/Gender';
 
 export enum CategoryName {
   SHIRTS = 'shirts',

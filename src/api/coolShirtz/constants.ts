@@ -1,6 +1,7 @@
 import { CategoryName, getCategoryId } from '../../categories';
-import { ClotheSortOption, Gender } from '../../constants';
-import { GetClothesOptions } from '../getClothes';
+import { ClotheSortOption } from '../../types/ClotheSort';
+import { Gender } from '../../types/Gender';
+import { GetClothesOptions } from '../../types/GetClothesOptions';
 
 export const COOL_SHIRTZ_BASE_URL = 'https://shirtz.cool';
 

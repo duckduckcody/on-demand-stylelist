@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { ClotheItem } from '../src/api/getClothes';
-import { ClotheCard } from '../src/components/ClotheCardList/clotheCard/ClotheCard';
-import { ClotheCardListContainer } from '../src/components/ClotheCardList/ClotheCardList.styles';
-import { LocalStorageKey } from '../src/constants';
+import { ClotheCard } from '../src/client/components/ClotheCardList/clotheCard/ClotheCard';
+import { ClotheCardListContainer } from '../src/client/components/ClotheCardList/ClotheCardList.styles';
+import { LocalStorageKey } from '../src/client/constants';
+import { ClotheItem } from '../src/types/ClotheItem';
 
 export default function Favourites(): ReactElement {
   const [favourites, setFavourites] = useState<ClotheItem[]>();

@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { HEADER_PRIMARY_HEIGHT } from '../src/components/header/Header.styles';
-import { ShopTile } from '../src/components/shopTile/ShopTile';
-import { Paths } from '../src/constants';
-import { MOBILE_BREAKPOINT } from '../src/styleConstants';
+import { HEADER_PRIMARY_HEIGHT } from '../src/client/components/header/Header.styles';
+import { ShopTile } from '../src/client/components/shopTile/ShopTile';
+import { Paths } from '../src/client/constants';
+import { MOBILE_BREAKPOINT } from '../src/client/styleConstants';
 
 const SHOP_MENS_IMAGE_URL = '/shop_mens.webp';
 const SHOP_WOMENS_IMAGE_URL = '/shop_womens.webp';

@@ -1,10 +1,12 @@
 import { Promise } from 'bluebird';
 import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
-import { parsePrice } from '../../util/parsePrice';
-import { recursiveGetClothes } from '../../util/recursiveGetClothes';
+import { parsePrice } from '../../client/util/parsePrice';
+import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
+import { ClotheItem } from '../../types/ClotheItem';
+import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
-import { ClotheItem, clothesCache, GetClothesOptions } from '../getClothes';
 import {
   AsosCategory,
   ASOS_LIMIT,
