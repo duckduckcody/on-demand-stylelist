@@ -7,9 +7,10 @@ import { ASOS_LOGO } from './constants';
 export const getClotheInfoAsos = async (
   clotheUrl: URL
 ): Promise<ClotheInfo> => {
-  const res = await fetch(clotheUrl.href);
-  const htmlString = await res.text();
-  return scrapeHtml(htmlString);
+  return fetch(clotheUrl.href)
+    .then((res) => res.text())
+    .then((htmlString) => scrapeHtml(htmlString))
+    .catch((e) => Promise.reject(e));
 };
 
 export const scrapeHtml = (htmlString: string): ClotheInfo => {
@@ -37,9 +38,18 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
   descriptionElement?.getElementsByClassName('product-code')[0].remove();
   const description = descriptionElement?.innerHTML.trim();
 
+  if (!description || images.length === 0) {
+    console.log(
+      'getClotheInfoAsos.ts - scrapeHtml() - failed to get clothe info',
+      `description: ${description}`,
+      `images:${images}`
+    );
+    throw new Error();
+  }
+
   return {
     websitesLogo: ASOS_LOGO,
     images,
-    description,
+    description: 'green apples',
   };
 };

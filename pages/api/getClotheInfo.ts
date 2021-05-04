@@ -20,7 +20,12 @@ export default async function handler(
       .status(400)
       .json({ message: `no scraper found for ${url.origin}` });
 
-  const clotheInfo = await scraperInfo.getClotheInfoFunction(url);
-
-  return res.status(200).json(clotheInfo);
+  scraperInfo
+    .getClotheInfoFunction(url)
+    .then((clotheInfo) => {
+      res.status(200).json(clotheInfo);
+    })
+    .catch(() => {
+      res.status(500).json({ message: 'failed to scrape clothe info' });
+    });
 }

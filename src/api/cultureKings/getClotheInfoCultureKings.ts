@@ -25,5 +25,6 @@ export const getClotheInfoCultureKings = async (
         image: image,
         thumbnail: image.replace('.jpg', `_x${THUMBNAIL_WIDTH}.jpg`),
       })),
-    }));
+    }))
+    .catch((e) => Promise.reject(e));
 };

@@ -5,6 +5,6 @@ export interface ClotheInfoImages {
 
 export interface ClotheInfo {
   images: ClotheInfoImages[];
-  description: string | undefined;
-  websitesLogo?: string | undefined;
+  description: string;
+  websitesLogo: string;
 }
