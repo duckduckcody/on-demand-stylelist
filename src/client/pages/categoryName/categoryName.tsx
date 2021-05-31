@@ -41,9 +41,8 @@ export interface QueryParams {
 export const CategoryName = (): ReactElement => {
   const { query, replace: routerReplace, isReady: routerIsReady } = useRouter();
   const [limit, setLimit] = useState<number | undefined>(undefined);
-  const [clotheSortOption, setClotheSortOption] = useState<
-    ClotheSortOption | undefined
-  >(undefined);
+  const [clotheSortOption, setClotheSortOption] =
+    useState<ClotheSortOption | undefined>(undefined);
   const window = useWindow();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
   const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
@@ -216,13 +215,18 @@ export const CategoryName = (): ReactElement => {
           isEndOfData &&
           (isEmpty ? 'no clothes found :(' : 'no more clothes :(')}
 
-        <LoadMoreButton
-          onClick={() => setSize(size + 1)}
-          disabled={isLoadingMore}
-        >
-          {isLoadingMore && 'Loading more styles...'}
-          {!isLoadingMore && !isEndOfData && 'Load more'}
-        </LoadMoreButton>
+        {!isEndOfData && (
+          <LoadMoreButton
+            onClick={() => setSize(size + 1)}
+            disabled={isLoadingMore}
+          >
+            {isLoadingMore &&
+              (clothes.length === 0
+                ? 'Loading styles...'
+                : 'Loading more styles...')}
+            {!isLoadingMore && !isEndOfData && 'Load more'}
+          </LoadMoreButton>
+        )}
       </ButtonContainer>
     </>
   );
