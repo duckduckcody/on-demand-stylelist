@@ -1,5 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useContext, useState } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
+import { ClothePreviewContext } from '../../../pages/baseApp/BaseApp';
 import {
   ClotheImage,
   ClotheName,
@@ -11,7 +12,6 @@ import {
   StyledFavouriteClothe,
   WebsiteName,
 } from './ClotheCard.styles';
-import { ClothePreview } from './clothePreview/ClothePreview';
 
 interface Props {
   clothe: ClotheItem;
@@ -24,14 +24,14 @@ export const ClotheCard = ({
   isFavourited = false,
   onFavouriteClick = () => null,
 }: Props): ReactElement => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(clothe.image);
+  const { setClothePreviewUrl } = useContext(ClothePreviewContext);
 
   const handleImageContainerClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const target = event.target as HTMLDivElement;
-    target.tagName === 'IMG' && setModalIsOpen(true);
+    target.tagName === 'IMG' && setClothePreviewUrl(clothe.link);
   };
 
   const handleImageError = () =>
@@ -70,14 +70,6 @@ export const ClotheCard = ({
         </Price>
         <ClotheName>{clothe.name}</ClotheName>
       </InfoContainer>
-
-      <ClothePreview
-        isShowing={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        clothe={clothe}
-        onFavouriteClick={onFavouriteClick}
-        isFavourited={isFavourited}
-      />
     </Container>
   );
 };

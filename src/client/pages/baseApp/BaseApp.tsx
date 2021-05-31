@@ -1,7 +1,15 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
-import { ReactElement, useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { ThemeProvider } from 'styled-components';
+import { ClothePreview } from '../../components/ClotheCardList/clotheCard/clothePreview/ClothePreview';
 import { Header } from '../../components/header/Header';
 import { useWindow } from '../../hooks/useWindow';
 import { darkTheme } from '../../themes';
@@ -9,13 +17,20 @@ import { GlobalStyle } from './BaseApp.styles';
 import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
 
+export const ClothePreviewContext = createContext<{
+  clothePreviewUrl: string | undefined;
+  setClothePreviewUrl: Dispatch<SetStateAction<string | undefined>>;
+}>({ setClothePreviewUrl: () => undefined, clothePreviewUrl: undefined });
+
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const window = useWindow();
   const [pathName, setPathName] = useState<string | undefined>(undefined);
+  const [clothePreviewUrl, setClothePreviewUrl] =
+    useState<string | undefined>(undefined);
 
   useEffect(() => {
     setPathName(window?.location.pathname);
-  }, [window?.localStorage, window?.location.pathname]);
+  }, [window?.location.pathname]);
 
   return (
     <>
@@ -25,9 +40,14 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
         <Favicon favicon='📜' />
       </Head>
       <ThemeProvider theme={darkTheme}>
-        <GlobalStyle />
-        <Header pathName={pathName}></Header>
-        <Component {...pageProps} />
+        <ClothePreviewContext.Provider
+          value={{ setClothePreviewUrl, clothePreviewUrl }}
+        >
+          <GlobalStyle />
+          <Header pathName={pathName}></Header>
+          <Component {...pageProps} />
+          <ClothePreview />
+        </ClothePreviewContext.Provider>
       </ThemeProvider>
     </>
   );

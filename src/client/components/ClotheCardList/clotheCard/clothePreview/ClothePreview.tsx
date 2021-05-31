@@ -1,8 +1,14 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Modal from 'react-modal';
-import { ClotheItem } from '../../../../../types/ClotheItem';
 import { useIsMobile } from '../../../../hooks/useIsMobile';
 import { useWebsiteDescriptionFormatter } from '../../../../hooks/useWebsiteDescriptionFormatter';
+import { ClothePreviewContext } from '../../../../pages/baseApp/BaseApp';
 import { ZIndex } from '../../../../styleConstants';
 import {
   ButtonContainer,
@@ -18,7 +24,6 @@ import {
   RelatedProductsContainer,
   RelatedProductsSection,
   RelatedProductsTitle,
-  StyledFavouriteHeart,
   TextContainer,
   ThumbnailContainer,
   ThumbnailImage,
@@ -28,43 +33,38 @@ import {
 } from './ClothePreview.styles';
 import { useClotheInfo } from './useClotheInfo';
 
-interface Props {
-  clothe: ClotheItem;
-  isShowing: boolean;
-  onRequestClose: VoidFunction;
-  onFavouriteClick: (clothe: ClotheItem) => void;
-  isFavourited: boolean;
-}
+export const ClothePreview = (): ReactElement => {
+  const { clothePreviewUrl, setClothePreviewUrl } =
+    useContext(ClothePreviewContext);
+  const isShowing = Boolean(clothePreviewUrl);
 
-export const ClothePreview = ({
-  clothe,
-  isShowing,
-  onRequestClose,
-  onFavouriteClick,
-  isFavourited,
-}: Props): ReactElement => {
-  const { error, clotheInfo } = useClotheInfo(clothe.link, isShowing);
+  const { clotheInfo, isLoading, isError } = useClotheInfo(clothePreviewUrl);
+
   const [selectedImage, setSelectedImage] = useState<string>();
   const isMobile = useIsMobile();
 
   const formattedDescription = useWebsiteDescriptionFormatter(
     clotheInfo?.description,
-    clothe.website
+    clotheInfo?.websiteId
   );
 
+  const relatedProductImageClick = (link: string) => setClothePreviewUrl(link);
+
   const onViewProductClick = useCallback(
-    () => window?.open(clothe.link, '_blank')?.focus(),
-    [clothe.link]
+    () => window?.open(clothePreviewUrl, '_blank')?.focus(),
+    [clothePreviewUrl]
   );
 
   useEffect(() => {
-    if (isShowing && clotheInfo && !error)
-      setSelectedImage(clotheInfo.images[0].image);
-    if (isShowing && clotheInfo && error) {
+    if (isError && !isLoading) {
+      setClothePreviewUrl(undefined);
       onViewProductClick();
-      onRequestClose();
     }
-  }, [isShowing, clotheInfo, error, onViewProductClick, onRequestClose]);
+  }, [isError, isLoading, onViewProductClick, setClothePreviewUrl]);
+
+  useEffect(() => {
+    isShowing && clotheInfo && setSelectedImage(clotheInfo?.images[0].image);
+  }, [isShowing, clotheInfo]);
 
   useEffect(() => {
     if (isShowing) document.body.style.overflow = 'hidden';
@@ -89,17 +89,18 @@ export const ClothePreview = ({
             },
           }}
           isOpen={isShowing}
-          onRequestClose={onRequestClose}
+          onRequestClose={() => setClothePreviewUrl(undefined)}
           contentLabel='Example Modal'
         >
-          <CloseIcon onClick={() => onRequestClose()} />
-          {!clotheInfo && (
+          <CloseIcon onClick={() => setClothePreviewUrl(undefined)} />
+          {isError && <p>BIG OLD ERROR</p>}
+          {isLoading && (
             <LoadingContainer>
               <img src='/loading-spinner.gif' />
               <span>Fetching clothe info</span>
             </LoadingContainer>
           )}
-          {clotheInfo && !error && (
+          {!isLoading && !isError && clotheInfo && (
             <Container>
               <ThumbnailContainer>
                 {clotheInfo.images.map((img) => (
@@ -115,9 +116,11 @@ export const ClothePreview = ({
               {!isMobile && <ImageContainer imageSrc={selectedImage} />}
               <TextContainer>
                 <WebsitesLogo src={clotheInfo.websitesLogo} />
-                <WebsiteName>{clothe.website}</WebsiteName>
-                <Name>{clothe.name}</Name>
-                <Price>${clothe.price}</Price>
+                <WebsiteName>{clotheInfo.websiteName}</WebsiteName>
+                <Name>{clotheInfo.name}</Name>
+                <Price>
+                  {clotheInfo.soldOut ? `Sold Out` : `$${clotheInfo.price}`}
+                </Price>
                 <Description
                   dangerouslySetInnerHTML={{
                     __html: formattedDescription,
@@ -127,11 +130,6 @@ export const ClothePreview = ({
                   <ViewButton onClick={() => onViewProductClick()}>
                     View product
                   </ViewButton>
-                  <StyledFavouriteHeart
-                    clothe={clothe}
-                    onFavouriteClick={onFavouriteClick}
-                    isFavourited={isFavourited}
-                  />
                 </ButtonContainer>
               </TextContainer>
               {clotheInfo.relatedProducts && (
@@ -142,9 +140,10 @@ export const ClothePreview = ({
                   <RelatedProductsContainer>
                     {clotheInfo.relatedProducts.map((related) => (
                       <RelatedProduct key={related.link}>
-                        <a href={related.link} target='_blank' rel='noreferrer'>
-                          <RelatedProductImage src={related.image} />
-                        </a>
+                        <RelatedProductImage
+                          src={related.image}
+                          onClick={() => relatedProductImageClick(related.link)}
+                        />
                         <span>{related.name}</span>
                       </RelatedProduct>
                     ))}

@@ -11,7 +11,13 @@ export interface RelatedProducts {
 
 export interface ClotheInfo {
   images: ClotheInfoImages[];
+  name: string;
+  price: number;
   description: string;
+  websiteName: string;
+  websiteId: number;
   websitesLogo: string;
+  link: string;
   relatedProducts?: RelatedProducts[];
+  soldOut?: boolean;
 }

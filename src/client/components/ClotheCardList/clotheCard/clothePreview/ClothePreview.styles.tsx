@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../../../styleConstants';
+import { MOBILE_BREAKPOINT, ZIndex } from '../../../../styleConstants';
 import { FavouriteHeart } from '../favouriteHeart/FavouriteHeart';
 
 export const CloseIcon = styled.span`
@@ -9,6 +9,7 @@ export const CloseIcon = styled.span`
   cursor: pointer;
   width: 32px;
   height: 32px;
+  z-index: ${ZIndex.modal};
 
   &:before,
   &:after {
@@ -195,4 +196,5 @@ export const RelatedProduct = styled.div`
 
 export const RelatedProductImage = styled.img`
   width: 100%;
+  cursor: pointer;
 `;

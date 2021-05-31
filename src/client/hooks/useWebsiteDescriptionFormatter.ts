@@ -3,16 +3,16 @@ import { clientWebsites } from '../clientWebsites';
 
 export const useWebsiteDescriptionFormatter = (
   description = '',
-  websiteName: string
+  websiteId: number | undefined
 ): string => {
   const [formattedDescription, setFormattedDescription] = useState<string>('');
 
   useEffect(() => {
-    if (!description) {
+    if (!description || !websiteId) {
       setFormattedDescription('');
     } else {
       const website = clientWebsites.find(
-        (website) => website.name === websiteName
+        (website) => website.id === websiteId
       );
       if (!website || !website.descriptionFormatter) {
         setFormattedDescription(description);
@@ -20,7 +20,7 @@ export const useWebsiteDescriptionFormatter = (
         setFormattedDescription(website.descriptionFormatter(description));
       }
     }
-  }, [description, websiteName]);
+  }, [description, websiteId]);
 
   return formattedDescription;
 };

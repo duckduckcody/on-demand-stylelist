@@ -1,10 +1,12 @@
 import { JSDOM } from 'jsdom';
 import { absoluteUrl } from '../../client/util/absoluteUrl';
+import { parsePrice } from '../../client/util/parsePrice';
 import {
   ClotheInfo,
   ClotheInfoImages,
   RelatedProducts,
 } from '../../types/ClotheInfo';
+import { WebsiteId } from '../../websites';
 import { THUMBNAIL_WIDTH } from '../constants';
 import { COOL_SHIRTZ_BASE_URL, COOL_SHIRTZ_LOGO } from './constants';
 
@@ -13,12 +15,28 @@ export const getClotheInfoCoolShirtz = async (
 ): Promise<ClotheInfo> => {
   return fetch(clotheUrl.href)
     .then((res) => res.text())
-    .then((htmlString) => scrapeHtml(htmlString))
+    .then((htmlString) => scrapeHtml(htmlString, clotheUrl.href))
     .catch((e) => Promise.reject(e));
 };
 
-export const scrapeHtml = (htmlString: string): ClotheInfo => {
+export const scrapeHtml = (
+  htmlString: string,
+  clotheLink: string
+): ClotheInfo => {
   const { document } = new JSDOM(htmlString).window;
+  let soldOut = false;
+  let price = 0;
+
+  const productInformation = document.getElementById('product-information');
+  const name = productInformation?.getElementsByTagName('h1')[0].innerHTML;
+
+  const priceElement =
+    productInformation?.getElementsByClassName('product-price')[0].textContent;
+  if (priceElement === 'Sold Out') {
+    soldOut = true;
+  } else {
+    price = parsePrice(priceElement) || 0;
+  }
 
   const description = document
     .getElementById('product-description')
@@ -59,17 +77,26 @@ export const scrapeHtml = (htmlString: string): ClotheInfo => {
     }
   }
 
-  if (!description || images.length === 0) {
+  if (!description || images.length === 0 || !name || (!soldOut && !price)) {
     console.log(
       'getClotheInfoCoolShirtz.ts - scrapeHtml() - failed to get clothe info',
       `description: ${description}`,
-      `images:${images}`
+      `images:${images}`,
+      `name: ${name}`,
+      `price: ${price}`,
+      `soldOut: ${soldOut}`
     );
     throw new Error();
   }
 
   return {
+    name: name,
+    price: price,
+    soldOut,
     websitesLogo: COOL_SHIRTZ_LOGO,
+    websiteName: 'Cool Shirtz',
+    websiteId: WebsiteId.COOL_SHIRTZ,
+    link: clotheLink,
     images,
     description,
     relatedProducts,

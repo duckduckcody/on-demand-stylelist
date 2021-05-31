@@ -1,5 +1,6 @@
 export interface FetcherError {
   message: string;
+  id: number;
   status: number;
 }
 
@@ -13,6 +14,7 @@ export const swrFetcher = async <JSON = unknown>(
     const error: FetcherError = {
       message: json?.message,
       status: res.status,
+      id: json?.id,
     };
     throw error;
   }
