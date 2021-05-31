@@ -18,6 +18,7 @@ export interface CultureKingsAlgoliaHits {
   gender: string;
   description: string;
   images: string[];
+  styleGroup: string;
 }
 
 export const CULTURE_KINGS_ALGOLIA_HEADERS = {

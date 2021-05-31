@@ -63,8 +63,8 @@ const mapProductValues = (hits: Array<CultureKingsAlgoliaHits>): ClotheItem[] =>
     name: product.title,
     discountedPrice: product.compareAtPrice ? product.price : undefined,
     price: product.compareAtPrice ? product.compareAtPrice : product.price,
-    link: `${CULTURE_KINGS_URL}/products/${product.handle}?productId=${product.openstyleStyleCode}&gender=${product.gender}`,
+    link: `${CULTURE_KINGS_URL}/products/${product.handle}?productId=${product.styleGroup}&gender=${product.gender}`,
     image: product.image,
-    productId: product.openstyleStyleCode,
+    productId: product.styleGroup,
     website: 'Culture Kings',
   }));
