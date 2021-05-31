@@ -28,7 +28,7 @@ import {
 } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
 
-const LIMIT_OPTIONS = [1, 3, 5, 10];
+const LIMIT_OPTIONS = [1, 3, 5, 10, 20, 30];
 const DEFAULT_LIMIT = 3;
 
 export interface QueryParams {
