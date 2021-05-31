@@ -15,7 +15,7 @@ export const getClotheInfoCultureKings = async (
   const gender = clotheUrl.searchParams.get('gender');
   return clotheInfoCultureKingsAlgoliaIndex
     .search<CultureKingsAlgoliaHits>('', {
-      filters: `gender:${gender} AND openstyleStyleCode:${productId}`,
+      filters: `gender:${gender} AND styleGroup:YGroup_${productId}`,
       hitsPerPage: 1,
       headers: CULTURE_KINGS_ALGOLIA_HEADERS,
     })
