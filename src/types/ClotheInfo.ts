@@ -1,6 +1,6 @@
 export interface ClotheInfoImages {
-  thumbnail: string;
-  image: string;
+  thumbnail?: string;
+  image?: string;
 }
 
 export interface RelatedProducts {

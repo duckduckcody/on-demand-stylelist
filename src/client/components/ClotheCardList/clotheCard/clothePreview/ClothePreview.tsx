@@ -63,7 +63,7 @@ export const ClothePreview = (): ReactElement => {
   }, [isError, isLoading, onViewProductClick, setClothePreviewUrl]);
 
   useEffect(() => {
-    isShowing && clotheInfo && setSelectedImage(clotheInfo?.images[0].image);
+    isShowing && clotheInfo && setSelectedImage(clotheInfo?.images[0]?.image);
   }, [isShowing, clotheInfo]);
 
   useEffect(() => {
