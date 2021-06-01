@@ -4,6 +4,7 @@ export enum LocalStorageKey {
   Sort = 'sort',
   Gender = 'gender',
   LightMode = 'lightMode',
+  Limit = 'limit',
 }
 
 export enum Paths {

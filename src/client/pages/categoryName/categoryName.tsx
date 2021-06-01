@@ -65,7 +65,7 @@ export const CategoryName = (): ReactElement => {
   );
 
   useUpdateUrl(size, 'page', url, routerReplace);
-  useUpdateUrl(limit, 'limit', url, routerReplace, true);
+  useUpdateUrl(limit, LocalStorageKey.Limit, url, routerReplace, true);
   useUpdateUrl(
     clotheSortOption,
     LocalStorageKey.Sort,
@@ -91,7 +91,7 @@ export const CategoryName = (): ReactElement => {
           setLimit(DEFAULT_LIMIT);
         }
       } else {
-        const cookieLimit = window?.localStorage.getItem('limit');
+        const cookieLimit = window?.localStorage.getItem(LocalStorageKey.Limit);
         if (cookieLimit) {
           setLimit(+cookieLimit);
         } else {
