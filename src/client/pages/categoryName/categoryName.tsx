@@ -39,7 +39,12 @@ export interface QueryParams {
 }
 
 export const CategoryName = (): ReactElement => {
-  const { query, replace: routerReplace, isReady: routerIsReady } = useRouter();
+  const {
+    query,
+    replace: routerReplace,
+    push: routerPush,
+    isReady: routerIsReady,
+  } = useRouter();
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const [clotheSortOption, setClotheSortOption] =
     useState<ClotheSortOption | undefined>(undefined);
@@ -54,10 +59,10 @@ export const CategoryName = (): ReactElement => {
   }, [window]);
 
   useEffect(() => {
-    if (window && query && routerReplace && selectedWebsites === '[]') {
-      routerReplace(`/${query.gender}/websites`);
+    if (window && query && routerPush && selectedWebsites === '[]') {
+      routerPush(`/${query.gender}/websites`);
     }
-  }, [query, query.gender, routerReplace, selectedWebsites, window]);
+  }, [query, query.gender, routerPush, selectedWebsites, window]);
 
   const { data, error, size, setSize } = useSWRInfinite<
     ClotheItem[],
