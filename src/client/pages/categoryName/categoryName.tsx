@@ -53,6 +53,12 @@ export const CategoryName = (): ReactElement => {
     return window.localStorage.getItem('websites') ?? '[]';
   }, [window]);
 
+  useEffect(() => {
+    if (window && query && routerReplace && selectedWebsites === '[]') {
+      routerReplace(`/${query.gender}/websites`);
+    }
+  }, [query, query.gender, routerReplace, selectedWebsites, window]);
+
   const { data, error, size, setSize } = useSWRInfinite<
     ClotheItem[],
     FetcherError
