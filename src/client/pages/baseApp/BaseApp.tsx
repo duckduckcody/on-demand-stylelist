@@ -25,7 +25,7 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   }, [window?.location.pathname]);
 
   return (
-    <>
+    <main id='appElement'>
       <Head>
         <title>Stylelist</title>
         <GoogleFonts query='family=Martel+Sans:wght@300;400;700&display=swap' />
@@ -46,6 +46,6 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
           <ClothePreview />
         </ClothePreviewContext.Provider>
       </ThemeProvider>
-    </>
+    </main>
   );
 };
