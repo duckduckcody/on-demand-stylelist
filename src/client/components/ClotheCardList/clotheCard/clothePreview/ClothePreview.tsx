@@ -6,9 +6,9 @@ import {
   useState,
 } from 'react';
 import Modal from 'react-modal';
+import { ClothePreviewContext } from '../../../../ClothePreviewContext';
 import { useIsMobile } from '../../../../hooks/useIsMobile';
 import { useWebsiteDescriptionFormatter } from '../../../../hooks/useWebsiteDescriptionFormatter';
-import { ClothePreviewContext } from '../../../../pages/baseApp/BaseApp';
 import { ZIndex } from '../../../../styleConstants';
 import {
   ButtonContainer,
@@ -34,7 +34,7 @@ import {
 import { useClotheInfo } from './useClotheInfo';
 
 export const ClothePreview = (): ReactElement => {
-  const { clothePreviewUrl, setClothePreviewUrl } =
+  const { clothePreviewUrl, setClothePreviewUrl, optionalClotheInfo } =
     useContext(ClothePreviewContext);
   const isShowing = Boolean(clothePreviewUrl);
 
@@ -119,7 +119,15 @@ export const ClothePreview = (): ReactElement => {
                 <WebsiteName>{clotheInfo.websiteName}</WebsiteName>
                 <Name>{clotheInfo.name}</Name>
                 <Price>
-                  {clotheInfo.soldOut ? `Sold Out` : `$${clotheInfo.price}`}
+                  {clotheInfo.soldOut
+                    ? `Sold Out`
+                    : `${
+                        clotheInfo.price
+                          ? `$${clotheInfo.price}`
+                          : optionalClotheInfo?.price
+                          ? `$${optionalClotheInfo?.price}`
+                          : ``
+                      }`}
                 </Price>
                 <Description
                   dangerouslySetInnerHTML={{

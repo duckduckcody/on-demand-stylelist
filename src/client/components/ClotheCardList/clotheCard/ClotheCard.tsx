@@ -1,6 +1,6 @@
 import { ReactElement, useContext, useState } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
-import { ClothePreviewContext } from '../../../pages/baseApp/BaseApp';
+import { ClothePreviewContext } from '../../../ClothePreviewContext';
 import {
   ClotheImage,
   ClotheName,
@@ -25,13 +25,17 @@ export const ClotheCard = ({
   onFavouriteClick = () => null,
 }: Props): ReactElement => {
   const [imgSrc, setImgSrc] = useState(clothe.image);
-  const { setClothePreviewUrl } = useContext(ClothePreviewContext);
+  const { setClothePreviewUrl, setOptionalClotheInfo } =
+    useContext(ClothePreviewContext);
 
   const handleImageContainerClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const target = event.target as HTMLDivElement;
-    target.tagName === 'IMG' && setClothePreviewUrl(clothe.link);
+    if (target.tagName === 'IMG') {
+      setClothePreviewUrl(clothe.link);
+      setOptionalClotheInfo({ price: clothe.price });
+    }
   };
 
   const handleImageError = () =>

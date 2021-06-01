@@ -12,7 +12,7 @@ export interface RelatedProducts {
 export interface ClotheInfo {
   images: ClotheInfoImages[];
   name: string;
-  price: number;
+  price: number | undefined;
   description: string;
   websiteName: string;
   websiteId: number;

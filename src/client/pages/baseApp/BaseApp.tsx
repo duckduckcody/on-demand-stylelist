@@ -1,14 +1,9 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
-import {
-  createContext,
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
+import { ClotheInfo } from '../../../types/ClotheInfo';
+import { ClothePreviewContext } from '../../ClothePreviewContext';
 import { ClothePreview } from '../../components/ClotheCardList/clotheCard/clothePreview/ClothePreview';
 import { Header } from '../../components/header/Header';
 import { useWindow } from '../../hooks/useWindow';
@@ -17,14 +12,11 @@ import { GlobalStyle } from './BaseApp.styles';
 import { Favicon } from './Favicon';
 import { GoogleFonts } from './GoogleFonts';
 
-export const ClothePreviewContext = createContext<{
-  clothePreviewUrl: string | undefined;
-  setClothePreviewUrl: Dispatch<SetStateAction<string | undefined>>;
-}>({ setClothePreviewUrl: () => undefined, clothePreviewUrl: undefined });
-
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const window = useWindow();
   const [pathName, setPathName] = useState<string | undefined>(undefined);
+  const [optionalClotheInfo, setOptionalClotheInfo] =
+    useState<Partial<ClotheInfo> | undefined>(undefined);
   const [clothePreviewUrl, setClothePreviewUrl] =
     useState<string | undefined>(undefined);
 
@@ -41,7 +33,12 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
       </Head>
       <ThemeProvider theme={darkTheme}>
         <ClothePreviewContext.Provider
-          value={{ setClothePreviewUrl, clothePreviewUrl }}
+          value={{
+            setClothePreviewUrl,
+            clothePreviewUrl,
+            optionalClotheInfo,
+            setOptionalClotheInfo,
+          }}
         >
           <GlobalStyle />
           <Header pathName={pathName}></Header>

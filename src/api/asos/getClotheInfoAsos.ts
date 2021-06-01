@@ -19,10 +19,8 @@ export const scrapeHtml = (
   clotheLink: string
 ): ClotheInfo => {
   const { document } = new JSDOM(htmlString).window;
-
   const productInfoElement = document.getElementById('aside-content');
   const name = productInfoElement?.getElementsByTagName('h1')[0].innerHTML;
-  const price = 120;
 
   const images: ClotheInfoImages[] = [];
   const imageElements = document.getElementsByClassName('image-thumbnail');
@@ -47,20 +45,19 @@ export const scrapeHtml = (
   descriptionElement?.getElementsByClassName('product-code')[0].remove();
   const description = descriptionElement?.innerHTML.trim();
 
-  if (!description || images.length === 0 || !name || !price) {
+  if (!description || images.length === 0 || !name) {
     console.log(
       'getClotheInfoAsos.ts - scrapeHtml() - failed to get clothe info',
       `description: ${description}`,
       `images:${images}`,
-      `name:${name}`,
-      `price:${price}`
+      `name:${name}`
     );
     throw new Error();
   }
 
   return {
     name,
-    price,
+    price: undefined,
     websitesLogo: ASOS_LOGO,
     websiteName: 'Asos',
     websiteId: WebsiteId.ASOS,
