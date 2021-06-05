@@ -2,12 +2,15 @@ import { CategoryName, getCategoryId } from '../../categories';
 import { ClotheSortOption } from '../../types/ClotheSort';
 import { Gender } from '../../types/Gender';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { SearchClothesOptions } from '../../types/SearchClothesOptions';
 
 export const COOL_SHIRTZ_BASE_URL = 'https://shirtz.cool';
 
 export const COOL_SHIRTZ_LOGO = 'https://i.imgur.com/Baq9ezR.png';
 
 export const SORT_QUERY_STRING_KEY = 'sort_by';
+
+export const COOL_SHIRTZ_SEARCH_LIMIT = 20;
 
 interface CidMapValue {
   uri: string;
@@ -35,3 +38,9 @@ export const makeCoolShirtzUrl = (
   `${COOL_SHIRTZ_BASE_URL}/collections/${uri}?${SORT_QUERY_STRING_KEY}=${sortToQueryStringValueMap.get(
     requestOptions.sort
   )}`;
+
+export const makeCoolShirtzSearchUrl = (
+  query: string,
+  requestOptions: SearchClothesOptions
+): string =>
+  `https://shirtz.cool/search?type=product&q=${query}&page=${requestOptions.page}`;

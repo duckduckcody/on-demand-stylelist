@@ -27,9 +27,6 @@ export default async function handler(
     })
     .catch((e) => {
       console.log('getClotheInfo error', e);
-      const date = new Date();
-      res
-        .status(500)
-        .json({ message: 'failed to scrape clothe info', id: date.getTime() });
+      res.status(500).json({ message: 'failed to scrape clothe info' });
     });
 }
