@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { ZIndex } from '../../styleConstants';
 
@@ -21,21 +22,39 @@ export const HeaderOffset = styled.div<{ isShowingSecondaryHeader?: boolean }>`
 
 export const PrimaryHeaderContainer = styled.div<{
   isShowingSecondaryHeader?: boolean;
+  isSearching?: boolean;
 }>`
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 12px 24px;
+  padding: ${(p) => (p.isSearching ? `` : `12px 24px;`)};
   height: ${HEADER_PRIMARY_HEIGHT}px;
   background-color: ${(props) => props.theme.headerBackgroundColor};
   border-bottom: ${(props) =>
     props.isShowingSecondaryHeader ? 'none' : '1px solid #373737'};
 `;
 
-export const HeaderLinkContainer = styled.div`
+export const SearchInput = styled.input`
+  width: 100%;
+  height: 100%;
+  font-size: 2rem;
+  border: none;
+  padding: 0 calc(5px + 1.5rem + 10px + 1.5rem + 24px) 0 24px;
+
+  &::placeholder {
+    color: rgba(55, 55, 55, 0.66);
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const LinkContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-items: center;
   align-items: center;
 `;
 
@@ -68,7 +87,6 @@ export const HeaderLinkTitle = styled(HeaderLink)`
 
 export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
   height: 100%;
-  width: 100%;
   padding: 12px;
   display: flex;
   align-items: center;
@@ -76,6 +94,37 @@ export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
     props.selected
       ? props.theme.secondaryHeaderBackgroundColor
       : 'transparent'};
+`;
+
+export const SearchContainer = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+
+export const FloatingSearchContainer = styled(SearchContainer)`
+  color: #181818;
+  position: absolute;
+  right: 24px;
+  bottom: calc(1.5rem / 2);
+`;
+
+export const CloseSearchContainer = styled.div`
+  color: #181818;
+  position: absolute;
+  cursor: pointer;
+  right: calc(10px + 24px + 24px);
+  bottom: calc(1.5rem / 2);
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 export const SecondaryHeaderContainer = styled.div`

@@ -11,13 +11,14 @@ const SearchApiQuerySchema = z.object({
   query: z.string(),
   selectedWebsites: z.string(),
   page: z.string().optional(),
+  limit: z.string().optional(),
 });
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const { query: searchQuery, selectedWebsites, page } = req.query;
+  const { query: searchQuery, selectedWebsites, page, limit } = req.query;
 
   const response = SearchApiQuerySchema.safeParse(req.query);
   if (!response.success)
@@ -30,7 +31,7 @@ export default async function handler(
     return res.status(400).json({ message: 'no websites selected' });
 
   const searchOptions: SearchClothesOptions = {
-    limit: DEFAULT_CLOTHE_LIMIT,
+    limit: safeParseStringToInt(limit) ?? DEFAULT_CLOTHE_LIMIT,
     page: safeParseStringToInt(page) ?? 1,
   };
 

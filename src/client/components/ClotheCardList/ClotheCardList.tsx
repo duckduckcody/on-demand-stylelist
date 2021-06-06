@@ -4,7 +4,7 @@ import { ClotheCard } from './clotheCard/ClotheCard';
 import { ClotheCardListContainer } from './ClotheCardList.styles';
 
 interface Props {
-  clothes: ClotheItem[];
+  clothes: ClotheItem[] | undefined;
   favourites: ClotheItem[] | undefined;
   onFavouriteClick: (clothe: ClotheItem) => void;
   className?: string;

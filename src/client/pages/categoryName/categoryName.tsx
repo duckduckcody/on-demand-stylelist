@@ -15,7 +15,8 @@ import {
   clotheSortOptionValues,
   parseClotheSortOption,
 } from '../../../types/ClotheSort';
-import { LocalStorageKey } from '../../constants';
+import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
+import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../../hooks/useUpdateUrl';
 import { useWindow } from '../../hooks/useWindow';
 import { capitaliseString } from '../../util/capitaliseString';
@@ -27,9 +28,6 @@ import {
   StyledClotheCardList,
 } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
-
-const LIMIT_OPTIONS = [1, 3, 5, 10, 20, 30];
-const DEFAULT_LIMIT = 3;
 
 export interface QueryParams {
   gender?: string;
@@ -45,18 +43,16 @@ export const CategoryName = (): ReactElement => {
     push: routerPush,
     isReady: routerIsReady,
   } = useRouter();
+
+  const window = useWindow();
+  const selectedWebsites = useSelectedWebsites();
+  const hydratedFromQueryParams = useRef(false);
+
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const [clotheSortOption, setClotheSortOption] =
     useState<ClotheSortOption | undefined>(undefined);
-  const window = useWindow();
-  const url = useMemo(() => window && new URL(window.location.href), [window]);
   const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
-  const hydratedFromQueryParams = useRef(false);
-
-  const selectedWebsites = useMemo((): string => {
-    if (!window) return '[]';
-    return window.localStorage.getItem('websites') ?? '[]';
-  }, [window]);
+  const url = useMemo(() => window && new URL(window.location.href), [window]);
 
   useEffect(() => {
     if (window && query && routerPush && selectedWebsites === '[]') {
@@ -184,9 +180,9 @@ export const CategoryName = (): ReactElement => {
     <>
       <Head>
         <title>
-          {routerIsReady &&
-            capitaliseString(`${query.gender}'s ${query.categoryName} | `)}
           Stylelist
+          {routerIsReady &&
+            capitaliseString(` | ${query.gender}'s ${query.categoryName}`)}
         </title>
       </Head>
       <CategoryNameHeader>

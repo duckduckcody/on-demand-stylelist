@@ -14,3 +14,6 @@ export enum Paths {
   womens = '/womens',
   womensWebsites = '/womens/websites',
 }
+
+export const LIMIT_OPTIONS = [1, 3, 5, 10, 20, 30];
+export const DEFAULT_LIMIT = 3;
