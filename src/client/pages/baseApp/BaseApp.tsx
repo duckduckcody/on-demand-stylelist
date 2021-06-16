@@ -4,7 +4,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { ClotheInfo } from '../../../types/ClotheInfo';
 import { ClothePreviewContext } from '../../ClothePreviewContext';
-import { ClothePreview } from '../../components/ClotheCardList/clotheCard/clothePreview/ClothePreview';
+import { ClothePreview } from '../../components/clothePreview/ClothePreview';
 import { Header } from '../../components/header/Header';
 import { useWindow } from '../../hooks/useWindow';
 import { darkTheme } from '../../themes';

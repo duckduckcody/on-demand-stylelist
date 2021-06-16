@@ -6,10 +6,10 @@ import {
   useState,
 } from 'react';
 import Modal from 'react-modal';
-import { ClothePreviewContext } from '../../../../ClothePreviewContext';
-import { useIsMobile } from '../../../../hooks/useIsMobile';
-import { useWebsiteDescriptionFormatter } from '../../../../hooks/useWebsiteDescriptionFormatter';
-import { ZIndex } from '../../../../styleConstants';
+import { ClothePreviewContext } from '../../ClothePreviewContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
+import { useWebsiteDescriptionFormatter } from '../../hooks/useWebsiteDescriptionFormatter';
+import { ZIndex } from '../../styleConstants';
 import {
   ButtonContainer,
   CloseIcon,
@@ -92,7 +92,6 @@ export const ClothePreview = (): ReactElement => {
           }}
           isOpen={isShowing}
           onRequestClose={() => setClothePreviewUrl(undefined)}
-          contentLabel='Example Modal'
         >
           <CloseIcon onClick={() => setClothePreviewUrl(undefined)} />
           {isError && <p>BIG OLD ERROR</p>}

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { MOBILE_BREAKPOINT, ZIndex } from '../../../../styleConstants';
-import { FavouriteHeart } from '../favouriteHeart/FavouriteHeart';
+import { MOBILE_BREAKPOINT, ZIndex } from '../../styleConstants';
+import { FavouriteHeart } from '../ClotheCardList/clotheCard/favouriteHeart/FavouriteHeart';
 
 export const CloseIcon = styled.span`
   position: absolute;

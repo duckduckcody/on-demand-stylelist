@@ -1,6 +1,6 @@
 import useSWR from 'swr';
-import { ClotheInfo } from '../../../../../types/ClotheInfo';
-import { FetcherError, swrFetcher } from '../../../../util/swrFetcher';
+import { ClotheInfo } from '../../../types/ClotheInfo';
+import { FetcherError, swrFetcher } from '../../util/swrFetcher';
 
 interface fetchedClotheInfo {
   clotheInfo: ClotheInfo | undefined;
