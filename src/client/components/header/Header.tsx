@@ -36,8 +36,10 @@ export const Header = ({ pathName }: Props): ReactElement => {
     firstSlug === Gender.MEN ? Paths.mensWebsites : Paths.womensWebsites;
 
   const search = () => {
-    setIsSearching(false);
-    router.push(`/search?q=${searchQuery}`);
+    if (searchQuery) {
+      setIsSearching(false);
+      router.push(`/search?q=${searchQuery}`);
+    }
   };
 
   const cancelSearch = () => {
