@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ZIndex } from '../../styleConstants';
 
 export const HEADER_PRIMARY_HEIGHT = 48;
-export const HEADER_SECONDARY_HEIGHT = 32;
 
 export const HeaderContainer = styled.div`
   position: fixed;
@@ -13,11 +12,8 @@ export const HeaderContainer = styled.div`
   z-index: ${ZIndex.ui};
 `;
 
-export const HeaderOffset = styled.div<{ isShowingSecondaryHeader?: boolean }>`
-  padding: ${(p) =>
-      HEADER_PRIMARY_HEIGHT +
-      (p.isShowingSecondaryHeader ? HEADER_SECONDARY_HEIGHT : 0)}px
-    0 0;
+export const HeaderOffset = styled.div`
+  padding: ${HEADER_PRIMARY_HEIGHT}px 0 0;
 `;
 
 export const PrimaryHeaderContainer = styled.div<{
@@ -96,6 +92,28 @@ export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
       : 'transparent'};
 `;
 
+export const IconContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+
+  & > div {
+    margin: 0 10px 0 0;
+  }
+
+  & div:last-child {
+    margin: 0;
+  }
+`;
+
+export const WebsitesContainer = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+
 export const SearchContainer = styled.div`
   cursor: pointer;
   display: flex;
@@ -125,15 +143,4 @@ export const CloseSearchContainer = styled.div`
 export const Icon = styled(FontAwesomeIcon)`
   width: 1.5rem;
   height: 1.5rem;
-`;
-
-export const SecondaryHeaderContainer = styled.div`
-  height: ${HEADER_SECONDARY_HEIGHT}px;
-  background-color: ${(props) => props.theme.secondaryHeaderBackgroundColor};
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  padding: 12px 24px;
-  border-bottom: 1px solid #373737;
-  box-sizing: border-box;
 `;

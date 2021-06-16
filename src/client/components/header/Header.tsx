@@ -1,4 +1,4 @@
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useState } from 'react';
@@ -8,16 +8,16 @@ import {
   CloseSearchContainer,
   FloatingSearchContainer,
   HeaderContainer,
-  HeaderLink,
   HeaderLinkTitle,
   HeaderOffset,
   HeaderPageLink,
   Icon,
+  IconContainer,
   LinkContainer,
   PrimaryHeaderContainer,
   SearchContainer,
   SearchInput,
-  SecondaryHeaderContainer,
+  WebsitesContainer,
 } from './Header.styles';
 
 interface Props {
@@ -94,28 +94,19 @@ export const Header = ({ pathName }: Props): ReactElement => {
                   </HeaderPageLink>
                 </Link>
               </LinkContainer>
-              <SearchContainer onClick={() => setIsSearching(true)}>
-                <Icon icon={faSearch} />
-              </SearchContainer>
+              <IconContainer>
+                <WebsitesContainer onClick={() => router.push(websitesPath)}>
+                  <Icon icon={faCog} />
+                </WebsitesContainer>
+                <SearchContainer onClick={() => setIsSearching(true)}>
+                  <Icon icon={faSearch} />
+                </SearchContainer>
+              </IconContainer>
             </>
           )}
         </PrimaryHeaderContainer>
-        {isShowingSecondaryHeader && (
-          <SecondaryHeaderContainer>
-            <Link href={categoryPath} passHref>
-              <HeaderLink selected={pathName === categoryPath}>
-                Categories
-              </HeaderLink>
-            </Link>
-            <Link href={websitesPath} passHref>
-              <HeaderLink selected={pathName === websitesPath}>
-                Websites
-              </HeaderLink>
-            </Link>
-          </SecondaryHeaderContainer>
-        )}
       </HeaderContainer>
-      <HeaderOffset isShowingSecondaryHeader={isShowingSecondaryHeader} />
+      <HeaderOffset />
     </>
   );
 };

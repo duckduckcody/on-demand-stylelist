@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 import { MOBILE_BREAKPOINT } from '../../styleConstants';
-import {
-  HEADER_PRIMARY_HEIGHT,
-  HEADER_SECONDARY_HEIGHT,
-} from '../header/Header.styles';
+import { HEADER_PRIMARY_HEIGHT } from '../header/Header.styles';
 
 export const CategoryTileListContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr 1fr;
-  height: calc(
-    100vh - ${HEADER_PRIMARY_HEIGHT}px - ${HEADER_SECONDARY_HEIGHT}px
-  );
+  height: calc(100vh - ${HEADER_PRIMARY_HEIGHT}px);
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     grid-template-columns: 1fr 1fr;
