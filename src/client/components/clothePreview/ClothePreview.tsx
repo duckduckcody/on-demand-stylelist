@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import Modal from 'react-modal';
-import { ClothePreviewContext } from '../../ClothePreviewContext';
+import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { useWebsiteDescriptionFormatter } from '../../hooks/useWebsiteDescriptionFormatter';
 import { ZIndex } from '../../styleConstants';

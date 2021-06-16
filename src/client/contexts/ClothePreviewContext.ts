@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
-import { ClotheInfo } from '../types/ClotheInfo';
+import { ClotheInfo } from '../../types/ClotheInfo';
 
 export const ClothePreviewContext = createContext<{
   clothePreviewUrl: string | undefined;

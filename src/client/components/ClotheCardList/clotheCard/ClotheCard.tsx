@@ -1,6 +1,6 @@
 import { ReactElement, useContext, useState } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
-import { ClothePreviewContext } from '../../../ClothePreviewContext';
+import { ClothePreviewContext } from '../../../contexts/ClothePreviewContext';
 import {
   ClotheImage,
   ClotheName,
