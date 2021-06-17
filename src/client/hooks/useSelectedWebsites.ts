@@ -1,11 +1,20 @@
-import { useMemo } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { LocalStorageKey } from '../constants';
 import { useWindow } from './useWindow';
 
-export const useSelectedWebsites = (): string => {
+export const useSelectedWebsites = (): {
+  websites: string[];
+  setWebsites: Dispatch<SetStateAction<string[]>>;
+} => {
   const window = useWindow();
+  const [websites, setWebsites] = useState<string[]>([]);
 
-  return useMemo((): string => {
-    if (!window) return '[]';
-    return window.localStorage.getItem('websites') ?? '[]';
+  useEffect(() => {
+    if (window) {
+      const websites = window.localStorage.getItem(LocalStorageKey.Websites);
+      if (websites) setWebsites(JSON.parse(websites));
+    }
   }, [window]);
+
+  return { websites, setWebsites };
 };
