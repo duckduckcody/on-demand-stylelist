@@ -5,7 +5,7 @@ export const makeUrl = (
   query: QueryParams,
   index: number,
   limit: number | undefined,
-  selectedWebsites: string,
+  selectedWebsites: string[],
   clotheSortOption: ClotheSortOption | undefined
 ): string | null => {
   const { gender, categoryName } = query;
@@ -16,7 +16,7 @@ export const makeUrl = (
 
   const searchParams = new URLSearchParams();
   searchParams.append('page', `${index + 1}`);
-  searchParams.append('selectedWebsites', selectedWebsites);
+  searchParams.append('selectedWebsites', JSON.stringify(selectedWebsites));
   limit && searchParams.append('limit', `${limit}`);
   clotheSortOption && searchParams.append('sort', clotheSortOption);
   return `${url}?${searchParams}`;

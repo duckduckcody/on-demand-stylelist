@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
 import {
   DEFAULT_CLOTHE_LIMIT,
-  DEFAULT_CLOTHE_SORT,
+  DEFAULT_CLOTHE_SORT
 } from '../../../src/api/constants';
 import { getClothes } from '../../../src/api/getClothes';
 import { categories } from '../../../src/categories';

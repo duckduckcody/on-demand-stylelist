@@ -2,10 +2,12 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { LocalStorageKey } from '../constants';
 import { useWindow } from './useWindow';
 
-export const useSelectedWebsites = (): {
+interface ReturnProps {
   websites: string[];
   setWebsites: Dispatch<SetStateAction<string[]>>;
-} => {
+}
+
+export const useSelectedWebsites = (): ReturnProps => {
   const window = useWindow();
   const [websites, setWebsites] = useState<string[]>([]);
 
