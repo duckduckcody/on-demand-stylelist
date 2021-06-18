@@ -19,6 +19,7 @@ export const Tile = styled.a<{ imageSrc: string }>`
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     &:hover {
+      background-color: unset;
     }
 
     &:active {
