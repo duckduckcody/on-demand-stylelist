@@ -17,7 +17,6 @@ export const HeaderOffset = styled.div`
 `;
 
 export const PrimaryHeaderContainer = styled.div<{
-  isShowingSecondaryHeader?: boolean;
   isSearching?: boolean;
 }>`
   position: relative;
@@ -28,8 +27,7 @@ export const PrimaryHeaderContainer = styled.div<{
   padding: ${(p) => (p.isSearching ? `` : `12px 24px;`)};
   height: ${HEADER_PRIMARY_HEIGHT}px;
   background-color: ${(props) => props.theme.headerBackgroundColor};
-  border-bottom: ${(props) =>
-    props.isShowingSecondaryHeader ? 'none' : '1px solid #373737'};
+  border-bottom: 1px solid #373737;
 `;
 
 export const SearchInput = styled.input`

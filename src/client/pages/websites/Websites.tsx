@@ -1,20 +1,14 @@
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { Website } from '../../../websites';
+import { Icon } from '../../components/Icon';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
+import { Container, InfoContainer, WebsitesContainer } from './Websites.styles';
 
 export interface WebsitesProps {
   websites: Website[];
 }
-
-const Container = styled.div`
-  margin: 12px 24px 0;
-`;
-
-const WebsitesContainer = styled.div`
-  margin: 0 0 8px;
-`;
 
 export const Websites = ({ websites }: WebsitesProps): ReactElement => {
   const router = useRouter();
@@ -43,6 +37,10 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
 
   return (
     <Container>
+      <InfoContainer>
+        <Icon icon={faInfoCircle} margin={'0 4px 0 0'} />
+        <span>Control which websites clothes are gathered from below</span>
+      </InfoContainer>
       <WebsitesContainer>
         {websites.map((website) => (
           <div key={website.id}>

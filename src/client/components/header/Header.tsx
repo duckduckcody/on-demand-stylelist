@@ -27,8 +27,6 @@ export const Header = ({ pathName }: Props): ReactElement => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const firstSlug = pathName?.split('/', 2)[1];
-  const isShowingSecondaryHeader =
-    firstSlug === Gender.MEN || firstSlug === Gender.WOMEN;
 
   const search = () => {
     if (searchQuery) {
@@ -45,10 +43,7 @@ export const Header = ({ pathName }: Props): ReactElement => {
   return (
     <>
       <HeaderContainer>
-        <PrimaryHeaderContainer
-          isShowingSecondaryHeader={isShowingSecondaryHeader}
-          isSearching={isSearching}
-        >
+        <PrimaryHeaderContainer isSearching={isSearching}>
           {isSearching && (
             <>
               <SearchInput
