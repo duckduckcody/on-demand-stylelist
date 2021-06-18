@@ -9,12 +9,12 @@ export interface WebsiteProps {
   websites: Website[];
 }
 
-const WebsitesContainer = styled.div`
+const Container = styled.div`
   margin: 12px 24px 0;
 `;
 
-const StyledButton = styled.button`
-  margin: 16px 0;
+const WebsitesContainer = styled.div`
+  margin: 0 0 8px;
 `;
 
 export const Websites = ({ websites }: WebsiteProps): ReactElement => {
@@ -55,22 +55,22 @@ export const Websites = ({ websites }: WebsiteProps): ReactElement => {
   };
 
   return (
-    <WebsitesContainer>
-      {websites.map((website) => (
-        <div key={website.id}>
-          <label>{website.name}</label>
-          <input
-            type='checkbox'
-            value={website.id}
-            checked={selectedWebsites.includes(`${website.id}`)}
-            onChange={handleInputChange}
-          />
-        </div>
-      ))}
+    <Container>
+      <WebsitesContainer>
+        {websites.map((website) => (
+          <div key={website.id}>
+            <label>{website.name}</label>
+            <input
+              type='checkbox'
+              value={website.id}
+              checked={selectedWebsites.includes(`${website.id}`)}
+              onChange={handleInputChange}
+            />
+          </div>
+        ))}
+      </WebsitesContainer>
       {onBoardMode && <p>Please select at least one website</p>}
-      {!onBoardMode && (
-        <StyledButton onClick={() => router.back()}>Done</StyledButton>
-      )}
-    </WebsitesContainer>
+      {!onBoardMode && <button onClick={() => router.back()}>Done</button>}
+    </Container>
   );
 };
