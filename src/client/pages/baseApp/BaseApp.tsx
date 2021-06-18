@@ -6,8 +6,6 @@ import { ClotheInfo } from '../../../types/ClotheInfo';
 import { ClothePreview } from '../../components/clothePreview/ClothePreview';
 import { Header } from '../../components/header/Header';
 import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
-import { SelectedWebsitesContext } from '../../contexts/SelectedWebsitesContext';
-import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useWindow } from '../../hooks/useWindow';
 import { darkTheme } from '../../themes';
 import { GlobalStyle } from './BaseApp.styles';
@@ -21,7 +19,6 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
     useState<Partial<ClotheInfo> | undefined>(undefined);
   const [clothePreviewUrl, setClothePreviewUrl] =
     useState<string | undefined>(undefined);
-  const { selectedWebsites, setSelectedWebsites } = useSelectedWebsites();
 
   useEffect(() => {
     setPathName(window?.location.pathname);
@@ -43,17 +40,10 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
             setOptionalClotheInfo,
           }}
         >
-          <SelectedWebsitesContext.Provider
-            value={{
-              selectedWebsites,
-              setSelectedWebsites,
-            }}
-          >
-            <GlobalStyle />
-            <Header pathName={pathName}></Header>
-            <Component {...pageProps} />
-            <ClothePreview />
-          </SelectedWebsitesContext.Provider>
+          <GlobalStyle />
+          <Header pathName={pathName}></Header>
+          <Component {...pageProps} />
+          <ClothePreview />
         </ClothePreviewContext.Provider>
       </ThemeProvider>
     </main>

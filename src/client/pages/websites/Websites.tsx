@@ -2,8 +2,7 @@ import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Website } from '../../../websites';
-import { LocalStorageKey } from '../../constants';
-import { useWindow } from '../../hooks/useWindow';
+import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 
 export interface WebsitesProps {
   websites: Website[];
@@ -19,26 +18,13 @@ const WebsitesContainer = styled.div`
 
 export const Websites = ({ websites }: WebsitesProps): ReactElement => {
   const router = useRouter();
-  const window = useWindow();
-  // const { selectedWebsites } = useSelectedWebsites();
-  const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);
+  const { selectedWebsites, setSelectedWebsites } = useSelectedWebsites();
   const [onBoardMode, setOnBoardMode] = useState(false);
-
-  useEffect(() => {
-    const websites = JSON.parse(
-      window?.localStorage.getItem(LocalStorageKey.Websites) ?? '[]'
-    );
-    websites.length && setSelectedWebsites(websites);
-    !websites.length && setOnBoardMode(true);
-  }, [window?.localStorage]);
 
   useEffect(
     () =>
-      window?.localStorage.setItem(
-        LocalStorageKey.Websites,
-        JSON.stringify(selectedWebsites)
-      ),
-    [selectedWebsites, window?.localStorage]
+      !selectedWebsites.length ? setOnBoardMode(true) : setOnBoardMode(false),
+    [selectedWebsites.length]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
