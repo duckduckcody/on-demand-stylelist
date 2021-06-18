@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { ClotheCardList } from '../../components/ClotheCardList/ClotheCardList';
-import { HEADER_PRIMARY_HEIGHT } from '../../components/header/Header.styles';
+import { HEADER_HEIGHT } from '../../components/header/Header.styles';
 import { ZIndex } from '../../styleConstants';
 
 export const CategoryNameHeader = styled.div`
   display: flex;
   justify-content: space-between;
   position: fixed;
-  top: ${HEADER_PRIMARY_HEIGHT}px;
+  top: ${HEADER_HEIGHT}px;
   left: 0;
   right: 0;
   background: ${(p) => p.theme.backgroundColor};
