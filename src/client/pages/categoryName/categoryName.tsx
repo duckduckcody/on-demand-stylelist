@@ -6,14 +6,14 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { useSWRInfinite } from 'swr';
 import { ClotheItem } from '../../../types/ClotheItem';
 import {
   ClotheSortOption,
   clotheSortOptionValues,
-  parseClotheSortOption
+  parseClotheSortOption,
 } from '../../../types/ClotheSort';
 import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
@@ -25,7 +25,7 @@ import {
   ButtonContainer,
   CategoryNameHeader,
   LoadMoreButton,
-  StyledClotheCardList
+  StyledClotheCardList,
 } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
 
@@ -45,7 +45,7 @@ export const CategoryName = (): ReactElement => {
   } = useRouter();
 
   const window = useWindow();
-  const { websites } = useSelectedWebsites();
+  const { selectedWebsites } = useSelectedWebsites();
   const hydratedFromQueryParams = useRef(false);
 
   const [limit, setLimit] = useState<number | undefined>(undefined);
@@ -55,16 +55,16 @@ export const CategoryName = (): ReactElement => {
   const url = useMemo(() => window && new URL(window.location.href), [window]);
 
   useEffect(() => {
-    if (window && query && routerPush && websites === []) {
-      routerPush(`/${query.gender}/websites`);
+    if (window && query && routerPush && selectedWebsites === []) {
+      routerPush(`/websites`);
     }
-  }, [query, query.gender, routerPush, websites, window]);
+  }, [query, query.gender, routerPush, selectedWebsites, window]);
 
   const { data, error, size, setSize } = useSWRInfinite<
     ClotheItem[],
     FetcherError
   >(
-    (index) => makeUrl(query, index, limit, websites, clotheSortOption),
+    (index) => makeUrl(query, index, limit, selectedWebsites, clotheSortOption),
     swrFetcher,
     {
       revalidateOnFocus: false,

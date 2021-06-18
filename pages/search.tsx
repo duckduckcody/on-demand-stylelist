@@ -19,22 +19,19 @@ import { ClotheItem } from '../src/types/ClotheItem';
 const makeUrl = (
   searchQuery: string | undefined,
   index: number,
-  selectedWebsites: string,
+  selectedWebsites: string[],
   limit: number | undefined
 ) => {
-  if (!searchQuery || !limit) {
-    console.log('return null', searchQuery, limit);
-    return null;
-  }
+  if (!searchQuery || !limit) return null;
   return `/api/search?query=${searchQuery}&page=${
     index + 1
-  }&selectedWebsites=${selectedWebsites}&limit=${limit}`;
+  }&selectedWebsites=${JSON.stringify(selectedWebsites)}&limit=${limit}`;
 };
 
 export default function Search(): ReactElement {
   const router = useRouter();
   const window = useWindow();
-  const selectedWebsites = useSelectedWebsites();
+  const { selectedWebsites } = useSelectedWebsites();
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const url = useMemo(() => window && new URL(window.location.href), [window]);
   const { q } = router.query;

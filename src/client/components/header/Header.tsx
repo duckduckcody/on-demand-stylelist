@@ -1,9 +1,8 @@
-import { faCog, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useState } from 'react';
 import { Gender } from '../../../types/Gender';
-import { Paths } from '../../constants';
 import {
   CloseSearchContainer,
   FloatingSearchContainer,
@@ -17,7 +16,6 @@ import {
   PrimaryHeaderContainer,
   SearchContainer,
   SearchInput,
-  WebsitesContainer,
 } from './Header.styles';
 
 interface Props {
@@ -31,9 +29,6 @@ export const Header = ({ pathName }: Props): ReactElement => {
   const firstSlug = pathName?.split('/', 2)[1];
   const isShowingSecondaryHeader =
     firstSlug === Gender.MEN || firstSlug === Gender.WOMEN;
-  const categoryPath = firstSlug === Gender.MEN ? Paths.mens : Paths.womens;
-  const websitesPath =
-    firstSlug === Gender.MEN ? Paths.mensWebsites : Paths.womensWebsites;
 
   const search = () => {
     if (searchQuery) {
@@ -93,11 +88,13 @@ export const Header = ({ pathName }: Props): ReactElement => {
                     Favourites
                   </HeaderPageLink>
                 </Link>
+                <Link href='/websites' passHref>
+                  <HeaderPageLink selected={pathName === '/websites'}>
+                    Websites
+                  </HeaderPageLink>
+                </Link>
               </LinkContainer>
               <IconContainer>
-                <WebsitesContainer onClick={() => router.push(websitesPath)}>
-                  <Icon icon={faCog} />
-                </WebsitesContainer>
                 <SearchContainer onClick={() => setIsSearching(true)}>
                   <Icon icon={faSearch} />
                 </SearchContainer>

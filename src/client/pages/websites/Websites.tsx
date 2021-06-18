@@ -5,7 +5,7 @@ import { Website } from '../../../websites';
 import { LocalStorageKey } from '../../constants';
 import { useWindow } from '../../hooks/useWindow';
 
-export interface WebsiteProps {
+export interface WebsitesProps {
   websites: Website[];
 }
 
@@ -17,9 +17,10 @@ const WebsitesContainer = styled.div`
   margin: 0 0 8px;
 `;
 
-export const Websites = ({ websites }: WebsiteProps): ReactElement => {
+export const Websites = ({ websites }: WebsitesProps): ReactElement => {
   const router = useRouter();
   const window = useWindow();
+  // const { selectedWebsites } = useSelectedWebsites();
   const [selectedWebsites, setSelectedWebsites] = useState<string[]>([]);
   const [onBoardMode, setOnBoardMode] = useState(false);
 
