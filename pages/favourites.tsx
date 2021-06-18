@@ -1,8 +1,13 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { ClotheCard } from '../src/client/components/ClotheCardList/clotheCard/ClotheCard';
-import { ClotheCardListContainer } from '../src/client/components/ClotheCardList/ClotheCardList.styles';
+import styled from 'styled-components';
+import { ClotheCardList } from '../src/client/components/ClotheCardList/ClotheCardList';
 import { LocalStorageKey } from '../src/client/constants';
 import { ClotheItem } from '../src/types/ClotheItem';
+
+const NoFavouritesContainer = styled.div`
+  margin: 24px 0 0;
+  text-align: center;
+`;
 
 export default function Favourites(): ReactElement {
   const [favourites, setFavourites] = useState<ClotheItem[]>();
@@ -28,17 +33,20 @@ export default function Favourites(): ReactElement {
   };
 
   return (
-    <ClotheCardListContainer>
-      {!favourites?.length && <p>No favourites found</p>}
-      {favourites &&
-        favourites.map((fav) => (
-          <ClotheCard
-            key={fav.link}
-            clothe={fav}
-            isFavourited={true}
-            onFavouriteClick={onFavouriteClick}
-          />
-        ))}
-    </ClotheCardListContainer>
+    <>
+      {!favourites?.length && (
+        <NoFavouritesContainer>
+          <p>You have no favourites yet</p>
+          <p>Click the Heart on products you like to save them here</p>
+        </NoFavouritesContainer>
+      )}
+      {favourites && (
+        <ClotheCardList
+          clothes={favourites}
+          favourites={favourites}
+          onFavouriteClick={onFavouriteClick}
+        />
+      )}
+    </>
   );
 }
