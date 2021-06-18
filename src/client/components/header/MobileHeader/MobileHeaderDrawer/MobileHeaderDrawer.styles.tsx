@@ -23,4 +23,8 @@ export const LinkText = styled.a<{ selected?: boolean }>`
     props.selected
       ? props.theme.secondaryHeaderBackgroundColor
       : 'transparent'};
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 `;

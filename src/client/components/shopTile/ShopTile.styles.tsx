@@ -14,16 +14,16 @@ export const Tile = styled.a<{ imageSrc: string }>`
   text-decoration: none;
 
   &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
     background-color: rgba(0, 0, 0, 0.4);
   }
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     &:hover {
-      background-color: unset;
-    }
-
-    &:active {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.3);
     }
   }
 `;
