@@ -12,6 +12,7 @@ export const Tile = styled.a<{ imageSrc: string }>`
   background-color: rgba(0, 0, 0, 0.3);
   background-blend-mode: darken;
   text-decoration: none;
+  text-align: center;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
