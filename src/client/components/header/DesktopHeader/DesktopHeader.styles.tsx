@@ -1,34 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.div<{
-  isSearching?: boolean;
-}>`
+export const HeaderContainer = styled.div`
   height: 100%;
   width: 100%;
   position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding: ${(p) => (p.isSearching ? `` : `0 24px;`)};
+  padding: 0 24px;
   background-color: ${(props) => props.theme.headerBackgroundColor};
   border-bottom: 1px solid #373737;
-`;
-
-export const SearchInput = styled.input`
-  width: 100%;
-  height: 100%;
-  font-size: 2rem;
-  border: none;
-  padding: 0 calc(5px + 1.5rem + 10px + 1.5rem + 24px) 0 24px;
-
-  &::placeholder {
-    color: rgba(55, 55, 55, 0.66);
-  }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const LinkContainer = styled.div`
@@ -92,23 +74,5 @@ export const CloseSearchContainer = styled.div`
   position: absolute;
   cursor: pointer;
   right: calc(24px + 10px + 24px);
-  bottom: calc(50% - (1.5rem / 2));
-`;
-
-const FloatingIcon = styled(FontAwesomeIcon)`
-  color: #181818;
-  position: absolute;
-  cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
-`;
-
-export const FloatingCloseIcon = styled(FloatingIcon)`
-  right: calc(24px + 10px + 24px);
-  bottom: calc(50% - (1.5rem / 2));
-`;
-
-export const FloatingSearchIcon = styled(FloatingIcon)`
-  right: 24px;
   bottom: calc(50% - (1.5rem / 2));
 `;
