@@ -2,9 +2,14 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { Website } from '../../../websites';
-import { Icon } from '../../components/Icon';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
-import { Container, InfoContainer, WebsitesContainer } from './Websites.styles';
+import {
+  Container,
+  InfoContainer,
+  StyledIcon,
+  WebsitesContainer,
+  WebsiteText,
+} from './Websites.styles';
 
 export interface WebsitesProps {
   websites: Website[];
@@ -38,20 +43,20 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
   return (
     <Container>
       <InfoContainer>
-        <Icon icon={faInfoCircle} margin={'0 4px 0 0'} />
+        <StyledIcon icon={faInfoCircle} />
         <span>Control which websites clothes are gathered from below</span>
       </InfoContainer>
       <WebsitesContainer>
         {websites.map((website) => (
-          <div key={website.id}>
-            <label>{website.name}</label>
+          <WebsiteText key={website.id}>
             <input
               type='checkbox'
               value={website.id}
               checked={selectedWebsites.includes(`${website.id}`)}
               onChange={handleInputChange}
             />
-          </div>
+            {website.name}
+          </WebsiteText>
         ))}
       </WebsitesContainer>
       {onBoardMode && <p>Please select at least one website</p>}

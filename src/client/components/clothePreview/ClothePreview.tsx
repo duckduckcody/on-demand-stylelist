@@ -55,8 +55,6 @@ export const ClothePreview = (): ReactElement => {
     [clothePreviewUrl]
   );
 
-  useEffect(() => Modal.setAppElement('#appElement'), []);
-
   useEffect(() => {
     if (isError && !isLoading) {
       setClothePreviewUrl(undefined);

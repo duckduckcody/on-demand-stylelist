@@ -10,6 +10,7 @@ export const HeaderContainer = styled.div`
   left: 0;
   z-index: ${ZIndex.ui};
   height: ${HEADER_HEIGHT}px;
+  background-color: ${(props) => props.theme.headerBackgroundColor};
 `;
 
 export const HeaderOffset = styled.div`

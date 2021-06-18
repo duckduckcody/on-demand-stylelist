@@ -9,7 +9,7 @@ export const HeaderContainer = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   padding: 0 24px;
-  background-color: ${(props) => props.theme.headerBackgroundColor};
+
   border-bottom: 1px solid #373737;
 `;
 

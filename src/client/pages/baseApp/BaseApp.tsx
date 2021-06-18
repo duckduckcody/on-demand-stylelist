@@ -1,11 +1,15 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import { ReactElement, useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { ThemeProvider } from 'styled-components';
 import { ClotheInfo } from '../../../types/ClotheInfo';
 import { ClothePreview } from '../../components/clothePreview/ClothePreview';
 import { Header } from '../../components/header/Header';
+import { MobileHeaderDrawer } from '../../components/header/MobileHeader/MobileHeaderDrawer/MobileHeaderDrawer';
 import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
+import { IsShowingMobileHeaderDrawerContext } from '../../contexts/IsShowingMobileHeaderDrawerContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import { useWindow } from '../../hooks/useWindow';
 import { darkTheme } from '../../themes';
 import { GlobalStyle } from './BaseApp.styles';
@@ -14,11 +18,20 @@ import { GoogleFonts } from './GoogleFonts';
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const window = useWindow();
+  const isMobile = useIsMobile();
   const [pathName, setPathName] = useState<string | undefined>(undefined);
+  const [isShowingMobileHeaderDrawer, setIsShowingMobileHeaderDrawer] =
+    useState(false);
   const [optionalClotheInfo, setOptionalClotheInfo] =
     useState<Partial<ClotheInfo> | undefined>(undefined);
   const [clothePreviewUrl, setClothePreviewUrl] =
     useState<string | undefined>(undefined);
+
+  useEffect(() => Modal.setAppElement('#appElement'), []);
+
+  useEffect(() => {
+    if (!isMobile) setIsShowingMobileHeaderDrawer(false);
+  }, [isMobile]);
 
   useEffect(() => {
     setPathName(window?.location.pathname);
@@ -40,10 +53,18 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
             setOptionalClotheInfo,
           }}
         >
-          <GlobalStyle />
-          <Header pathName={pathName}></Header>
-          <Component {...pageProps} />
-          <ClothePreview />
+          <IsShowingMobileHeaderDrawerContext.Provider
+            value={{
+              isShowingMobileHeaderDrawer,
+              setIsShowingMobileHeaderDrawer,
+            }}
+          >
+            <GlobalStyle />
+            <Header pathName={pathName}></Header>
+            <Component {...pageProps} />
+            <ClothePreview />
+            <MobileHeaderDrawer pathName={pathName} />
+          </IsShowingMobileHeaderDrawerContext.Provider>
         </ClothePreviewContext.Provider>
       </ThemeProvider>
     </main>
