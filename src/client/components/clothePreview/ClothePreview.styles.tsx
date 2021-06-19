@@ -87,6 +87,7 @@ export const TextContainer = styled.div`
   position: relative;
   overflow-y: auto;
   display: grid;
+  padding: 0 0 0 12px;
   grid-template-columns: 1fr 3rem;
   grid-template-rows: repeat(6, min-content);
   grid-template-areas:
