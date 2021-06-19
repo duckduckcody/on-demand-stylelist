@@ -48,7 +48,13 @@ export const ClothePreview = (): ReactElement => {
     clotheInfo?.websiteId
   );
 
-  const relatedProductImageClick = (link: string) => setClothePreviewUrl(link);
+  const hasRelatedProducts =
+    clotheInfo?.relatedProducts && clotheInfo.relatedProducts.length > 0;
+
+  const relatedProductImageClick = (link: string) => {
+    setSelectedImage(undefined);
+    setClothePreviewUrl(link);
+  };
 
   const onViewProductClick = useCallback(
     () => window?.open(clothePreviewUrl, '_blank')?.focus(),
@@ -92,14 +98,16 @@ export const ClothePreview = (): ReactElement => {
           onRequestClose={() => setClothePreviewUrl(undefined)}
         >
           <CloseIcon onClick={() => setClothePreviewUrl(undefined)} />
+
           {isLoading && (
             <LoadingContainer>
               <img src='/loading-spinner.gif' />
               <span>Fetching clothe info</span>
             </LoadingContainer>
           )}
+
           {!isLoading && !isError && clotheInfo && (
-            <Container>
+            <Container hasRelatedProducts={hasRelatedProducts}>
               <ThumbnailContainer>
                 {clotheInfo.images.map((img) => (
                   <ThumbnailImage
@@ -136,7 +144,7 @@ export const ClothePreview = (): ReactElement => {
                 />
                 <ButtonContainer>
                   <ViewButton onClick={() => onViewProductClick()}>
-                    View product
+                    View product on {clotheInfo.websiteName}
                   </ViewButton>
                 </ButtonContainer>
               </TextContainer>

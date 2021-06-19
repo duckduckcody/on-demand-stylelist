@@ -38,22 +38,15 @@ export const LoadingContainer = styled.div`
   height: 100%;
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
+  height: 100%;
   display: grid;
   grid-template-columns: 150px 1fr 400px;
-  grid-template-rows: 75% 25%;
-  height: 100%;
-  grid-template-areas:
-    'thumbnails image info'
-    'relatedProducts relatedProducts relatedProducts';
-
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
-    grid-template-columns: 200px 200px;
-    grid-template-rows: 200px 200px;
-    grid-template-areas:
-      'thumbnails image'
-      'info info';
-  }
+  grid-template-rows: ${(p) => (p.hasRelatedProducts ? `75% 25%` : `100%`)};
+  grid-template-areas: ${(p) =>
+    p.hasRelatedProducts
+      ? `'thumbnails image info' 'relatedProducts relatedProducts relatedProducts'`
+      : `'thumbnails image info'`};
 `;
 
 export const ThumbnailContainer = styled.div`
@@ -141,6 +134,7 @@ export const ButtonContainer = styled.div`
 export const ViewButton = styled.button`
   cursor: pointer;
   flex: 1 1 auto;
+  padding: 5px 0;
 `;
 
 export const StyledFavouriteHeart = styled(FavouriteHeart)`
