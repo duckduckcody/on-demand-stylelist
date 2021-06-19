@@ -41,18 +41,18 @@ export const LoadingContainer = styled.div`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 150px 1fr 400px;
-  grid-template-rows: min-content min-content;
+  grid-template-rows: 75% 25%;
   height: 100%;
   grid-template-areas:
     'thumbnails image info'
     'relatedProducts relatedProducts relatedProducts';
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 300px min-content;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 200px 200px;
     grid-template-areas:
-      'thumbnails'
-      'info';
+      'thumbnails image'
+      'info info';
   }
 `;
 
@@ -78,7 +78,6 @@ export const ThumbnailImage = styled.img<{ selected?: boolean }>`
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
   grid-area: image;
-  width: 100%;
   background: top / contain no-repeat url(${(p) => p.imageSrc}),
     top / 200px no-repeat url('/loading-spinner.gif');
 `;
@@ -88,7 +87,6 @@ export const TextContainer = styled.div`
   position: relative;
   overflow-y: auto;
   display: grid;
-  padding: 0 0 0 24px;
   grid-template-columns: 1fr 3rem;
   grid-template-rows: repeat(6, min-content);
   grid-template-areas:

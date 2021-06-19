@@ -92,7 +92,6 @@ export const ClothePreview = (): ReactElement => {
           onRequestClose={() => setClothePreviewUrl(undefined)}
         >
           <CloseIcon onClick={() => setClothePreviewUrl(undefined)} />
-          {isError && <p>BIG OLD ERROR</p>}
           {isLoading && (
             <LoadingContainer>
               <img src='/loading-spinner.gif' />
@@ -112,7 +111,9 @@ export const ClothePreview = (): ReactElement => {
                   />
                 ))}
               </ThumbnailContainer>
-              {!isMobile && <ImageContainer imageSrc={selectedImage} />}
+
+              <ImageContainer imageSrc={selectedImage} />
+
               <TextContainer>
                 <WebsitesLogo src={clotheInfo.websitesLogo} />
                 <WebsiteName>{clotheInfo.websiteName}</WebsiteName>
@@ -139,6 +140,7 @@ export const ClothePreview = (): ReactElement => {
                   </ViewButton>
                 </ButtonContainer>
               </TextContainer>
+
               {clotheInfo.relatedProducts && (
                 <RelatedProductsSection>
                   <RelatedProductsTitle>
