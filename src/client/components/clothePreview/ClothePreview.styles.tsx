@@ -128,6 +128,7 @@ export const ViewButton = styled.button`
   cursor: pointer;
   flex: 1 1 auto;
   padding: 5px 0;
+  background-color: white;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     padding: 8px 0;
