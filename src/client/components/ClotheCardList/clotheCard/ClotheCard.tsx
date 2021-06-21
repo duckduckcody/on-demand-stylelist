@@ -26,29 +26,24 @@ export const ClotheCard = ({
   const { setClothePreviewUrl, setOptionalClotheInfo } =
     useContext(ClothePreviewContext);
 
-  const handleImageContainerClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    const target = event.target as HTMLDivElement;
-    if (target.tagName === 'IMG') {
-      setClothePreviewUrl(clothe.link);
-      setOptionalClotheInfo({ price: clothe.price });
-    }
+  const handleImageContainerClick = () => {
+    setClothePreviewUrl(clothe.link);
+    setOptionalClotheInfo({ price: clothe.price });
   };
 
   if (clothe.error) <></>;
   return (
     <Container id={clothe.link}>
+      <StyledFavouriteClothe
+        clothe={clothe}
+        isFavourited={isFavourited}
+        onFavouriteClick={onFavouriteClick}
+      />
+
       <ImageContainer
-        onClick={(e) => handleImageContainerClick(e)}
+        onClick={handleImageContainerClick}
         imgSrc={clothe.image}
-      >
-        <StyledFavouriteClothe
-          clothe={clothe}
-          isFavourited={isFavourited}
-          onFavouriteClick={onFavouriteClick}
-        />
-      </ImageContainer>
+      ></ImageContainer>
 
       <InfoContainer>
         <WebsiteName>{clothe.website}</WebsiteName>

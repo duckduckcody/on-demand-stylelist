@@ -4,15 +4,22 @@ import { FavouriteHeart } from './favouriteHeart/FavouriteHeart';
 
 export const Container = styled.div`
   display: grid;
+  position: relative;
   grid-template-rows: 1fr auto;
   grid-template-areas:
     'ImageContainer'
     'InfoContainer';
 `;
 
+export const StyledFavouriteClothe = styled(FavouriteHeart)`
+  position: absolute;
+  z-index: ${ZIndex.pushContentForward};
+  bottom: 0;
+`;
+
 export const ImageContainer = styled.div<{ imgSrc: string }>`
   grid-area: ImageContainer;
-  position: relative;
+
   cursor: pointer;
   background: center / cover no-repeat url(${(p) => p.imgSrc});
 `;
@@ -47,11 +54,4 @@ export const Price = styled.span`
 
 export const OldPrice = styled.span`
   text-decoration: line-through;
-`;
-
-export const StyledFavouriteClothe = styled(FavouriteHeart)`
-  position: absolute;
-  z-index: ${ZIndex.pushContentForward};
-  bottom: 5px;
-  right: 5px;
 `;
