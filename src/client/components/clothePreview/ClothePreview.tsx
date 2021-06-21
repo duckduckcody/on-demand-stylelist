@@ -92,6 +92,8 @@ export const ClothePreview = (): ReactElement => {
               backgroundColor: '#181818',
               border: 'none',
               padding: isMobile ? 0 : '20px',
+              maxWidth: 'max-content',
+              margin: '0 auto',
             },
           }}
           isOpen={isShowing}

@@ -40,8 +40,10 @@ export const LoadingContainer = styled.div`
 
 export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
   height: 100%;
+  width: 100%;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 150px 1fr 400px;
+  grid-template-columns: 150px minmax(200px, 1000px) 400px;
   grid-template-rows: ${(p) => (p.hasRelatedProducts ? `75% 25%` : `100%`)};
   grid-template-areas: ${(p) =>
     p.hasRelatedProducts
@@ -51,22 +53,14 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
 
 export const ThumbnailContainer = styled.div`
   grid-area: thumbnails;
-  width: 100%;
   overflow-y: auto;
   display: flex;
   flex-flow: column nowrap;
 `;
 
 export const ThumbnailImage = styled.img<{ selected?: boolean }>`
-  width: 100%;
   cursor: pointer;
-  box-sizing: border-box;
   border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
-
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
-    border-right: none;
-    cursor: unset;
-  }
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
@@ -169,7 +163,6 @@ export const Description = styled.div`
 export const RelatedProductsSection = styled.div`
   grid-area: relatedProducts;
   margin: 24px 0 0;
-  overflow-x: auto;
   display: grid;
   grid-template-rows: min-content 1fr;
 `;
@@ -181,6 +174,7 @@ export const RelatedProductsTitle = styled.p`
 export const RelatedProductsContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  overflow-x: auto;
 `;
 
 export const RelatedProduct = styled.div`
