@@ -1,8 +1,7 @@
-import { ReactElement, useContext, useState } from 'react';
+import { ReactElement, useContext } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
 import { ClothePreviewContext } from '../../../contexts/ClothePreviewContext';
 import {
-  ClotheImage,
   ClotheName,
   Container,
   ImageContainer,
@@ -24,7 +23,6 @@ export const ClotheCard = ({
   isFavourited = false,
   onFavouriteClick = () => null,
 }: Props): ReactElement => {
-  const [imgSrc, setImgSrc] = useState(clothe.image);
   const { setClothePreviewUrl, setOptionalClotheInfo } =
     useContext(ClothePreviewContext);
 
@@ -38,23 +36,17 @@ export const ClotheCard = ({
     }
   };
 
-  const handleImageError = () =>
-    clothe.fallbackImage && setImgSrc(clothe.fallbackImage);
-
   if (clothe.error) <></>;
   return (
     <Container id={clothe.link}>
-      <ImageContainer onClick={(e) => handleImageContainerClick(e)}>
+      <ImageContainer
+        onClick={(e) => handleImageContainerClick(e)}
+        imgSrc={clothe.image}
+      >
         <StyledFavouriteClothe
           clothe={clothe}
           isFavourited={isFavourited}
           onFavouriteClick={onFavouriteClick}
-        />
-        <ClotheImage
-          loading='lazy'
-          src={imgSrc}
-          onError={handleImageError}
-          alt=''
         />
       </ImageContainer>
 

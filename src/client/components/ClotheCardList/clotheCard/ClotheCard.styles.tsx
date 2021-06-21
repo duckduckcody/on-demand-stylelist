@@ -3,8 +3,6 @@ import { ZIndex } from '../../../styleConstants';
 import { FavouriteHeart } from './favouriteHeart/FavouriteHeart';
 
 export const Container = styled.div`
-  width: 100%;
-  height: 100%;
   display: grid;
   grid-template-rows: 1fr auto;
   grid-template-areas:
@@ -12,16 +10,11 @@ export const Container = styled.div`
     'InfoContainer';
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.div<{ imgSrc: string }>`
   grid-area: ImageContainer;
   position: relative;
   cursor: pointer;
-`;
-
-export const ClotheImage = styled.img`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+  background: center / cover no-repeat url(${(p) => p.imgSrc});
 `;
 
 export const InfoContainer = styled.div`
