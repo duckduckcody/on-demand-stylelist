@@ -60,7 +60,6 @@ export const ThumbnailContainer = styled.div`
 
 export const ThumbnailImage = styled.img<{ selected?: boolean }>`
   cursor: pointer;
-  width: 100%;
   border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
 `;
 
