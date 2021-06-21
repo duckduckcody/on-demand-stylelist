@@ -33,7 +33,7 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 150px minmax(200px, 1000px) 400px;
+  grid-template-columns: 150px minmax(200px, 1000px) minmax(200px, 400px);
   grid-template-rows: ${(p) => (p.hasRelatedProducts ? `75% 25%` : `100%`)};
   grid-template-areas: ${(p) =>
     p.hasRelatedProducts
