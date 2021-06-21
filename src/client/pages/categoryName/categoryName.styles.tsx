@@ -1,10 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { ClotheCardList } from '../../components/ClotheCardList/ClotheCardList';
-
-export const StyledClotheCardList = styled(ClotheCardList)`
-  margin: 46px 0 0;
-`;
 
 export const ButtonContainer = styled.div`
   display: flex;

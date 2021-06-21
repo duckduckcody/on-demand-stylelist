@@ -15,17 +15,14 @@ import {
   parseClotheSortOption,
 } from '../../../types/ClotheSort';
 import { CategoryNameHeader } from '../../components/CategoryName/CategoryNameHeader/CategoryNameHeader';
+import { ClotheCardList } from '../../components/ClotheCardList/ClotheCardList';
 import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../../hooks/useUpdateUrl';
 import { useWindow } from '../../hooks/useWindow';
 import { capitaliseString } from '../../util/capitaliseString';
 import { FetcherError, swrFetcher } from '../../util/swrFetcher';
-import {
-  ButtonContainer,
-  LoadMoreButton,
-  StyledClotheCardList,
-} from './categoryName.styles';
+import { ButtonContainer, LoadMoreButton } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
 
 export interface QueryParams {
@@ -197,7 +194,7 @@ export const CategoryName = (): ReactElement => {
         onChangeClotheSortOption={onChangeClotheSortOption}
       />
 
-      <StyledClotheCardList
+      <ClotheCardList
         clothes={clothes}
         favourites={favourites}
         onFavouriteClick={onFavouriteClick}

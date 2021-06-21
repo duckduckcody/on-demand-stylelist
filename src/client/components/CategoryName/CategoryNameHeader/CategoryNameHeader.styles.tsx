@@ -2,7 +2,16 @@ import styled from 'styled-components';
 import { MOBILE_BREAKPOINT, ZIndex } from '../../../styleConstants';
 import { HEADER_HEIGHT } from '../../header/Header.styles';
 
+export const ContainerOffset = styled.div`
+  margin: 0 0 48px 0;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    margin: 0 0 64px 0;
+  }
+`;
+
 export const Container = styled.div`
+  height: 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,6 +24,7 @@ export const Container = styled.div`
   padding: 12px 24px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
+    height: 64px;
     padding: 8px;
   }
 `;
