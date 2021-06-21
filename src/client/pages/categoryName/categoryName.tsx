@@ -1,4 +1,4 @@
-import { flatten, startCase } from 'lodash';
+import { flatten } from 'lodash';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, {
@@ -12,9 +12,9 @@ import { useSWRInfinite } from 'swr';
 import { ClotheItem } from '../../../types/ClotheItem';
 import {
   ClotheSortOption,
-  clotheSortOptionValues,
   parseClotheSortOption,
 } from '../../../types/ClotheSort';
+import { CategoryNameHeader } from '../../components/CategoryName/CategoryNameHeader/CategoryNameHeader';
 import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../../hooks/useUpdateUrl';
@@ -23,7 +23,6 @@ import { capitaliseString } from '../../util/capitaliseString';
 import { FetcherError, swrFetcher } from '../../util/swrFetcher';
 import {
   ButtonContainer,
-  CategoryNameHeader,
   LoadMoreButton,
   StyledClotheCardList,
 } from './categoryName.styles';
@@ -53,6 +52,10 @@ export const CategoryName = (): ReactElement => {
     useState<ClotheSortOption | undefined>(undefined);
   const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
+
+  const categoryName = routerIsReady
+    ? capitaliseString(`${query.gender}'s ${query.categoryName}`)
+    : '';
 
   useEffect(() => {
     if (window && query && routerPush && selectedWebsites === []) {
@@ -128,12 +131,12 @@ export const CategoryName = (): ReactElement => {
     window?.location.pathname,
   ]);
 
-  const changeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     setLimit(+event.target.value);
   };
 
-  const changeClotheSortOption = (
+  const onChangeClotheSortOption = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     event.preventDefault();
@@ -185,31 +188,14 @@ export const CategoryName = (): ReactElement => {
             capitaliseString(` | ${query.gender}'s ${query.categoryName}`)}
         </title>
       </Head>
-      <CategoryNameHeader>
-        <span>
-          {routerIsReady &&
-            capitaliseString(`${query.gender}'s ${query.categoryName}`)}
-        </span>
-        <span>
-          <label htmlFor='limit'>Product limit per website&nbsp;</label>
-          <select value={limit} onChange={changeLimit}>
-            {LIMIT_OPTIONS.map((limitOption) => (
-              <option key={limitOption} value={limitOption}>
-                {limitOption}
-              </option>
-            ))}
-          </select>
-          &nbsp; &nbsp;
-          <label htmlFor='sort'>Sort&nbsp;</label>
-          <select value={clotheSortOption} onChange={changeClotheSortOption}>
-            {clotheSortOptionValues.map((sortOption) => (
-              <option key={sortOption} value={sortOption}>
-                {startCase(sortOption)}
-              </option>
-            ))}
-          </select>
-        </span>
-      </CategoryNameHeader>
+
+      <CategoryNameHeader
+        categoryName={categoryName}
+        limit={limit}
+        onChangeLimit={onChangeLimit}
+        clotheSortOption={clotheSortOption}
+        onChangeClotheSortOption={onChangeClotheSortOption}
+      />
 
       <StyledClotheCardList
         clothes={clothes}
