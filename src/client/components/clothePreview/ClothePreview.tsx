@@ -1,3 +1,4 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
   ReactElement,
   useCallback,
@@ -19,11 +20,7 @@ import {
   LoadingContainer,
   Name,
   Price,
-  RelatedProduct,
-  RelatedProductImage,
-  RelatedProductsContainer,
-  RelatedProductsSection,
-  RelatedProductsTitle,
+  StyledRelatedProducts,
   TextContainer,
   ThumbnailContainer,
   ThumbnailImage,
@@ -51,7 +48,7 @@ export const ClothePreview = (): ReactElement => {
   const hasRelatedProducts =
     clotheInfo?.relatedProducts && clotheInfo.relatedProducts.length > 0;
 
-  const relatedProductImageClick = (link: string) => {
+  const onRelatedProductImageClick = (link: string) => {
     setSelectedImage(undefined);
     setClothePreviewUrl(link);
   };
@@ -92,14 +89,18 @@ export const ClothePreview = (): ReactElement => {
               backgroundColor: '#181818',
               border: 'none',
               padding: isMobile ? 0 : '20px',
-              maxWidth: 'max-content',
+              maxWidth: isMobile ? '100%' : 'max-content',
               margin: '0 auto',
+              inset: isMobile ? '0' : '40px',
             },
           }}
           isOpen={isShowing}
           onRequestClose={() => setClothePreviewUrl(undefined)}
         >
-          <CloseIcon onClick={() => setClothePreviewUrl(undefined)} />
+          <CloseIcon
+            icon={faTimes}
+            onClick={() => setClothePreviewUrl(undefined)}
+          />
 
           {isLoading && (
             <LoadingContainer>
@@ -115,7 +116,7 @@ export const ClothePreview = (): ReactElement => {
                   <ThumbnailImage
                     key={img.thumbnail}
                     src={img.thumbnail}
-                    selected={selectedImage === img.image}
+                    selected={!isMobile && selectedImage === img.image}
                     alt=''
                     onClick={() => setSelectedImage(img.image)}
                   />
@@ -124,7 +125,7 @@ export const ClothePreview = (): ReactElement => {
 
               <ImageContainer imageSrc={selectedImage} />
 
-              <TextContainer>
+              <TextContainer isMobile={isMobile}>
                 <WebsitesLogo src={clotheInfo.websitesLogo} />
                 <WebsiteName>{clotheInfo.websiteName}</WebsiteName>
                 <Name>{clotheInfo.name}</Name>
@@ -149,25 +150,19 @@ export const ClothePreview = (): ReactElement => {
                     View product on {clotheInfo.websiteName}
                   </ViewButton>
                 </ButtonContainer>
+                {isMobile && clotheInfo.relatedProducts && (
+                  <StyledRelatedProducts
+                    relatedProducts={clotheInfo.relatedProducts}
+                    onRelatedProductImageClick={onRelatedProductImageClick}
+                  />
+                )}
               </TextContainer>
 
-              {clotheInfo.relatedProducts && (
-                <RelatedProductsSection>
-                  <RelatedProductsTitle>
-                    You might also like
-                  </RelatedProductsTitle>
-                  <RelatedProductsContainer>
-                    {clotheInfo.relatedProducts.map((related) => (
-                      <RelatedProduct key={related.link}>
-                        <RelatedProductImage
-                          src={related.image}
-                          onClick={() => relatedProductImageClick(related.link)}
-                        />
-                        <span>{related.name}</span>
-                      </RelatedProduct>
-                    ))}
-                  </RelatedProductsContainer>
-                </RelatedProductsSection>
+              {!isMobile && clotheInfo.relatedProducts && (
+                <StyledRelatedProducts
+                  relatedProducts={clotheInfo.relatedProducts}
+                  onRelatedProductImageClick={onRelatedProductImageClick}
+                />
               )}
             </Container>
           )}

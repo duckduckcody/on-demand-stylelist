@@ -1,32 +1,22 @@
 import styled from 'styled-components';
 import { MOBILE_BREAKPOINT, ZIndex } from '../../styleConstants';
 import { FavouriteHeart } from '../ClotheCardList/clotheCard/favouriteHeart/FavouriteHeart';
+import { Icon } from '../Icon';
+import { RelatedProducts } from './RelatedProducts/RelatedProducts';
 
-export const CloseIcon = styled.span`
-  position: absolute;
+export const CloseIcon = styled(Icon)`
+  position: fixed;
   right: 5px;
   top: 5px;
-  cursor: pointer;
   width: 32px;
   height: 32px;
+  cursor: pointer;
   z-index: ${ZIndex.modal};
+  filter: drop-shadow(1px 1px 0px black);
 
-  &:before,
-  &:after {
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 33px;
-    width: 4px;
-    background-color: white;
-  }
-
-  &:before {
-    transform: rotate(45deg);
-  }
-
-  &:after {
-    transform: rotate(-45deg);
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    width: 48px;
+    height: 48px;
   }
 `;
 
@@ -49,6 +39,12 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
     p.hasRelatedProducts
       ? `'thumbnails image info' 'relatedProducts relatedProducts relatedProducts'`
       : `'thumbnails image info'`};
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40% 60%;
+    grid-template-areas: 'thumbnails' 'info';
+  }
 `;
 
 export const ThumbnailContainer = styled.div`
@@ -56,6 +52,10 @@ export const ThumbnailContainer = styled.div`
   overflow-y: auto;
   display: flex;
   flex-flow: column nowrap;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    flex-flow: row nowrap;
+  }
 `;
 
 export const ThumbnailImage = styled.img<{ selected?: boolean }>`
@@ -69,25 +69,24 @@ export const ImageContainer = styled.div<{ imageSrc?: string }>`
     top / 200px no-repeat url('/loading-spinner.gif');
 `;
 
-export const TextContainer = styled.div`
+export const TextContainer = styled.div<{ isMobile?: boolean }>`
   grid-area: info;
-  position: relative;
   overflow-y: auto;
   display: grid;
   padding: 0 0 0 12px;
   grid-template-columns: 1fr 3rem;
-  grid-template-rows: repeat(6, min-content);
+  grid-template-rows: repeat(7, min-content);
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
     'websiteName websiteName'
     'name name'
     'buttonContainer buttonContainer'
-    'description description';
+    'description description'
+    ${(p) => (p.isMobile ? `'relatedProducts relatedProducts'` : '')};
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    overflow-y: unset;
-    padding: 8px;
+    padding: 0;
   }
 `;
 
@@ -129,6 +128,11 @@ export const ViewButton = styled.button`
   cursor: pointer;
   flex: 1 1 auto;
   padding: 5px 0;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    padding: 8px 0;
+    font-size: 1.1rem;
+  }
 `;
 
 export const StyledFavouriteHeart = styled(FavouriteHeart)`
@@ -160,28 +164,6 @@ export const Description = styled.div`
   }
 `;
 
-export const RelatedProductsSection = styled.div`
+export const StyledRelatedProducts = styled(RelatedProducts)`
   grid-area: relatedProducts;
-  margin: 24px 0 0;
-  display: grid;
-  grid-template-rows: min-content 1fr;
-`;
-
-export const RelatedProductsTitle = styled.p`
-  font-size: 1.5rem;
-`;
-
-export const RelatedProductsContainer = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  overflow-x: auto;
-`;
-
-export const RelatedProduct = styled.div`
-  flex: 0 0 150px;
-`;
-
-export const RelatedProductImage = styled.img`
-  width: 100%;
-  cursor: pointer;
 `;
