@@ -97,11 +97,6 @@ export const ClothePreview = (): ReactElement => {
           isOpen={isShowing}
           onRequestClose={() => setClothePreviewUrl(undefined)}
         >
-          <CloseIcon
-            icon={faTimes}
-            onClick={() => setClothePreviewUrl(undefined)}
-          />
-
           {isLoading && (
             <LoadingContainer>
               <img src='/loading-spinner.gif' />
@@ -111,6 +106,11 @@ export const ClothePreview = (): ReactElement => {
 
           {!isLoading && !isError && clotheInfo && (
             <Container hasRelatedProducts={hasRelatedProducts}>
+              <CloseIcon
+                icon={faTimes}
+                onClick={() => setClothePreviewUrl(undefined)}
+              />
+
               <ThumbnailContainer>
                 {clotheInfo.images.map((img) => (
                   <ThumbnailImage

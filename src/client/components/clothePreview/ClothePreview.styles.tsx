@@ -4,22 +4,6 @@ import { FavouriteHeart } from '../ClotheCardList/clotheCard/favouriteHeart/Favo
 import { Icon } from '../Icon';
 import { RelatedProducts } from './RelatedProducts/RelatedProducts';
 
-export const CloseIcon = styled(Icon)`
-  position: fixed;
-  right: 5px;
-  top: 5px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  z-index: ${ZIndex.modal};
-  filter: drop-shadow(1px 1px 0px black);
-
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
-    width: 48px;
-    height: 48px;
-  }
-`;
-
 export const LoadingContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
@@ -29,6 +13,7 @@ export const LoadingContainer = styled.div`
 `;
 
 export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
+  position: relative;
   height: 100%;
   width: 100%;
   margin: 0 auto;
@@ -44,6 +29,22 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
     grid-template-columns: 1fr;
     grid-template-rows: 40% 60%;
     grid-template-areas: 'thumbnails' 'info';
+  }
+`;
+
+export const CloseIcon = styled(Icon)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: ${ZIndex.modal};
+  filter: drop-shadow(1px 1px 0px black);
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    width: 48px;
+    height: 48px;
   }
 `;
 
