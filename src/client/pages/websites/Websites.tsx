@@ -44,7 +44,12 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
     <Container>
       <InfoContainer>
         <StyledIcon icon={faInfoCircle} />
-        <span>Control which websites clothes are gathered from below</span>
+        <span>
+          Stylelist gathers clothes from Australian clothing websites and brings
+          them to one list.
+          <br />
+          Control which websites clothes are gathered from below.
+        </span>
       </InfoContainer>
       <WebsitesContainer>
         {websites.map((website) => (

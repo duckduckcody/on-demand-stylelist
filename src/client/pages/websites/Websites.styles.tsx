@@ -31,6 +31,7 @@ export const WebsiteText = styled.label`
 export const InfoContainer = styled.div`
   display: flex;
   align-items: center;
+  line-height: 1.25rem;
 `;
 
 export const StyledIcon = styled(Icon)`

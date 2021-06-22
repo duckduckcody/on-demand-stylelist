@@ -138,15 +138,6 @@ export const CategoryName = (): ReactElement => {
     setClotheSortOption(parseClotheSortOption(event.target.value));
   };
 
-  if (error) {
-    console.log('request error', error);
-    return (
-      <p>
-        Error fetching styles ({error.status} {error.message})
-      </p>
-    );
-  }
-
   return (
     <>
       <Head>
