@@ -36,12 +36,6 @@ export default function Search(): ReactElement {
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const url = useMemo(() => window && new URL(window.location.href), [window]);
 
-  useUpdateUrl(limit, LocalStorageKey.Limit, url, router.replace, true);
-
-  useEffect(() => {
-    setLimit(DEFAULT_LIMIT);
-  }, []);
-
   const onChangeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     setLimit(+event.target.value);
@@ -53,6 +47,13 @@ export default function Search(): ReactElement {
   >((index) => makeUrl(q, index, selectedWebsites, limit), swrFetcher, {
     revalidateOnFocus: false,
   });
+
+  useUpdateUrl(size, 'page', url, router.replace);
+  useUpdateUrl(limit, LocalStorageKey.Limit, url, router.replace, true);
+
+  useEffect(() => {
+    setLimit(DEFAULT_LIMIT);
+  }, []);
 
   const clothes = flatten(data);
 
