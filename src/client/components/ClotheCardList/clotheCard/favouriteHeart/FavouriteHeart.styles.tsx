@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
-export const HeartIconContainer = styled.div<{ isRed: boolean }>`
+export const HeartIconContainer = styled.section<{ isRed: boolean }>`
   cursor: pointer;
   width: 2rem;
   height: 2rem;

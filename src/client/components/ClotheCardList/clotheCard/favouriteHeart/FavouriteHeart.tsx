@@ -3,11 +3,9 @@ import {
   faHeart as faHeartSolid,
   faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react';
 import { ReactElement, useEffect, useState } from 'react';
 import { ClotheItem } from '../../../../../types/ClotheItem';
 import { useIsMobile } from '../../../../hooks/useIsMobile';
-import { Tooltip } from '../Tooltip';
 import { HeartIcon, HeartIconContainer } from './FavouriteHeart.styles';
 
 interface Props {
@@ -31,29 +29,23 @@ export const FavouriteHeart = ({
   }, [isMobile]);
 
   return (
-    <Tippy
-      content={<Tooltip isFavourited={isFavourited} />}
-      delay={0}
-      visible={isMobile ? false : iconHovered}
+    <HeartIconContainer
+      className={className}
+      isRed={isFavourited || iconHovered}
     >
-      <HeartIconContainer
-        className={className}
-        isRed={isFavourited || iconHovered}
-      >
-        <HeartIcon
-          onMouseEnter={() => !isMobile && setIconHovered(true)}
-          onMouseLeave={() => !isMobile && setIconHovered(false)}
-          size={'4x'}
-          icon={
-            isFavourited
-              ? iconHovered
-                ? faHeartBroken
-                : faHeartSolid
-              : faHeartOutline
-          }
-          onClick={() => onFavouriteClick(clothe)}
-        />
-      </HeartIconContainer>
-    </Tippy>
+      <HeartIcon
+        onMouseEnter={() => !isMobile && setIconHovered(true)}
+        onMouseLeave={() => !isMobile && setIconHovered(false)}
+        size={'4x'}
+        icon={
+          isFavourited
+            ? iconHovered
+              ? faHeartBroken
+              : faHeartSolid
+            : faHeartOutline
+        }
+        onClick={() => onFavouriteClick(clothe)}
+      />
+    </HeartIconContainer>
   );
 };
