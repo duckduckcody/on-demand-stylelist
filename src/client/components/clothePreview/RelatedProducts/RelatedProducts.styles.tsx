@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const RelatedProductsSection = styled.div`
-  margin: 24px 0 0;
   display: grid;
   grid-template-rows: min-content 1fr;
 `;

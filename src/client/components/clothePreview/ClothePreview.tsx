@@ -118,6 +118,7 @@ export const ClothePreview = (): ReactElement => {
               <ThumbnailContainer>
                 {clotheInfo.images.map((img) => (
                   <ThumbnailImage
+                    isMobile={isMobile}
                     key={img.thumbnail}
                     src={img.thumbnail}
                     selected={!isMobile && selectedImage === img.image}
@@ -127,7 +128,7 @@ export const ClothePreview = (): ReactElement => {
                 ))}
               </ThumbnailContainer>
 
-              <ImageContainer imageSrc={selectedImage} />
+              {!isMobile && <ImageContainer imageSrc={selectedImage} />}
 
               <TextContainer isMobile={isMobile}>
                 <WebsitesLogo src={clotheInfo.websitesLogo} />

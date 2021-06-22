@@ -21,7 +21,8 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
   margin: 0 auto;
   display: grid;
   grid-template-columns: 150px minmax(200px, 1000px) minmax(200px, 400px);
-  grid-template-rows: ${(p) => (p.hasRelatedProducts ? `75% 25%` : `100%`)};
+  grid-template-rows: ${(p) =>
+    p.hasRelatedProducts ? `1fr max-content` : `100%`};
   grid-template-areas: ${(p) =>
     p.hasRelatedProducts
       ? `'thumbnails image info' 'relatedProducts relatedProducts relatedProducts'`
@@ -52,17 +53,21 @@ export const CloseIcon = styled(Icon)`
 
 export const ThumbnailContainer = styled.div`
   grid-area: thumbnails;
-  overflow-y: auto;
+  overflow-y: scroll;
   display: flex;
   flex-flow: column nowrap;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     flex-flow: row nowrap;
+    overflow-x: scroll;
   }
 `;
 
-export const ThumbnailImage = styled.img<{ selected?: boolean }>`
-  cursor: pointer;
+export const ThumbnailImage = styled.img<{
+  selected?: boolean;
+  isMobile?: boolean;
+}>`
+  cursor: ${(p) => (p.isMobile ? `grab` : `pointer`)};
   border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
 `;
 
