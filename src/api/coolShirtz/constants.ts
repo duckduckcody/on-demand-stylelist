@@ -2,7 +2,6 @@ import { CategoryName, getCategoryId } from '../../categories';
 import { ClotheSortOption } from '../../types/ClotheSort';
 import { Gender } from '../../types/Gender';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { SearchClothesOptions } from '../../types/SearchClothesOptions';
 
 export const COOL_SHIRTZ_BASE_URL = 'https://shirtz.cool';
 
@@ -34,13 +33,16 @@ export const sortToQueryStringValueMap = new Map<ClotheSortOption, string>()
 export const makeCoolShirtzUrl = (
   uri: string,
   requestOptions: GetClothesOptions
-): string =>
-  `${COOL_SHIRTZ_BASE_URL}/collections/${uri}?${SORT_QUERY_STRING_KEY}=${sortToQueryStringValueMap.get(
-    requestOptions.sort
-  )}`;
+): string => {
+  const sortQueryString = requestOptions.sort 
+    ? `?${SORT_QUERY_STRING_KEY}=${sortToQueryStringValueMap.get(requestOptions.sort)}` 
+    : undefined
+
+  return `${COOL_SHIRTZ_BASE_URL}/collections/${uri}${sortQueryString ? sortQueryString : ''}`;
+}
 
 export const makeCoolShirtzSearchUrl = (
   query: string,
-  requestOptions: SearchClothesOptions
+  requestOptions: GetClothesOptions
 ): string =>
   `https://shirtz.cool/search?type=product&q=${query}&page=${requestOptions.page}`;

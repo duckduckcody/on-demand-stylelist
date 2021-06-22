@@ -6,6 +6,7 @@ import { clothesCache } from '../cache';
 import {
   CultureKingsAlgoliaHits,
   CULTURE_KINGS_ALGOLIA_HEADERS,
+  defaultCultureKingsAlgoliaIndex,
   getCultureKingsAlgoliaIndex,
 } from './algoliaIndex';
 import {
@@ -34,6 +35,7 @@ export const getClothesCultureKings = async (
     cachedClothes,
     cultureKingsCid.uri,
     requestOptions,
+    () => '',
     requestData,
     CULTURE_KINGS_LIMIT,
     lastIndex
@@ -44,19 +46,24 @@ export const getClothesCultureKings = async (
   return clothes.slice(firstIndex, lastIndex);
 };
 
-const requestData = (
+const requestData = async (
   key: string,
   requestOptions: GetClothesOptions
-): Promise<ClotheItem[]> =>
-  getCultureKingsAlgoliaIndex(requestOptions.sort)
-    .search<CultureKingsAlgoliaHits>('', {
-      hitsPerPage: requestOptions.limit,
-      page: requestOptions.page - 1,
-      ruleContexts: [`collection-${key}`],
-      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${key}`,
-      headers: CULTURE_KINGS_ALGOLIA_HEADERS,
-    })
-    .then((res) => mapProductValues(res.hits));
+): Promise<ClotheItem[]> => {
+  const index = requestOptions.sort 
+    ? getCultureKingsAlgoliaIndex(requestOptions.sort) 
+  :   defaultCultureKingsAlgoliaIndex
+ 
+  const res = await index.search<CultureKingsAlgoliaHits>('', {
+    hitsPerPage: requestOptions.limit,
+    page: requestOptions.page - 1,
+    ruleContexts: [`collection-${key}`],
+    filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${key}`,
+    headers: CULTURE_KINGS_ALGOLIA_HEADERS,
+  });
+  return mapProductValues(res.hits);
+}
+
 
 const mapProductValues = (hits: Array<CultureKingsAlgoliaHits>): ClotheItem[] =>
   hits.map((product) => ({

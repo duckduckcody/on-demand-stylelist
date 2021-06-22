@@ -35,7 +35,7 @@ export const clotheInfoCultureKingsAlgoliaIndex = client.initIndex(
   CultureKingsIndexName.CLOTHE_INFO
 );
 
-const defaultCultureKingsAlgoliaIndex = client.initIndex(
+export const defaultCultureKingsAlgoliaIndex = client.initIndex(
   CultureKingsIndexName.NEWEST
 );
 
