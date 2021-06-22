@@ -21,6 +21,7 @@ export const searchCoolShirtz: searchFunction = async (
     cachedClothes,
     query,
     requestOptions,
+    makeCoolShirtzSearchUrl,
     requestData,
     COOL_SHIRTZ_SEARCH_LIMIT,
     lastIndex
