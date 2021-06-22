@@ -14,16 +14,16 @@ import {
   ClotheSortOption,
   parseClotheSortOption,
 } from '../../../types/ClotheSort';
-import { CategoryNameHeader } from '../../components/CategoryName/CategoryNameHeader/CategoryNameHeader';
-import { ClotheCardList } from '../../components/ClotheCardList/ClotheCardList';
+import { ListOptionsHeader } from '../../components/List/ListOptionsHeader/ListOptionsHeader';
+import { ListClotheCards } from '../../components/List/ListClotheCards/ListClotheCards';
 import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../../hooks/useUpdateUrl';
 import { useWindow } from '../../hooks/useWindow';
 import { capitaliseString } from '../../util/capitaliseString';
 import { FetcherError, swrFetcher } from '../../util/swrFetcher';
-import { ButtonContainer, LoadMoreButton } from './categoryName.styles';
 import { makeUrl } from './makeUrl';
+import { ListLoadMoreButton } from '../../components/List/ListLoadMoreButton/ListLoadMoreButton';
 
 export interface QueryParams {
   gender?: string;
@@ -70,6 +70,8 @@ export const CategoryName = (): ReactElement => {
       revalidateOnFocus: false,
     }
   );
+
+  const clothes = flatten(data);
 
   useUpdateUrl(size, 'page', url, routerReplace);
   useUpdateUrl(limit, LocalStorageKey.Limit, url, routerReplace, true);
@@ -156,17 +158,6 @@ export const CategoryName = (): ReactElement => {
     }
   };
 
-  const clothes = flatten(data);
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === 'undefined');
-  const isEmpty = !isLoadingInitialData && clothes.length === 0;
-  const isEndOfData =
-    data &&
-    typeof limit !== 'undefined' &&
-    data[data.length - 1]?.length < limit;
-
   if (error) {
     console.log('request error', error);
     return (
@@ -186,38 +177,28 @@ export const CategoryName = (): ReactElement => {
         </title>
       </Head>
 
-      <CategoryNameHeader
-        categoryName={categoryName}
+      <ListOptionsHeader
+        context={categoryName}
         limit={limit}
         onChangeLimit={onChangeLimit}
         clotheSortOption={clotheSortOption}
         onChangeClotheSortOption={onChangeClotheSortOption}
       />
 
-      <ClotheCardList
+      <ListClotheCards
         clothes={clothes}
         favourites={favourites}
         onFavouriteClick={onFavouriteClick}
       />
 
-      <ButtonContainer>
-        {!isLoadingMore &&
-          isEndOfData &&
-          (isEmpty ? 'no clothes found :(' : 'no more clothes :(')}
-
-        {!isEndOfData && (
-          <LoadMoreButton
-            onClick={() => setSize(size + 1)}
-            disabled={isLoadingMore}
-          >
-            {isLoadingMore &&
-              (clothes.length === 0
-                ? 'Loading styles...'
-                : 'Loading more styles...')}
-            {!isLoadingMore && !isEndOfData && 'Load more'}
-          </LoadMoreButton>
-        )}
-      </ButtonContainer>
+      <ListLoadMoreButton
+        clothes={clothes}
+        data={data}
+        limit={limit}
+        size={size}
+        setSize={setSize}
+        error={error}
+      />
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
@@ -36,23 +35,4 @@ export const LoadMoreButton = styled.button`
     background-color: lightgrey;
     cursor: not-allowed;
   }
-`;
-
-export const SpinningFontAwesomeIcon = styled(FontAwesomeIcon)`
-  animation: spinner 2s linear infinite;
-  width: 24px;
-  height: 24px;
-
-  @keyframes spinner {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
-export const LoadingContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

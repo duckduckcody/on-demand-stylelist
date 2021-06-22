@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../styleConstants';
+import { MOBILE_BREAKPOINT } from '../../../styleConstants';
 
-export const ClotheCardListContainer = styled.div`
+export const ListClotheCardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 400px);
   grid-auto-rows: 700px;

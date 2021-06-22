@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ZIndex } from '../../../styleConstants';
+import { ZIndex } from '../../../../styleConstants';
 import { FavouriteHeart } from './favouriteHeart/FavouriteHeart';
 
 export const Container = styled.div`

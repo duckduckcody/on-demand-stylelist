@@ -4,8 +4,8 @@ import {
   faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
 import { ReactElement, useEffect, useState } from 'react';
-import { ClotheItem } from '../../../../../types/ClotheItem';
-import { useIsMobile } from '../../../../hooks/useIsMobile';
+import { ClotheItem } from '../../../../../../types/ClotheItem';
+import { useIsMobile } from '../../../../../hooks/useIsMobile';
 import { HeartIcon, HeartIconContainer } from './FavouriteHeart.styles';
 
 interface Props {

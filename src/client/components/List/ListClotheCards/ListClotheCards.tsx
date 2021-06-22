@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
-import { ClotheItem } from '../../../types/ClotheItem';
+import { ClotheItem } from '../../../../types/ClotheItem';
 import { ClotheCard } from './clotheCard/ClotheCard';
-import { ClotheCardListContainer } from './ClotheCardList.styles';
+import { ListClotheCardsContainer } from './ListClotheCards.styles';
 
 interface Props {
   clothes: ClotheItem[] | undefined;
@@ -10,13 +10,13 @@ interface Props {
   className?: string;
 }
 
-export const ClotheCardList = ({
+export const ListClotheCards = ({
   clothes,
   favourites,
   onFavouriteClick,
   className,
 }: Props): ReactElement => (
-  <ClotheCardListContainer className={className}>
+  <ListClotheCardsContainer className={className}>
     {clothes &&
       clothes.map((clothe) => (
         <ClotheCard
@@ -28,5 +28,5 @@ export const ClotheCardList = ({
           onFavouriteClick={onFavouriteClick}
         />
       ))}
-  </ClotheCardListContainer>
+  </ListClotheCardsContainer>
 );

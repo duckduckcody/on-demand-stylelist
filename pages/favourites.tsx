@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ClotheCardList } from '../src/client/components/ClotheCardList/ClotheCardList';
+import { ListClotheCards } from '../src/client/components/List/ListClotheCards/ListClotheCards';
 import { LocalStorageKey } from '../src/client/constants';
 import { ClotheItem } from '../src/types/ClotheItem';
 
@@ -41,7 +41,7 @@ export default function Favourites(): ReactElement {
         </NoFavouritesContainer>
       )}
       {favourites && (
-        <ClotheCardList
+        <ListClotheCards
           clothes={favourites}
           favourites={favourites}
           onFavouriteClick={onFavouriteClick}

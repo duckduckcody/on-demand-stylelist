@@ -10,20 +10,20 @@ import {
   ContainerOffset,
   Option,
   OptionsContainer,
-} from './CategoryNameHeader.styles';
+} from './ListOptionsHeader.styles';
 
 interface Props {
-  categoryName: string;
+  context: string;
   limit: number | undefined;
   onChangeLimit: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  clotheSortOption: ClotheSortOption | undefined;
-  onChangeClotheSortOption: (
+  clotheSortOption?: ClotheSortOption | undefined;
+  onChangeClotheSortOption?: (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => void;
 }
 
-export const CategoryNameHeader = ({
-  categoryName,
+export const ListOptionsHeader = ({
+  context,
   limit,
   onChangeLimit,
   clotheSortOption,
@@ -32,7 +32,7 @@ export const CategoryNameHeader = ({
   return (
     <>
       <Container>
-        <span>{categoryName}</span>
+        <span>{context}</span>
         <OptionsContainer>
           <Option htmlFor='limit'>
             Limit per website&nbsp;
@@ -44,19 +44,21 @@ export const CategoryNameHeader = ({
               ))}
             </select>
           </Option>
-          <Option htmlFor='sort'>
-            Sort&nbsp;
-            <select
-              value={clotheSortOption}
-              onChange={onChangeClotheSortOption}
-            >
-              {clotheSortOptionValues.map((sortOption) => (
-                <option key={sortOption} value={sortOption}>
-                  {startCase(sortOption)}
-                </option>
-              ))}
-            </select>
-          </Option>
+          {clotheSortOption && onChangeClotheSortOption && (
+            <Option htmlFor='sort'>
+              Sort&nbsp;
+              <select
+                value={clotheSortOption}
+                onChange={onChangeClotheSortOption}
+              >
+                {clotheSortOptionValues.map((sortOption) => (
+                  <option key={sortOption} value={sortOption}>
+                    {startCase(sortOption)}
+                  </option>
+                ))}
+              </select>
+            </Option>
+          )}
         </OptionsContainer>
       </Container>
       <ContainerOffset />

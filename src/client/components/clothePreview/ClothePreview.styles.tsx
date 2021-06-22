@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MOBILE_BREAKPOINT, ZIndex } from '../../styleConstants';
-import { FavouriteHeart } from '../ClotheCardList/clotheCard/favouriteHeart/FavouriteHeart';
+import { FavouriteHeart } from '../List/ListClotheCards/clotheCard/favouriteHeart/FavouriteHeart';
 import { Icon } from '../Icon';
 import { RelatedProducts } from './RelatedProducts/RelatedProducts';
 
