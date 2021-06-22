@@ -2,10 +2,10 @@ import { uniqBy } from 'lodash';
 import { ClotheInfo } from '../types/ClotheInfo';
 import { ClotheItem } from '../types/ClotheItem';
 import { GetClothesOptions } from '../types/GetClothesOptions';
-import { SearchClothesOptions } from '../types/SearchClothesOptions';
 import { getWebsiteById, Website, WebsiteId, websites } from '../websites';
 import { getClotheInfoAsos } from './asos/getClotheInfoAsos';
 import { getClothesAsos } from './asos/getClothesAsos';
+import { searchAsos } from './asos/searchAsos';
 import { getClotheInfoCoolShirtz } from './coolShirtz/getClotheInfoCoolShirtz';
 import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
 import { searchCoolShirtz } from './coolShirtz/searchCoolShirtz';
@@ -21,7 +21,7 @@ export type getClotheInfoFunction = (clotheUrl: URL) => Promise<ClotheInfo>;
 
 export type searchFunction = (
   query: string,
-  requestOptions: SearchClothesOptions
+  requestOptions: GetClothesOptions
 ) => Promise<Partial<ClotheItem>[]>;
 
 export interface apiWebsite extends Website {
@@ -42,6 +42,7 @@ export const apiWebsites: apiWebsite[] = uniqBy(
       ...getWebsiteById(WebsiteId.ASOS),
       getClothesFunction: getClothesAsos,
       getClotheInfoFunction: getClotheInfoAsos,
+      searchFunction: searchAsos,
     },
     {
       ...getWebsiteById(WebsiteId.CULTURE_KINGS),

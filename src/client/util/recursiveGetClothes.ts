@@ -4,9 +4,11 @@ export const recursiveGetClothes = async <T>(
   clothes: Partial<ClotheItem>[],
   key: string,
   requestOptions: T,
+  makeUrlFunction: (key: string, requestOptions: T) => string,
   requestData: (
     key: string,
-    requestOptions: T
+    requestOptions: T,
+    makeUrlFunction: (key: string, requestOptions: T) => string
   ) => Promise<Partial<ClotheItem>[]>,
   numberOfClothesReturnedByRequest: number,
   numberOfClothesNeeded: number
@@ -19,11 +21,15 @@ export const recursiveGetClothes = async <T>(
   const nextPage =
     Math.trunc(clothes.length / numberOfClothesReturnedByRequest) + 1;
 
-  const nextPageData = await requestData(key, {
-    ...requestOptions,
-    limit: numberOfClothesReturnedByRequest,
-    page: nextPage,
-  });
+  const nextPageData = await requestData(
+    key,
+    {
+      ...requestOptions,
+      limit: numberOfClothesReturnedByRequest,
+      page: nextPage,
+    },
+    makeUrlFunction
+  );
 
   if (nextPageData.length < numberOfClothesReturnedByRequest)
     return clothes.concat(nextPageData);
@@ -32,6 +38,7 @@ export const recursiveGetClothes = async <T>(
     clothes.concat(nextPageData),
     key,
     requestOptions,
+    makeUrlFunction,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded

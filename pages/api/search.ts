@@ -5,7 +5,7 @@ import * as z from 'zod';
 import { apiWebsites } from '../../src/api/apiWebsites';
 import { DEFAULT_CLOTHE_LIMIT } from '../../src/api/constants';
 import { safeParseStringToInt } from '../../src/client/util/safeParseStringToInt';
-import { SearchClothesOptions } from '../../src/types/SearchClothesOptions';
+import { GetClothesOptions } from '../../src/types/GetClothesOptions';
 
 const SearchApiQuerySchema = z.object({
   query: z.string(),
@@ -30,7 +30,7 @@ export default async function handler(
   if (!parsedSelectedWebsites.length)
     return res.status(400).json({ message: 'no websites selected' });
 
-  const searchOptions: SearchClothesOptions = {
+  const searchOptions: GetClothesOptions = {
     limit: safeParseStringToInt(limit) ?? DEFAULT_CLOTHE_LIMIT,
     page: safeParseStringToInt(page) ?? 1,
   };

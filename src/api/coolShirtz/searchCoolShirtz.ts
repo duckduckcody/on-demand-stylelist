@@ -1,6 +1,6 @@
 import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
 import { ClotheItem } from '../../types/ClotheItem';
-import { SearchClothesOptions } from '../../types/SearchClothesOptions';
+import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { searchFunction } from '../apiWebsites';
 import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
@@ -9,7 +9,7 @@ import { scrapeSearchHtml } from './scrapers/scrapeSearchHtml';
 
 export const searchCoolShirtz: searchFunction = async (
   query: string,
-  requestOptions: SearchClothesOptions
+  requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
   const lastIndex = requestOptions.page * requestOptions.limit;
   const firstIndex = lastIndex - requestOptions.limit;
@@ -33,7 +33,7 @@ export const searchCoolShirtz: searchFunction = async (
 
 const requestData = (
   key: string,
-  requestOptions: SearchClothesOptions
+  requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> =>
   fetch(makeCoolShirtzSearchUrl(key, requestOptions), {
     headers: HEADERS,

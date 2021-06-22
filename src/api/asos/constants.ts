@@ -30,7 +30,7 @@ export const sortToApiQueryValueMap = new Map<ClotheSortOption, string>()
 
 const makeQueryString = (requestOptions: GetClothesOptions) => {
   const { page, sort } = requestOptions;
-  const sortQueryValue = sortToApiQueryValueMap.get(sort);
+  const sortQueryValue = sort ? sortToApiQueryValueMap.get(sort) : undefined;
   return `&page=${page}${sortQueryValue ? `&sort=${sortQueryValue}` : ''}`;
 };
 
@@ -38,6 +38,11 @@ export const makeAsosUrl = (
   uri: string,
   requestOptions: GetClothesOptions
 ): string => `${ASOS_BASE_URL}/au${uri}${makeQueryString(requestOptions)}`;
+
+export const makeAsosSearchUrl = (
+  key: string,
+  requestOptions: GetClothesOptions
+): string => `${ASOS_BASE_URL}/au/search/?q=${key}&page=${requestOptions.page}`;
 
 type ImageUrlStyle = 'products' | 'groups';
 export const makeImageUrl = (
