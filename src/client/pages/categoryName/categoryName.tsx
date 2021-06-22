@@ -24,6 +24,7 @@ import { capitaliseString } from '../../util/capitaliseString';
 import { FetcherError, swrFetcher } from '../../util/swrFetcher';
 import { makeUrl } from './makeUrl';
 import { ListLoadMoreButton } from '../../components/List/ListLoadMoreButton/ListLoadMoreButton';
+import { useFavourites } from '../../hooks/useFavourites';
 
 export interface QueryParams {
   gender?: string;
@@ -41,13 +42,13 @@ export const CategoryName = (): ReactElement => {
   } = useRouter();
 
   const window = useWindow();
-  const { selectedWebsites } = useSelectedWebsites();
   const hydratedFromQueryParams = useRef(false);
+  const { selectedWebsites } = useSelectedWebsites();
+  const { favourites, setFavourite } = useFavourites();
 
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const [clotheSortOption, setClotheSortOption] =
     useState<ClotheSortOption | undefined>(undefined);
-  const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
   const url = useMemo(() => window && new URL(window.location.href), [window]);
 
   const categoryName = routerIsReady
@@ -108,11 +109,6 @@ export const CategoryName = (): ReactElement => {
         }
       }
 
-      const favourites: ClotheItem[] = JSON.parse(
-        window?.localStorage.getItem(LocalStorageKey.Favourites) ?? '[]'
-      );
-      setFavourites(favourites);
-
       const sort = parseClotheSortOption(
         window?.localStorage.getItem(LocalStorageKey.Sort)
       );
@@ -142,22 +138,6 @@ export const CategoryName = (): ReactElement => {
     setClotheSortOption(parseClotheSortOption(event.target.value));
   };
 
-  const onFavouriteClick = (clothe: ClotheItem) => {
-    if (favourites) {
-      let favs;
-      if (favourites?.find((fav) => fav.link === clothe.link)) {
-        favs = favourites.filter((fav) => fav.link !== clothe.link);
-      } else {
-        favs = favourites.concat(clothe);
-      }
-      setFavourites(favs);
-      window?.localStorage.setItem(
-        LocalStorageKey.Favourites,
-        JSON.stringify(favs)
-      );
-    }
-  };
-
   if (error) {
     console.log('request error', error);
     return (
@@ -172,8 +152,9 @@ export const CategoryName = (): ReactElement => {
       <Head>
         <title>
           Stylelist
-          {routerIsReady &&
-            capitaliseString(` | ${query.gender}'s ${query.categoryName}`)}
+          {routerIsReady
+            ? capitaliseString(` | ${query.gender}'s ${query.categoryName}`)
+            : ''}
         </title>
       </Head>
 
@@ -188,7 +169,7 @@ export const CategoryName = (): ReactElement => {
       <ListClotheCards
         clothes={clothes}
         favourites={favourites}
-        onFavouriteClick={onFavouriteClick}
+        onFavouriteClick={setFavourite}
       />
 
       <ListLoadMoreButton

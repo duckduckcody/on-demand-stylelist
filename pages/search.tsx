@@ -7,6 +7,7 @@ import { ListClotheCards } from '../src/client/components/List/ListClotheCards/L
 import { ListLoadMoreButton } from '../src/client/components/List/ListLoadMoreButton/ListLoadMoreButton';
 import { ListOptionsHeader } from '../src/client/components/List/ListOptionsHeader/ListOptionsHeader';
 import { DEFAULT_LIMIT, LocalStorageKey } from '../src/client/constants';
+import { useFavourites } from '../src/client/hooks/useFavourites';
 import { useSelectedWebsites } from '../src/client/hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../src/client/hooks/useUpdateUrl';
 import { useWindow } from '../src/client/hooks/useWindow';
@@ -29,9 +30,11 @@ export default function Search(): ReactElement {
   const router = useRouter();
   const window = useWindow();
   const { selectedWebsites } = useSelectedWebsites();
+  const { favourites, setFavourite } = useFavourites();
+
+  const { q } = router.query;
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const url = useMemo(() => window && new URL(window.location.href), [window]);
-  const { q } = router.query;
 
   useUpdateUrl(limit, LocalStorageKey.Limit, url, router.replace, true);
 
@@ -67,8 +70,8 @@ export default function Search(): ReactElement {
 
       <ListClotheCards
         clothes={clothes}
-        favourites={[]}
-        onFavouriteClick={() => undefined}
+        favourites={favourites}
+        onFavouriteClick={setFavourite}
       />
 
       <ListLoadMoreButton
