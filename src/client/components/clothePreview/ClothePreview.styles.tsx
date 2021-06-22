@@ -5,11 +5,13 @@ import { Icon } from '../Icon';
 import { RelatedProducts } from './RelatedProducts/RelatedProducts';
 
 export const LoadingContainer = styled.div`
+  position: relative;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
   height: 100%;
+  width: 700px;
 `;
 
 export const Container = styled.div<{ hasRelatedProducts?: boolean }>`

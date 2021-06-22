@@ -99,6 +99,10 @@ export const ClothePreview = (): ReactElement => {
         >
           {isLoading && (
             <LoadingContainer>
+              <CloseIcon
+                icon={faTimes}
+                onClick={() => setClothePreviewUrl(undefined)}
+              />
               <img src='/loading-spinner.gif' />
               <span>Fetching clothe info</span>
             </LoadingContainer>
