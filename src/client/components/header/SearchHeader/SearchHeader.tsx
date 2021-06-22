@@ -1,5 +1,5 @@
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ReactElement } from 'react';
+import { KeyboardEvent, ReactElement } from 'react';
 import {
   FloatingCloseIcon,
   FloatingSearchIcon,
@@ -19,6 +19,11 @@ export const SearchHeader = ({
   onSearch,
   onCancelSearch,
 }: Props): ReactElement => {
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    e.key === 'Enter' && onSearch();
+    e.key === 'Escape' && onCancelSearch();
+  };
+
   return (
     <>
       <SearchInput
@@ -26,7 +31,7 @@ export const SearchHeader = ({
         type='text'
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && onSearch()}
+        onKeyDown={(e) => onKeyDown(e)}
         placeholder='Search styles...'
       />
       <FloatingCloseIcon icon={faTimes} onClick={onCancelSearch} />
