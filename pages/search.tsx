@@ -15,7 +15,7 @@ import { FetcherError, swrFetcher } from '../src/client/util/swrFetcher';
 import { ClotheItem } from '../src/types/ClotheItem';
 
 const makeUrl = (
-  searchQuery: string | undefined,
+  searchQuery: string | string[] | undefined,
   index: number,
   selectedWebsites: string[],
   limit: number | undefined
@@ -50,7 +50,7 @@ export default function Search(): ReactElement {
   const { data, error, size, setSize } = useSWRInfinite<
     ClotheItem[],
     FetcherError
-  >((index) => makeUrl(`${q}`, index, selectedWebsites, limit), swrFetcher, {
+  >((index) => makeUrl(q, index, selectedWebsites, limit), swrFetcher, {
     revalidateOnFocus: false,
   });
 
