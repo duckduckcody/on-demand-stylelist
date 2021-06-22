@@ -8,7 +8,6 @@ import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
 import {
-  AsosCategory,
   ASOS_LIMIT,
   getAsosCategoryByCategoryId,
   makeAsosUrl,
@@ -28,10 +27,10 @@ export async function getClothesAsos(
   const cacheKey = `asos-${asosCategory.uri}-${requestOptions.sort}`;
   const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
 
-  const clothes = await recursiveGetClothes<AsosCategory>(
-    requestOptions,
+  const clothes = await recursiveGetClothes(
     cachedClothes,
-    asosCategory,
+    asosCategory.uri,
+    requestOptions,
     requestData,
     ASOS_LIMIT,
     lastIndex
@@ -43,10 +42,10 @@ export async function getClothesAsos(
 }
 
 const requestData = async (
-  category: AsosCategory,
+  key: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
-  const response = await fetch(makeAsosUrl(category.uri, requestOptions), {
+  const response = await fetch(makeAsosUrl(key, requestOptions), {
     headers: HEADERS,
   });
   if (!response.ok) {

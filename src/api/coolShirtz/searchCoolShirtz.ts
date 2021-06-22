@@ -1,18 +1,42 @@
+import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
 import { ClotheItem } from '../../types/ClotheItem';
 import { SearchClothesOptions } from '../../types/SearchClothesOptions';
 import { searchFunction } from '../apiWebsites';
+import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
-import { pageClothes } from '../pageClothes';
-import { makeCoolShirtzSearchUrl } from './constants';
+import { COOL_SHIRTZ_SEARCH_LIMIT, makeCoolShirtzSearchUrl } from './constants';
 import { scrapeSearchHtml } from './scrapers/scrapeSearchHtml';
 
 export const searchCoolShirtz: searchFunction = async (
   query: string,
   requestOptions: SearchClothesOptions
+): Promise<Partial<ClotheItem>[]> => {
+  const lastIndex = requestOptions.page * requestOptions.limit;
+  const firstIndex = lastIndex - requestOptions.limit;
+
+  const cacheKey = `cool-shirtz-search-${query}`;
+  const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
+
+  const clothes = await recursiveGetClothes(
+    cachedClothes,
+    query,
+    requestOptions,
+    requestData,
+    COOL_SHIRTZ_SEARCH_LIMIT,
+    lastIndex
+  );
+
+  clothesCache.set(cacheKey, clothes);
+
+  return clothes.slice(firstIndex, lastIndex);
+};
+
+const requestData = (
+  key: string,
+  requestOptions: SearchClothesOptions
 ): Promise<Partial<ClotheItem>[]> =>
-  fetch(makeCoolShirtzSearchUrl(query, requestOptions), {
+  fetch(makeCoolShirtzSearchUrl(key, requestOptions), {
     headers: HEADERS,
   })
     .then((res) => res.text())
-    .then((htmlString) => scrapeSearchHtml(htmlString))
-    .then((clothes) => pageClothes(clothes, requestOptions));
+    .then((htmlString) => scrapeSearchHtml(htmlString));

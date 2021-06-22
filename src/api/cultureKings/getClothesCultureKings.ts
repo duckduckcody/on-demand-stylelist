@@ -30,10 +30,10 @@ export const getClothesCultureKings = async (
   }`;
   const cachedClothes: Partial<ClotheItem>[] = clothesCache.get(cacheKey) || [];
 
-  const clothes = await recursiveGetClothes<{ uri: string }>(
-    requestOptions,
+  const clothes = await recursiveGetClothes(
     cachedClothes,
-    { uri: cultureKingsCid!.uri },
+    cultureKingsCid.uri,
+    requestOptions,
     requestData,
     CULTURE_KINGS_LIMIT,
     lastIndex
@@ -45,15 +45,15 @@ export const getClothesCultureKings = async (
 };
 
 const requestData = (
-  category: { uri: string },
+  key: string,
   requestOptions: GetClothesOptions
 ): Promise<ClotheItem[]> =>
   getCultureKingsAlgoliaIndex(requestOptions.sort)
     .search<CultureKingsAlgoliaHits>('', {
       hitsPerPage: requestOptions.limit,
       page: requestOptions.page - 1,
-      ruleContexts: [`collection-${category.uri}`],
-      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${category.uri}`,
+      ruleContexts: [`collection-${key}`],
+      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}${key}`,
       headers: CULTURE_KINGS_ALGOLIA_HEADERS,
     })
     .then((res) => mapProductValues(res.hits));
