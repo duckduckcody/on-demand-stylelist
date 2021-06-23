@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
 import {
   DEFAULT_CLOTHE_LIMIT,
-  DEFAULT_CLOTHE_SORT
+  DEFAULT_CLOTHE_SORT,
 } from '../../../src/api/constants';
 import { getClothes } from '../../../src/api/getClothes';
 import { categories } from '../../../src/categories';
@@ -23,14 +23,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const {
-    categoryName,
-    gender,
-    page,
-    limit,
-    selectedWebsites,
-    sort,
-  } = req.query;
+  const { categoryName, gender, page, limit, selectedWebsites, sort } =
+    req.query;
 
   const response = CategoryNameApiQuerySchema.safeParse(req.query);
   if (!response.success)
@@ -53,11 +47,18 @@ export default async function handler(
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
-  const clothes = await getClothes(
+  return await getClothes(
     `${category.id}`,
     parsedSelectedWebsites,
     clotheOptions
-  );
-
-  return res.status(200).json(clothes);
+  )
+    .then((clothes) => res.status(200).json(clothes))
+    .catch((error: unknown) =>
+      res.status(500).json({
+        message:
+          error instanceof Error
+            ? error.message
+            : 'A server error has occurred when fetching styles',
+      })
+    );
 }

@@ -15,4 +15,6 @@ export const getClothes = async (
     );
     if (!website || !website.getClothesFunction) return [];
     return website.getClothesFunction(cid, requestOptions);
-  }).then((res) => flatten(res));
+  })
+    .then((res) => flatten(res))
+    .catch((error: unknown) => Promise.reject(error));

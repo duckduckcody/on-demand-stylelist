@@ -1,7 +1,7 @@
 export interface FetcherError {
   message: string;
-  id: number;
   status: number;
+  id: number;
 }
 
 export const swrFetcher = async <JSON = unknown>(
@@ -12,7 +12,7 @@ export const swrFetcher = async <JSON = unknown>(
   if (!res.ok) {
     const json = await res.json();
     const error: FetcherError = {
-      message: json?.message,
+      message: json?.message ?? 'A server error has occurred',
       status: res.status,
       id: json?.id,
     };
