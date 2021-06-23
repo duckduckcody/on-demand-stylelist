@@ -28,5 +28,12 @@ export async function getClothesCoolShirtz(
     .then((clothes) => {
       clothesCache.set(cacheKey, clothes);
       return pageClothes(clothes, requestOptions);
-    });
+    })
+    .catch(() =>
+      Promise.reject(
+        new Error(
+          'A server error has occurred when fetching styles from Cool Shirtz'
+        )
+      )
+    );
 }
