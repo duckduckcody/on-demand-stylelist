@@ -17,10 +17,10 @@ import { ClotheItem } from '../src/types/ClotheItem';
 const makeUrl = (
   searchQuery: string | string[] | undefined,
   index: number,
-  selectedWebsites: string[],
+  selectedWebsites: string[] | undefined,
   limit: number | undefined
 ) => {
-  if (!searchQuery || !limit) return null;
+  if (!searchQuery || !limit || !selectedWebsites) return null;
   return `/api/search?query=${searchQuery}&page=${
     index + 1
   }&selectedWebsites=${JSON.stringify(selectedWebsites)}&limit=${limit}`;

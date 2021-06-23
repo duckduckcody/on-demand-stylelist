@@ -5,12 +5,12 @@ export const makeUrl = (
   query: QueryParams,
   index: number,
   limit: number | undefined,
-  selectedWebsites: string[],
+  selectedWebsites: string[] | undefined,
   clotheSortOption: ClotheSortOption | undefined
 ): string | null => {
   const { gender, categoryName } = query;
 
-  if (!gender || !categoryName || !limit) return null;
+  if (!gender || !categoryName || !limit || !selectedWebsites) return null;
 
   const url = `/api/${gender}/${categoryName}`;
 

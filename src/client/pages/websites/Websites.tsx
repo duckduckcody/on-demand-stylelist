@@ -22,22 +22,25 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
 
   useEffect(
     () =>
-      !selectedWebsites.length ? setOnBoardMode(true) : setOnBoardMode(false),
-    [selectedWebsites.length]
+      selectedWebsites && selectedWebsites.length === 0 ? setOnBoardMode(true) : setOnBoardMode(false),
+    [selectedWebsites]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      setOnBoardMode(false);
-      const cat = selectedWebsites.concat(event.target.value);
-      setSelectedWebsites(cat);
-    } else {
-      const filtered = selectedWebsites.filter(
-        (website) => website !== event.target.value
-      );
-      setSelectedWebsites(filtered);
-      filtered.length === 0 && setOnBoardMode(true);
+    if (selectedWebsites) {
+      if (event.target.checked) {
+        setOnBoardMode(false);
+        const cat = selectedWebsites.concat(event.target.value);
+        setSelectedWebsites(cat);
+      } else {
+        const filtered = selectedWebsites.filter(
+          (website) => website !== event.target.value
+        );
+        setSelectedWebsites(filtered);
+        filtered.length === 0 && setOnBoardMode(true);
+      }
     }
+
   };
 
   return (
@@ -57,7 +60,7 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
             <input
               type='checkbox'
               value={website.id}
-              checked={selectedWebsites.includes(`${website.id}`)}
+              checked={selectedWebsites && selectedWebsites.includes(`${website.id}`)}
               onChange={handleInputChange}
             />
             {website.name}
