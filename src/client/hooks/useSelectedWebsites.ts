@@ -24,6 +24,7 @@ export const useSelectedWebsites = (): ReturnProps => {
     if (window) {
       const websites = window.localStorage.getItem(LocalStorageKey.Websites);
       if (websites) setSelectedWebsitesState(JSON.parse(websites));
+      else setSelectedWebsitesState([]);
     }
   }, [window]);
 
