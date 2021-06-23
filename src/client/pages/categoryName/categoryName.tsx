@@ -56,7 +56,8 @@ export const CategoryName = (): ReactElement => {
     : '';
 
   useEffect(() => {
-    if (window && query && routerPush && selectedWebsites === []) {
+    console.log('selectedWebsites', selectedWebsites);
+    if (window && query && routerPush && selectedWebsites.length === 0) {
       routerPush(`/websites`);
     }
   }, [query, query.gender, routerPush, selectedWebsites, window]);
