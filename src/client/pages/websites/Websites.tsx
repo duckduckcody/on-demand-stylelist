@@ -60,7 +60,7 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
             <input
               type='checkbox'
               value={website.id}
-              checked={selectedWebsites && selectedWebsites.includes(`${website.id}`)}
+              checked={selectedWebsites ? selectedWebsites.includes(`${website.id}`) : false}
               onChange={handleInputChange}
             />
             {website.name}
