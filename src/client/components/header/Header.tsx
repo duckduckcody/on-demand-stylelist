@@ -14,7 +14,7 @@ export const Header = ({ pathName }: HeaderProps): ReactElement => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const [isSearching, setIsSearching] = useState(false);
-  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const onSearchClick = () => setIsSearching(true);
 
@@ -26,7 +26,7 @@ export const Header = ({ pathName }: HeaderProps): ReactElement => {
   };
 
   const onCancelSearch = () => {
-    setSearchQuery(undefined);
+    setSearchQuery('');
     setIsSearching(false);
   };
 

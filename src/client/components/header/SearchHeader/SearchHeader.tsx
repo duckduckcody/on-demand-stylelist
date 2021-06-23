@@ -7,7 +7,7 @@ import {
 } from './SearchHeader.styles';
 
 interface Props {
-  searchQuery: string | undefined;
+  searchQuery: string;
   setSearchQuery: (value: string) => void;
   onSearch: VoidFunction;
   onCancelSearch: VoidFunction;
