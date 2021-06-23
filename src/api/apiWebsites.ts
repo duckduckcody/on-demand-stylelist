@@ -11,6 +11,7 @@ import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
 import { searchCoolShirtz } from './coolShirtz/searchCoolShirtz';
 import { getClotheInfoCultureKings } from './cultureKings/getClotheInfoCultureKings';
 import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
+import { searchCultureKings } from './cultureKings/searchCultureKings';
 
 export type getClothesFunction = (
   cid: string,
@@ -48,6 +49,7 @@ export const apiWebsites: apiWebsite[] = uniqBy(
       ...getWebsiteById(WebsiteId.CULTURE_KINGS),
       getClothesFunction: getClothesCultureKings,
       getClotheInfoFunction: getClotheInfoCultureKings,
+      searchFunction: searchCultureKings,
     },
     ...websites,
   ],

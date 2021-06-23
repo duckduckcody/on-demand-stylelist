@@ -13,6 +13,9 @@ export const recursiveGetClothes = async <T>(
   numberOfClothesReturnedByRequest: number,
   numberOfClothesNeeded: number
 ): Promise<Partial<ClotheItem>[]> => {
+  if (clothes.length > 0 && clothes.length < numberOfClothesReturnedByRequest)
+    return clothes;
+
   if (numberOfClothesNeeded <= clothes.length) {
     return clothes;
   }
