@@ -39,6 +39,11 @@ const requestData = async (
   requestOptions: GetClothesOptions,
   makeUrlFunction: (key: string, requestOptions: GetClothesOptions) => string
 ): Promise<Partial<ClotheItem>[]> => {
+  console.log(
+    'makeUrlFunction(key, requestOptions)',
+    makeUrlFunction(key, requestOptions)
+  );
+
   const response = await fetch(makeUrlFunction(key, requestOptions), {
     headers: HEADERS,
   });
