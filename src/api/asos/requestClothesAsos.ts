@@ -45,7 +45,7 @@ const requestData = async (
   );
 
   const response = await fetch(makeUrlFunction(key, requestOptions), {
-    headers: HEADERS,
+    headers: { ...HEADERS, Host: `www.asos.com` },
   });
   if (!response.ok) {
     return response.text().then((res: unknown) => {
