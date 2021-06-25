@@ -49,6 +49,8 @@ const requestData = async (
     });
   }
 
+  console.log('ASOS RESPONSE OKAY');
+
   const htmlString = await response.text();
   return scrapeHtml(htmlString);
 };
@@ -94,6 +96,6 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
       website: 'Asos',
     });
   }
-  
+
   return collectedProducts;
 };
