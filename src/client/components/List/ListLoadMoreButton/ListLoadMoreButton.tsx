@@ -1,4 +1,3 @@
-import { FetchError } from 'node-fetch';
 import { ReactElement } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
 import { FetcherError } from '../../../util/swrFetcher';
