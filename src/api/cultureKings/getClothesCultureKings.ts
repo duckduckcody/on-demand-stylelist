@@ -43,12 +43,21 @@ const requestData = async (
     ? getCultureKingsAlgoliaIndex(requestOptions.sort)
     : defaultCultureKingsAlgoliaIndex;
 
-  const res = await index.search<CultureKingsAlgoliaHits>('', {
-    hitsPerPage: requestOptions.limit,
-    page: requestOptions.page - 1,
-    ruleContexts: [`collection-${key}`],
-    filters: `${CULTURE_KINGS_ALGOLIA_LIST_FILTERS}${key}`,
-    headers: CULTURE_KINGS_ALGOLIA_HEADERS,
-  });
-  return mapCultureKingsProductValues(res.hits);
+  return await index
+    .search<CultureKingsAlgoliaHits>('', {
+      hitsPerPage: requestOptions.limit,
+      page: requestOptions.page - 1,
+      ruleContexts: [`collection-${key}`],
+      filters: `${CULTURE_KINGS_ALGOLIA_LIST_FILTERS}${key}`,
+      headers: CULTURE_KINGS_ALGOLIA_HEADERS,
+    })
+    .then((res) => mapCultureKingsProductValues(res.hits))
+    .catch((e) => {
+      console.error('Error scraping Culture kings', e);
+      return Promise.reject(
+        new Error(
+          `A server error has occurred when fetching styles from Culture Kings`
+        )
+      );
+    });
 };

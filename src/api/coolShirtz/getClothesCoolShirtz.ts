@@ -29,11 +29,12 @@ export async function getClothesCoolShirtz(
       clothesCache.set(cacheKey, clothes);
       return pageClothes(clothes, requestOptions);
     })
-    .catch(() =>
-      Promise.reject(
+    .catch((e) => {
+      console.error('Error scraping Cool Shirtz', e);
+      return Promise.reject(
         new Error(
           'A server error has occurred when fetching styles from Cool Shirtz'
         )
-      )
-    );
+      );
+    });
 }
