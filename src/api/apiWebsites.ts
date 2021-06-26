@@ -8,6 +8,7 @@ import { searchCoolShirtz } from './coolShirtz/searchCoolShirtz';
 import { getClotheInfoCultureKings } from './cultureKings/getClotheInfoCultureKings';
 import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
 import { searchCultureKings } from './cultureKings/searchCultureKings';
+import { getClotheInfoUniversalStore } from './universalStore/getClotheInfoUniversalStore';
 import { getClothesUniversalStore } from './universalStore/getClothesUniversalStore';
 
 export type getClothesFunction = (
@@ -44,5 +45,6 @@ export const apiWebsites: apiWebsite[] = [
   {
     ...getWebsiteById(WebsiteId.UNIVERSAL_STORE),
     getClothesFunction: getClothesUniversalStore,
+    getClotheInfoFunction: getClotheInfoUniversalStore,
   },
 ];
