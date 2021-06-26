@@ -3,11 +3,11 @@ import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { requestClothes } from '../common/requestClothes';
 import { HEADERS } from '../constants';
 import {
-  makeUniversalStoreUrl,
+  makeUniversalStoreListUrl,
   universalStoreCidMap,
   UNIVERSAL_STORE_LIMIT,
 } from './constants';
-import { scrapeListHtml } from './scrapeListHtml';
+import { scrapeListHtml } from './scrapers/scrapeListHtml';
 
 export const getClothesUniversalStore = async (
   cid: string,
@@ -32,7 +32,7 @@ const requestData = (
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
   const fetchStart = process.hrtime();
-  return fetch(makeUniversalStoreUrl(key, requestOptions), {
+  return fetch(makeUniversalStoreListUrl(key, requestOptions), {
     headers: HEADERS,
   })
     .then((res) => {

@@ -40,7 +40,7 @@ export const sortToQueryStringValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.PRICE_HIGH_TO_LOW, 'high_to_low')
   .set(ClotheSortOption.PRICE_LOW_TO_HIGH, 'low_to_high');
 
-export const makeUniversalStoreUrl = (
+export const makeUniversalStoreListUrl = (
   uri: string,
   requestOptions: GetClothesOptions
 ): string => {
@@ -57,8 +57,8 @@ export const makeUniversalStoreUrl = (
   return url;
 };
 
-// export const makeCoolShirtzSearchUrl = (
-//   query: string,
-//   requestOptions: GetClothesOptions
-// ): string =>
-//   `https://shirtz.cool/search?type=product&q=${query}&page=${requestOptions.page}`;
+export const makeUniversalStoreSearchUrl = (
+  query: string,
+  requestOptions: GetClothesOptions
+): string =>
+  `${UNIVERSAL_STORE_BASE_URL}/catalogsearch/result/?q=${query}&p=${requestOptions.page}`;

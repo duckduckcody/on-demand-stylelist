@@ -1,5 +1,5 @@
 import { ClotheInfo } from '../../types/ClotheInfo';
-import { scrapeClotheInfoUniversalStore } from './scrapeClotheInfoUniversalStore';
+import { scrapeClotheInfoUniversalStore } from './scrapers/scrapeClotheInfoUniversalStore';
 
 export const getClotheInfoUniversalStore = async (
   clotheUrl: URL

@@ -1,8 +1,8 @@
 import { JSDOM } from 'jsdom';
-import { parsePrice } from '../../client/util/parsePrice';
-import { ClotheInfo, ClotheInfoImages } from '../../types/ClotheInfo';
-import { WebsiteId } from '../../websites';
-import { UNIVERSAL_STORE_LOGO } from './constants';
+import { parsePrice } from '../../../client/util/parsePrice';
+import { ClotheInfo, ClotheInfoImages } from '../../../types/ClotheInfo';
+import { WebsiteId } from '../../../websites';
+import { UNIVERSAL_STORE_LOGO } from '../constants';
 
 export const scrapeClotheInfoUniversalStore = (
   htmlString: string,

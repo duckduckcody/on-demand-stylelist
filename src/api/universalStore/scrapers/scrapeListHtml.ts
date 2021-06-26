@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom';
-import { absoluteUrl } from '../../client/util/absoluteUrl';
-import { parsePrice } from '../../client/util/parsePrice';
-import { ClotheItem } from '../../types/ClotheItem';
+import { absoluteUrl } from '../../../client/util/absoluteUrl';
+import { parsePrice } from '../../../client/util/parsePrice';
+import { ClotheItem } from '../../../types/ClotheItem';
 
 export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
   const html = new JSDOM(htmlString);

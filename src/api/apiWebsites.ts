@@ -10,6 +10,7 @@ import { getClothesCultureKings } from './cultureKings/getClothesCultureKings';
 import { searchCultureKings } from './cultureKings/searchCultureKings';
 import { getClotheInfoUniversalStore } from './universalStore/getClotheInfoUniversalStore';
 import { getClothesUniversalStore } from './universalStore/getClothesUniversalStore';
+import { searchUniversalStore } from './universalStore/searchUniversalStore';
 
 export type getClothesFunction = (
   cid: string,
@@ -46,5 +47,6 @@ export const apiWebsites: apiWebsite[] = [
     ...getWebsiteById(WebsiteId.UNIVERSAL_STORE),
     getClothesFunction: getClothesUniversalStore,
     getClotheInfoFunction: getClotheInfoUniversalStore,
+    searchFunction: searchUniversalStore,
   },
 ];
