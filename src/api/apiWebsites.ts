@@ -3,9 +3,6 @@ import { ClotheInfo } from '../types/ClotheInfo';
 import { ClotheItem } from '../types/ClotheItem';
 import { GetClothesOptions } from '../types/GetClothesOptions';
 import { getWebsiteById, Website, WebsiteId, websites } from '../websites';
-import { getClotheInfoAsos } from './asos/getClotheInfoAsos';
-import { getClothesAsos } from './asos/getClothesAsos';
-import { searchAsos } from './asos/searchAsos';
 import { getClotheInfoCoolShirtz } from './coolShirtz/getClotheInfoCoolShirtz';
 import { getClothesCoolShirtz } from './coolShirtz/getClothesCoolShirtz';
 import { searchCoolShirtz } from './coolShirtz/searchCoolShirtz';
@@ -38,12 +35,6 @@ export const apiWebsites: apiWebsite[] = uniqBy(
       getClothesFunction: getClothesCoolShirtz,
       getClotheInfoFunction: getClotheInfoCoolShirtz,
       searchFunction: searchCoolShirtz,
-    },
-    {
-      ...getWebsiteById(WebsiteId.ASOS),
-      getClothesFunction: getClothesAsos,
-      getClotheInfoFunction: getClotheInfoAsos,
-      searchFunction: searchAsos,
     },
     {
       ...getWebsiteById(WebsiteId.CULTURE_KINGS),

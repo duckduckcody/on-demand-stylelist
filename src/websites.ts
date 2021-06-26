@@ -1,4 +1,3 @@
-import { ASOS_BASE_URL, ASOS_LOGO } from './api/asos/constants';
 import {
   COOL_SHIRTZ_BASE_URL,
   COOL_SHIRTZ_LOGO,
@@ -27,12 +26,6 @@ export const websites: Website[] = [
     id: WebsiteId.COOL_SHIRTZ,
     baseUrl: COOL_SHIRTZ_BASE_URL,
     logo: COOL_SHIRTZ_LOGO,
-  },
-  {
-    name: 'Asos',
-    id: WebsiteId.ASOS,
-    baseUrl: ASOS_BASE_URL,
-    logo: ASOS_LOGO,
   },
   {
     name: 'Culture Kings',
