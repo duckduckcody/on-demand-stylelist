@@ -3,7 +3,7 @@ import { ClotheSortOption } from '../../types/ClotheSort';
 import { Gender } from '../../types/Gender';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
 
-export const UNIVERSAL_STORE_BASE_URL = 'https://universalstore.com';
+export const UNIVERSAL_STORE_BASE_URL = 'https://www.universalstore.com';
 
 export const UNIVERSAL_STORE_LOGO =
   'https://www.universalstore.com/static/version1624394318/frontend/universalstore/universalstore/en_AU/images/logo.png';

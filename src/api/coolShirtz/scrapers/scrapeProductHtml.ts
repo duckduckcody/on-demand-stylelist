@@ -22,16 +22,8 @@ export const scrapeProductHtml = (htmlString: string): ClotheItem[] => {
     );
 
     const moneyElements = product.getElementsByClassName('money');
-
-    const discountedPrice = parsePrice(
-      moneyElements.length === 1 ? undefined : moneyElements[0].textContent
-    );
-
-    const price = parsePrice(
-      moneyElements.length === 1
-        ? moneyElements[0].textContent
-        : moneyElements[1].textContent
-    );
+    const oldPrice = parsePrice(moneyElements[1]?.textContent);
+    const price = parsePrice(moneyElements[0].textContent);
 
     if (!name || !price || !link || !image) {
       console.log('cool shirtz - error scraping product', {
@@ -46,7 +38,7 @@ export const scrapeProductHtml = (htmlString: string): ClotheItem[] => {
     collectedProducts.push({
       name,
       price,
-      discountedPrice,
+      oldPrice,
       link,
       image,
       website: 'Cool Shirtz',

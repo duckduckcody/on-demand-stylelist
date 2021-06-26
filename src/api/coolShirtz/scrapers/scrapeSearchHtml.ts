@@ -14,22 +14,14 @@ export const scrapeSearchHtml = (htmlString: string): Partial<ClotheItem>[] => {
     const imageElement = linkElement.getElementsByTagName('img')[0];
 
     const moneyElements = product.getElementsByClassName('money');
-
-    const discountedPrice = parsePrice(
-      moneyElements.length === 1 ? undefined : moneyElements[0].textContent
-    );
-
-    const price = parsePrice(
-      moneyElements.length === 1
-        ? moneyElements[0].textContent
-        : moneyElements[1].textContent
-    );
+    const oldPrice = parsePrice(moneyElements[1]?.textContent);
+    const price = parsePrice(moneyElements[0].textContent);
 
     collectedProducts.push({
       name: linkElement.getAttribute('title') || 'my name jeff',
       link: link,
       image: absoluteUrl(imageElement.getAttribute('src')) || 'my image jeff',
-      discountedPrice,
+      oldPrice,
       price,
       website: 'Cool Shirtz',
     });

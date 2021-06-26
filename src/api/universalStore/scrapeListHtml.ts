@@ -18,8 +18,11 @@ export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
     const price = parsePrice(
       priceContainer.getElementsByClassName('normal-price')[0]?.textContent
     );
-    const discountedPrice = parsePrice(
-      priceContainer.getElementsByClassName('old-price')[0]?.textContent
+
+    const oldPrice = parsePrice(
+      priceContainer
+        .getElementsByClassName('old-price')[0]
+        ?.textContent?.replace('Regular Price', '')
     );
 
     collectedProducts.push({
@@ -27,7 +30,7 @@ export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
       link: imageContainer.getAttribute('href') || 'my name jeff',
       image: absoluteUrl(image.getAttribute('src')) || 'my image jeff',
       price,
-      discountedPrice,
+      oldPrice,
       website: 'Universal Store',
     });
   }

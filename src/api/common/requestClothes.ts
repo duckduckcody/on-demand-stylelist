@@ -22,7 +22,6 @@ export const requestClothes = async (
     cachedClothes,
     key,
     requestOptions,
-    () => '',
     requestData,
     websitesLimit,
     lastIndex

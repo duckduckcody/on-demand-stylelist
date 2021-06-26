@@ -50,16 +50,16 @@ export const ClotheCard = ({
       <InfoContainer>
         <WebsiteName>{clothe.website}</WebsiteName>
         <Price>
-          {clothe.discountedPrice && (
+          {clothe.oldPrice && (
             <>
-              ${clothe.discountedPrice} <OldPrice>${clothe.price}</OldPrice>{' '}
+              ${clothe.price} <OldPrice>${clothe.oldPrice}</OldPrice>{' '}
               {Math.trunc(
-                ((clothe.price - clothe.discountedPrice) / clothe.price) * 100
+                ((clothe.price - clothe.oldPrice) / clothe.price) * 100
               )}
               % off
             </>
           )}
-          {!clothe.discountedPrice && `$${clothe.price}`}
+          {!clothe.oldPrice && `$${clothe.price}`}
         </Price>
         <ClotheName>{clothe.name}</ClotheName>
       </InfoContainer>

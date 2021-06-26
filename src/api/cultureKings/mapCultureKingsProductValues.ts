@@ -7,8 +7,8 @@ export const mapCultureKingsProductValues = (
 ): ClotheItem[] =>
   hits.map((product) => ({
     name: product.title,
-    discountedPrice: product.compareAtPrice ? product.price : undefined,
-    price: product.compareAtPrice ? product.compareAtPrice : product.price,
+    oldPrice: product.compareAtPrice > 0 ? product.compareAtPrice : undefined,
+    price: product.price,
     link: `${CULTURE_KINGS_URL}/products/${product.handle}?productId=${product.styleGroup}&gender=${product.gender}`,
     image: product.image,
     productId: product.styleGroup,

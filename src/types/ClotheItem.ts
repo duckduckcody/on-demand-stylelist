@@ -1,7 +1,7 @@
 export interface ClotheItem {
   name: string;
   price: number;
-  discountedPrice?: number;
+  oldPrice?: number;
   link: string;
   image: string;
   fallbackImage?: string;

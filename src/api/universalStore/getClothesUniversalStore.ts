@@ -13,13 +13,13 @@ export const getClothesUniversalStore = async (
   cid: string,
   requestOptions: GetClothesOptions
 ): Promise<Partial<ClotheItem>[]> => {
-  const cultureKingsCid = universalStoreCidMap.get(parseInt(cid));
-  if (!cultureKingsCid) return Promise.resolve([]);
+  const universalStoreCid = universalStoreCidMap.get(parseInt(cid));
+  if (!universalStoreCid) return Promise.resolve([]);
 
-  const cacheKey = `universal-store-${cultureKingsCid}-${requestOptions.sort}`;
+  const cacheKey = `universal-store-${universalStoreCid}-${requestOptions.sort}`;
 
   return await requestClothes(
-    cultureKingsCid,
+    universalStoreCid,
     cacheKey,
     UNIVERSAL_STORE_LIMIT,
     requestOptions,

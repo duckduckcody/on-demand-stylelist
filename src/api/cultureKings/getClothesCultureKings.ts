@@ -50,6 +50,7 @@ const requestData = async (
       ruleContexts: [`collection-${key}`],
       filters: `${CULTURE_KINGS_ALGOLIA_LIST_FILTERS}${key}`,
       headers: CULTURE_KINGS_ALGOLIA_HEADERS,
+      enableRules: true,
     })
     .then((res) => mapCultureKingsProductValues(res.hits))
     .catch((e) => {

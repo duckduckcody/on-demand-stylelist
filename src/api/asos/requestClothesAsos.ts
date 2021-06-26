@@ -89,7 +89,7 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     const price = parsePrice(
       pElements[1].getElementsByClassName('_16nzq18')[0]?.textContent
     );
-    const discountedPrice = parsePrice(
+    const oldPrice = parsePrice(
       pElements[1].getElementsByClassName('_3VjzNxC')[0]?.textContent
     );
     const link = product
@@ -113,7 +113,7 @@ const scrapeHtml = (htmlString: string): ClotheItem[] => {
     collectedProducts.push({
       name,
       price,
-      discountedPrice,
+      oldPrice,
       link,
       image,
       fallbackImage,
