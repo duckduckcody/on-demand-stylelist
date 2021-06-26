@@ -1,6 +1,7 @@
 import { Promise } from 'bluebird';
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { requestClothes } from '../common/requestClothes';
 import {
   CultureKingsAlgoliaHits,
   CULTURE_KINGS_ALGOLIA_HEADERS,
@@ -10,11 +11,9 @@ import {
 import {
   cultureKingsCidMap,
   CULTURE_KINGS_ALGOLIA_LIST_FILTERS,
+  CULTURE_KINGS_LIMIT,
 } from './constants';
-import {
-  mapCultureKingsProductValues,
-  requestClothesCultureKings,
-} from './requestClothesCultureKings';
+import { mapCultureKingsProductValues } from './mapCultureKingsProductValues';
 
 export const getClothesCultureKings = async (
   cid: string,
@@ -27,9 +26,10 @@ export const getClothesCultureKings = async (
     requestOptions.sort
   }`;
 
-  return await requestClothesCultureKings(
+  return await requestClothes(
     cultureKingsCid.uri,
     cacheKey,
+    CULTURE_KINGS_LIMIT,
     requestOptions,
     requestData
   );

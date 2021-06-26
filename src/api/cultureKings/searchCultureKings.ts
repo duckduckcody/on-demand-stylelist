@@ -1,15 +1,16 @@
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { requestClothes } from '../common/requestClothes';
 import {
   CultureKingsAlgoliaHits,
   CULTURE_KINGS_ALGOLIA_HEADERS,
   defaultCultureKingsAlgoliaIndex,
 } from './algoliaIndex';
-import { CULTURE_KINGS_ALGOLIA_FILTERS } from './constants';
 import {
-  mapCultureKingsProductValues,
-  requestClothesCultureKings,
-} from './requestClothesCultureKings';
+  CULTURE_KINGS_ALGOLIA_FILTERS,
+  CULTURE_KINGS_LIMIT,
+} from './constants';
+import { mapCultureKingsProductValues } from './mapCultureKingsProductValues';
 
 export const searchCultureKings = async (
   query: string,
@@ -17,9 +18,10 @@ export const searchCultureKings = async (
 ): Promise<Partial<ClotheItem>[]> => {
   const cacheKey = `culture-kings-search-${query}`;
 
-  return await requestClothesCultureKings(
+  return await requestClothes(
     query,
     cacheKey,
+    CULTURE_KINGS_LIMIT,
     requestOptions,
     requestData
   );
