@@ -2,7 +2,6 @@ import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
-import { pageClothes } from '../pageClothes';
 import { coolShirtzCidMap, makeCoolShirtzUrl } from './constants';
 import { scrapeProductHtml } from './scrapers/scrapeProductHtml';
 
@@ -38,3 +37,13 @@ export async function getClothesCoolShirtz(
       );
     });
 }
+
+const pageClothes = (
+  clothes: Partial<ClotheItem>[],
+  requestOptions: { page: number; limit: number }
+): Partial<ClotheItem>[] => {
+  if (!clothes) return [];
+  const bottom = (requestOptions.page - 1) * requestOptions.limit;
+  const top = bottom + requestOptions.limit;
+  return clothes!.slice(bottom, top);
+};
