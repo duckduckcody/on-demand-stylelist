@@ -12,6 +12,7 @@ interface Props {
     size: number | ((size: number) => number)
   ) => Promise<ClotheItem[][] | undefined>;
   error: FetcherError | undefined;
+  isEmptyMessage?: string;
 }
 
 export const ListLoadMoreButton = ({
@@ -21,6 +22,7 @@ export const ListLoadMoreButton = ({
   size,
   setSize,
   error,
+  isEmptyMessage,
 }: Props): ReactElement => {
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
@@ -40,7 +42,11 @@ export const ListLoadMoreButton = ({
         <>
           {!isLoadingMore &&
             isEndOfData &&
-            (isEmpty ? 'no clothes found :(' : 'no more clothes :(')}
+            (isEmpty
+              ? isEmptyMessage
+                ? isEmptyMessage
+                : 'no styles found :('
+              : 'no more styles :(')}
 
           {!isEndOfData && (
             <LoadMoreButton

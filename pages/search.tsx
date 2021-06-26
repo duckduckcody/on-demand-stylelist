@@ -75,6 +75,7 @@ export default function Search(): ReactElement {
         size={size}
         setSize={setSize}
         error={error}
+        isEmptyMessage={`No styles found for: ${q} :(`}
       />
     </>
   );
