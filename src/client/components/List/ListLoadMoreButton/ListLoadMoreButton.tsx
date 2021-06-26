@@ -1,3 +1,4 @@
+import { FetchError } from 'node-fetch';
 import { ReactElement } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
 import { FetcherError } from '../../../util/swrFetcher';
@@ -34,7 +35,7 @@ export const ListLoadMoreButton = ({
 
   return (
     <ButtonContainer>
-      {error && `${error.message}`}
+      {error && error !== undefined && `${error.message}`}
 
       {!error && (
         <>
