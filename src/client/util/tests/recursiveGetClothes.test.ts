@@ -1,7 +1,7 @@
 import { ClotheItem } from '../../../types/ClotheItem';
 import { ClotheSortOption } from '../../../types/ClotheSort';
 import { GetClothesOptions } from '../../../types/GetClothesOptions';
-import { recursiveGetClothes } from '../recursiveGetClothes';
+import { recursiveGetClothes } from '../../../api/common/recursiveGetClothes';
 
 const requestOptions: GetClothesOptions = {
   limit: 10,
@@ -16,7 +16,7 @@ const makeClothes = (amount: number): Partial<ClotheItem>[] =>
 
 type s = (
   key: string,
-  requestOptions: GetClothesOptions, 
+  requestOptions: GetClothesOptions,
   makeUrlFunction: (key: string, requestOptions: GetClothesOptions) => string
 ) => Promise<Partial<ClotheItem>[]>;
 
@@ -32,7 +32,7 @@ test('10 clothes needed when 10 is returned should recurse once', async () => {
 
   const responseClothes = await recursiveGetClothes(
     [],
-    'test-uri' ,
+    'test-uri',
     requestOptions,
     (key: string) => key,
     requestData,
@@ -54,7 +54,7 @@ test('10 clothes needed when 5 is returned should recurse twice', async () => {
 
   const responseClothes = await recursiveGetClothes(
     [],
-    'test-uri' ,
+    'test-uri',
     requestOptions,
     (key: string) => key,
     requestData,
@@ -76,7 +76,7 @@ test('should recurse 10 times', async () => {
 
   const responseClothes = await recursiveGetClothes(
     [],
-    'test-uri' ,
+    'test-uri',
     requestOptions,
     (key: string) => key,
     requestData,
@@ -98,7 +98,7 @@ test('should recurse 4 times', async () => {
 
   const responseClothes = await recursiveGetClothes(
     [],
-    'test-uri' ,
+    'test-uri',
     requestOptions,
     (key: string) => key,
     requestData,
@@ -120,15 +120,15 @@ test('stop recursing if less than expected is returned from request', async () =
     )
     .mockImplementationOnce(() => Promise.resolve(makeClothes(2)));
 
-    const responseClothes = await recursiveGetClothes(
-      [],
-      'test-uri' ,
-      requestOptions,
-      (key: string) => key,
-      requestData,
-      numberOfClothesReturnedByRequest,
-      numberOfClothesNeeded
-    );
+  const responseClothes = await recursiveGetClothes(
+    [],
+    'test-uri',
+    requestOptions,
+    (key: string) => key,
+    requestData,
+    numberOfClothesReturnedByRequest,
+    numberOfClothesNeeded
+  );
 
   expect(responseClothes.length).toBe(11);
   expect(requestData).toBeCalledTimes(2);
@@ -143,15 +143,15 @@ test('stop recursing if zero is returned from request', async () => {
     .mockImplementationOnce(() => Promise.resolve(makeClothes(10)))
     .mockImplementationOnce(() => Promise.resolve(makeClothes(0)));
 
-    const responseClothes = await recursiveGetClothes(
-      [],
-      'test-uri' ,
-      requestOptions,
-      (key: string) => key,
-      requestData,
-      numberOfClothesReturnedByRequest,
-      numberOfClothesNeeded
-    );
+  const responseClothes = await recursiveGetClothes(
+    [],
+    'test-uri',
+    requestOptions,
+    (key: string) => key,
+    requestData,
+    numberOfClothesReturnedByRequest,
+    numberOfClothesNeeded
+  );
 
   expect(responseClothes.length).toBe(20);
   expect(requestData).toBeCalledTimes(3);

@@ -1,6 +1,6 @@
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { clothesCache } from '../cache';
+import { clothesCache } from '../common/cache';
 import { HEADERS } from '../constants';
 import { coolShirtzCidMap, makeCoolShirtzUrl } from './constants';
 import { scrapeProductHtml } from './scrapers/scrapeProductHtml';

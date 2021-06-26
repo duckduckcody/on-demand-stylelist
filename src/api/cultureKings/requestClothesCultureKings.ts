@@ -1,7 +1,7 @@
-import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { clothesCache } from '../cache';
+import { clothesCache } from '../common/cache';
+import { recursiveGetClothes } from '../common/recursiveGetClothes';
 import { CultureKingsAlgoliaHits } from './algoliaIndex';
 import { CULTURE_KINGS_LIMIT, CULTURE_KINGS_URL } from './constants';
 

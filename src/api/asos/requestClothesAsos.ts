@@ -1,12 +1,12 @@
 import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import { parsePrice } from '../../client/util/parsePrice';
-import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
+import { recursiveGetClothes } from '../common/recursiveGetClothes';
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { clothesCache } from '../cache';
 import { HEADERS } from '../constants';
 import { ASOS_LIMIT, makeImageUrl } from './constants';
+import { clothesCache } from '../common/cache';
 
 export const requestClothesAsos = async (
   cacheKey: string,

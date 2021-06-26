@@ -1,8 +1,8 @@
-import { recursiveGetClothes } from '../../client/util/recursiveGetClothes';
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { searchFunction } from '../apiWebsites';
-import { clothesCache } from '../cache';
+import { clothesCache } from '../common/cache';
+import { recursiveGetClothes } from '../common/recursiveGetClothes';
 import { HEADERS } from '../constants';
 import { COOL_SHIRTZ_SEARCH_LIMIT, makeCoolShirtzSearchUrl } from './constants';
 import { scrapeSearchHtml } from './scrapers/scrapeSearchHtml';
