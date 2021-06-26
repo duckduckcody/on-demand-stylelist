@@ -3,16 +3,16 @@ import { ClotheSortOption } from '../../types/ClotheSort';
 import { Gender } from '../../types/Gender';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
 
-export const UNIVERSAL_STORE_BASE_URL = 'https:/universalstore.com';
+export const UNIVERSAL_STORE_BASE_URL = 'https://universalstore.com';
 
-export const COOL_SHIRTZ_LOGO =
+export const UNIVERSAL_STORE_LOGO =
   'https://www.universalstore.com/static/version1624394318/frontend/universalstore/universalstore/en_AU/images/logo.png';
 
 export const SORT_QUERY_STRING_KEY = 'product_list_order';
 
 const PAGE_KEY = 'p';
 
-export const COOL_SHIRTZ_SEARCH_LIMIT = 30;
+export const UNIVERSAL_STORE_LIMIT = 30;
 
 export const universalStoreCidMap = new Map<number, string>()
   .set(getCategoryId(CategoryName.SHIRTS, Gender.MEN), '/mens/t-shirts')
