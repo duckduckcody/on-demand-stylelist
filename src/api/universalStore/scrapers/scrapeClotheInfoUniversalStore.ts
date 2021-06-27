@@ -20,7 +20,7 @@ export const scrapeClotheInfoUniversalStore = (
   const description = $($('.info')[0]).text().trim();
 
   let images: ClotheInfoImages[] = [];
-  const image = $($($('loader')[0]).find('img')[0]).attr('src');
+  const image = $($($('.loader')[0]).find('img')[0]).attr('src');
   if (image) images = [{ thumbnail: image, image: image }];
 
   if (!description || images.length === 0 || !name || !price) {
