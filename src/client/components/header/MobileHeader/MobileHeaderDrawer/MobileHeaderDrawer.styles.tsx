@@ -18,11 +18,11 @@ export const LinkText = styled.a<{ selected?: boolean }>`
   padding: 15px 10px;
   margin: 5px 0;
   color: inherit;
-  text-decoration: ${(props) => (props.selected ? 'underline' : 'none')};
-  background-color: ${(props) =>
-    props.selected
-      ? props.theme.secondaryHeaderBackgroundColor
-      : 'transparent'};
+  text-decoration: none;
+  border-bottom: ${(p) =>
+    p.selected ? `3px solid ${p.theme.highlight}` : 'none'};
+  background-color: ${(p) =>
+    p.selected ? p.theme.secondaryHeaderBackgroundColor : 'transparent'};
 
   &:active {
     background-color: rgba(0, 0, 0, 0.4);
