@@ -9,6 +9,7 @@ export enum CategoryName {
   JEANS = 'jeans',
   SHOES = 'shoes',
   BOOTS = 'boots',
+  SALE = 'sale',
   SKIRTS = 'skirts',
   DRESSES = 'dresses',
   TRACK_PANTS = 'track pants',
@@ -31,9 +32,11 @@ export const categories: Category[] = [
   { id: id++, name: CategoryName.TRACK_PANTS, gender: Gender.MEN },
   { id: id++, name: CategoryName.SHOES, gender: Gender.MEN },
   { id: id++, name: CategoryName.BOOTS, gender: Gender.MEN },
+  { id: id++, name: CategoryName.SALE, gender: Gender.MEN },
   { id: id++, name: CategoryName.SKIRTS, gender: Gender.WOMEN },
   { id: id++, name: CategoryName.DRESSES, gender: Gender.WOMEN },
   { id: id++, name: CategoryName.TRACK_PANTS, gender: Gender.WOMEN },
+  { id: id++, name: CategoryName.SALE, gender: Gender.WOMEN },
 ];
 export const getCategoryId = (name: CategoryName, gender: Gender): number => {
   const cat = categories.find(

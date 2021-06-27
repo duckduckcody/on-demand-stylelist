@@ -3,7 +3,7 @@ export interface CustomTheme {
   backgroundColor: string;
   headerBackgroundColor: string;
   secondaryHeaderBackgroundColor: string;
-  hightlight: string;
+  highlight: string;
 }
 
 export const darkTheme: CustomTheme = {
@@ -11,7 +11,7 @@ export const darkTheme: CustomTheme = {
   backgroundColor: '#181818',
   headerBackgroundColor: '#202020',
   secondaryHeaderBackgroundColor: '#525050',
-  hightlight: '#fe718d',
+  highlight: '#fe718d',
 };
 
 // export const lightTheme: CustomTheme = {

@@ -16,7 +16,11 @@ export const CategoryTileList = ({ categories }: Props): ReactElement => (
       <ShopTile
         key={category.id}
         link={`/${category.gender}/${category.name}`}
-        imageSrc={makeCategoryImageLink(category)}
+        imageSrc={
+          category.name === 'sale'
+            ? '/sale.jpg'
+            : makeCategoryImageLink(category)
+        }
       >
         <CategoryLink>SHOP {category.name.toUpperCase()}</CategoryLink>
       </ShopTile>

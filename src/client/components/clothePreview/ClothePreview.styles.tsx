@@ -68,7 +68,7 @@ export const ThumbnailImage = styled.img<{
   isMobile?: boolean;
 }>`
   cursor: ${(p) => (p.isMobile ? `grab` : `pointer`)};
-  border-right: ${(p) => p.selected && `8px solid ${p.theme.hightlight}`};
+  border-right: ${(p) => p.selected && `8px solid ${p.theme.highlight}`};
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`

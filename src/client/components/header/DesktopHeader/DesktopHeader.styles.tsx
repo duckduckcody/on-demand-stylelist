@@ -27,10 +27,6 @@ export const HeaderLink = styled.a<{ selected?: boolean }>`
   color: ${(props) => props.theme.textColor};
   text-decoration: ${(p) => (p.selected ? 'underline' : 'none')};
 
-  &:hover {
-    text-decoration: underline;
-  }
-
   &:last-child {
     margin: 0;
   }
@@ -40,10 +36,6 @@ export const HeaderLinkTitle = styled(HeaderLink)`
   margin: 0 24px 0 0;
   font-size: 2rem;
   font-weight: 700;
-
-  &:hover {
-    text-decoration: none;
-  }
 `;
 
 export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
@@ -51,10 +43,16 @@ export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
   padding: 12px;
   display: flex;
   align-items: center;
+  text-decoration-color: ${(p) => p.theme.highlight};
   background-color: ${(props) =>
     props.selected
       ? props.theme.secondaryHeaderBackgroundColor
       : 'transparent'};
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: ${(p) => p.theme.highlight};
+  }
 `;
 
 export const SearchContainer = styled.div`
