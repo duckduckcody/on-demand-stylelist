@@ -37,20 +37,15 @@ export const ListLoadMoreButton = ({
   return (
     <ButtonContainer>
       {error && error !== undefined && (
-        <>
-          <p>
-            An error has occurred when fetching styles.
-            <br />
-            This request will be automatically retried.
-            <br />
-            Please try a different category or websites if this message
-            persists.
-            <br />
-            (status: {error.status} message: {error.message}.)
-          </p>
-
-          <p></p>
-        </>
+        <p>
+          An error has occurred when fetching styles.
+          <br />
+          This request will be automatically retried.
+          <br />
+          Please try a different category or websites if this message persists.
+          <br />
+          (status: {error.status} message: {error.message}.)
+        </p>
       )}
 
       {!error && (
