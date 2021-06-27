@@ -39,13 +39,17 @@ export const ListLoadMoreButton = ({
       {error && error !== undefined && (
         <>
           <p>
-            An error has occurred when fetching styles. Please try different
-            categories or websites
+            An error has occurred when fetching styles.
+            <br />
+            This request will be automatically retried.
+            <br />
+            Please try a different category or websites if this message
+            persists.
+            <br />
+            (status: {error.status} message: {error.message}.)
           </p>
-          <br />
-          <p>
-            (status: {error.status} message: {error.message})
-          </p>
+
+          <p></p>
         </>
       )}
 
