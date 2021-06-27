@@ -21,14 +21,14 @@ export const swrFetcher = async <JSON = unknown>(
             status: res.status,
             id: json?.id,
           };
-          throw error;
+          return Promise.reject(error);
         } catch (e) {
           console.log('in catch');
           const error: FetcherError = {
             message: 'A server error has occurred',
             status: res.status,
           };
-          throw error;
+          return Promise.reject(error);
         }
       })
       .catch(() => {
@@ -37,7 +37,7 @@ export const swrFetcher = async <JSON = unknown>(
           message: 'A server error has occurred',
           status: 500,
         };
-        throw error;
+        return Promise.reject(error);
       });
   }
 
