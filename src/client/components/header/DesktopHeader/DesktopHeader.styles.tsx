@@ -25,7 +25,7 @@ export const HeaderLink = styled.a<{ selected?: boolean }>`
   font-weight: 300;
   margin: 0 12px 0 0;
   color: ${(props) => props.theme.textColor};
-  text-decoration: ${(p) => (p.selected ? 'underline' : 'none')};
+  text-decoration: none;
 
   &:last-child {
     margin: 0;
@@ -43,15 +43,18 @@ export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
   padding: 12px;
   display: flex;
   align-items: center;
-  text-decoration-color: ${(p) => p.theme.highlight};
+  border-bottom: ${(p) =>
+    p.selected ? `3px solid ${p.theme.highlight}` : 'none'};
   background-color: ${(props) =>
     props.selected
       ? props.theme.secondaryHeaderBackgroundColor
       : 'transparent'};
 
   &:hover {
-    text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.highlight};
+    border-bottom: ${(p) =>
+      p.selected
+        ? `3px solid ${p.theme.highlight}`
+        : `1px solid ${p.theme.highlight}`};
   }
 `;
 
