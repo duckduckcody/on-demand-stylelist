@@ -42,10 +42,10 @@ export const Header = ({ pathName }: HeaderProps): ReactElement => {
           />
         )}
         {!isSearching && !isMobile && (
-          <DesktopHeader pathName={pathName} onSearchClick={onSearchClick} />
+          <DesktopHeader pathName={pathName} onSearchClick={() => undefined} />
         )}
         {!isSearching && isMobile && (
-          <MobileHeader onSearchClick={onSearchClick} />
+          <MobileHeader onSearchClick={() => undefined} />
         )}
       </HeaderContainer>
       <HeaderOffset />

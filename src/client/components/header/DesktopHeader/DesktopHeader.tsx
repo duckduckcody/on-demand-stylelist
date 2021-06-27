@@ -50,9 +50,9 @@ export const DesktopHeader = ({
         </Link>
       </LinkContainer>
 
-      <SearchContainer onClick={onSearchClick}>
+      {/* <SearchContainer onClick={onSearchClick}>
         <Icon icon={faSearch} />
-      </SearchContainer>
+      </SearchContainer> */}
     </HeaderContainer>
   );
 };

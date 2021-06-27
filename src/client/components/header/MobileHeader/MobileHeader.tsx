@@ -27,12 +27,13 @@ export const MobileHeader = ({ onSearchClick }: Props): ReactElement => {
         <LogoText>STYLELIST</LogoText>
       </Link>
 
-      <Icon
+      <i></i>
+      {/* <Icon
         icon={faSearch}
         width={'1.25rem'}
         clickable
         onClick={onSearchClick}
-      />
+      /> */}
     </MobileHeaderContainer>
   );
 };
