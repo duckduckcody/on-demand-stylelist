@@ -36,7 +36,15 @@ export const ListLoadMoreButton = ({
 
   return (
     <ButtonContainer>
-      {error && error !== undefined && `${error.message}`}
+      {error &&
+        error !== undefined &&
+        error.status !== 504 &&
+        `${error.message}`}
+
+      {error &&
+        error !== undefined &&
+        error.status === 504 &&
+        `Retrying to fetch styles`}
 
       {!error && (
         <>
