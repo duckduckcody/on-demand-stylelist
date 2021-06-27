@@ -39,10 +39,6 @@ export const defaultCultureKingsAlgoliaIndex = client.initIndex(
   CultureKingsIndexName.NEWEST
 );
 
-export const salesCultureKingsAlgoliaIndex = client.initIndex(
-  CultureKingsIndexName.SALE
-);
-
 const cultureKingsAlgoliaIndexMap = new Map<ClotheSortOption, SearchIndex>()
   .set(ClotheSortOption.NEWEST, defaultCultureKingsAlgoliaIndex)
   .set(
