@@ -10,7 +10,7 @@ export const swrFetcher = async <JSON = unknown>(
   const res = await fetch(url);
 
   if (!res.ok) {
-    res
+    return res
       .text()
       .then((text) => {
         try {
