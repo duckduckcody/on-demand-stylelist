@@ -50,7 +50,7 @@ export default async function handler(
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
-  return await getClothes(
+  return await mapGetClothes(
     `${category.id}`,
     parsedSelectedWebsites,
     clotheOptions
@@ -66,7 +66,7 @@ export default async function handler(
     );
 }
 
-export const getClothes = async (
+const mapGetClothes = async (
   cid: string,
   selectedWebsites: string[],
   requestOptions: GetClothesOptions

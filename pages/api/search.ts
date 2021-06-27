@@ -5,6 +5,7 @@ import * as z from 'zod';
 import { apiWebsites } from '../../src/api/apiWebsites';
 import { DEFAULT_CLOTHE_LIMIT } from '../../src/api/constants';
 import { safeParseStringToInt } from '../../src/client/util/safeParseStringToInt';
+import { ClotheItem } from '../../src/types/ClotheItem';
 import { GetClothesOptions } from '../../src/types/GetClothesOptions';
 
 const SearchApiQuerySchema = z.object({
@@ -27,6 +28,7 @@ export default async function handler(
   const parsedSelectedWebsites: string[] = JSON.parse(
     `${selectedWebsites}` ?? '[]'
   );
+
   if (!parsedSelectedWebsites.length)
     return res.status(400).json({ message: 'no websites selected' });
 
@@ -35,16 +37,33 @@ export default async function handler(
     page: safeParseStringToInt(page) ?? 1,
   };
 
-  const clothes = await Promise.map(
+  return await mapGetClothes(
+    `${searchQuery}`,
     parsedSelectedWebsites,
-    async (selectedWebsiteId: string) => {
-      const website = apiWebsites.find(
-        (website) => website.id === +selectedWebsiteId
-      );
-      if (!website || !website.searchFunction) return [];
-      return website.searchFunction(`${searchQuery}`, searchOptions);
-    }
-  ).then((res) => flatten(res));
-
-  return res.status(200).json(clothes);
+    searchOptions
+  )
+    .then((clothes) => res.status(200).json(clothes))
+    .catch((error: unknown) =>
+      res.status(500).json({
+        message:
+          error instanceof Error
+            ? error.message
+            : 'A server error has occurred when fetching styles',
+      })
+    );
 }
+
+const mapGetClothes = async (
+  searchQuery: string,
+  selectedWebsites: string[],
+  searchOptions: GetClothesOptions
+): Promise<Partial<ClotheItem>[]> =>
+  await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
+    const website = apiWebsites.find(
+      (website) => website.id === +selectedWebsiteId
+    );
+    if (!website || !website.searchFunction) return [];
+    return website.searchFunction(searchQuery, searchOptions);
+  })
+    .then((res) => flatten(res))
+    .catch((error: unknown) => Promise.reject(error));
