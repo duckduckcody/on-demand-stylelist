@@ -1,39 +1,36 @@
-import { JSDOM } from 'jsdom';
+import { load } from 'cheerio';
 import { absoluteUrl } from '../../../client/util/absoluteUrl';
 import { parsePrice } from '../../../client/util/parsePrice';
 import { ClotheItem } from '../../../types/ClotheItem';
 
 export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
-  const html = new JSDOM(htmlString);
+  const $ = load(htmlString);
   const collectedProducts: Partial<ClotheItem>[] = [];
-  const products =
-    html.window.document.getElementsByClassName('product-item-info');
 
-  for (const product of products) {
-    const imageContainer =
-      product.getElementsByClassName('product-item-image')[0];
-    const image = imageContainer.getElementsByTagName('img')[0];
+  $('.product-item-info').each((i, element) => {
+    const product = $(element);
 
-    const priceContainer = product.getElementsByClassName('price-box')[0];
-    const price = parsePrice(
-      priceContainer.getElementsByClassName('normal-price')[0]?.textContent
-    );
+    const imageContainer = product.find('.product-item-image');
+    const image = $($(imageContainer).find('img')[0]);
+
+    const priceContainer = $(product.find('.price-box')[0]);
+    const price = parsePrice($(priceContainer.find('.normal-price')[0]).text());
 
     const oldPrice = parsePrice(
-      priceContainer
-        .getElementsByClassName('old-price')[0]
-        ?.textContent?.replace('Regular Price', '')
+      $(priceContainer.find('.old-price')[0])
+        .text()
+        .replace('Regular Price', '')
     );
 
     collectedProducts.push({
-      name: image.getAttribute('alt') || 'my name jeff',
-      link: imageContainer.getAttribute('href') || 'my name jeff',
-      image: absoluteUrl(image.getAttribute('src')) || 'my image jeff',
+      name: image.attr('alt') || 'my name jeff',
+      link: imageContainer.attr('href') || 'my name jeff',
+      image: absoluteUrl(image.attr('src')) || 'my image jeff',
       price,
       oldPrice,
       website: 'Universal Store',
     });
-  }
+  });
 
   return collectedProducts;
 };

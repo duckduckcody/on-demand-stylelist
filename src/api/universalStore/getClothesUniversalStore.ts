@@ -30,33 +30,13 @@ export const getClothesUniversalStore = async (
 const requestData = (
   key: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClotheItem>[]> => {
-  const fetchStart = process.hrtime();
-  return fetch(makeUniversalStoreListUrl(key, requestOptions), {
+): Promise<Partial<ClotheItem>[]> =>
+  fetch(makeUniversalStoreListUrl(key, requestOptions), {
     headers: HEADERS,
   })
-    .then((res) => {
-      const fetchEnd = process.hrtime(fetchStart);
-      console.info(
-        'Fetch execution time (hr): %ds %dms',
-        fetchEnd[0],
-        fetchEnd[1] / 1000000
-      );
-      return res.text();
-    })
-    .then((htmlString) => {
-      const scrapeStart = process.hrtime();
-      const scraped = scrapeListHtml(htmlString);
-      const scrapeEnd = process.hrtime(scrapeStart);
-      console.info(
-        'Scrape execution time (hr): %ds %dms',
-        scrapeEnd[0],
-        scrapeEnd[1] / 1000000
-      );
-      return scraped;
-    })
+    .then((res) => res.text())
+    .then((htmlString) => scrapeListHtml(htmlString))
     .catch((e) => {
       console.error('Error scraping Universal Store', e);
       return Promise.resolve([]);
     });
-};
