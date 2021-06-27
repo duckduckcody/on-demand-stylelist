@@ -54,5 +54,9 @@ const requestData = (
         scrapeEnd[1] / 1000000
       );
       return scraped;
+    })
+    .catch((e) => {
+      console.error('Error scraping Universal Store', e);
+      return Promise.resolve([]);
     });
 };

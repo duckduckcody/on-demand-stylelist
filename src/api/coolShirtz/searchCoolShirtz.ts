@@ -29,4 +29,8 @@ const requestData = (
     headers: HEADERS,
   })
     .then((res) => res.text())
-    .then((htmlString) => scrapeSearchHtml(htmlString));
+    .then((htmlString) => scrapeSearchHtml(htmlString))
+    .catch((e) => {
+      console.error('Error scraping Cool Shirtz', e);
+      return Promise.resolve([]);
+    });

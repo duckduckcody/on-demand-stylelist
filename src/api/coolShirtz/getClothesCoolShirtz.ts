@@ -30,11 +30,7 @@ export async function getClothesCoolShirtz(
     })
     .catch((e) => {
       console.error('Error scraping Cool Shirtz', e);
-      return Promise.reject(
-        new Error(
-          'A server error has occurred when fetching styles from Cool Shirtz'
-        )
-      );
+      return Promise.resolve([]);
     });
 }
 

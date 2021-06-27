@@ -55,10 +55,6 @@ const requestData = async (
     .then((res) => mapCultureKingsProductValues(res.hits))
     .catch((e) => {
       console.error('Error scraping Culture kings', e);
-      return Promise.reject(
-        new Error(
-          `A server error has occurred when fetching styles from Culture Kings`
-        )
-      );
+      return Promise.resolve([]);
     });
 };

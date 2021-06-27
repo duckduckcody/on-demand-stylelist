@@ -37,4 +37,8 @@ const requestData = (
     headers: HEADERS,
   })
     .then((res) => res.text())
-    .then((htmlString) => scrapeListHtml(htmlString));
+    .then((htmlString) => scrapeListHtml(htmlString))
+    .catch((e) => {
+      console.error('Error scraping Universal Store', e);
+      return Promise.resolve([]);
+    });

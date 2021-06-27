@@ -30,16 +30,16 @@ export const searchCultureKings = async (
 const requestData = async (
   query: string,
   requestOptions: GetClothesOptions
-): Promise<ClotheItem[]> => {
-  const res =
-    await defaultCultureKingsAlgoliaIndex.search<CultureKingsAlgoliaHits>(
-      query,
-      {
-        hitsPerPage: requestOptions.limit,
-        page: requestOptions.page - 1,
-        filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}`,
-        headers: CULTURE_KINGS_ALGOLIA_HEADERS,
-      }
-    );
-  return mapCultureKingsProductValues(res.hits);
-};
+): Promise<ClotheItem[]> =>
+  await defaultCultureKingsAlgoliaIndex
+    .search<CultureKingsAlgoliaHits>(query, {
+      hitsPerPage: requestOptions.limit,
+      page: requestOptions.page - 1,
+      filters: `${CULTURE_KINGS_ALGOLIA_FILTERS}`,
+      headers: CULTURE_KINGS_ALGOLIA_HEADERS,
+    })
+    .then((res) => mapCultureKingsProductValues(res.hits))
+    .catch((e) => {
+      console.error('Error scraping Culture kings', e);
+      return Promise.resolve([]);
+    });
