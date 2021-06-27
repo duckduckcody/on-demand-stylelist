@@ -36,6 +36,8 @@ export const ListLoadMoreButton = ({
 
   return (
     <ButtonContainer>
+      {error && `status : ${error.status} message: ${error.message}`}
+
       {error &&
         error !== undefined &&
         error.status !== 504 &&
