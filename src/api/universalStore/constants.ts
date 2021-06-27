@@ -30,9 +30,11 @@ export const universalStoreCidMap = new Map<number, string>()
   .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.MEN), '/mens/pants')
   .set(getCategoryId(CategoryName.SHOES, Gender.MEN), '/mens/shoes/sneakers')
   .set(getCategoryId(CategoryName.BOOTS, Gender.MEN), '/mens/shoes/boots')
+  .set(getCategoryId(CategoryName.SALE, Gender.MEN), '/deals/mens/sale')
   .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), '/womens/skirts')
   .set(getCategoryId(CategoryName.DRESSES, Gender.WOMEN), '/womens/dresses')
-  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), '/womens/pants');
+  .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), '/womens/pants')
+  .set(getCategoryId(CategoryName.SALE, Gender.WOMEN), '/deals/womens/sale');
 
 export const sortToQueryStringValueMap = new Map<ClotheSortOption, string>()
   .set(ClotheSortOption.BEST_SELLING, 'popularity_order')
