@@ -54,7 +54,7 @@ export const ClotheCard = ({
             <>
               ${clothe.price} <OldPrice>${clothe.oldPrice}</OldPrice>{' '}
               {Math.trunc(
-                ((clothe.price - clothe.oldPrice) / clothe.price) * 100
+                ((clothe.oldPrice - clothe.price) / clothe.oldPrice) * 100
               )}
               % off
             </>
