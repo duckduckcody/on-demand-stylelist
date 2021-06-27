@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom';
+import { load } from 'cheerio';
 import { absoluteUrl } from '../../../client/util/absoluteUrl';
 import { parsePrice } from '../../../client/util/parsePrice';
 import {
@@ -14,30 +14,26 @@ export const scrapeClotheInfoHtml = (
   htmlString: string,
   clotheLink: string
 ): ClotheInfo => {
-  const { document } = new JSDOM(htmlString).window;
+  const $ = load(htmlString);
   let soldOut = false;
   let price = 0;
 
-  const productInformation = document.getElementById('product-information');
-  const name = productInformation?.getElementsByTagName('h1')[0].innerHTML;
+  const productInformation = $('#product-information');
+  const name = $(productInformation.find('h1')[0]).text();
 
-  const priceElement =
-    productInformation?.getElementsByClassName('product-price')[0].textContent;
+  const priceElement = $(productInformation.find('.product-price')[0]).text();
   if (priceElement === 'Sold Out') {
     soldOut = true;
   } else {
     price = parsePrice(priceElement) || 0;
   }
 
-  const description = document
-    .getElementById('product-description')
-    ?.innerHTML.trim();
+  const description = $('#product-description').text().trim();
 
   const images: ClotheInfoImages[] = [];
-  const imageElements = document.getElementsByClassName('thumb clicker-thumb');
-  for (const imageElement of imageElements) {
-    const imageUrl =
-      absoluteUrl(imageElement.getAttribute('href')) || undefined;
+  $('.thumb').each((i, element) => {
+    const imageElement = $(element);
+    const imageUrl = absoluteUrl(imageElement.attr('href')) || undefined;
 
     if (imageUrl) {
       images.push({
@@ -45,19 +41,15 @@ export const scrapeClotheInfoHtml = (
         thumbnail: imageUrl.replace('x1440', `x${THUMBNAIL_WIDTH}`),
       });
     }
-  }
+  });
 
   const relatedProducts: RelatedProducts[] = [];
-  const relatedProductsContainer = document.getElementById('related');
-  const relatedProductElements =
-    relatedProductsContainer?.getElementsByClassName('related-product') || [];
-  for (const relatedProductElement of relatedProductElements) {
-    const aElement = relatedProductElement.getElementsByTagName('a')[0];
-    const link = `${COOL_SHIRTZ_BASE_URL}${aElement.getAttribute('href')}`;
-    const name = aElement.getAttribute('title');
-    const image = relatedProductElement
-      .getElementsByTagName('img')[0]
-      .getAttribute('data-src');
+  $('.related-product').each((i, element) => {
+    const relatedProductElement = $(element);
+    const aElement = $(relatedProductElement.find('a')[0]);
+    const link = `${COOL_SHIRTZ_BASE_URL}${aElement.attr('href')}`;
+    const name = aElement.attr('title');
+    const image = $(relatedProductElement.find('img')[0]).attr('data-src');
 
     if (link && name && image) {
       relatedProducts.push({
@@ -66,23 +58,23 @@ export const scrapeClotheInfoHtml = (
         image,
       });
     }
-  }
+  });
 
   if (!description || images.length === 0 || !name || (!soldOut && !price)) {
     console.log(
-      'getClotheInfoCoolShirtz.ts - scrapeHtml() - failed to get clothe info',
-      `description: ${description}`,
-      `images:${images}`,
-      `name: ${name}`,
-      `price: ${price}`,
-      `soldOut: ${soldOut}`
+      'cool shirtz - scrapeClotheInfoHtml - error scraping product',
+      `description: ${!description}`,
+      `images:${images.length === 0}`,
+      `name: ${!name}`,
+      `price: ${!price}`,
+      `soldOut: ${!soldOut}`
     );
     throw new Error();
   }
 
   return {
-    name: name,
-    price: price,
+    name,
+    price,
     soldOut,
     websitesLogo: COOL_SHIRTZ_LOGO,
     websiteName: 'Cool Shirtz',

@@ -1,38 +1,38 @@
-import { JSDOM } from 'jsdom';
+import { load } from 'cheerio';
 import { absoluteUrl } from '../../../client/util/absoluteUrl';
 import { parsePrice } from '../../../client/util/parsePrice';
 import { ClotheItem } from '../../../types/ClotheItem';
 import { COOL_SHIRTZ_BASE_URL } from '../constants';
 
 export const scrapeProductHtml = (htmlString: string): ClotheItem[] => {
-  const html = new JSDOM(htmlString);
+  const $ = load(htmlString);
   const collectedProducts: ClotheItem[] = [];
-  const products =
-    html.window.document.getElementsByClassName('prod-container');
-  for (const product of products) {
-    //don't scrape sold out products
-    if (product.getElementsByClassName('so icn')[0]) continue;
 
-    const linkElement = product.getElementsByClassName('product-link')[0];
-    const name = linkElement.getAttribute('title');
+  $('.prod-container').each((i, element) => {
+    const product = $(element);
 
-    const link = `${COOL_SHIRTZ_BASE_URL}${linkElement.getAttribute('href')}`;
-    const image = absoluteUrl(
-      product.getElementsByTagName('img')[0].getAttribute('data-src')
-    );
+    if (product.find('.so')[0]) return;
 
-    const moneyElements = product.getElementsByClassName('money');
-    const oldPrice = parsePrice(moneyElements[1]?.textContent);
-    const price = parsePrice(moneyElements[0].textContent);
+    const linkElement = $(product.find('.product-link')[0]);
+
+    const name = linkElement.attr('title');
+
+    const link = `${COOL_SHIRTZ_BASE_URL}${linkElement.attr('href')}`;
+
+    const image = absoluteUrl($(product.find('img')[0]).attr('data-src'));
+
+    const moneyElements = product.find('.money');
+    const oldPrice = parsePrice($(moneyElements[1]).text());
+    const price = parsePrice($(moneyElements[0]).text());
 
     if (!name || !price || !link || !image) {
-      console.log('cool shirtz - error scraping product', {
+      console.log('cool shirtz - scrapeProductHtml - error scraping product', {
         name,
         price,
         link,
         image,
       });
-      continue;
+      return;
     }
 
     collectedProducts.push({
@@ -43,6 +43,7 @@ export const scrapeProductHtml = (htmlString: string): ClotheItem[] => {
       image,
       website: 'Cool Shirtz',
     });
-  }
+  });
+
   return collectedProducts;
 };

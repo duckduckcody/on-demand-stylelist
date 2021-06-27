@@ -25,7 +25,7 @@ export const scrapeClotheInfoUniversalStore = (
 
   if (!description || images.length === 0 || !name || !price) {
     console.log(
-      'scrapeClotheInfoUniversalStore.ts - failed to get clothe info',
+      'universal store - scrapeClotheInfoUniversalStore - error scraping product',
       `description:${!description}`,
       `images:${images.length === 0}`,
       `name:${!name}`,

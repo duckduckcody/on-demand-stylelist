@@ -11,7 +11,13 @@ export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
     const product = $(element);
 
     const imageContainer = product.find('.product-item-image');
-    const image = $($(imageContainer).find('img')[0]);
+    const imageElement = $($(imageContainer).find('img')[0]);
+
+    const name = imageElement.attr('alt');
+
+    const image = absoluteUrl(imageElement.attr('src'));
+
+    const link = imageContainer.attr('href');
 
     const priceContainer = $(product.find('.price-box')[0]);
     const price = parsePrice($(priceContainer.find('.normal-price')[0]).text());
@@ -22,10 +28,20 @@ export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
         .replace('Regular Price', '')
     );
 
+    if (!name || !price || !link || !image) {
+      console.log('universal store - scrapeListHtml - error scraping product', {
+        name,
+        price,
+        link,
+        image,
+      });
+      return;
+    }
+
     collectedProducts.push({
-      name: image.attr('alt') || 'my name jeff',
-      link: imageContainer.attr('href') || 'my name jeff',
-      image: absoluteUrl(image.attr('src')) || 'my image jeff',
+      name,
+      link,
+      image,
       price,
       oldPrice,
       website: 'Universal Store',
