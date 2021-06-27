@@ -18,6 +18,7 @@ export enum CultureKingsIndexName {
   BEST_SELLING = 'shopify_production_products_default',
   NEWEST = 'shopify_production_products_published_at_desc',
   CLOTHE_INFO = 'shopify_production_products_colorway',
+  SALE = 'shopify_production_products_promotion_five',
 }
 
 interface CidMapValue {
@@ -48,6 +49,9 @@ export const cultureKingsCidMap = new Map<number, CidMapValue>()
   })
   .set(getCategoryId(CategoryName.SHOES, Gender.MEN), { uri: 'mens-footwear' })
   .set(getCategoryId(CategoryName.BOOTS, Gender.MEN), { uri: 'mens-boots' })
+  .set(getCategoryId(CategoryName.SALE, Gender.MEN), {
+    uri: 'mens-back-catalogue',
+  })
   .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), {
     uri: 'womens-bottoms-skirt',
   })
@@ -56,4 +60,7 @@ export const cultureKingsCidMap = new Map<number, CidMapValue>()
   })
   .set(getCategoryId(CategoryName.TRACK_PANTS, Gender.WOMEN), {
     uri: 'womens-bottoms-pants',
+  })
+  .set(getCategoryId(CategoryName.SALE, Gender.WOMEN), {
+    uri: 'womens-back-catalogue',
   });

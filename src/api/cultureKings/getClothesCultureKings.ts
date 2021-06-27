@@ -7,6 +7,7 @@ import {
   CULTURE_KINGS_ALGOLIA_HEADERS,
   defaultCultureKingsAlgoliaIndex,
   getCultureKingsAlgoliaIndex,
+  salesCultureKingsAlgoliaIndex,
 } from './algoliaIndex';
 import {
   cultureKingsCidMap,
@@ -40,7 +41,9 @@ const requestData = async (
   requestOptions: GetClothesOptions
 ): Promise<ClotheItem[]> => {
   const index = requestOptions.sort
-    ? getCultureKingsAlgoliaIndex(requestOptions.sort)
+    ? key === 'mens-back-catalogue'
+      ? salesCultureKingsAlgoliaIndex
+      : getCultureKingsAlgoliaIndex(requestOptions.sort)
     : defaultCultureKingsAlgoliaIndex;
 
   return await index
