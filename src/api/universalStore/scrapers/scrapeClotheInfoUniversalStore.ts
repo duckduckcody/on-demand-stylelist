@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom';
+import { load } from 'cheerio';
 import { parsePrice } from '../../../client/util/parsePrice';
 import { ClotheInfo, ClotheInfoImages } from '../../../types/ClotheInfo';
 import { WebsiteId } from '../../../websites';
@@ -8,36 +8,28 @@ export const scrapeClotheInfoUniversalStore = (
   htmlString: string,
   clotheLink: string
 ): ClotheInfo => {
-  const { document } = new JSDOM(htmlString).window;
+  const $ = load(htmlString);
 
-  const productInformation = document.getElementsByClassName(
-    'product-text-info-container'
-  )[0];
-  const name =
-    productInformation.getElementsByClassName('product-name')[0].textContent;
+  const productInformation = $($('.product-text-info-container')[0]);
 
-  const priceElement =
-    productInformation?.getElementsByClassName('price')[0].textContent;
+  const name = $(productInformation.find('.product-name')[0]).text();
+
+  const priceElement = $(productInformation?.find('.price')[0]).text();
   const price = parsePrice(priceElement);
 
-  const description = document
-    .getElementsByClassName('info')[0]
-    ?.innerHTML.trim();
+  const description = $($('.info')[0]).text().trim();
 
   let images: ClotheInfoImages[] = [];
-  const image = document
-    .getElementsByClassName('loader')[0]
-    ?.getElementsByTagName('img')[0]
-    ?.getAttribute('src');
+  const image = $($($('loader')[0]).find('img')[0]).attr('src');
   if (image) images = [{ thumbnail: image, image: image }];
 
   if (!description || images.length === 0 || !name || !price) {
     console.log(
       'scrapeClotheInfoUniversalStore.ts - failed to get clothe info',
-      `description: ${description}`,
-      `images:${images}`,
-      `name: ${name}`,
-      `price: ${price}`
+      `description:${!description}`,
+      `images:${images.length === 0}`,
+      `name:${!name}`,
+      `price:${!price}`
     );
     throw new Error();
   }
