@@ -1,7 +1,7 @@
 export interface FetcherError {
   message: string;
   status: number;
-  id: number;
+  id?: number;
 }
 
 export const swrFetcher = async <JSON = unknown>(
@@ -10,13 +10,23 @@ export const swrFetcher = async <JSON = unknown>(
   const res = await fetch(url);
 
   if (!res.ok) {
-    const json = await res.json();
-    const error: FetcherError = {
-      message: json?.message ?? 'A server error has occurred',
-      status: res.status,
-      id: json?.id,
-    };
-    throw error;
+    res
+      .json()
+      .then((json) => {
+        const error: FetcherError = {
+          message: json?.message ?? 'A server error has occurred',
+          status: res.status,
+          id: json?.id,
+        };
+        throw error;
+      })
+      .catch(() => {
+        const error: FetcherError = {
+          message: 'A server error has occurred',
+          status: res.status,
+        };
+        throw error;
+      });
   }
 
   return res.json();
