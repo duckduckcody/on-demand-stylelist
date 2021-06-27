@@ -29,12 +29,13 @@ export const scrapeListHtml = (htmlString: string): Partial<ClotheItem>[] => {
     );
 
     if (!name || !price || !link || !image) {
-      console.log('universal store - scrapeListHtml - error scraping product', {
-        name,
-        price,
-        link,
-        image,
-      });
+      console.log(
+        'universal store - scrapeListHtml - error scraping product',
+        `name:${!name}`,
+        `price:${!price}`,
+        `link:${!link}`,
+        `image:${image}`
+      );
       return;
     }
 

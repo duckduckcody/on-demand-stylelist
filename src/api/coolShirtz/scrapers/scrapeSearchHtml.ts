@@ -24,12 +24,13 @@ export const scrapeSearchHtml = (htmlString: string): Partial<ClotheItem>[] => {
     const price = parsePrice($(moneyElements[0]).text());
 
     if (!name || !price || !link || !image) {
-      console.log('cool shirtz - scrapeSearchHtml - error scraping product', {
-        name,
-        price,
-        link,
-        image,
-      });
+      console.log(
+        'cool shirtz - scrapeSearchHtml - error scraping product',
+        `name:${!name}`,
+        `price:${!price}`,
+        `link:${!link}`,
+        `image:${image}`
+      );
       return;
     }
 

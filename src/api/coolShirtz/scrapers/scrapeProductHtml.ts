@@ -26,12 +26,13 @@ export const scrapeProductHtml = (htmlString: string): ClotheItem[] => {
     const price = parsePrice($(moneyElements[0]).text());
 
     if (!name || !price || !link || !image) {
-      console.log('cool shirtz - scrapeProductHtml - error scraping product', {
-        name,
-        price,
-        link,
-        image,
-      });
+      console.log(
+        'cool shirtz - scrapeProductHtml - error scraping product',
+        `name:${!name}`,
+        `price:${!price}`,
+        `link:${!link}`,
+        `image:${image}`
+      );
       return;
     }
 
