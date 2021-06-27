@@ -20,7 +20,8 @@ export const swrFetcher = async <JSON = unknown>(
           status: res.status,
           id: json?.id,
         };
-        throw error;
+        // throw error;
+        Promise.reject(error);
       })
       .catch(() => {
         console.log('inside caught');
@@ -29,7 +30,8 @@ export const swrFetcher = async <JSON = unknown>(
           message: 'A server error has occurred',
           status: res.status,
         };
-        throw error;
+        // throw error;
+        Promise.reject(error);
       });
   }
 
