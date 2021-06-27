@@ -1,7 +1,11 @@
 import { ReactElement } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
 import { FetcherError } from '../../../util/swrFetcher';
-import { ButtonContainer, LoadMoreButton } from './ListLoadMoreButton.styles';
+import {
+  ButtonContainer,
+  ErrorContainer,
+  LoadMoreButton,
+} from './ListLoadMoreButton.styles';
 
 interface Props {
   clothes: ClotheItem[];
@@ -37,15 +41,15 @@ export const ListLoadMoreButton = ({
   return (
     <ButtonContainer>
       {error && error !== undefined && (
-        <p>
+        <ErrorContainer>
           An error has occurred when fetching styles.
           <br />
           This request will be automatically retried.
           <br />
           Please try a different category or websites if this message persists.
           <br />
-          (status: {error.status} message: {error.message}.)
-        </p>
+          (status: {error.status} message: {error.message})
+        </ErrorContainer>
       )}
 
       {!error && (
