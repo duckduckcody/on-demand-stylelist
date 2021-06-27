@@ -9,13 +9,12 @@ export const swrFetcher = async <JSON = unknown>(
 ): Promise<JSON> => {
   const res = await fetch(url);
 
-  console.log('res', res);
-
   if (!res.ok) {
     res
       .json()
       .then((json) => {
         console.log('inside json');
+        console.log('res', res);
         const error: FetcherError = {
           message: json?.message ?? 'A server error has occurred',
           status: res.status,
@@ -25,6 +24,7 @@ export const swrFetcher = async <JSON = unknown>(
       })
       .catch(() => {
         console.log('inside caught');
+        console.log('res', res);
         const error: FetcherError = {
           message: 'A server error has occurred',
           status: res.status,
