@@ -16,8 +16,7 @@ const makeClothes = (amount: number): Partial<ClotheItem>[] =>
 
 type s = (
   key: string,
-  requestOptions: GetClothesOptions,
-  makeUrlFunction: (key: string, requestOptions: GetClothesOptions) => string
+  requestOptions: GetClothesOptions
 ) => Promise<Partial<ClotheItem>[]>;
 
 const requestData = jest.fn() as jest.MockedFunction<s>;
@@ -34,7 +33,6 @@ test('10 clothes needed when 10 is returned should recurse once', async () => {
     [],
     'test-uri',
     requestOptions,
-    (key: string) => key,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -56,7 +54,6 @@ test('10 clothes needed when 5 is returned should recurse twice', async () => {
     [],
     'test-uri',
     requestOptions,
-    (key: string) => key,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -78,7 +75,6 @@ test('should recurse 10 times', async () => {
     [],
     'test-uri',
     requestOptions,
-    (key: string) => key,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -100,7 +96,6 @@ test('should recurse 4 times', async () => {
     [],
     'test-uri',
     requestOptions,
-    (key: string) => key,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -124,7 +119,6 @@ test('stop recursing if less than expected is returned from request', async () =
     [],
     'test-uri',
     requestOptions,
-    (key: string) => key,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
@@ -147,7 +141,6 @@ test('stop recursing if zero is returned from request', async () => {
     [],
     'test-uri',
     requestOptions,
-    (key: string) => key,
     requestData,
     numberOfClothesReturnedByRequest,
     numberOfClothesNeeded
