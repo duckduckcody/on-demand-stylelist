@@ -12,6 +12,10 @@ export const LoadingContainer = styled.div`
   justify-content: center;
   height: 100%;
   width: 700px;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    width: 100%;
+  }
 `;
 
 export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
