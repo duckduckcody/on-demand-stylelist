@@ -1,17 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
+import { mapGetListClothes } from '../../../src/api/common/mapGetListClothes';
 import {
   DEFAULT_CLOTHE_LIMIT,
   DEFAULT_CLOTHE_SORT,
 } from '../../../src/api/constants';
 import { categories } from '../../../src/categories';
 import { safeParseStringToInt } from '../../../src/client/util/safeParseStringToInt';
-import { ClotheItem } from '../../../src/types/ClotheItem';
 import { parseClotheSortOption } from '../../../src/types/ClotheSort';
 import { GetClothesOptions } from '../../../src/types/GetClothesOptions';
-import { Promise } from 'bluebird';
-import { apiWebsites } from '../../../src/api/apiWebsites';
-import flatten from 'lodash.flatten';
 
 const CategoryNameApiQuerySchema = z.object({
   categoryName: z.string(),
@@ -65,28 +62,3 @@ export default async function handler(
       })
     );
 }
-
-export const mapGetListClothes = async (
-  cid: string,
-  selectedWebsites: string[],
-  requestOptions: GetClothesOptions
-): Promise<Partial<ClotheItem>[]> => {
-  console.log(
-    'cid',
-    cid,
-    'selectedWebsites',
-    selectedWebsites,
-    'requestOptions',
-    requestOptions
-  );
-
-  return await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
-    const website = apiWebsites.find(
-      (website) => website.id === +selectedWebsiteId
-    );
-    if (!website || !website.getClothesFunction) return [];
-    return website.getClothesFunction(cid, requestOptions);
-  })
-    .then((res) => flatten(res))
-    .catch((error: unknown) => Promise.reject(error));
-};

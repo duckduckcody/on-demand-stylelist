@@ -1,6 +1,6 @@
 import NodeCache from 'node-cache';
-import { mapGetListClothes } from '../../../pages/api/[gender]/[categoryName]';
 import { USE_CACHE } from '../constants';
+import { mapGetListClothes } from './mapGetListClothes';
 
 export const stdCacheTTL = 86400;
 
@@ -13,6 +13,7 @@ export const clothesCache = USE_CACHE
       on: () => undefined,
     };
 
+// get first page on cache expiry
 clothesCache.on('expired', async (key) => {
   const [type, websiteId, cid, sort] = key.split('~');
 
