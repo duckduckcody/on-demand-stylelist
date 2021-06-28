@@ -7,7 +7,7 @@ export const makeUrl = (
   limit: number | undefined,
   selectedWebsites: string[] | undefined,
   clotheSortOption: ClotheSortOption | undefined
-): string | null => {
+): string[] | null => {
   const { gender, categoryName } = query;
 
   if (!gender || !categoryName || !limit || !selectedWebsites) return null;
@@ -16,8 +16,8 @@ export const makeUrl = (
 
   const searchParams = new URLSearchParams();
   searchParams.append('page', `${index + 1}`);
-  searchParams.append('selectedWebsites', JSON.stringify(selectedWebsites));
+  // searchParams.append('selectedWebsites', JSON.stringify(selectedWebsites));
   limit && searchParams.append('limit', `${limit}`);
   clotheSortOption && searchParams.append('sort', clotheSortOption);
-  return `${url}?${searchParams}`;
+  return [`${url}?${searchParams}`, JSON.stringify(selectedWebsites)];
 };
