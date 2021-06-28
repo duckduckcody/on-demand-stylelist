@@ -1,6 +1,6 @@
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { clothesCache } from '../common/cache';
+import { clothesCache, stdCacheTTL } from '../common/cache';
 import { HEADERS } from '../constants';
 import { coolShirtzCidMap, makeCoolShirtzUrl } from './constants';
 import { scrapeProductHtml } from './scrapers/scrapeProductHtml';
@@ -25,7 +25,8 @@ export async function getClothesCoolShirtz(
     .then((res) => res.text())
     .then((htmlString) => scrapeProductHtml(htmlString))
     .then((clothes) => {
-      clothesCache.set(cacheKey, clothes);
+      const ttl = clothesCache.getTtl(cacheKey);
+      clothesCache.set(cacheKey, clothes, ttl ? ttl : stdCacheTTL);
       return pageClothes(clothes, requestOptions);
     })
     .catch((e) => {

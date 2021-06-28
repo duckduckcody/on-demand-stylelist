@@ -1,6 +1,6 @@
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { clothesCache } from '../common/cache';
+import { clothesCache, stdCacheTTL } from '../common/cache';
 import { recursiveGetClothes } from '../common/recursiveGetClothes';
 
 export const requestClothes = async (
@@ -27,7 +27,9 @@ export const requestClothes = async (
     lastIndex
   );
 
-  clothesCache.set(cacheKey, clothes);
+  const ttl = clothesCache.getTtl(cacheKey);
+  console.log('ttl', ttl);
+  clothesCache.set(cacheKey, clothes, ttl ? ttl : stdCacheTTL);
 
   return clothes.slice(firstIndex, lastIndex);
 };
