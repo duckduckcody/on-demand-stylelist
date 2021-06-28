@@ -17,7 +17,6 @@ export const MobileHeader = ({ onSearchClick }: Props): ReactElement => {
     <MobileHeaderContainer>
       <HamburgerIcon
         icon={faBars}
-        clickable
         onClick={() => setIsShowingMobileHeaderDrawer(true)}
       />
 

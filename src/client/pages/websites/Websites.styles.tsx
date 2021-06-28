@@ -1,5 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { Icon } from '../../components/Icon';
 import { MOBILE_BREAKPOINT } from '../../styleConstants';
 
 export const Container = styled.div`
@@ -34,9 +34,9 @@ export const InfoContainer = styled.div`
   line-height: 1.25rem;
 `;
 
-export const StyledIcon = styled(Icon)`
+export const StyledIcon = styled(FontAwesomeIcon)`
   margin: 0 4px 0 0;
-  width: 18px;
+  font-size: 18px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     margin: 0 8px 0 0;

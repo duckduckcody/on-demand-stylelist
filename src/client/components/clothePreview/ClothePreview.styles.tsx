@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { MOBILE_BREAKPOINT, ZIndex } from '../../styleConstants';
 import { FavouriteHeart } from '../List/ListClotheCards/clotheCard/favouriteHeart/FavouriteHeart';
-import { Icon } from '../Icon';
 import { RelatedProducts } from './RelatedProducts/RelatedProducts';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const LoadingContainer = styled.div`
   position: relative;
@@ -35,14 +35,14 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
   }
 `;
 
-export const CloseIcon = styled(Icon)`
+export const CloseIcon = styled(FontAwesomeIcon)`
   position: absolute;
   right: 0;
   top: 0;
-  width: 32px;
   cursor: pointer;
   z-index: ${ZIndex.modal};
   filter: drop-shadow(1px 1px 0px black);
+  font-size: 40px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     right: 5px;
