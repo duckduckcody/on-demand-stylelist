@@ -50,10 +50,6 @@ export default async function handler(
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
-  console.log('I AM HERE');
-  console.info('I AM HERE');
-  console.error('I AM HERE');
-
   return await mapGetListClothes(
     `${category.id}`,
     parsedSelectedWebsites,
