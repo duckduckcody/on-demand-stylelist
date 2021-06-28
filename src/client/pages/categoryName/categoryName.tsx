@@ -14,17 +14,18 @@ import {
   ClotheSortOption,
   parseClotheSortOption,
 } from '../../../types/ClotheSort';
-import { ListOptionsHeader } from '../../components/List/ListOptionsHeader/ListOptionsHeader';
 import { ListClotheCards } from '../../components/List/ListClotheCards/ListClotheCards';
+import { ListLoadMoreButton } from '../../components/List/ListLoadMoreButton/ListLoadMoreButton';
+import { ListOptionsHeader } from '../../components/List/ListOptionsHeader/ListOptionsHeader';
 import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
+import { useFavourites } from '../../hooks/useFavourites';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../../hooks/useUpdateUrl';
 import { useWindow } from '../../hooks/useWindow';
 import { capitaliseString } from '../../util/capitaliseString';
-import { FetcherError, swrFetcher } from '../../util/swrFetcher';
+import { FetcherError } from '../../util/swrFetcher';
+import { swrSelectedWebsitesFetcher } from '../../util/swrSelectedWebsitesFetcher';
 import { makeUrl } from './makeUrl';
-import { ListLoadMoreButton } from '../../components/List/ListLoadMoreButton/ListLoadMoreButton';
-import { useFavourites } from '../../hooks/useFavourites';
 
 export interface QueryParams {
   gender?: string;
@@ -47,8 +48,9 @@ export const CategoryName = (): ReactElement => {
   const { favourites, setFavourite } = useFavourites();
 
   const [limit, setLimit] = useState<number | undefined>(undefined);
-  const [clotheSortOption, setClotheSortOption] =
-    useState<ClotheSortOption | undefined>(undefined);
+  const [clotheSortOption, setClotheSortOption] = useState<
+    ClotheSortOption | undefined
+  >(undefined);
   const url = useMemo(() => window && new URL(window.location.href), [window]);
 
   const categoryName = routerIsReady
@@ -56,7 +58,13 @@ export const CategoryName = (): ReactElement => {
     : '';
 
   useEffect(() => {
-    if (window && query && routerPush && selectedWebsites && selectedWebsites.length === 0) {
+    if (
+      window &&
+      query &&
+      routerPush &&
+      selectedWebsites &&
+      selectedWebsites.length === 0
+    ) {
       routerPush(`/websites`);
     }
   }, [query, query.gender, routerPush, selectedWebsites, window]);
@@ -66,7 +74,7 @@ export const CategoryName = (): ReactElement => {
     FetcherError
   >(
     (index) => makeUrl(query, index, limit, selectedWebsites, clotheSortOption),
-    swrFetcher,
+    swrSelectedWebsitesFetcher,
     {
       revalidateOnFocus: false,
     }
