@@ -2,6 +2,7 @@ import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { clothesCache, stdCacheTTL } from '../common/cache';
 import { recursiveGetClothes } from '../common/recursiveGetClothes';
+import { differenceInSeconds } from 'date-fns';
 
 export const requestClothes = async (
   key: string,
@@ -28,8 +29,11 @@ export const requestClothes = async (
   );
 
   const ttl = clothesCache.getTtl(cacheKey);
-  console.log('ttl', ttl);
-  clothesCache.set(cacheKey, clothes, ttl ? ttl : stdCacheTTL);
+  clothesCache.set(
+    cacheKey,
+    clothes,
+    ttl ? differenceInSeconds(new Date(ttl), new Date()) : stdCacheTTL
+  );
 
   return clothes.slice(firstIndex, lastIndex);
 };

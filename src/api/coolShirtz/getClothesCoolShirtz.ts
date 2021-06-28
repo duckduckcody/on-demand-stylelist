@@ -4,6 +4,7 @@ import { clothesCache, stdCacheTTL } from '../common/cache';
 import { HEADERS } from '../constants';
 import { coolShirtzCidMap, makeCoolShirtzUrl } from './constants';
 import { scrapeProductHtml } from './scrapers/scrapeProductHtml';
+import { differenceInSeconds } from 'date-fns';
 
 export async function getClothesCoolShirtz(
   cid: string,
@@ -26,7 +27,11 @@ export async function getClothesCoolShirtz(
     .then((htmlString) => scrapeProductHtml(htmlString))
     .then((clothes) => {
       const ttl = clothesCache.getTtl(cacheKey);
-      clothesCache.set(cacheKey, clothes, ttl ? ttl : stdCacheTTL);
+      clothesCache.set(
+        cacheKey,
+        clothes,
+        ttl ? differenceInSeconds(new Date(ttl), new Date()) : stdCacheTTL
+      );
       return pageClothes(clothes, requestOptions);
     })
     .catch((e) => {
