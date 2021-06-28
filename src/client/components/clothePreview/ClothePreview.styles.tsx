@@ -69,6 +69,12 @@ export const ThumbnailImage = styled.img<{
 }>`
   cursor: ${(p) => (p.isMobile ? `grab` : `pointer`)};
   border-right: ${(p) => p.selected && `8px solid ${p.theme.highlight}`};
+  width: 100%;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    width: unset;
+    height: 100%;
+  }
 `;
 
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
