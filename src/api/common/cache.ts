@@ -5,7 +5,7 @@ import { USE_CACHE } from '../constants';
 export const stdCacheTTL = 86400;
 
 export const clothesCache = USE_CACHE
-  ? new NodeCache({ stdTTL: stdCacheTTL, checkperiod: 1 })
+  ? new NodeCache({ stdTTL: stdCacheTTL, checkperiod: 600 })
   : {
       get: () => undefined,
       set: () => undefined,
@@ -14,15 +14,13 @@ export const clothesCache = USE_CACHE
     };
 
 clothesCache.on('expired', async (key) => {
-  console.log('cache expired', key);
   const [type, websiteId, cid, sort] = key.split('~');
 
   if (type === 'list') {
-    const res = await mapGetListClothes(cid, [websiteId], {
+    await mapGetListClothes(cid, [websiteId], {
       sort,
       page: 1,
       limit: 1,
     });
-    console.log('res', res);
   }
 });

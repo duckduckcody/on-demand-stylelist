@@ -5,6 +5,7 @@ import { HEADERS } from '../constants';
 import { coolShirtzCidMap, makeCoolShirtzUrl } from './constants';
 import { scrapeProductHtml } from './scrapers/scrapeProductHtml';
 import { differenceInSeconds } from 'date-fns';
+import { WebsiteId } from '../../websites';
 
 export async function getClothesCoolShirtz(
   cid: string,
@@ -13,7 +14,7 @@ export async function getClothesCoolShirtz(
   const coolShirtzCid = coolShirtzCidMap.get(parseInt(cid));
   if (!coolShirtzCid) return Promise.resolve([]);
 
-  const cacheKey = `cool-shirtz-${coolShirtzCid!.uri}-${requestOptions.sort}`;
+  const cacheKey = `list~${WebsiteId.COOL_SHIRTZ}~${cid}~${requestOptions.sort}`;
 
   const cachedValue: Partial<ClotheItem>[] | undefined =
     clothesCache.get(cacheKey);

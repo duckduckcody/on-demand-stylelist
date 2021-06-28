@@ -28,14 +28,12 @@ export const requestClothes = async (
     lastIndex
   );
 
-  // const ttl = clothesCache.getTtl(cacheKey);
-  // clothesCache.set(
-  //   cacheKey,
-  //   clothes,
-  //   ttl ? differenceInSeconds(new Date(ttl), new Date()) : stdCacheTTL
-  // );
-
-  clothesCache.set(cacheKey, clothes, 1);
+  const ttl = clothesCache.getTtl(cacheKey);
+  clothesCache.set(
+    cacheKey,
+    clothes,
+    ttl ? differenceInSeconds(new Date(ttl), new Date()) : stdCacheTTL
+  );
 
   return clothes.slice(firstIndex, lastIndex);
 };

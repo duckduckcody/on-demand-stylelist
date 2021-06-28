@@ -1,6 +1,7 @@
 import { Promise } from 'bluebird';
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { WebsiteId } from '../../websites';
 import { requestClothes } from '../common/requestClothes';
 import {
   CultureKingsAlgoliaHits,
@@ -22,9 +23,7 @@ export const getClothesCultureKings = async (
   const cultureKingsCid = cultureKingsCidMap.get(parseInt(cid));
   if (!cultureKingsCid) return Promise.resolve([]);
 
-  const cacheKey = `culture-kings-${cultureKingsCid!.uri}-${
-    requestOptions.sort
-  }`;
+  const cacheKey = `list~${WebsiteId.CULTURE_KINGS}~${cid}~${requestOptions.sort}`;
 
   return await requestClothes(
     cultureKingsCid.uri,
