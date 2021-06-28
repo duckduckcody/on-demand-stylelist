@@ -18,4 +18,4 @@ export const swrSelectedWebsitesFetcher = async (
     return res.json();
   })
     .then((res) => flatten(res))
-    .catch((error: unknown) => Promise.reject(error));
+    .catch((error: unknown) => console.log('error', error));
