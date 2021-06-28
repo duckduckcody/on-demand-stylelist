@@ -12,10 +12,9 @@ export const swrSelectedWebsitesFetcher = async (
   selectedWebsites: string
 ): Promise<any> =>
   await Promise.map(JSON.parse(selectedWebsites), async (selectedWebsiteId) => {
-    const res = await fetch(
+    return await fetch(
       `${url}&selectedWebsites=[${JSON.stringify(selectedWebsiteId)}]`
-    );
-    return res.json();
-  })
-    .then((res) => flatten(res))
-    .catch((error: unknown) => console.log('error', error));
+    )
+      .then((res) => res.json())
+      .catch(() => []);
+  }).then((res) => flatten(res));
