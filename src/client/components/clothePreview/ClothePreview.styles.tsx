@@ -109,6 +109,10 @@ export const TextContainer = styled.div<{ isMobile?: boolean }>`
 export const WebsitesLogo = styled.img`
   grid-area: websiteLogo;
   width: 150px;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}) {
+    padding: 5px 0 0;
+  }
 `;
 
 export const WebsiteName = styled.div`
