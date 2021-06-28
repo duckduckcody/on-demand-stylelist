@@ -1,5 +1,6 @@
 import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { WebsiteId } from '../../websites';
 import { requestClothes } from '../common/requestClothes';
 import { HEADERS } from '../constants';
 import {
@@ -16,7 +17,7 @@ export const getClothesUniversalStore = async (
   const universalStoreCid = universalStoreCidMap.get(parseInt(cid));
   if (!universalStoreCid) return Promise.resolve([]);
 
-  const cacheKey = `universal-store-${universalStoreCid}-${requestOptions.sort}`;
+  const cacheKey = `list~${WebsiteId.UNIVERSAL_STORE}~${cid}~${requestOptions.sort}`;
 
   return await requestClothes(
     universalStoreCid,

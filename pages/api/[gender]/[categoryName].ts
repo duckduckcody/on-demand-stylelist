@@ -50,7 +50,7 @@ export default async function handler(
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
-  return await mapGetClothes(
+  return await mapGetListClothes(
     `${category.id}`,
     parsedSelectedWebsites,
     clotheOptions
@@ -66,12 +66,21 @@ export default async function handler(
     );
 }
 
-const mapGetClothes = async (
+export const mapGetListClothes = async (
   cid: string,
   selectedWebsites: string[],
   requestOptions: GetClothesOptions
-): Promise<Partial<ClotheItem>[]> =>
-  await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
+): Promise<Partial<ClotheItem>[]> => {
+  console.log(
+    'cid',
+    cid,
+    'selectedWebsites',
+    selectedWebsites,
+    'requestOptions',
+    requestOptions
+  );
+
+  return await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
     const website = apiWebsites.find(
       (website) => website.id === +selectedWebsiteId
     );
@@ -80,3 +89,4 @@ const mapGetClothes = async (
   })
     .then((res) => flatten(res))
     .catch((error: unknown) => Promise.reject(error));
+};
