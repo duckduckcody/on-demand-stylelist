@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Icon } from '../../Icon';
 
 export const MobileHeaderContainer = styled.div`
   height: 100%;
@@ -19,3 +20,11 @@ export const LogoText = styled.a`
     text-decoration: none;
   }
 `;
+
+export const HamburgerIcon = styled(Icon)`
+  width: 20px;
+`
+
+export const Spacer = styled.i`
+  width: 20px;
+`

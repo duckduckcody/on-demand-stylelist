@@ -40,14 +40,12 @@ export const CloseIcon = styled(Icon)`
   right: 0;
   top: 0;
   width: 32px;
-  height: 32px;
   cursor: pointer;
   z-index: ${ZIndex.modal};
   filter: drop-shadow(1px 1px 0px black);
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    width: 48px;
-    height: 48px;
+    right: 5px;
   }
 `;
 

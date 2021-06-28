@@ -2,8 +2,7 @@ import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { ReactElement, useContext } from 'react';
 import { IsShowingMobileHeaderDrawerContext } from '../../../contexts/IsShowingMobileHeaderDrawerContext';
-import { Icon } from '../../Icon';
-import { LogoText, MobileHeaderContainer } from './MobileHeader.styles';
+import { LogoText, MobileHeaderContainer, Spacer, HamburgerIcon } from './MobileHeader.styles';
 
 interface Props {
   onSearchClick: VoidFunction;
@@ -16,9 +15,8 @@ export const MobileHeader = ({ onSearchClick }: Props): ReactElement => {
 
   return (
     <MobileHeaderContainer>
-      <Icon
+      <HamburgerIcon
         icon={faBars}
-        width={'1.25rem'}
         clickable
         onClick={() => setIsShowingMobileHeaderDrawer(true)}
       />
@@ -27,7 +25,7 @@ export const MobileHeader = ({ onSearchClick }: Props): ReactElement => {
         <LogoText>STYLELIST</LogoText>
       </Link>
 
-      <i></i>
+      <Spacer></Spacer>
       {/* <Icon
         icon={faSearch}
         width={'1.25rem'}

@@ -36,6 +36,7 @@ export const InfoContainer = styled.div`
 
 export const StyledIcon = styled(Icon)`
   margin: 0 4px 0 0;
+  width: 18px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     margin: 0 8px 0 0;
