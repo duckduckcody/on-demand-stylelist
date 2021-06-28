@@ -7,7 +7,7 @@ export const HEADERS = {
   'Cache-Control': 'no-cache',
 };
 
-export const USE_CACHE = false;
+export const USE_CACHE = true;
 
 export const THUMBNAIL_WIDTH = 400;
 
