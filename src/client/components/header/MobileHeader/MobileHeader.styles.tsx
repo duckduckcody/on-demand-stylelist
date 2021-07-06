@@ -21,7 +21,7 @@ export const LogoText = styled.a`
   }
 `;
 
-export const HamburgerIcon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)`
   font-size: 20px;
   width: 20px;
   cursor: pointer;
