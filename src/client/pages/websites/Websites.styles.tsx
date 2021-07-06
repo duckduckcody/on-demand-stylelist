@@ -76,7 +76,7 @@ export const WebsiteDescription = styled.span`
   font-size: 1rem;
 `;
 
-export const WebsiteTags = styled.i`
+export const WebsiteTags = styled.span`
   grid-area: websiteTags;
   font-size: 0.9rem;
 `;
