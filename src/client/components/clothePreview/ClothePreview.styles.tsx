@@ -47,6 +47,7 @@ export const CloseIcon = styled(FontAwesomeIcon)`
   z-index: ${ZIndex.modal};
   filter: drop-shadow(1px 1px 0px black);
   font-size: 40px;
+  width: 40px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     right: 5px;
@@ -56,12 +57,14 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 export const ThumbnailContainer = styled.div`
   grid-area: thumbnails;
   overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   flex-flow: column nowrap;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     flex-flow: row nowrap;
     overflow-x: scroll;
+    overflow-y: hidden;
   }
 `;
 

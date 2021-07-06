@@ -22,7 +22,9 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
 
   useEffect(
     () =>
-      selectedWebsites && selectedWebsites.length === 0 ? setOnBoardMode(true) : setOnBoardMode(false),
+      selectedWebsites && selectedWebsites.length === 0
+        ? setOnBoardMode(true)
+        : setOnBoardMode(false),
     [selectedWebsites]
   );
 
@@ -40,7 +42,6 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
         filtered.length === 0 && setOnBoardMode(true);
       }
     }
-
   };
 
   return (
@@ -60,7 +61,11 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
             <input
               type='checkbox'
               value={website.id}
-              checked={selectedWebsites ? selectedWebsites.includes(`${website.id}`) : false}
+              checked={
+                selectedWebsites
+                  ? selectedWebsites.includes(`${website.id}`)
+                  : false
+              }
               onChange={handleInputChange}
             />
             {website.name}
