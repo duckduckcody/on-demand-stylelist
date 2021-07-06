@@ -2,13 +2,21 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { Website } from '../../../websites';
+import { Checkbox } from '../../components/checkbox/Checkbox';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import {
   Container,
+  DoneButton,
+  Favicon,
   InfoContainer,
   StyledIcon,
+  WebsiteCheckBox,
+  WebsiteContainer,
+  WebsiteDescription,
+  WebsiteName,
   WebsitesContainer,
-  WebsiteText,
+  WebsiteTags,
+  WebsiteTextContainer,
 } from './Websites.styles';
 
 export interface WebsitesProps {
@@ -29,6 +37,7 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('event', event, selectedWebsites);
     if (selectedWebsites) {
       if (event.target.checked) {
         setOnBoardMode(false);
@@ -57,9 +66,28 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
       </InfoContainer>
       <WebsitesContainer>
         {websites.map((website) => (
-          <WebsiteText key={website.id}>
-            <input
-              type='checkbox'
+          <WebsiteContainer
+            key={website.id}
+            selected={
+              selectedWebsites
+                ? selectedWebsites.includes(`${website.id}`)
+                : false
+            }
+          >
+            <Favicon src={website.favicon} />
+
+            <WebsiteTextContainer>
+              <WebsiteName>{website.name}</WebsiteName>
+              <WebsiteTags>
+                {website.tags.map(
+                  (tag, index) =>
+                    `${tag}${index === website.tags.length - 1 ? '.' : ', '}`
+                )}
+              </WebsiteTags>
+              <WebsiteDescription>{website.description}</WebsiteDescription>
+            </WebsiteTextContainer>
+
+            <WebsiteCheckBox
               value={website.id}
               checked={
                 selectedWebsites
@@ -68,12 +96,13 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
               }
               onChange={handleInputChange}
             />
-            {website.name}
-          </WebsiteText>
+          </WebsiteContainer>
         ))}
       </WebsitesContainer>
       {onBoardMode && <p>Please select at least one website</p>}
-      {!onBoardMode && <button onClick={() => router.back()}>Done</button>}
+      {!onBoardMode && (
+        <DoneButton onClick={() => router.back()}>Done</DoneButton>
+      )}
     </Container>
   );
 };

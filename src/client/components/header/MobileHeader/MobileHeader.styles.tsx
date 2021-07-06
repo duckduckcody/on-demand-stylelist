@@ -26,7 +26,3 @@ export const Icon = styled(FontAwesomeIcon)`
   width: 20px;
   cursor: pointer;
 `;
-
-export const Spacer = styled.i`
-  width: 20px;
-`;
