@@ -36,7 +36,6 @@ export const ClotheCard = ({
     }
   };
 
-  if (clothe.error) <></>;
   return (
     <Container id={clothe.link}>
       <ImageContainer onClick={handleImageContainerClick} imgSrc={clothe.image}>

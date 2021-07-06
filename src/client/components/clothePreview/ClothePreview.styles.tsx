@@ -93,14 +93,14 @@ export const TextContainer = styled.div<{ isMobile?: boolean }>`
   overflow-y: auto;
   display: grid;
   padding: 0 0 0 12px;
-  grid-template-columns: 1fr 3rem;
+  grid-template-columns: 1fr 36px;
   grid-template-rows: repeat(7, min-content);
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
     'websiteName websiteName'
     'name name'
-    'buttonContainer buttonContainer'
+    'buttonContainer favouriteHeart'
     'description description'
     ${(p) => (p.isMobile ? `'relatedProducts relatedProducts'` : '')};
 
@@ -161,7 +161,8 @@ export const ViewButton = styled.button`
 `;
 
 export const StyledFavouriteHeart = styled(FavouriteHeart)`
-  flex: 0 1 2rem;
+  grid-area: favouriteHeart;
+  margin: auto 0 auto 4px;
 `;
 
 export const Description = styled.div`
