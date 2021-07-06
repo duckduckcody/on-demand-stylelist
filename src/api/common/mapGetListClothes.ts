@@ -2,19 +2,17 @@ import { ClotheItem } from '../../types/ClotheItem';
 import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { Promise } from 'bluebird';
 import { apiWebsites } from '../apiWebsites';
-import flatten from 'lodash.flatten';
 
-export const mapGetListClothes = async (
+export const getListClothes = async (
   cid: string,
-  selectedWebsites: string[],
+  selectedWebsite: string,
   requestOptions: GetClothesOptions
-): Promise<Partial<ClotheItem>[]> =>
-  await Promise.map(selectedWebsites, async (selectedWebsiteId) => {
-    const website = apiWebsites.find(
-      (website) => website.id === +selectedWebsiteId
-    );
-    if (!website || !website.getClothesFunction) return [];
-    return website.getClothesFunction(cid, requestOptions);
-  })
-    .then((res) => flatten(res))
+): Promise<Partial<ClotheItem>[]> => {
+  const website = apiWebsites.find(
+    (website) => website.id === +selectedWebsite
+  );
+  if (!website || !website.getClothesFunction) return [];
+  return website
+    .getClothesFunction(cid, requestOptions)
     .catch((error: unknown) => Promise.reject(error));
+};

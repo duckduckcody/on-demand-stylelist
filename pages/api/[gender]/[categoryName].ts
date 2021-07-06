@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import { mapGetListClothes } from '../../../src/api/common/mapGetListClothes';
+import { getListClothes } from '../../../src/api/common/mapGetListClothes';
 import {
   DEFAULT_CLOTHE_LIMIT,
   DEFAULT_CLOTHE_SORT,
@@ -13,7 +13,7 @@ import { GetClothesOptions } from '../../../src/types/GetClothesOptions';
 const CategoryNameApiQuerySchema = z.object({
   categoryName: z.string(),
   gender: z.string(),
-  selectedWebsites: z.string(),
+  selectedWebsite: z.string(),
   page: z.string().optional(),
   limit: z.string().optional(),
   sort: z.string().optional(),
@@ -23,7 +23,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const { categoryName, gender, page, limit, selectedWebsites, sort } =
+  const { categoryName, gender, page, limit, selectedWebsite, sort } =
     req.query;
 
   const response = CategoryNameApiQuerySchema.safeParse(req.query);
@@ -37,9 +37,8 @@ export default async function handler(
   if (!category)
     return res.status(404).json({ message: 'clothe category not found' });
 
-  const parsedSelectedWebsites = JSON.parse(`${selectedWebsites}` ?? '[]');
-  if (!parsedSelectedWebsites.length)
-    return res.status(400).json({ message: 'no websites selected' });
+  if (!`${selectedWebsite}`)
+    return res.status(400).json({ message: 'no website selected' });
 
   const clotheOptions: GetClothesOptions = {
     limit: safeParseStringToInt(limit) ?? DEFAULT_CLOTHE_LIMIT,
@@ -47,9 +46,9 @@ export default async function handler(
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
-  return await mapGetListClothes(
+  return await getListClothes(
     `${category.id}`,
-    parsedSelectedWebsites,
+    `${selectedWebsite}`,
     clotheOptions
   )
     .then((clothes) => res.status(200).json(clothes))
