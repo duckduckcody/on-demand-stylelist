@@ -64,7 +64,10 @@ export const ClothePreview = (): ReactElement => {
   );
 
   const isFavourited = useMemo(
-    () => clotheInfo && favourites.some((fav) => fav.link === clotheInfo.link),
+    () =>
+      clotheInfo &&
+      favourites &&
+      favourites.some((fav) => fav.link === clotheInfo.link),
     [clotheInfo, favourites]
   );
 
