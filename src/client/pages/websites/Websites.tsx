@@ -5,10 +5,19 @@ import { Website } from '../../../websites';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import {
   Container,
+  ContinueContainer,
+  DoneButton,
+  Favicon,
   InfoContainer,
   StyledIcon,
+  WebsiteCheckBox,
+  WebsiteContainer,
+  WebsiteDescription,
+  WebsiteName,
   WebsitesContainer,
-  WebsiteText,
+  WebsiteTag,
+  WebsiteTags,
+  WebsiteTextContainer,
 } from './Websites.styles';
 
 export interface WebsitesProps {
@@ -22,11 +31,14 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
 
   useEffect(
     () =>
-      selectedWebsites && selectedWebsites.length === 0 ? setOnBoardMode(true) : setOnBoardMode(false),
+      selectedWebsites && selectedWebsites.length === 0
+        ? setOnBoardMode(true)
+        : setOnBoardMode(false),
     [selectedWebsites]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('event', event, selectedWebsites);
     if (selectedWebsites) {
       if (event.target.checked) {
         setOnBoardMode(false);
@@ -40,7 +52,6 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
         filtered.length === 0 && setOnBoardMode(true);
       }
     }
-
   };
 
   return (
@@ -54,21 +65,46 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
           Control which websites clothes are gathered from below.
         </span>
       </InfoContainer>
+
       <WebsitesContainer>
         {websites.map((website) => (
-          <WebsiteText key={website.id}>
-            <input
-              type='checkbox'
+          <WebsiteContainer
+            key={website.id}
+            selected={
+              selectedWebsites
+                ? selectedWebsites.includes(`${website.id}`)
+                : false
+            }
+          >
+            <Favicon src={website.favicon} />
+            <WebsiteTextContainer>
+              <WebsiteName>{website.name}</WebsiteName>
+              <WebsiteTags>
+                {website.tags.map((tag) => (
+                  <WebsiteTag key={tag + website.id}>{tag}</WebsiteTag>
+                ))}
+              </WebsiteTags>
+              <WebsiteDescription>{website.description}</WebsiteDescription>
+            </WebsiteTextContainer>
+            <WebsiteCheckBox
               value={website.id}
-              checked={selectedWebsites ? selectedWebsites.includes(`${website.id}`) : false}
+              checked={
+                selectedWebsites
+                  ? selectedWebsites.includes(`${website.id}`)
+                  : false
+              }
               onChange={handleInputChange}
             />
-            {website.name}
-          </WebsiteText>
+          </WebsiteContainer>
         ))}
       </WebsitesContainer>
-      {onBoardMode && <p>Please select at least one website</p>}
-      {!onBoardMode && <button onClick={() => router.back()}>Done</button>}
+
+      <ContinueContainer>
+        {onBoardMode && <p>Please select at least one website</p>}
+        {!onBoardMode && (
+          <DoneButton onClick={() => router.back()}>Done</DoneButton>
+        )}
+      </ContinueContainer>
     </Container>
   );
 };

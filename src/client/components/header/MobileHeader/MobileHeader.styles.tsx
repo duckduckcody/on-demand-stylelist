@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';;
+import styled from 'styled-components';
 
 export const MobileHeaderContainer = styled.div`
   height: 100%;
@@ -21,11 +21,8 @@ export const LogoText = styled.a`
   }
 `;
 
-export const HamburgerIcon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)`
   font-size: 20px;
-  cursor: pointer;
-`
-
-export const Spacer = styled.i`
   width: 20px;
-`
+  cursor: pointer;
+`;

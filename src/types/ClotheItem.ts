@@ -7,5 +7,4 @@ export interface ClotheItem {
   fallbackImage?: string;
   website: string;
   productId?: string;
-  error?: unknown;
 }

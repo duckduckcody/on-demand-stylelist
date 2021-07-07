@@ -46,7 +46,8 @@ export const CloseIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
   z-index: ${ZIndex.modal};
   filter: drop-shadow(1px 1px 0px black);
-  font-size: 40px;
+  font-size: 24px;
+  width: 24px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     right: 5px;
@@ -56,12 +57,14 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 export const ThumbnailContainer = styled.div`
   grid-area: thumbnails;
   overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   flex-flow: column nowrap;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     flex-flow: row nowrap;
     overflow-x: scroll;
+    overflow-y: hidden;
   }
 `;
 
@@ -90,14 +93,14 @@ export const TextContainer = styled.div<{ isMobile?: boolean }>`
   overflow-y: auto;
   display: grid;
   padding: 0 0 0 12px;
-  grid-template-columns: 1fr 3rem;
+  grid-template-columns: 1fr 36px;
   grid-template-rows: repeat(7, min-content);
   grid-template-areas:
     'websiteLogo websiteLogo'
     'price price'
     'websiteName websiteName'
     'name name'
-    'buttonContainer buttonContainer'
+    'buttonContainer favouriteHeart'
     'description description'
     ${(p) => (p.isMobile ? `'relatedProducts relatedProducts'` : '')};
 
@@ -158,7 +161,8 @@ export const ViewButton = styled.button`
 `;
 
 export const StyledFavouriteHeart = styled(FavouriteHeart)`
-  flex: 0 1 2rem;
+  grid-area: favouriteHeart;
+  margin: auto 0 auto 4px;
 `;
 
 export const Description = styled.div`

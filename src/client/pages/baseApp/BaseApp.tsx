@@ -4,10 +4,12 @@ import { ReactElement, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ThemeProvider } from 'styled-components';
 import { ClotheInfo } from '../../../types/ClotheInfo';
+import { ClotheItem } from '../../../types/ClotheItem';
 import { ClothePreview } from '../../components/clothePreview/ClothePreview';
 import { Header } from '../../components/header/Header';
 import { MobileHeaderDrawer } from '../../components/header/MobileHeader/MobileHeaderDrawer/MobileHeaderDrawer';
 import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
+import { FavouritesContext } from '../../contexts/FavouritesContext';
 import { IsShowingMobileHeaderDrawerContext } from '../../contexts/IsShowingMobileHeaderDrawerContext';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { useWindow } from '../../hooks/useWindow';
@@ -19,13 +21,16 @@ import { GoogleFonts } from './GoogleFonts';
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const window = useWindow();
   const isMobile = useIsMobile();
-  const [pathName, setPathName] = useState<string | undefined>(undefined);
+  const [favourites, setFavourites] = useState<ClotheItem[] | undefined>();
+  const [pathName, setPathName] = useState<string | undefined>();
   const [isShowingMobileHeaderDrawer, setIsShowingMobileHeaderDrawer] =
     useState(false);
-  const [optionalClotheInfo, setOptionalClotheInfo] =
-    useState<Partial<ClotheInfo> | undefined>(undefined);
-  const [clothePreviewUrl, setClothePreviewUrl] =
-    useState<string | undefined>(undefined);
+  const [optionalClotheInfo, setOptionalClotheInfo] = useState<
+    Partial<ClotheInfo> | undefined
+  >(undefined);
+  const [clothePreviewUrl, setClothePreviewUrl] = useState<string | undefined>(
+    undefined
+  );
 
   useEffect(() => Modal.setAppElement('#appElement'), []);
 
@@ -59,11 +64,13 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
               setIsShowingMobileHeaderDrawer,
             }}
           >
-            <GlobalStyle />
-            <Header pathName={pathName}></Header>
-            <Component {...pageProps} />
-            <ClothePreview />
-            <MobileHeaderDrawer pathName={pathName} />
+            <FavouritesContext.Provider value={{ favourites, setFavourites }}>
+              <GlobalStyle />
+              <Header pathName={pathName}></Header>
+              <Component {...pageProps} />
+              <ClothePreview />
+              <MobileHeaderDrawer pathName={pathName} />
+            </FavouritesContext.Provider>
           </IsShowingMobileHeaderDrawerContext.Provider>
         </ClothePreviewContext.Provider>
       </ThemeProvider>

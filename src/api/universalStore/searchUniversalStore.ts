@@ -15,11 +15,6 @@ export const searchUniversalStore: searchFunction = async (
 ): Promise<Partial<ClotheItem>[]> => {
   const cacheKey = `universal-store-search-${query}`;
 
-  console.log(
-    'makeUniversalStoreSearchUrl(key, requestOptions)',
-    makeUniversalStoreSearchUrl(query, requestOptions)
-  );
-
   return await requestClothes(
     query,
     cacheKey,

@@ -4,10 +4,12 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import Modal from 'react-modal';
 import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
+import { useFavourites } from '../../hooks/useFavourites';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { useWebsiteDescriptionFormatter } from '../../hooks/useWebsiteDescriptionFormatter';
 import { ZIndex } from '../../styleConstants';
@@ -20,6 +22,7 @@ import {
   LoadingContainer,
   Name,
   Price,
+  StyledFavouriteHeart,
   StyledRelatedProducts,
   TextContainer,
   ThumbnailContainer,
@@ -36,6 +39,7 @@ export const ClothePreview = (): ReactElement => {
   const isShowing = Boolean(clothePreviewUrl);
 
   const { clotheInfo, isLoading, isError } = useClotheInfo(clothePreviewUrl);
+  const { favourites, setFavourite } = useFavourites();
 
   const [selectedImage, setSelectedImage] = useState<string>();
   const isMobile = useIsMobile();
@@ -56,6 +60,14 @@ export const ClothePreview = (): ReactElement => {
   const onViewProductClick = useCallback(
     () => window?.open(clothePreviewUrl, '_blank')?.focus(),
     [clothePreviewUrl]
+  );
+
+  const isFavourited = useMemo(
+    () =>
+      clotheInfo &&
+      favourites &&
+      favourites.some((fav) => fav.link === clotheInfo.link),
+    [clotheInfo, favourites]
   );
 
   useEffect(() => {
@@ -150,6 +162,17 @@ export const ClothePreview = (): ReactElement => {
                     __html: formattedDescription,
                   }}
                 />
+
+                <StyledFavouriteHeart
+                  clothe={{
+                    ...clotheInfo,
+                    website: clotheInfo.websiteName,
+                    image: clotheInfo.images[0].image || '',
+                  }}
+                  onFavouriteClick={setFavourite}
+                  isFavourited={isFavourited}
+                />
+
                 <ButtonContainer>
                   <ViewButton onClick={() => onViewProductClick()}>
                     View product on {clotheInfo.websiteName}

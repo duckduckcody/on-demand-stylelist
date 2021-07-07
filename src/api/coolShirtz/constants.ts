@@ -7,6 +7,8 @@ export const COOL_SHIRTZ_BASE_URL = 'https://shirtz.cool';
 
 export const COOL_SHIRTZ_LOGO = 'https://i.imgur.com/Baq9ezR.png';
 
+export const COOL_SHIRTZ_FAVICON = `https://cdn.shopify.com/s/files/1/1297/1509/t/54/assets/favicon.png?v=7582667735473455712`;
+
 export const SORT_QUERY_STRING_KEY = 'sort_by';
 
 export const COOL_SHIRTZ_SEARCH_LIMIT = 20;
@@ -34,12 +36,16 @@ export const makeCoolShirtzUrl = (
   uri: string,
   requestOptions: GetClothesOptions
 ): string => {
-  const sortQueryString = requestOptions.sort 
-    ? `?${SORT_QUERY_STRING_KEY}=${sortToQueryStringValueMap.get(requestOptions.sort)}` 
-    : undefined
+  const sortQueryString = requestOptions.sort
+    ? `?${SORT_QUERY_STRING_KEY}=${sortToQueryStringValueMap.get(
+        requestOptions.sort
+      )}`
+    : undefined;
 
-  return `${COOL_SHIRTZ_BASE_URL}/collections/${uri}${sortQueryString ? sortQueryString : ''}`;
-}
+  return `${COOL_SHIRTZ_BASE_URL}/collections/${uri}${
+    sortQueryString ? sortQueryString : ''
+  }`;
+};
 
 export const makeCoolShirtzSearchUrl = (
   query: string,

@@ -1,5 +1,6 @@
 import { Promise } from 'bluebird';
 import flatten from 'lodash.flatten';
+import { ClotheItem } from '../../types/ClotheItem';
 
 export interface FetcherError {
   message: string;
@@ -10,11 +11,16 @@ export interface FetcherError {
 export const swrSelectedWebsitesFetcher = async (
   url: string,
   selectedWebsites: string
-): Promise<any> =>
+): Promise<ClotheItem[]> =>
   await Promise.map(JSON.parse(selectedWebsites), async (selectedWebsiteId) => {
-    return await fetch(
-      `${url}&selectedWebsites=[${JSON.stringify(selectedWebsiteId)}]`
-    )
-      .then((res) => res.json())
-      .catch(() => []);
+    console.log('something');
+    return await fetch(`${url}&selectedWebsite=${selectedWebsiteId}`)
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .catch(() => {
+        console.log(`error fetching clothes (websiteId: ${selectedWebsiteId})`);
+        return [];
+      });
   }).then((res) => flatten(res));

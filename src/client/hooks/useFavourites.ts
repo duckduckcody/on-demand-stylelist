@@ -1,32 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { ClotheItem } from '../../types/ClotheItem';
 import { LocalStorageKey } from '../constants';
+import { FavouritesContext } from '../contexts/FavouritesContext';
 import { useWindow } from './useWindow';
 
 interface ReturnProps {
-  favourites: ClotheItem[];
+  favourites: ClotheItem[] | undefined;
   setFavourite: (selectedFavourite: ClotheItem) => void;
 }
 
 export const useFavourites = (): ReturnProps => {
   const window = useWindow();
-  const [favourites, setFavouritesState] = useState<ClotheItem[]>([]);
+  const { favourites, setFavourites } = useContext(FavouritesContext);
 
   const setFavourite = (selectedFavourite: ClotheItem) => {
-    let favs;
-    if (favourites?.find((fav) => fav.link === selectedFavourite.link)) {
-      favs = favourites.filter((fav) => fav.link !== selectedFavourite.link);
-    } else {
-      favs = favourites.concat(selectedFavourite);
+    if (favourites) {
+      let favs;
+      if (favourites?.some((fav) => fav.link === selectedFavourite.link)) {
+        favs = favourites.filter((fav) => fav.link !== selectedFavourite.link);
+      } else {
+        favs = favourites.concat(selectedFavourite);
+      }
+
+      setFavourites(favs);
+
+      window?.localStorage.setItem(
+        LocalStorageKey.Favourites,
+        JSON.stringify(favs)
+      );
     }
-
-    setFavouritesState(favs);
-
-    // save selected website changes to local storage
-    window?.localStorage.setItem(
-      LocalStorageKey.Favourites,
-      JSON.stringify(favs)
-    );
   };
 
   useEffect(() => {
@@ -34,9 +36,9 @@ export const useFavourites = (): ReturnProps => {
       const favourites = window.localStorage.getItem(
         LocalStorageKey.Favourites
       );
-      if (favourites) setFavouritesState(JSON.parse(favourites));
+      if (favourites) setFavourites(JSON.parse(favourites));
     }
-  }, [window]);
+  }, [setFavourites, window]);
 
   return { favourites, setFavourite };
 };

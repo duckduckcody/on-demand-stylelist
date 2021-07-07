@@ -8,6 +8,8 @@ export const UNIVERSAL_STORE_BASE_URL = 'https://www.universalstore.com';
 export const UNIVERSAL_STORE_LOGO =
   'https://www.universalstore.com/static/version1624394318/frontend/universalstore/universalstore/en_AU/images/logo.png';
 
+export const UNIVERSAL_STORE_FAVICON = `https://www.universalstore.com/media/favicon/stores/1/Favicon.png`;
+
 export const SORT_QUERY_STRING_KEY = 'product_list_order';
 
 const PAGE_KEY = 'p';
