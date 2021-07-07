@@ -61,8 +61,8 @@ export const WebsiteTextContainer = styled.div`
   align-items: center;
   grid-template-areas:
     'websiteName'
-    'websiteTags'
-    'websiteDescription';
+    'websiteDescription'
+    'websiteTags';
 `;
 
 export const WebsiteName = styled.span`
@@ -78,7 +78,21 @@ export const WebsiteDescription = styled.span`
 
 export const WebsiteTags = styled.span`
   grid-area: websiteTags;
-  font-size: 0.9rem;
+  margin-top: 5px;
+`;
+
+export const WebsiteTag = styled.span`
+  font-size: 0.75rem;
+  border: 1px solid papayawhip;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background-color: white;
+  color: ${(p) => p.theme.backgroundColor};
+  margin: 0 5px 0 0;
+
+  &:last-child {
+    margin: 0;
+  }
 `;
 
 export const WebsiteCheckBox = styled(Checkbox)`

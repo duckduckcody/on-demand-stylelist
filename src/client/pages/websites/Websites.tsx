@@ -15,6 +15,7 @@ import {
   WebsiteDescription,
   WebsiteName,
   WebsitesContainer,
+  WebsiteTag,
   WebsiteTags,
   WebsiteTextContainer,
 } from './Websites.styles';
@@ -79,10 +80,9 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
             <WebsiteTextContainer>
               <WebsiteName>{website.name}</WebsiteName>
               <WebsiteTags>
-                {website.tags.map(
-                  (tag, index) =>
-                    `${tag}${index === website.tags.length - 1 ? '.' : ', '}`
-                )}
+                {website.tags.map((tag) => (
+                  <WebsiteTag key={tag + website.id}>{tag}</WebsiteTag>
+                ))}
               </WebsiteTags>
               <WebsiteDescription>{website.description}</WebsiteDescription>
             </WebsiteTextContainer>
