@@ -46,8 +46,8 @@ export const CloseIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
   z-index: ${ZIndex.modal};
   filter: drop-shadow(1px 1px 0px black);
-  font-size: 40px;
-  width: 40px;
+  font-size: 24px;
+  width: 24px;
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     right: 5px;

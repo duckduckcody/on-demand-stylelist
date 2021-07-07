@@ -13,7 +13,6 @@ import { useFavourites } from '../../hooks/useFavourites';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { useWebsiteDescriptionFormatter } from '../../hooks/useWebsiteDescriptionFormatter';
 import { ZIndex } from '../../styleConstants';
-import { FavouriteHeart } from '../List/ListClotheCards/clotheCard/favouriteHeart/FavouriteHeart';
 import {
   ButtonContainer,
   CloseIcon,
