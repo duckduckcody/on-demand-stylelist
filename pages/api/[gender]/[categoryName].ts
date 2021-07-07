@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import { getListClothes } from '../../../src/api/common/mapGetListClothes';
+import { getClothesList } from '../../../src/api/common/getClothesList';
 import {
   DEFAULT_CLOTHE_LIMIT,
   DEFAULT_CLOTHE_SORT,
@@ -46,7 +46,7 @@ export default async function handler(
     sort: parseClotheSortOption(sort) ?? DEFAULT_CLOTHE_SORT,
   };
 
-  return await getListClothes(
+  return await getClothesList(
     `${category.id}`,
     `${selectedWebsite}`,
     clotheOptions

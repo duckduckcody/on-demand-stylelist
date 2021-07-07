@@ -13,6 +13,7 @@ export const swrSelectedWebsitesFetcher = async (
   selectedWebsites: string
 ): Promise<ClotheItem[]> =>
   await Promise.map(JSON.parse(selectedWebsites), async (selectedWebsiteId) => {
+    console.log('something');
     return await fetch(`${url}&selectedWebsite=${selectedWebsiteId}`)
       .then((res) => {
         if (!res.ok) throw new Error();

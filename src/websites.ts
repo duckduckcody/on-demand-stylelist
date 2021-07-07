@@ -26,7 +26,6 @@ export interface Website {
 
 export enum WebsiteId {
   COOL_SHIRTZ = 4000,
-  ASOS = 4001,
   CULTURE_KINGS = 4002,
   UNIVERSAL_STORE = 4003,
 }

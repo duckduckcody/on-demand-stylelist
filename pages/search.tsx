@@ -9,7 +9,8 @@ import { ListOptionsHeader } from '../src/client/components/List/ListOptionsHead
 import { DEFAULT_LIMIT } from '../src/client/constants';
 import { useFavourites } from '../src/client/hooks/useFavourites';
 import { useSelectedWebsites } from '../src/client/hooks/useSelectedWebsites';
-import { FetcherError, swrFetcher } from '../src/client/util/swrFetcher';
+import { FetcherError } from '../src/client/util/swrFetcher';
+import { swrSelectedWebsitesFetcher } from '../src/client/util/swrSelectedWebsitesFetcher';
 import { ClotheItem } from '../src/types/ClotheItem';
 
 const makeUrl = (
@@ -17,11 +18,15 @@ const makeUrl = (
   index: number,
   selectedWebsites: string[] | undefined,
   limit: number | undefined
-) => {
+): string[] | null => {
   if (!searchQuery || !limit || !selectedWebsites) return null;
-  return `/api/search?query=${searchQuery}&page=${
+
+  const url = `/api/search?query=${searchQuery}&page=${
     index + 1
-  }&selectedWebsites=${JSON.stringify(selectedWebsites)}&limit=${limit}`;
+  }&limit=${limit}`;
+  console.log('webbys', selectedWebsites);
+
+  return [url, JSON.stringify(selectedWebsites)];
 };
 
 export default function Search(): ReactElement {
@@ -40,9 +45,13 @@ export default function Search(): ReactElement {
   const { data, error, size, setSize } = useSWRInfinite<
     ClotheItem[],
     FetcherError
-  >((index) => makeUrl(q, index, selectedWebsites, limit), swrFetcher, {
-    revalidateOnFocus: false,
-  });
+  >(
+    (index) => makeUrl(q, index, selectedWebsites, limit),
+    swrSelectedWebsitesFetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   useEffect(() => {
     setLimit(DEFAULT_LIMIT);

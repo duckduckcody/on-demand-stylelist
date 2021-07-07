@@ -3,7 +3,7 @@ import { GetClothesOptions } from '../../types/GetClothesOptions';
 import { Promise } from 'bluebird';
 import { apiWebsites } from '../apiWebsites';
 
-export const getListClothes = async (
+export const getClothesList = async (
   cid: string,
   selectedWebsite: string,
   requestOptions: GetClothesOptions
