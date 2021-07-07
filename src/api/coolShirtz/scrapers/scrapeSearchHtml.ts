@@ -8,7 +8,7 @@ export const scrapeSearchHtml = (htmlString: string): Partial<ClotheItem>[] => {
   const $ = load(htmlString);
   const collectedProducts: Partial<ClotheItem>[] = [];
 
-  $('product-index').each((i, element) => {
+  $('.product-index').each((i, element) => {
     const product = $(element);
 
     const linkElement = $(product.find('a')[0]);
