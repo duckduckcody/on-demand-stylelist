@@ -32,8 +32,8 @@ export const WebsitesContainer = styled.div`
 `;
 
 export const WebsiteContainer = styled.label<{ selected: boolean }>`
-  border: ${(p) =>
-    p.selected ? `4px solid ${p.theme.highlight}` : `1px solid papayawhip`};
+  box-shadow: ${(p) =>
+    p.selected ? `0 0 0 4px ${p.theme.highlight}` : `0 0 0 1px papayawhip`};
   padding: 14px 24px;
   border-radius: 10px;
   cursor: pointer;
@@ -86,6 +86,10 @@ export const WebsiteCheckBox = styled(Checkbox)`
   width: 100%;
   height: 100%;
   margin: 0;
+`;
+
+export const ContinueContainer = styled.div`
+  float: right;
 `;
 
 export const DoneButton = styled.button`

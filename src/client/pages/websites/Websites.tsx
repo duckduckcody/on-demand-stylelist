@@ -2,10 +2,10 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { Website } from '../../../websites';
-import { Checkbox } from '../../components/checkbox/Checkbox';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import {
   Container,
+  ContinueContainer,
   DoneButton,
   Favicon,
   InfoContainer,
@@ -64,6 +64,7 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
           Control which websites clothes are gathered from below.
         </span>
       </InfoContainer>
+
       <WebsitesContainer>
         {websites.map((website) => (
           <WebsiteContainer
@@ -75,7 +76,6 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
             }
           >
             <Favicon src={website.favicon} />
-
             <WebsiteTextContainer>
               <WebsiteName>{website.name}</WebsiteName>
               <WebsiteTags>
@@ -86,7 +86,6 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
               </WebsiteTags>
               <WebsiteDescription>{website.description}</WebsiteDescription>
             </WebsiteTextContainer>
-
             <WebsiteCheckBox
               value={website.id}
               checked={
@@ -99,10 +98,13 @@ export const Websites = ({ websites }: WebsitesProps): ReactElement => {
           </WebsiteContainer>
         ))}
       </WebsitesContainer>
-      {onBoardMode && <p>Please select at least one website</p>}
-      {!onBoardMode && (
-        <DoneButton onClick={() => router.back()}>Done</DoneButton>
-      )}
+
+      <ContinueContainer>
+        {onBoardMode && <p>Please select at least one website</p>}
+        {!onBoardMode && (
+          <DoneButton onClick={() => router.back()}>Done</DoneButton>
+        )}
+      </ContinueContainer>
     </Container>
   );
 };
