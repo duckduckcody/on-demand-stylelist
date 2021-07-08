@@ -46,7 +46,7 @@ export const websites: Website[] = [
     baseUrl: CULTURE_KINGS_URL,
     logo: CULTURE_KINGS_LOGO,
     favicon: CULTURE_KINGS_FAVICON,
-    description: `Culture Kings stands at the forefront of a worldwide streetwear phenomenon, showcasing a unique blend of music, sport and fashion found across the globe.`,
+    description: `Stands at the forefront of a worldwide streetwear phenomenon, showcasing a unique blend of music, sport and fashion found across the globe.`,
     tags: [`Streetwear`, `Music`, `Sport`],
   },
   {
@@ -55,7 +55,7 @@ export const websites: Website[] = [
     baseUrl: UNIVERSAL_STORE_BASE_URL,
     logo: UNIVERSAL_STORE_LOGO,
     favicon: UNIVERSAL_STORE_FAVICON,
-    description: `Universal Store is a leading Australian retailer specialising in trend-led, casual men’s and women’s fashion.`,
+    description: `A leading Australian retailer specialising in trend-led, casual men’s and women’s fashion.`,
     tags: [`Casual`, `Trends`, `Wide Range`],
   },
 ];
