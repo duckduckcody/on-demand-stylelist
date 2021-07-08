@@ -1,3 +1,4 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { ReactElement } from 'react';
 import { ClotheItem } from '../../../../types/ClotheItem';
 import { FetcherError } from '../../../util/swrFetcher';
@@ -7,6 +8,7 @@ import {
   LoadingProgress,
   LoadingText,
   LoadMoreButton,
+  SpinnerIcon,
 } from './ListLoadMoreButton.styles';
 
 interface Props {
@@ -81,8 +83,9 @@ export const ListLoadMoreButton = ({
                   <LoadingText>
                     {percentageOfRequestsCompleted
                       ? `${percentageOfRequestsCompleted}% of styles fetched`
-                      : `Fetching styles...`}
+                      : `Fetching styles`}
                   </LoadingText>
+                  <SpinnerIcon icon={faSpinner} />
                 </>
               )}
               {!isLoadingMore && !isEndOfData && 'Load more'}
