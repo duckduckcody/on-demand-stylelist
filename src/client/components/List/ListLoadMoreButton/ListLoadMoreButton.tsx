@@ -4,6 +4,8 @@ import { FetcherError } from '../../../util/swrFetcher';
 import {
   ButtonContainer,
   ErrorContainer,
+  LoadingProgress,
+  LoadingText,
   LoadMoreButton,
 } from './ListLoadMoreButton.styles';
 
@@ -16,6 +18,7 @@ interface Props {
     size: number | ((size: number) => number)
   ) => Promise<ClotheItem[][] | undefined>;
   error: FetcherError | undefined;
+  percentageOfRequestsCompleted?: number;
   isEmptyMessage?: string;
 }
 
@@ -26,6 +29,7 @@ export const ListLoadMoreButton = ({
   size,
   setSize,
   error,
+  percentageOfRequestsCompleted,
   isEmptyMessage,
 }: Props): ReactElement => {
   const isLoadingInitialData = !data && !error;
@@ -67,10 +71,20 @@ export const ListLoadMoreButton = ({
               onClick={() => setSize(size + 1)}
               disabled={isLoadingMore}
             >
-              {isLoadingMore &&
-                (clothes.length === 0
-                  ? 'Loading styles...'
-                  : 'Loading more styles...')}
+              {isLoadingMore && (
+                <>
+                  <LoadingProgress
+                    percentageOfRequestsCompleted={
+                      percentageOfRequestsCompleted
+                    }
+                  ></LoadingProgress>
+                  <LoadingText>
+                    {percentageOfRequestsCompleted
+                      ? `${percentageOfRequestsCompleted}% of styles fetched`
+                      : `Fetching styles...`}
+                  </LoadingText>
+                </>
+              )}
               {!isLoadingMore && !isEndOfData && 'Load more'}
             </LoadMoreButton>
           )}

@@ -19,6 +19,7 @@ import { ListLoadMoreButton } from '../../components/List/ListLoadMoreButton/Lis
 import { ListOptionsHeader } from '../../components/List/ListOptionsHeader/ListOptionsHeader';
 import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
 import { useFavourites } from '../../hooks/useFavourites';
+import { usePromiseMapProgress } from '../../hooks/usePromiseMapProgress';
 import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
 import { useUpdateUrl } from '../../hooks/useUpdateUrl';
 import { useWindow } from '../../hooks/useWindow';
@@ -47,6 +48,13 @@ export const CategoryName = (): ReactElement => {
   const { selectedWebsites } = useSelectedWebsites();
   const { favourites, setFavourite } = useFavourites();
 
+  const {
+    requestHasBeenMade,
+    requestHasCompleted,
+    requestProgressComplete,
+    percentageOfRequestsCompleted,
+  } = usePromiseMapProgress();
+
   const [limit, setLimit] = useState<number | undefined>(undefined);
   const [clotheSortOption, setClotheSortOption] = useState<
     ClotheSortOption | undefined
@@ -74,9 +82,16 @@ export const CategoryName = (): ReactElement => {
     FetcherError
   >(
     (index) => makeUrl(query, index, limit, selectedWebsites, clotheSortOption),
-    swrSelectedWebsitesFetcher,
+    (url, selectedWebsites) =>
+      swrSelectedWebsitesFetcher(
+        url,
+        selectedWebsites,
+        requestHasBeenMade,
+        requestHasCompleted
+      ),
     {
       revalidateOnFocus: false,
+      onSuccess: requestProgressComplete,
     }
   );
 
@@ -178,6 +193,7 @@ export const CategoryName = (): ReactElement => {
         size={size}
         setSize={setSize}
         error={error}
+        percentageOfRequestsCompleted={percentageOfRequestsCompleted}
       />
     </>
   );
