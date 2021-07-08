@@ -10,10 +10,12 @@ export interface FetcherError {
 
 export const swrSelectedWebsitesFetcher = async (
   url: string,
-  selectedWebsites: string
+  selectedWebsites: string,
+  requestHasBeenMade?: () => void,
+  requestHasCompleted?: () => void
 ): Promise<ClotheItem[]> =>
   await Promise.map(JSON.parse(selectedWebsites), async (selectedWebsiteId) => {
-    console.log('something');
+    requestHasBeenMade?.();
     return await fetch(`${url}&selectedWebsite=${selectedWebsiteId}`)
       .then((res) => {
         if (!res.ok) throw new Error();
@@ -22,5 +24,6 @@ export const swrSelectedWebsitesFetcher = async (
       .catch(() => {
         console.log(`error fetching clothes (websiteId: ${selectedWebsiteId})`);
         return [];
-      });
+      })
+      .finally(() => requestHasCompleted?.());
   }).then((res) => flatten(res));
