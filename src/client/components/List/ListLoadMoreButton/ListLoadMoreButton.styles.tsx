@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { MOBILE_BREAKPOINT, ZIndex } from '../../../styleConstants';
 
@@ -69,4 +70,20 @@ export const LoadingProgress = styled.div<{
 
 export const LoadingText = styled.span`
   z-index: ${ZIndex.pushContentForward};
+  margin: 0 5px 0 0;
+`;
+
+export const SpinnerIcon = styled(FontAwesomeIcon)`
+  width: 20px;
+  font-size: 20px;
+  animation: spin-animation 1.5s infinite;
+
+  @keyframes spin-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
