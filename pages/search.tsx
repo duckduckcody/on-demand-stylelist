@@ -8,6 +8,7 @@ import { ListLoadMoreButton } from '../src/client/components/List/ListLoadMoreBu
 import { ListOptionsHeader } from '../src/client/components/List/ListOptionsHeader/ListOptionsHeader';
 import { DEFAULT_LIMIT } from '../src/client/constants';
 import { useFavourites } from '../src/client/hooks/useFavourites';
+import { usePromiseMapProgress } from '../src/client/hooks/usePromiseMapProgress';
 import { useSelectedWebsites } from '../src/client/hooks/useSelectedWebsites';
 import { FetcherError } from '../src/client/util/swrFetcher';
 import { swrSelectedWebsitesFetcher } from '../src/client/util/swrSelectedWebsitesFetcher';
@@ -24,7 +25,6 @@ const makeUrl = (
   const url = `/api/search?query=${searchQuery}&page=${
     index + 1
   }&limit=${limit}`;
-  console.log('webbys', selectedWebsites);
 
   return [url, JSON.stringify(selectedWebsites)];
 };
@@ -33,6 +33,12 @@ export default function Search(): ReactElement {
   const router = useRouter();
   const { selectedWebsites } = useSelectedWebsites();
   const { favourites, setFavourite } = useFavourites();
+  const {
+    requestHasBeenMade,
+    requestHasCompleted,
+    requestProgressComplete,
+    percentageOfRequestsCompleted,
+  } = usePromiseMapProgress();
 
   const { q } = router.query;
   const [limit, setLimit] = useState<number | undefined>(undefined);
@@ -47,9 +53,16 @@ export default function Search(): ReactElement {
     FetcherError
   >(
     (index) => makeUrl(q, index, selectedWebsites, limit),
-    swrSelectedWebsitesFetcher,
+    (url, selectedWebsites) =>
+      swrSelectedWebsitesFetcher(
+        url,
+        selectedWebsites,
+        requestHasBeenMade,
+        requestHasCompleted
+      ),
     {
       revalidateOnFocus: false,
+      onSuccess: requestProgressComplete,
     }
   );
 
@@ -85,6 +98,7 @@ export default function Search(): ReactElement {
         setSize={setSize}
         error={error}
         isEmptyMessage={`No styles found for: ${q} :(`}
+        percentageOfRequestsCompleted={percentageOfRequestsCompleted}
       />
     </>
   );
