@@ -1,32 +1,32 @@
-import { flatten } from 'lodash';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { flatten } from "lodash";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import React, {
   ReactElement,
   useEffect,
   useMemo,
   useRef,
   useState,
-} from 'react';
-import { useSWRInfinite } from 'swr';
-import { ClotheItem } from '../../../types/ClotheItem';
+} from "react";
+import { useSWRInfinite } from "swr";
+import { ClotheItem } from "../../../types/ClotheItem";
 import {
   ClotheSortOption,
   parseClotheSortOption,
-} from '../../../types/ClotheSort';
-import { ListClotheCards } from '../../components/List/ListClotheCards/ListClotheCards';
-import { ListLoadMoreButton } from '../../components/List/ListLoadMoreButton/ListLoadMoreButton';
-import { ListOptionsHeader } from '../../components/List/ListOptionsHeader/ListOptionsHeader';
-import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from '../../constants';
-import { useFavourites } from '../../hooks/useFavourites';
-import { usePromiseMapProgress } from '../../hooks/usePromiseMapProgress';
-import { useSelectedWebsites } from '../../hooks/useSelectedWebsites';
-import { useUpdateUrl } from '../../hooks/useUpdateUrl';
-import { useWindow } from '../../hooks/useWindow';
-import { capitaliseString } from '../../util/capitaliseString';
-import { FetcherError } from '../../util/swrFetcher';
-import { swrSelectedWebsitesFetcher } from '../../util/swrSelectedWebsitesFetcher';
-import { makeUrl } from './makeUrl';
+} from "../../../types/ClotheSort";
+import { ListClotheCards } from "../../components/List/ListClotheCards/ListClotheCards";
+import { ListLoadMoreButton } from "../../components/List/ListLoadMoreButton/ListLoadMoreButton";
+import { ListOptionsHeader } from "../../components/List/ListOptionsHeader/ListOptionsHeader";
+import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from "../../constants";
+import { useFavourites } from "../../hooks/useFavourites";
+import { usePromiseMapProgress } from "../../hooks/usePromiseMapProgress";
+import { useSelectedWebsites } from "../../hooks/useSelectedWebsites";
+import { useUpdateUrl } from "../../hooks/useUpdateUrl";
+import { useWindow } from "../../hooks/useWindow";
+import { capitaliseString } from "../../util/capitaliseString";
+import { FetcherError } from "../../util/swrFetcher";
+import { swrSelectedWebsitesFetcher } from "../../util/swrSelectedWebsitesFetcher";
+import { makeUrl } from "./makeUrl";
 
 export interface QueryParams {
   gender?: string;
@@ -63,7 +63,7 @@ export const CategoryName = (): ReactElement => {
 
   const categoryName = routerIsReady
     ? capitaliseString(`${query.gender}'s ${query.categoryName}`)
-    : '';
+    : "";
 
   useEffect(() => {
     if (
@@ -97,7 +97,7 @@ export const CategoryName = (): ReactElement => {
 
   const clothes = flatten(data);
 
-  useUpdateUrl(size, 'page', url, routerReplace);
+  useUpdateUrl(size, "page", url, routerReplace);
   useUpdateUrl(limit, LocalStorageKey.Limit, url, routerReplace, true);
   useUpdateUrl(
     clotheSortOption,
@@ -168,7 +168,7 @@ export const CategoryName = (): ReactElement => {
           Stylelist
           {routerIsReady
             ? capitaliseString(` | ${query.gender}'s ${query.categoryName}`)
-            : ''}
+            : ""}
         </title>
       </Head>
 

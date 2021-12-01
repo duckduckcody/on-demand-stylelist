@@ -15,7 +15,7 @@ import { IsShowingMobileHeaderDrawerContext } from "../../contexts/IsShowingMobi
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { useWindow } from "../../hooks/useWindow";
 import { darkTheme } from "../../themes";
-import { GlobalStyle } from "./BaseApp.styles";
+import { ContentContainer, GlobalStyle } from "./BaseApp.styles";
 import { Favicon } from "./Favicon";
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
@@ -72,8 +72,10 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
 
               <Header pathName={pathName}></Header>
 
-              <SideBar>
-                <Component {...pageProps} />
+              <SideBar pathName={pathName}>
+                <ContentContainer>
+                  <Component {...pageProps} />
+                </ContentContainer>
               </SideBar>
 
               <ClothePreview />

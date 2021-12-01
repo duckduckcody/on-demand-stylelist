@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+import { HEADER_HEIGHT } from "../../components/header/Header.styles";
+import styled from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -20,4 +22,8 @@ export const GlobalStyle = createGlobalStyle`
   p {
     margin: 0;
   }
+`;
+
+export const ContentContainer = styled.div`
+  min-height: calc(100vh - ${HEADER_HEIGHT}px);
 `;

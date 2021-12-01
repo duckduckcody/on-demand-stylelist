@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { MOBILE_BREAKPOINT, ZIndex } from "../../../styles";
 import { HEADER_HEIGHT } from "../../header/Header.styles";
+import { SIDEBAR_WIDTH } from "../../sidebar/sidebar.styled";
 
 export const ContainerOffset = styled.div`
   margin: 0 0 48px 0;
@@ -17,7 +18,7 @@ export const Container = styled.div`
   align-items: center;
   position: fixed;
   top: ${HEADER_HEIGHT}px;
-  left: 0;
+  left: ${SIDEBAR_WIDTH}px;
   right: 0;
   background: ${(p) => p.theme.backgroundColor};
   z-index: ${ZIndex.ui};
