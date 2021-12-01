@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { MOBILE_PX } from '../styleConstants';
-import { useWindow } from './useWindow';
+import { useEffect, useState } from "react";
+import { MOBILE_PX } from "../styles";
+import { useWindow } from "./useWindow";
 
 export const useIsMobile = (): boolean => {
   const window = useWindow();
@@ -10,10 +10,10 @@ export const useIsMobile = (): boolean => {
     const handleResize = () =>
       setIsMobile(window?.innerWidth ? window?.innerWidth <= MOBILE_PX : false);
 
-    window?.addEventListener('resize', handleResize);
+    window?.addEventListener("resize", handleResize);
     handleResize();
 
-    return () => window?.removeEventListener('resize', handleResize);
+    return () => window?.removeEventListener("resize", handleResize);
   }, [window]);
 
   return isMobile;

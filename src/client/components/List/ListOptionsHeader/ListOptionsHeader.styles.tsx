@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { MOBILE_BREAKPOINT, ZIndex } from '../../../styleConstants';
-import { HEADER_HEIGHT } from '../../header/Header.styles';
+import styled from "styled-components";
+import { MOBILE_BREAKPOINT, ZIndex } from "../../../styles";
+import { HEADER_HEIGHT } from "../../header/Header.styles";
 
 export const ContainerOffset = styled.div`
   margin: 0 0 48px 0;

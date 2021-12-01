@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
-import { Checkbox } from '../../components/checkbox/Checkbox';
-import { MOBILE_BREAKPOINT } from '../../styleConstants';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import { Checkbox } from "../../components/checkbox/Checkbox";
+import { MOBILE_BREAKPOINT } from "../../styles";
 
 export const Container = styled.div`
   margin: 12px 24px 0;
@@ -41,7 +41,7 @@ export const WebsiteContainer = styled.label<{ selected: boolean }>`
   display: grid;
   align-items: center;
   grid-template-columns: 55px 1fr 30px;
-  grid-template-areas: 'favicon textContainer checkbox';
+  grid-template-areas: "favicon textContainer checkbox";
   grid-gap: 15px;
 
   &:hover {
@@ -60,9 +60,9 @@ export const WebsiteTextContainer = styled.div`
   display: grid;
   align-items: center;
   grid-template-areas:
-    'websiteName'
-    'websiteDescription'
-    'websiteTags';
+    "websiteName"
+    "websiteDescription"
+    "websiteTags";
 `;
 
 export const WebsiteName = styled.span`

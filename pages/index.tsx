@@ -1,12 +1,12 @@
-import { ReactElement } from 'react';
-import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../src/client/components/header/Header.styles';
-import { ShopTile } from '../src/client/components/shopTile/ShopTile';
-import { Paths } from '../src/client/constants';
-import { MOBILE_BREAKPOINT } from '../src/client/styleConstants';
+import { ReactElement } from "react";
+import styled from "styled-components";
+import { HEADER_HEIGHT } from "../src/client/components/header/Header.styles";
+import { ShopTile } from "../src/client/components/shopTile/ShopTile";
+import { Paths } from "../src/client/constants";
+import { MOBILE_BREAKPOINT } from "../src/client/styles";
 
-const SHOP_MENS_IMAGE_URL = '/shop_mens.webp';
-const SHOP_WOMENS_IMAGE_URL = '/shop_womens.webp';
+const SHOP_MENS_IMAGE_URL = "/shop_mens.webp";
+const SHOP_WOMENS_IMAGE_URL = "/shop_womens.webp";
 
 const Container = styled.div`
   display: grid;

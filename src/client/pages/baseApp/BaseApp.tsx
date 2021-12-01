@@ -1,22 +1,22 @@
-import { AppProps } from 'next/dist/next-server/lib/router/router';
-import Head from 'next/head';
-import { ReactElement, useEffect, useState } from 'react';
-import Modal from 'react-modal';
-import { ThemeProvider } from 'styled-components';
-import { ClotheInfo } from '../../../types/ClotheInfo';
-import { ClotheItem } from '../../../types/ClotheItem';
-import { ClothePreview } from '../../components/clothePreview/ClothePreview';
-import { Header } from '../../components/header/Header';
-import { MobileHeaderDrawer } from '../../components/header/MobileHeader/MobileHeaderDrawer/MobileHeaderDrawer';
-import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
-import { FavouritesContext } from '../../contexts/FavouritesContext';
-import { IsShowingMobileHeaderDrawerContext } from '../../contexts/IsShowingMobileHeaderDrawerContext';
-import { useIsMobile } from '../../hooks/useIsMobile';
-import { useWindow } from '../../hooks/useWindow';
-import { darkTheme } from '../../themes';
-import { GlobalStyle } from './BaseApp.styles';
-import { Favicon } from './Favicon';
-import { GoogleFonts } from './GoogleFonts';
+import { AppProps } from "next/dist/next-server/lib/router/router";
+import Head from "next/head";
+import { ReactElement, useEffect, useState } from "react";
+import Modal from "react-modal";
+import { ThemeProvider } from "styled-components";
+import { ClotheInfo } from "../../../types/ClotheInfo";
+import { ClotheItem } from "../../../types/ClotheItem";
+import { ClothePreview } from "../../components/clothePreview/ClothePreview";
+import { Header } from "../../components/header/Header";
+import { MobileHeaderDrawer } from "../../components/header/MobileHeader/MobileHeaderDrawer/MobileHeaderDrawer";
+import { SideBar } from "../../components/sidebar/sidebar";
+import { ClothePreviewContext } from "../../contexts/ClothePreviewContext";
+import { FavouritesContext } from "../../contexts/FavouritesContext";
+import { IsShowingMobileHeaderDrawerContext } from "../../contexts/IsShowingMobileHeaderDrawerContext";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import { useWindow } from "../../hooks/useWindow";
+import { darkTheme } from "../../themes";
+import { GlobalStyle } from "./BaseApp.styles";
+import { Favicon } from "./Favicon";
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   const window = useWindow();
@@ -32,7 +32,7 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
     undefined
   );
 
-  useEffect(() => Modal.setAppElement('#appElement'), []);
+  useEffect(() => Modal.setAppElement("#appElement"), []);
 
   useEffect(() => {
     if (!isMobile) setIsShowingMobileHeaderDrawer(false);
@@ -43,11 +43,14 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
   }, [window?.location.pathname]);
 
   return (
-    <main id='appElement'>
+    <main id="appElement">
       <Head>
         <title>Stylelist</title>
-        <GoogleFonts query='family=Martel+Sans:wght@300;400;700&display=swap' />
-        <Favicon favicon='📜' />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        ></link>
+        <Favicon favicon="📜" />
       </Head>
       <ThemeProvider theme={darkTheme}>
         <ClothePreviewContext.Provider
@@ -66,8 +69,13 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
           >
             <FavouritesContext.Provider value={{ favourites, setFavourites }}>
               <GlobalStyle />
+
               <Header pathName={pathName}></Header>
-              <Component {...pageProps} />
+
+              <SideBar>
+                <Component {...pageProps} />
+              </SideBar>
+
               <ClothePreview />
               <MobileHeaderDrawer pathName={pathName} />
             </FavouritesContext.Provider>

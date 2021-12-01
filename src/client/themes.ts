@@ -3,15 +3,21 @@ export interface CustomTheme {
   backgroundColor: string;
   headerBackgroundColor: string;
   secondaryHeaderBackgroundColor: string;
+  signInBackground: string;
+  signInBackgroundHightlight: string;
   highlight: string;
+  sideBarSelected: string;
 }
 
 export const darkTheme: CustomTheme = {
-  textColor: 'white',
-  backgroundColor: '#181818',
-  headerBackgroundColor: '#202020',
-  secondaryHeaderBackgroundColor: '#525050',
-  highlight: '#fe718d',
+  textColor: "white",
+  backgroundColor: "#181818",
+  headerBackgroundColor: "#0E1015",
+  secondaryHeaderBackgroundColor: "#0C0E13",
+  signInBackground: "#181A20",
+  signInBackgroundHightlight: "#181A30",
+  highlight: "#fe718d",
+  sideBarSelected: "#F5AB6E",
 };
 
 // export const lightTheme: CustomTheme = {

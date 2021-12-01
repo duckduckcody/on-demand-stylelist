@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import { ZIndex } from '../../../../styleConstants';
-import { FavouriteHeart } from './favouriteHeart/FavouriteHeart';
+import styled from "styled-components";
+import { ZIndex } from "../../../../styles";
+import { FavouriteHeart } from "./favouriteHeart/FavouriteHeart";
 
 export const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
   grid-template-areas:
-    'ImageContainer'
-    'InfoContainer';
+    "ImageContainer"
+    "InfoContainer";
 `;
 
 export const ImageContainer = styled.div<{ imgSrc: string }>`
@@ -34,9 +34,9 @@ export const InfoContainer = styled.div`
   grid-template-rows: 1.25rem 1.25rem 2.5rem;
   align-items: center;
   grid-template-areas:
-    'price'
-    'websiteName'
-    'clotheName';
+    "price"
+    "websiteName"
+    "clotheName";
 `;
 
 export const WebsiteName = styled.span`

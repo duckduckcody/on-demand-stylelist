@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
-import { MOBILE_BREAKPOINT, ZIndex } from '../../../styleConstants';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import { MOBILE_BREAKPOINT, ZIndex } from "../../../styles";
 
 export const ErrorContainer = styled.div`
   text-align: center;

@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { ZIndex } from '../../styleConstants';
+import styled from "styled-components";
+import { ZIndex } from "../../styles";
 
-export const HEADER_HEIGHT = 48;
+export const HEADER_HEIGHT = 69;
 
 export const HeaderContainer = styled.div`
   position: fixed;
@@ -11,6 +11,9 @@ export const HeaderContainer = styled.div`
   z-index: ${ZIndex.ui};
   height: ${HEADER_HEIGHT}px;
   background-color: ${(props) => props.theme.headerBackgroundColor};
+  display: grid;
+  align-items: center;
+  padding: 0 0 0 46px;
 `;
 
 export const HeaderOffset = styled.div`

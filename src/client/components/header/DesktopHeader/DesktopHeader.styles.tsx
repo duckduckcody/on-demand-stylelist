@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   height: 100%;
@@ -9,8 +9,6 @@ export const HeaderContainer = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   padding: 0 24px;
-
-  border-bottom: 1px solid #373737;
 `;
 
 export const LinkContainer = styled.div`
@@ -44,11 +42,11 @@ export const HeaderPageLink = styled(HeaderLink)<{ selected?: boolean }>`
   display: flex;
   align-items: center;
   border-bottom: ${(p) =>
-    p.selected ? `3px solid ${p.theme.highlight}` : 'none'};
+    p.selected ? `3px solid ${p.theme.highlight}` : "none"};
   background-color: ${(props) =>
     props.selected
       ? props.theme.secondaryHeaderBackgroundColor
-      : 'transparent'};
+      : "transparent"};
 
   &:hover {
     border-bottom: ${(p) =>

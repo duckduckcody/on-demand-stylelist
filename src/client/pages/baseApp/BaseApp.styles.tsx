@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     color: ${(props) => props.theme.textColor};
     background-color: ${(props) => props.theme.backgroundColor};
-    font-family: 'Martel Sans', sans-serif;
+    font-family: 'Work Sans', sans-serif;
   }
 
   p {

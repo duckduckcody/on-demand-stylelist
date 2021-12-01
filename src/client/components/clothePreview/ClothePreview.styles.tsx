@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { MOBILE_BREAKPOINT, ZIndex } from '../../styleConstants';
-import { FavouriteHeart } from '../List/ListClotheCards/clotheCard/favouriteHeart/FavouriteHeart';
-import { RelatedProducts } from './RelatedProducts/RelatedProducts';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from "styled-components";
+import { MOBILE_BREAKPOINT, ZIndex } from "../../styles";
+import { FavouriteHeart } from "../List/ListClotheCards/clotheCard/favouriteHeart/FavouriteHeart";
+import { RelatedProducts } from "./RelatedProducts/RelatedProducts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const LoadingContainer = styled.div`
   position: relative;
@@ -35,7 +35,7 @@ export const Container = styled.div<{ hasRelatedProducts?: boolean }>`
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     grid-template-columns: 1fr;
     grid-template-rows: 40% 60%;
-    grid-template-areas: 'thumbnails' 'info';
+    grid-template-areas: "thumbnails" "info";
   }
 `;
 
@@ -85,7 +85,7 @@ export const ThumbnailImage = styled.img<{
 export const ImageContainer = styled.div<{ imageSrc?: string }>`
   grid-area: image;
   background: top / contain no-repeat url(${(p) => p.imageSrc}),
-    top / 200px no-repeat url('/loading-spinner.gif');
+    top / 200px no-repeat url("/loading-spinner.gif");
 `;
 
 export const TextContainer = styled.div<{ isMobile?: boolean }>`
@@ -96,13 +96,13 @@ export const TextContainer = styled.div<{ isMobile?: boolean }>`
   grid-template-columns: 1fr 36px;
   grid-template-rows: repeat(7, min-content);
   grid-template-areas:
-    'websiteLogo websiteLogo'
-    'price price'
-    'websiteName websiteName'
-    'name name'
-    'buttonContainer favouriteHeart'
-    'description description'
-    ${(p) => (p.isMobile ? `'relatedProducts relatedProducts'` : '')};
+    "websiteLogo websiteLogo"
+    "price price"
+    "websiteName websiteName"
+    "name name"
+    "buttonContainer favouriteHeart"
+    "description description"
+    ${(p) => (p.isMobile ? `'relatedProducts relatedProducts'` : "")};
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
     padding: 0;

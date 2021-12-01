@@ -1,4 +1,4 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   ReactElement,
   useCallback,
@@ -6,13 +6,13 @@ import {
   useEffect,
   useMemo,
   useState,
-} from 'react';
-import Modal from 'react-modal';
-import { ClothePreviewContext } from '../../contexts/ClothePreviewContext';
-import { useFavourites } from '../../hooks/useFavourites';
-import { useIsMobile } from '../../hooks/useIsMobile';
-import { useWebsiteDescriptionFormatter } from '../../hooks/useWebsiteDescriptionFormatter';
-import { ZIndex } from '../../styleConstants';
+} from "react";
+import Modal from "react-modal";
+import { ClothePreviewContext } from "../../contexts/ClothePreviewContext";
+import { useFavourites } from "../../hooks/useFavourites";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import { useWebsiteDescriptionFormatter } from "../../hooks/useWebsiteDescriptionFormatter";
+import { ZIndex } from "../../styles";
 import {
   ButtonContainer,
   CloseIcon,
@@ -30,8 +30,8 @@ import {
   ViewButton,
   WebsiteName,
   WebsitesLogo,
-} from './ClothePreview.styles';
-import { useClotheInfo } from './useClotheInfo';
+} from "./ClothePreview.styles";
+import { useClotheInfo } from "./useClotheInfo";
 
 export const ClothePreview = (): ReactElement => {
   const { clothePreviewUrl, setClothePreviewUrl, optionalClotheInfo } =
@@ -58,7 +58,7 @@ export const ClothePreview = (): ReactElement => {
   };
 
   const onViewProductClick = useCallback(
-    () => window?.open(clothePreviewUrl, '_blank')?.focus(),
+    () => window?.open(clothePreviewUrl, "_blank")?.focus(),
     [clothePreviewUrl]
   );
 
@@ -82,8 +82,8 @@ export const ClothePreview = (): ReactElement => {
   }, [isShowing, clotheInfo]);
 
   useEffect(() => {
-    if (isShowing) document.body.style.overflow = 'hidden';
-    if (!isShowing) document.body.style.overflow = 'unset';
+    if (isShowing) document.body.style.overflow = "hidden";
+    if (!isShowing) document.body.style.overflow = "unset";
   }, [isShowing]);
 
   return (
@@ -93,17 +93,17 @@ export const ClothePreview = (): ReactElement => {
           style={{
             overlay: {
               zIndex: ZIndex.modal,
-              backgroundColor: 'rgba(0, 0, 0, 0.75)',
+              backgroundColor: "rgba(0, 0, 0, 0.75)",
             },
             content: {
               zIndex: ZIndex.modal,
-              color: 'white',
-              backgroundColor: '#181818',
-              border: 'none',
-              padding: isMobile ? 0 : '20px',
-              maxWidth: isMobile ? '100%' : 'max-content',
-              margin: '0 auto',
-              inset: isMobile ? '0' : '40px',
+              color: "white",
+              backgroundColor: "#181818",
+              border: "none",
+              padding: isMobile ? 0 : "20px",
+              maxWidth: isMobile ? "100%" : "max-content",
+              margin: "0 auto",
+              inset: isMobile ? "0" : "40px",
             },
           }}
           isOpen={isShowing}
@@ -115,7 +115,7 @@ export const ClothePreview = (): ReactElement => {
                 icon={faTimes}
                 onClick={() => setClothePreviewUrl(undefined)}
               />
-              <img src='/loading-spinner.gif' />
+              <img src="/loading-spinner.gif" />
               <span>Fetching clothe info</span>
             </LoadingContainer>
           )}
@@ -134,7 +134,7 @@ export const ClothePreview = (): ReactElement => {
                     key={img.thumbnail}
                     src={img.thumbnail}
                     selected={!isMobile && selectedImage === img.image}
-                    alt=''
+                    alt=""
                     onClick={() => setSelectedImage(img.image)}
                   />
                 ))}
@@ -167,7 +167,7 @@ export const ClothePreview = (): ReactElement => {
                   clothe={{
                     ...clotheInfo,
                     website: clotheInfo.websiteName,
-                    image: clotheInfo.images[0].image || '',
+                    image: clotheInfo.images[0].image || "",
                   }}
                   onFavouriteClick={setFavourite}
                   isFavourited={isFavourited}

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../styleConstants';
-import { HEADER_HEIGHT } from '../header/Header.styles';
+import styled from "styled-components";
+import { MOBILE_BREAKPOINT } from "../../styles";
+import { HEADER_HEIGHT } from "../header/Header.styles";
 
 export const CategoryTileListContainer = styled.div`
   display: grid;

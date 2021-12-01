@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
-import { MOBILE_BREAKPOINT } from '../../../styleConstants';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import { MOBILE_BREAKPOINT } from "../../../styles";
 
 export const SearchInput = styled.input`
   width: 100%;
