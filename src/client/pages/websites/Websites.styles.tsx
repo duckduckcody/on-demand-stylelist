@@ -28,7 +28,7 @@ export const WebsitesContainer = styled.div`
 
   display: grid;
   grid-template-rows: repeat(auto-fit, auto);
-  grid-row-gap: 10px;
+  grid-row-gap: 20px;
 `;
 
 export const WebsiteContainer = styled.label<{ selected: boolean }>`
@@ -89,6 +89,7 @@ export const WebsiteTag = styled.span`
   background-color: white;
   color: ${(p) => p.theme.backgroundColor};
   margin: 0 5px 0 0;
+  font-weight: 500;
 
   &:last-child {
     margin: 0;
@@ -110,7 +111,9 @@ export const DoneButton = styled.button`
   cursor: pointer;
   border: none;
   padding: 8px 48px;
+  margin: 8px 0 0;
   border-radius: 10px;
   color: ${(p) => p.theme.textColor};
   background-color: ${(p) => p.theme.highlight};
+  font-family: "Work Sans", sans-serif;
 `;

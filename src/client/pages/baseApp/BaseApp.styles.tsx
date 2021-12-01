@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import { HEADER_HEIGHT } from "../../components/header/Header.styles";
 import styled from "styled-components";
+import { SIDEBAR_WIDTH } from "../../components/sidebar/sidebar.styled";
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -24,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const ContentContainer = styled.div`
-  min-height: calc(100vh - ${HEADER_HEIGHT}px);
+export const MainContainer = styled.div`
+  display: grid;
+  grid-template-columns: ${SIDEBAR_WIDTH}px 1fr;
 `;

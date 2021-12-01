@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { Header2 } from "../../styles";
+import { HEADER_HEIGHT } from "../header/Header.styles";
 
 export const SIDEBAR_WIDTH = 273;
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
+  position: fixed;
+  top: ${HEADER_HEIGHT}px;
+  bottom: 0;
 `;
 
 export const SideBarContainer = styled.div`
@@ -61,4 +63,9 @@ export const SignInContainer = styled.div`
   }
 
   /* Once signed in set bg color to header color */
+`;
+
+export const Offset = styled.div`
+  width: ${SIDEBAR_WIDTH}px;
+  height: 100%;
 `;

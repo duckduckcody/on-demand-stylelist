@@ -15,7 +15,7 @@ import { IsShowingMobileHeaderDrawerContext } from "../../contexts/IsShowingMobi
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { useWindow } from "../../hooks/useWindow";
 import { darkTheme } from "../../themes";
-import { ContentContainer, GlobalStyle } from "./BaseApp.styles";
+import { GlobalStyle, MainContainer } from "./BaseApp.styles";
 import { Favicon } from "./Favicon";
 
 export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
@@ -70,13 +70,15 @@ export const BaseApp = ({ Component, pageProps }: AppProps): ReactElement => {
             <FavouritesContext.Provider value={{ favourites, setFavourites }}>
               <GlobalStyle />
 
-              <Header pathName={pathName}></Header>
+              <Header pathName={pathName} />
 
-              <SideBar pathName={pathName}>
-                <ContentContainer>
+              <MainContainer>
+                <SideBar pathName={pathName} />
+
+                <div>
                   <Component {...pageProps} />
-                </ContentContainer>
-              </SideBar>
+                </div>
+              </MainContainer>
 
               <ClothePreview />
               <MobileHeaderDrawer pathName={pathName} />
