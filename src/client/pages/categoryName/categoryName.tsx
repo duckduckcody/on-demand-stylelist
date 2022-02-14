@@ -17,7 +17,7 @@ import {
 import { ListClotheCards } from "../../components/List/ListClotheCards/ListClotheCards";
 import { ListLoadMoreButton } from "../../components/List/ListLoadMoreButton/ListLoadMoreButton";
 import { ListOptionsHeader } from "../../components/List/ListOptionsHeader/ListOptionsHeader";
-import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey } from "../../constants";
+import { DEFAULT_LIMIT, LIMIT_OPTIONS, LocalStorageKey, Paths } from "../../constants";
 import { useFavourites } from "../../hooks/useFavourites";
 import { usePromiseMapProgress } from "../../hooks/usePromiseMapProgress";
 import { useSelectedWebsites } from "../../hooks/useSelectedWebsites";
@@ -65,6 +65,7 @@ export const CategoryName = (): ReactElement => {
     ? capitaliseString(`${query.gender}'s ${query.categoryName}`)
     : "";
 
+  // if no stores are selected
   useEffect(() => {
     if (
       window &&
@@ -73,7 +74,7 @@ export const CategoryName = (): ReactElement => {
       selectedWebsites &&
       selectedWebsites.length === 0
     ) {
-      routerPush(`/websites`);
+      routerPush(Paths.stores);
     }
   }, [query, query.gender, routerPush, selectedWebsites, window]);
 

@@ -8,11 +8,9 @@ export enum LocalStorageKey {
 }
 
 export enum Paths {
-  websites = '/websites',
+  stores = '/stores',
   mens = `/mens`,
-  mensWebsites = '/mens/websites',
   womens = '/womens',
-  womensWebsites = '/womens/websites',
 }
 
 export const LIMIT_OPTIONS = [1, 3, 5, 10];
