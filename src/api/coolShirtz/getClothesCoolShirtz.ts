@@ -15,12 +15,6 @@ export async function getClothesCoolShirtz(
   const coolShirtzCid = coolShirtzCidMap.get(parseInt(cid));
   if (!coolShirtzCid) return Promise.resolve([]);
 
-  fetch(
-    'https://www.asos.com/api/product/search/v2/?channel=desktop-web&country=AU&currency=AUD&keyStoreDataversion=hgk0y12-29&lang=en-AU&limit=72&offset=72&q=shirt&rowlength=4&store=AU'
-  )
-    .then((response) => response.json())
-    .then((json) => console.log('ASOS JSON RESPONSE', json));
-
   const cacheKey = `list~${WebsiteId.COOL_SHIRTZ}~${cid}~${requestOptions.sort}`;
 
   const cachedValue: Partial<ClotheItem>[] | undefined =
