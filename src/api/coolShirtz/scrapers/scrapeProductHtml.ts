@@ -30,8 +30,17 @@ export const scrapeProductHtml = (htmlString: string): ClotheItem[] => {
     collectedProduct.name = $(linkElement.find('h3')[0])?.text();
 
     collectedProduct.image = absoluteUrl(
-      $(product.find('.product-grid-view-item')[0]).attr('data-bgset')
+      $(product.find('.product-grid-view-item')[0])
+        .attr('data-bgset')
+        ?.split(',')
+        .pop()
+        ?.split(' ')[0]
     );
+
+    // cdn.shopify.com/s/files/1/1297/1509/products/hero_33e1ccf2-afb0-4cb6-a098-999064aa4ec5_150x.jpg?v=1635227492 150w 188h
+    // cdn.shopify.com/s/files/1/1297/1509/products/hero_33e1ccf2-afb0-4cb6-a098-999064aa4ec5_350x.jpg?v=1635227492 350w 438h
+    // cdn.shopify.com/s/files/1/1297/1509/products/hero_33e1ccf2-afb0-4cb6-a098-999064aa4ec5_550x.jpg?v=1635227492 550w 688h
+    // cdn.shopify.com/s/files/1/1297/1509/products/hero_33e1ccf2-afb0-4cb6-a098-999064aa4ec5.jpg?v=1635227492 1200w 1500h
 
     const moneyElements = product.find('.money');
     collectedProduct.oldPrice = parsePrice($(moneyElements[1]).text());
