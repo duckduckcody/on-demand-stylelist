@@ -6,6 +6,7 @@ import { coolShirtzCidMap, makeCoolShirtzUrl } from './constants';
 import { scrapeProductHtml } from './scrapers/scrapeProductHtml';
 import { differenceInSeconds } from 'date-fns';
 import { WebsiteId } from '../../websites';
+import fetch from 'node-fetch';
 
 export async function getClothesCoolShirtz(
   cid: string,

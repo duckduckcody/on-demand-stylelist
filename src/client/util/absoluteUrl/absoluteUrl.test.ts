@@ -1,4 +1,4 @@
-import { absoluteUrl } from '../absoluteUrl';
+import { absoluteUrl } from './absoluteUrl';
 
 test('null with nothing passed', () => {
   expect(absoluteUrl('')).toBe(null);

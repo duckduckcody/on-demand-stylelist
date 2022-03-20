@@ -1,7 +1,7 @@
-import { ClotheItem } from '../../../types/ClotheItem';
-import { ClotheSortOption } from '../../../types/ClotheSort';
-import { GetClothesOptions } from '../../../types/GetClothesOptions';
-import { recursiveGetClothes } from '../../../api/common/recursiveGetClothes';
+import { ClotheItem } from '../../types/ClotheItem';
+import { ClotheSortOption } from '../../types/ClotheSort';
+import { GetClothesOptions } from '../../types/GetClothesOptions';
+import { recursiveGetClothes } from './recursiveGetClothes';
 
 const requestOptions: GetClothesOptions = {
   limit: 10,

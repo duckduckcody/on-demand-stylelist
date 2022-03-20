@@ -1,7 +1,6 @@
-import { ClotheItem } from '../../types/ClotheItem';
-import { GetClothesOptions } from '../../types/GetClothesOptions';
-import { Promise } from 'bluebird';
-import { apiWebsites } from '../apiWebsites';
+import { ClotheItem } from '../../../types/ClotheItem';
+import { GetClothesOptions } from '../../../types/GetClothesOptions';
+import { apiWebsites } from '../../apiWebsites';
 
 export const getClothesList = async (
   cid: string,

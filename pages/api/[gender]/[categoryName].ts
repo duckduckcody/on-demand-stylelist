@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as z from 'zod';
-import { getClothesList } from '../../../src/api/common/getClothesList';
+import { getClothesList } from '../../../src/api/common/getClothesList/getClothesList';
 import {
   DEFAULT_CLOTHE_LIMIT,
   DEFAULT_CLOTHE_SORT,

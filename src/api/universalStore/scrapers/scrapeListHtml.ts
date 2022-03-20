@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { absoluteUrl } from '../../../client/util/absoluteUrl';
+import { absoluteUrl } from '../../../client/util/absoluteUrl/absoluteUrl';
 import { parsePrice } from '../../../client/util/parsePrice';
 import { ClotheItem } from '../../../types/ClotheItem';
 
