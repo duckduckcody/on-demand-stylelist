@@ -49,9 +49,9 @@ export const cultureKingsCidMap = new Map<number, CidMapValue>()
   })
   .set(getCategoryId(CategoryName.SHOES, Gender.MEN), { uri: 'mens-footwear' })
   .set(getCategoryId(CategoryName.BOOTS, Gender.MEN), { uri: 'mens-boots' })
-  .set(getCategoryId(CategoryName.SALE, Gender.MEN), {
-    uri: 'mens-back-catalogue',
-  })
+  // .set(getCategoryId(CategoryName.SALE, Gender.MEN), {
+  //   uri: 'mens-back-catalogue',
+  // })
   .set(getCategoryId(CategoryName.SKIRTS, Gender.WOMEN), {
     uri: 'womens-bottoms-skirt',
   })
